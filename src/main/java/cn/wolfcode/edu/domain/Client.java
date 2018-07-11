@@ -68,7 +68,7 @@ public class Client {
      */
     private Long intentionClassId;
     /*
-    客户的当前状态
+    客户的当前状态 潜在还是正式
      */
     private Integer stateId;
     /*
@@ -85,6 +85,12 @@ public class Client {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     private Date buildDate;
+    /*
+    录入时间 就是当前时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    private Date inputDate;
     /*
     客户来源
      */
@@ -140,16 +146,20 @@ public class Client {
      */
     private Long payStatusId;
     /*
-    是否携带电脑
+    是否携带电脑 1:是 0:没有
      */
     private Integer withComputer;
     /*
     客户的关注点是什么
      */
-    private String clientAttentionwhat;
+    private String clientAttentionWhat;
     /*
     客户类型
      */
     private Long clientTypeId;
+    /*
+    客户当前自身的状态
+     */
+    private int clientState;
 
 }
