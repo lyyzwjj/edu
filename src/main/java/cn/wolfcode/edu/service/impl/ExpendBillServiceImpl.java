@@ -8,6 +8,7 @@ import cn.wolfcode.edu.service.IExpendBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,27 +21,35 @@ public class ExpendBillServiceImpl implements IExpendBillService{
 
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
+    public int delete(Long id) {
         return expendBillMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int insert(ExpendBill record) {
+    public int save(ExpendBill record) {
+
+        Date payTime = new Date();
+        record.setPayTime(payTime);
+        record.setState(0);
+        //设置出纳,登录还没有
+
+
+
         return expendBillMapper.insert(record);
     }
 
     @Override
-    public ExpendBill selectByPrimaryKey(Long id) {
+    public ExpendBill get(Long id) {
         return expendBillMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<ExpendBill> selectAll() {
+    public List<ExpendBill> list() {
         return expendBillMapper.selectAll();
     }
 
     @Override
-    public int updateByPrimaryKey(ExpendBill record) {
+    public int update(ExpendBill record) {
         return expendBillMapper.updateByPrimaryKey(record);
     }
 
@@ -52,5 +61,18 @@ public class ExpendBillServiceImpl implements IExpendBillService{
         }
         List<ExpendBill> rows = expendBillMapper.queryForList(qo);
         return new PageResult(total,rows);
+    }
+
+    @Override
+    public void check(Long id) {
+        ExpendBill expendBill = expendBillMapper.selectByPrimaryKey(id);
+        if (expendBill != null){
+            if (expendBill.getState() == 0){
+                //审核人还没设置
+
+                expendBill.setState(1);
+                expendBillMapper.updateByPrimaryKey(expendBill);
+            }
+        }
     }
 }

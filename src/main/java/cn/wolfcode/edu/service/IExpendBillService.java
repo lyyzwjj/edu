@@ -11,15 +11,15 @@ import java.util.List;
  * Created by WangZhe on 2018/7/10.
  */
 public interface IExpendBillService {
-    int deleteByPrimaryKey(Long id);
+    int delete(Long id);
 
-    int insert(ExpendBill record);
+    int save(ExpendBill record);
 
-    ExpendBill selectByPrimaryKey(Long id);
+    ExpendBill get(Long id);
 
-    List<ExpendBill> selectAll();
+    List<ExpendBill> list();
 
-    int updateByPrimaryKey(ExpendBill record);
+    int update(ExpendBill record);
 
     /**
      * 分页查询的结果集
@@ -27,4 +27,7 @@ public interface IExpendBillService {
      * @return
      */
     PageResult query(QueryObject qo);
+
+    //审核
+    void check(Long id);
 }

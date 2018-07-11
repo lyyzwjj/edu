@@ -1,9 +1,9 @@
 $(function(){
-    var exp_datagruid = $('#exp_datagruid');
+    var exp_datagrid = $('#exp_datagrid');
     var exp_dialog = $("#exp_dialog");
 
-    //datagruid的初始化
-    exp_datagruid.datagrid({
+    //datagrid的初始化
+    exp_datagrid.datagrid({
         url:"/expendbill/list",
         fitColumns:true,
         striped:true,
@@ -64,7 +64,7 @@ $(function(){
 
         //刷新操作
         reload: function () {
-            exp_datagruid.datagrid("load");
+            exp_datagrid.datagrid("load");
         },
 
         //取消按钮
@@ -77,7 +77,7 @@ $(function(){
             var keyword = $("#keyword").textbox("getText");
             var beginDate = $("#beginDate").datebox("getText");
             var endDate = $("#endDate").datebox("getText");
-            exp_datagruid.datagrid("load", {
+            exp_datagrid.datagrid("load", {
                 keyword: keyword,
                 beginDate: beginDate,
                 endDate: endDate
@@ -89,7 +89,7 @@ $(function(){
             var id = $("#expId").val();
             controller = "/expendbill/save";
             if (id) {
-                var controller = "/expendbill/update";
+                return;
             }
             $("#editForm").form("submit", {
                 url: controller,
@@ -133,6 +133,23 @@ $(function(){
             $("#editForm").form("clear");
             exp_dialog.dialog("open");
             exp_dialog.dialog("setTitle", "员工添加");
+        },
+
+        //审核
+        ok: function () {
+            var row = exp_datagrid.datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("温馨提示", "请选择要审核的数据")
+            } else {
+                $.get("/expendbill/check", {id: row.id}, function (data) {
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.msg)
+                    } else {
+                        exp_dialog.dialog("close");
+                        exp_datagrid.datagrid("reload");
+                    }
+                })
+            }
         }
     }
 
