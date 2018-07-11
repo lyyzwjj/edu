@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.DataDictionaryItemMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.DataDictionaryItem" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="intro" property="intro" />
+    <association property="parent" javaType="DataDictionary" columnPrefix="dd_">
+      <id column="id" property="id"/>
+      <result column="sn" property="sn"/>
+      <result column="name" property="name"/>
+      <result column="intro" property="intro"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `datadictionaryitem`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.DataDictionaryItem" useGeneratedKeys="true" keyProperty="id" >
+    insert into `datadictionaryitem` (parent_id, name, intro)
+    values (#{parentId}, #{name}, #{intro})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.DataDictionaryItem" >
+    update `datadictionaryitem`
+    set parent_id = #{parentId},
+      name = #{name},
+      intro = #{intro}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, parent_id, name, intro
+    from `datadictionaryitem`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ddi.id, ddi.name, ddi.intro, dd.id dd_id, dd.name dd_name, dd.sn dd_sn, dd.intro dd_intro
+    from `datadictionaryitem` ddi LEFT JOIN datadictionary dd ON ddi.parent_id = dd.id
+  </select>
+</mapper>

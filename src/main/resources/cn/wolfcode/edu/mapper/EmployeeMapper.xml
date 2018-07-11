@@ -13,10 +13,10 @@
     <result column="cardId" property="cardId" />
     <result column="tel" property="tel" />
     <result column="eamil" property="eamil" />
-    <result column="QQ" property="QQ" />
+    <result column="qq" property="qq" />
     <result column="address" property="address" />
     <result column="employeeId" property="employeeId" />
-    <result column="attendanceId" property="attendanceid" />
+    <result column="attendanceId" property="attendanceId" />
     <result column="hireDate" property="hireDate" />
     <result column="seniority" property="seniority" />
     <result column="state" property="state" />
@@ -30,10 +30,10 @@
 
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
     insert into `employee` (username, password, realname, age, gender, bornDate, cardId,
-      tel, eamil, QQ, address, employeeId, attendanceId, hireDate, 
+      tel, eamil, qq, address, employeeId, attendanceId, hireDate, 
       seniority, state, portrait, admin)
     values (#{username}, #{password}, #{realname}, #{age}, #{gender}, #{bornDate}, #{cardId},
-      #{tel}, #{eamil}, #{QQ}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
+      #{tel}, #{eamil}, #{qq}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
       #{seniority}, #{state}, #{portrait}, #{admin})
   </insert>
 
@@ -48,7 +48,7 @@
       cardId = #{cardId},
       tel = #{tel},
       eamil = #{eamil},
-      QQ = #{QQ},
+      qq = #{qq},
       address = #{address},
       employeeId = #{employeeId},
       attendanceId = #{attendanceId},
@@ -62,7 +62,7 @@
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
-    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
+    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
     dept_id
     from `employee`
     where id = #{id}
@@ -70,7 +70,7 @@
 
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
-    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
+    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
     dept_id
     from `employee`
   </select>
@@ -82,7 +82,7 @@
 
   <select id="queryForList" resultMap="BaseResultMap">
     select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil,
-    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin,
+    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin,
     dept_id
     from `employee`
     limit #{startIndex},#{rows}

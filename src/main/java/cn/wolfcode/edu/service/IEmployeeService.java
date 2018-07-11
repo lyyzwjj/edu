@@ -11,32 +11,32 @@ public interface IEmployeeService {
      * 删除员工
      * @param id 待删除员工的id
      */
-    void deleteByPrimaryKey(Long id);
+    void delete(Long id);
 
     /**
      * 添加员工
      * @param record
      */
-    void insert(Employee record);
+    void save(Employee record);
 
     /**
      * 查询单个员工
      * @param id  待查询员工的id
      * @return
      */
-    Employee selectByPrimaryKey(Long id);
+    Employee get(Long id);
 
     /**
      * 查询所有的员工
      * @return
      */
-    List<Employee> selectAll();
+    List<Employee> list();
 
     /**
      * 更新员工
      * @param record
      */
-    void updateByPrimaryKey(Employee record);
+    void update(Employee record);
 
     /**
      * 查询到分页结果集

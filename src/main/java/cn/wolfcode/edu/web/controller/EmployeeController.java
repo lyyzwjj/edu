@@ -33,7 +33,7 @@ public class EmployeeController {
     public JsonResult save(Employee employee) {
         JsonResult result = new JsonResult();
         try {
-            employeeService.insert(employee);
+            employeeService.save(employee);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
@@ -46,7 +46,7 @@ public class EmployeeController {
     public JsonResult update(Employee employee) {
         JsonResult result = new JsonResult();
         try {
-            employeeService.updateByPrimaryKey(employee);
+            employeeService.update(employee);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("更新失败");
@@ -59,7 +59,7 @@ public class EmployeeController {
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
-            employeeService.deleteByPrimaryKey(id);
+            employeeService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("删除失败");
