@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Employee;
+import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class EmployeeController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo) {
+    public PageResult list(EmployeeQueryObject qo) {
         PageResult result = employeeService.query(qo);
         return result;
     }
@@ -66,6 +66,21 @@ public class EmployeeController {
         }
         return result;
     }
+
+    @RequestMapping("/changeState")
+    @ResponseBody
+    public JsonResult changeState(Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            employeeService.changeState(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("操作失败");
+        }
+        return result;
+    }
+
+
 
 
 }
