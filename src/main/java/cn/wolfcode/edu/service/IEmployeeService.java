@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.service;
 
 import cn.wolfcode.edu.domain.Employee;
-import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 

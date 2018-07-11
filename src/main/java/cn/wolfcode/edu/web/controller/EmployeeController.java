@@ -1,7 +1,7 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Employee;
-import cn.wolfcode.edu.query.EmployeeQueryObject;
+import cn.wolfcode.edu.query.DepartmentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
@@ -68,10 +68,10 @@ public class EmployeeController {
         }
         return result;
     }
-    //chenfen添加 用于获取employee的name等 就是不需要分页效果
-    @RequestMapping("queryEmployee")
+
+    @RequestMapping("queryTeachers")
     @ResponseBody
-    public List<Employee> queryEmployeeName(QueryObject qo) {
+    public List<Employee> queryTeachers(){
         return employeeService.list();
     }
 
@@ -86,6 +86,12 @@ public class EmployeeController {
             result.markMsg("操作失败");
         }
         return result;
+    }
+    //chenfen添加 用于获取employee的name等 就是不需要分页效果
+    @RequestMapping("queryEmployee")
+    @ResponseBody
+    public List<Employee> queryEmployeeName(QueryObject qo) {
+        return employeeService.list();
     }
 
 
