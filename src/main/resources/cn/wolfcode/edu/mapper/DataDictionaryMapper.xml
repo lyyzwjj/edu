@@ -31,4 +31,14 @@
     select id, sn, name, intro
     from `datadictionary`
   </select>
+  <select id="queryForCount" resultType="int">
+    select count(id)
+    from `datadictionary`
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, sn, name, intro
+    from `datadictionary`
+    limit #{startIndex},#{rows}
+  </select>
 </mapper>
