@@ -39,6 +39,7 @@
 
   <select id="queryForCount" resultType="int">
     select count(id) from classroom
+    <include refid="base_where"></include>
   </select>
 
   <select id="queryForList" resultType="ClassRoom">
