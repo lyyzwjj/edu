@@ -1,10 +1,10 @@
 $(function(){
-    var exp_datagrid = $('#exp_datagrid');
-    var exp_dialog = $("#exp_dialog");
+    var rep_datagrid = $('#rep_datagrid');
+    var rep_dialog = $("#rep_dialog");
 
     //datagrid的初始化
-    exp_datagrid.datagrid({
-        url:"/expendbill/list",
+    rep_datagrid.datagrid({
+        url:"/receiptbill/list",
         fitColumns:true,
         striped:true,
         pagination:true,
@@ -22,6 +22,7 @@ $(function(){
             },
             {field:'receipttime',title:'收款时间',width:100},
             {field:'receiptmoney',title:'收款金额',width:100},
+            {field:'totalmoney',title:'总金额',width:100},
             {
                 field: "grade", title: "班级", width: 100, formatter: function (value, row, index) {
                 return value ? value.name : "";
@@ -43,7 +44,11 @@ $(function(){
                 return value ? value.name : "";
             }
             },
-            {field:'genre',title:'类型',width:100},
+            {
+                field: "marketer", title: "营销人员", width: 100, formatter: function (value, row, index) {
+                return value ? value.realname : "";
+            }
+            },
             {field:'remark',title:'备注',width:100},
             {
                 field: "state", title: "审核", width: 100, formatter: function (value, row, index) {
@@ -59,8 +64,8 @@ $(function(){
     });
     //end
 
-    //exp_dialog的初始化
-    exp_dialog.dialog({
+    //rep_dialog的初始化
+    rep_dialog.dialog({
         title: "温馨提示",
         width: 400,
         height: 400,
@@ -74,12 +79,12 @@ $(function(){
 
         //刷新操作
         reload: function () {
-            exp_datagrid.datagrid("load");
+            rep_datagrid.datagrid("load");
         },
 
         //取消按钮
         cancel: function () {
-            exp_dialog.dialog("close");
+            rep_dialog.dialog("close");
         },
 
         //查询操作
@@ -87,7 +92,7 @@ $(function(){
             var keyword = $("#keyword").textbox("getText");
             var begindate = $("#begindate").datetimebox("getText");
             var enddate = $("#enddate").datetimebox("getText");
-            exp_datagrid.datagrid("load", {
+            rep_datagrid.datagrid("load", {
                 keyword: keyword,
                 begindate: begindate,
                 enddate: enddate
@@ -96,8 +101,8 @@ $(function(){
 
         //保存操作
         save: function () {
-            var id = $("#expId").val();
-            controller = "/expendbill/save";
+            var id = $("#repId").val();
+            controller = "/receiptbill/save";
             if (id) {
                 return;
             }
@@ -114,8 +119,8 @@ $(function(){
                     if (!data.success) {
                         $.messager.alert('温馨提示', data.msg);
                     } else {
-                        exp_dialog.dialog("close");
-                        exp_datagrid.datagrid("reload");
+                        rep_dialog.dialog("close");
+                        rep_datagrid.datagrid("reload");
                     }
                 }
             })
@@ -123,16 +128,16 @@ $(function(){
 
         //删除
         remove: function () {
-            var row = exp_datagrid.datagrid("getSelected");
+            var row = rep_datagrid.datagrid("getSelected");
             if (!row) {
                 $.messager.alert("温馨提示", "请选择要删除的行")
             } else {
-                $.get("/expendbill/delete", {id: row.id}, function (data) {
+                $.get("/receiptbill/delete", {id: row.id}, function (data) {
                     if (!data.success) {
                         $.messager.alert("温馨提示", data.msg)
                     } else {
-                        exp_dialog.dialog("close");
-                        exp_datagrid.datagrid("reload");
+                        rep_dialog.dialog("close");
+                        rep_datagrid.datagrid("reload");
                     }
                 })
             }
@@ -141,22 +146,22 @@ $(function(){
         //添加
         add: function () {
             $("#editForm").form("clear");
-            exp_dialog.dialog("open");
-            exp_dialog.dialog("setTitle", "员工添加");
+            rep_dialog.dialog("open");
+            rep_dialog.dialog("setTitle", "员工添加");
         },
 
         //审核
         ok: function () {
-            var row = exp_datagrid.datagrid("getSelected");
+            var row = rep_datagrid.datagrid("getSelected");
             if (!row) {
                 $.messager.alert("温馨提示", "请选择要审核的数据")
             } else {
-                $.get("/expendbill/check", {id: row.id}, function (data) {
+                $.get("/receiptbill/check", {id: row.id}, function (data) {
                     if (!data.success) {
                         $.messager.alert("温馨提示", data.msg)
                     } else {
-                        exp_dialog.dialog("close");
-                        exp_datagrid.datagrid("reload");
+                        rep_dialog.dialog("close");
+                        rep_datagrid.datagrid("reload");
                     }
                 })
             }

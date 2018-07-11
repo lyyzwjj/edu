@@ -46,12 +46,12 @@ public class Employee {
     private Date hireDate;
     //工龄
     private Integer seniority;
-    //状态:true表示在职,false 表示离职
-    private Boolean state;
+    //状态:true表示在职,false 表示离职,默认为在职状态
+    private Boolean state = true;
     //头像(数据库中的为地址)
     private String portrait;
     //是否为超级管理员
     private Boolean admin;
     //所属部门
-    private Long deptId;
+    private Department dept;
 }

@@ -3,12 +3,12 @@
 
 <html>
 <head>
-    <title>支出管理</title>
+    <title>收款管理</title>
     <jsp:include page="/WEB-INF/views/commons/commons.jsp"></jsp:include>
     <script src="/static/js/system/receiptbill.js"></script>
 </head>
 <body>
-    <table id="exp_datagrid"></table>
+    <table id="rep_datagrid"></table>
 
     <div id="tb">
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-cmd="add">添加</a>
@@ -24,25 +24,36 @@
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
     </div>
 
-    <div id="exp_dialog">
+    <div id="rep_dialog">
         <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
-            <input name="id" id="expId" type="hidden">
+            <input name="id" id="repId" type="hidden">
             <table style="border-collapse:separate; border-spacing:10px;">
                 <tr>
-                    <td><font size="1">支出金额:</font></td>
-                    <td><input class="easyui-NumberBox" type="text" name="payMoney" data-options="precision:2"></td>
+                    <td>学生姓名:</td>
+                    <td><input class="easyui-combobox" type="text" id="clientId"
+                               data-options="
+                    valueField:'id',
+                    textField:'name',
+                    url:'/client/queryClients',
+                    panelHeight:'auto'"/></td>
                 </tr>
                 <tr>
-                    <td><font size="1">类型:</font></td>
-                    <td><input class="easyui-textbox" type="text" name="genre"/></td>
+                    <td><font size="1">班级:</font></td>
+                    <td><input class="easyui-combobox" type="text" id="gradeId"
+                               data-options="
+                    valueField:'id',
+                    textField:'name',
+                    url:'/grade/queryGrades',
+                    panelHeight:'auto'"/></td>
+                </tr>
                 </tr>
                 <tr>
-                    <td><font size="1">订单号:</font></td>
-                    <td><input class="easyui-textbox" type="text" name="billNumber"/></td>
+                    <td><font size="1">收款金额:</font></td>
+                    <td><input class="easyui-NumberBox" type="text" name="receiptmoney" data-options="precision:2"></td>
                 </tr>
                 <tr>
-                    <td><font size="1">归属学院:</font></td>
-                    <td><input class="easyui-textbox" type="text" name="affiliationSubject"/></td>
+                    <td><font size="1">总金额:</font></td>
+                    <td><input class="easyui-NumberBox" type="text" name="totalmoney" data-options="precision:2"></td>
                 </tr>
                 <tr>
                     <td><font size="1">支付方式::</font></td>
@@ -50,9 +61,35 @@
                                data-options="url:'/payment/queryPayments',
                     valueField:'id',textField:'payname',panelHeight:'auto'"/></td>
                 </tr>
+                <tr>
+                    <td><font size="1">收款人:</font></td>
+                    <td><input class="easyui-combobox" type="text" id="receipterId"
+                               data-options="
+                    valueField:'id',
+                    textField:'name',
+                    url:'/Employee/queryUser',
+                    panelHeight:'auto'"/></td>
+                </tr>
+                <tr>
+                    <td><font size="1">单号:</font></td>
+                    <td><input class="easyui-textbox" type="text" name="billnum"/></td>
+                </tr>
+                <tr>
+                    <td><font size="1">营销人员:</font></td>
+                    <td><input class="easyui-combobox" type="text" id="marketerId"
+                               data-options="
+                    valueField:'id',
+                    textField:'name',
+                    url:'/Employee/queryUser',
+                    panelHeight:'auto'"/></td>
+                </tr>
+                <tr>
+                    <td><font size="1">备注:</font></td>
+                    <td><input class="easyui-textbox" multiline="true" type="text" name="remark"/></td>
+                </tr>
             </table>
         </form>
-    </div>
+    </div>--%>
 
     <div id="bb">
         <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>

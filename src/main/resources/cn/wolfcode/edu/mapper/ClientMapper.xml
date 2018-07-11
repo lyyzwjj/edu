@@ -10,6 +10,7 @@
     <result column="bookDate" property="bookDate" />
     <result column="nextTraceDate" property="nextTraceDate" />
     <result column="buildDate" property="buildDate" />
+    <result column="inputDate" property="inputDate" />
     <!--大学入学时间-->
     <result column="collegeAdmissionTime" property="collegeAdmissionTime" />
 
@@ -36,6 +37,8 @@
     <result column="major_id" property="majorId" />
     <result column="years_of_work_experience_id" property="yearsOfWorkExperienceId" />
     <result column="pay_status_id" property="payStatusId" />
+    <result column="clientState" property="clientState" />
+
     <!--怎么学校有id 不是都是输入 客户学校-->
     <result column="school_id" property="schoolId" />
     <result column="education_id" property="educationId" />
@@ -56,27 +59,28 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id" >
-    insert into `client` (name, sale_man_id, input_man_id, traceTimes,
+    insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
     lastTraceDate, bookDate,
       nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
       intention_school_id, intention_class_id, state_id, isManTrace, remark, 
-      buildDate, source_of_client_id, age, gender, email, address, school_id, 
+      buildDate,inputDate, source_of_client_id, age, gender, email, address, school_id,
       education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
-      introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+      introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
       )
-    values (#{name}, #{sale_man_id}, #{input_man_id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
+    values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
       #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntentionId},
       #{intentionSchoolId}, #{intentionClassId}, #{stateId}, #{isManTrace}, #{remark},
-      #{buildDate}, #{sourceOfClientId}, #{age}, #{gender}, #{email}, #{address}, #{schoolId},
-      #{educationId}, #{hometownId}, #{collegeadmissiontime}, #{majorId}, #{yearsOfWorkExperienceId}, 
-      #{introduceManId}, #{payStatusId}, #{withcomputer}, #{clientattentionwhat}, #{clientTypeId}
+      #{buildDate}, #{inputDate}, #{sourceOfClientId}, #{age}, #{gender}, #{email}, #{address}, #{schoolId},
+      #{educationId}, #{hometownId}, #{collegeAdmissionTime}, #{majorId}, #{yearsOfWorkExperienceId},
+      #{introduceManId}, #{payStatusId}, #{withComputer}, #{clientAttentionWhat}, #{clientTypeId},#{clientState}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Client" >
     update `client`
-    set name = #{name},
-      sale_man_id = #{sale_man_id},
-      input_man_id = #{input_man_id},
+    set
+      clientname= #{name},
+      sale_man_id = #{saleMan.id},
+      input_man_id = #{inputMan.id},
       traceTimes = #{traceTimes},
       lastTraceDate = #{lastTraceDate},
       bookDate = #{bookdate},
@@ -92,6 +96,7 @@
       isManTrace = #{ismantrace},
       remark = #{remark},
       buildDate = #{builddate},
+      inputDate = #{inputDate},
       source_of_client_id = #{sourceOfClientId},
       age = #{age},
       gender = #{gender},
@@ -100,31 +105,32 @@
       school_id = #{schoolId},
       education_id = #{educationId},
       hometown_id = #{hometownId},
-      collegeAdmissionTime = #{collegeadmissiontime},
+      collegeAdmissionTime = #{collegeAdmissionTime},
       major_id = #{majorId},
       years_of_work_experience_id = #{yearsOfWorkExperienceId},
       introduce_man_id = #{introduceManId},
       pay_status_id = #{payStatusId},
-      withComputer = #{withcomputer},
-      clientAttentionWhat = #{clientattentionwhat},
-      client_type_id = #{clientTypeId}
+      withComputer = #{withComputer},
+      clientAttentionWhat = #{clientAttentionWhat},
+      client_type_id = #{clientTypeId},
+      client_state = #{clientState}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
     weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
-    state_id, isManTrace, remark, buildDate, source_of_client_id, age, gender, email, 
+    state_id, isManTrace, remark, buildDate, inputDate,source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
-    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
     from `client`
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
     weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
-    state_id, isManTrace, remark, buildDate, source_of_client_id, age, gender, email, 
+    state_id, isManTrace, remark, buildDate,inputDate, source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
-    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
     from `client`
 
   </select>
@@ -138,14 +144,14 @@
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
 
-    select c.id,
+    select c.id,c.name,
     input_man.id input_man_id, input_man.username input_man_username,
-    sale_man.id sale_man.id, sale_man.username sale_man_username,
+    sale_man.id sale_man_id, sale_man.username sale_man_username,
     c.traceTimes,
     c.lastTraceDate, c.bookDate,c.nextTraceDate,
     c.weChatNum, c.QQNum, c.tel, c.school,
     c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-    c.state_id, c.isManTrace, c.remark
+    c.state_id, c.isManTrace, c.remark,c.client_state
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id

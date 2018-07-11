@@ -44,4 +44,7 @@ public interface IClientService {
      * @return
      */
     PageResult query(ClientQueryObject qo);
+
+    //收款列表的所有正式学员
+    List<Client> queryClients();
 }

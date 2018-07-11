@@ -19,4 +19,6 @@ public interface ClientMapper {
     int queryForCount(ClientQueryObject qo);
 
     List<Client> queryForList(ClientQueryObject qo);
+
+    List<Client> queryClients();
 }
