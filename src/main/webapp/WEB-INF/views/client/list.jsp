@@ -21,7 +21,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',text:'查看'" data-cmd="view">查看</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload">刷新</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'转正'" data-cmd="changeState" id="change_btn"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'跟踪'" data-cmd="trace" ></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'客户跟踪'" data-cmd="trace" ></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'放入资源池'" data-cmd="pushPool" ></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'考试登记'" data-cmd="bookExam" ></a>
 </div>
@@ -168,5 +168,8 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
 </div>
+
+<%--学员跟踪--%>
+<div id="clientTrace_dialog"></div>
 </body>
 </html>

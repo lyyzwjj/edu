@@ -71,7 +71,7 @@ public class EmployeeController {
     //chenfen添加 用于获取employee的name等 就是不需要分页效果
     @RequestMapping("queryEmployee")
     @ResponseBody
-    public List<Employee> queryEmployeeName(QueryObject qo) {
+    public List<Employee> queryEmployeeName() {
         return employeeService.list();
     }
 
