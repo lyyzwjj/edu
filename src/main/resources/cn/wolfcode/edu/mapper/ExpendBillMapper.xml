@@ -47,4 +47,15 @@
     affiliation_subject, state
     from `expendbill`
   </select>
+
+  <select id="queryForCount" resultType="int">
+      select count(id) from expendbill
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, pay_time, pay_money, cashier_id, auditor_id, payment_id, genre, bill_number, affiliation_subject, state
+    from `expendbill`
+
+    limit #{startIndex},#{rows}
+  </select>
 </mapper>

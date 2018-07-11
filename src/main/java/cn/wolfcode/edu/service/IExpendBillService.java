@@ -1,11 +1,16 @@
-package cn.wolfcode.edu.mapper;
+package cn.wolfcode.edu.service;
 
+import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.domain.ExpendBill;
+import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
-public interface ExpendBillMapper {
+/**
+ * Created by WangZhe on 2018/7/10.
+ */
+public interface IExpendBillService {
     int deleteByPrimaryKey(Long id);
 
     int insert(ExpendBill record);
@@ -17,11 +22,9 @@ public interface ExpendBillMapper {
     int updateByPrimaryKey(ExpendBill record);
 
     /**
-     * 分页总条数
+     * 分页查询的结果集
      * @param qo
      * @return
      */
-    int queryForCount(QueryObject qo);
-
-    List<ExpendBill> queryForList(QueryObject qo);
+    PageResult query(QueryObject qo);
 }
