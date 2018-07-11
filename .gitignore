@@ -4,5 +4,7 @@
 edu.iml
 .project
 .classpath
+generatorConfig.xml
+
 
 
