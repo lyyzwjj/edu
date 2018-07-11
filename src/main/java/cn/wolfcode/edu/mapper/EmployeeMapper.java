@@ -1,7 +1,7 @@
 package cn.wolfcode.edu.mapper;
 
 import cn.wolfcode.edu.domain.Employee;
-import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.EmployeeQueryObject;
 
 import java.util.List;
 
@@ -43,14 +43,18 @@ public interface EmployeeMapper {
      * @param qo  封装的查询条件对象
      * @return
      */
-    int queryForCount(QueryObject qo);
+    int queryForCount(EmployeeQueryObject qo);
 
     /**
      * 分页对象集合
      * @param qo  封装的查询条件对象
      * @return
      */
-    List<Employee> queryForList(QueryObject qo);
+    List<Employee> queryForList(EmployeeQueryObject qo);
 
-
+    /**
+     * 员工的离职或复职
+     * @param id
+     */
+    void changeState(Long id);
 }

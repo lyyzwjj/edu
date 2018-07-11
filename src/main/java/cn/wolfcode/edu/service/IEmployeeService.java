@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.service;
 
 import cn.wolfcode.edu.domain.Employee;
+import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
@@ -43,5 +43,11 @@ public interface IEmployeeService {
      * @param qo 查询参数对象
      * @return
      */
-    PageResult query(QueryObject qo);
+    PageResult query(EmployeeQueryObject qo);
+
+    /**
+     * 操作员工的离职或复值
+     * @param id  待离职或复职的员工id
+     */
+    void changeState(Long id);
 }

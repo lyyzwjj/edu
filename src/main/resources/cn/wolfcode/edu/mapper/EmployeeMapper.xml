@@ -22,6 +22,11 @@
     <result column="state" property="state" />
     <result column="portrait" property="portrait" />
     <result column="admin" property="admin" />
+    <association property="dept" javaType="cn.wolfcode.edu.domain.Department" columnPrefix="d_">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="sn" column="sn"></result>
+    </association>
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -31,10 +36,10 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
     insert into `employee` (username, password, realname, age, gender, bornDate, cardId,
       tel, eamil, qq, address, employeeId, attendanceId, hireDate, 
-      seniority, state, portrait, admin)
+      seniority, state, portrait, admin,dept_id)
     values (#{username}, #{password}, #{realname}, #{age}, #{gender}, #{bornDate}, #{cardId},
       #{tel}, #{eamil}, #{qq}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
-      #{seniority}, #{state}, #{portrait}, #{admin})
+      #{seniority}, #{state}, #{portrait}, #{admin},#{dept.id})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Employee" >
@@ -57,34 +62,67 @@
       state = #{state},
       portrait = #{portrait},
       admin = #{admin},
+      dept_id=#{dept.id}
     where id = #{id}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
-    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
-    dept_id
-    from `employee`
+    select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
+    e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
+    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    from `employee` e
+    LEFT JOIN department d
+    on e.dept_id =d.id
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
-    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
-    dept_id
-    from `employee`
+    select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
+    e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
+    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    from `employee` e
+    LEFT JOIN department d
+    on e.dept_id =d.id
   </select>
 
   <select id="queryForCount" resultType="int">
-    select count(id)
-    from `employee`
+    select count(e.id)
+    from `employee` e
+    LEFT JOIN department d
+    on e.dept_id =d.id
+    <include refid="query_sql"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil,
-    qq, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin,
-    dept_id
-    from `employee`
+    select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
+    e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
+    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    from `employee` e
+    LEFT JOIN department d
+    on e.dept_id =d.id
+    <include refid="query_sql"/>
+      <if test="sort!=null">
+        order by ${sort} ${order}
+      </if>
     limit #{startIndex},#{rows}
   </select>
+
+  <update id="changeState">
+    update employee set state =state^1 where id = #{id}
+  </update>
+
+  <sql id="query_sql">
+    <where>
+      <if test="keyword != null">
+        and ( e.username like concat("%",#{keyword} ,"%") or
+        realname like concat("%",#{keyword} ,"%"))
+      </if>
+      <if test="beginDate!=null">
+        and e.hireDate >= #{beginDate}
+      </if>
+      <if test="endDate!=null">
+        and e.hireDate &lt;= #{endDate}
+      </if>
+    </where>
+  </sql>
 </mapper>
