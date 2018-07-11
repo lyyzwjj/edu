@@ -44,4 +44,8 @@ public class ClassRoomServiceImpl implements IClassRoomService{
         return new PageResult(total,rows);
     }
 
+    public void changeState(Long id) {
+        classRoomMapper.changeState(id);
+    }
+
 }

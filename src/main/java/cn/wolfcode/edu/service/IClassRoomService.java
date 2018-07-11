@@ -27,4 +27,10 @@ public interface IClassRoomService {
      * @return
      */
     PageResult query(QueryObject qo);
+
+    /**
+     * 根据教室id更改教室状态
+     * @param id
+     */
+    void changeState(Long id);
 }

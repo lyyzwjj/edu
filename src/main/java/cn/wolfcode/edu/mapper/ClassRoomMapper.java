@@ -19,4 +19,6 @@ public interface ClassRoomMapper {
     int queryForCount(QueryObject qo);
 
     List<ClassRoom> queryForList(QueryObject qo);
+
+    void changeState(Long id);
 }

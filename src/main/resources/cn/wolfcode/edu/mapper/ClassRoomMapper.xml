@@ -26,7 +26,8 @@
       state = #{state}
     where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, name, address, seat, state
     from `classroom`
     where id = #{id}
@@ -44,4 +45,8 @@
     select id,name,address,seat,state from classroom
     limit #{startIndex},#{rows}
   </select>
+
+  <update id="changeState">
+    update classroom set state=state^1 where id=#{id}
+  </update>
 </mapper>
