@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("department")
 public class DepartmentController {
@@ -29,10 +31,10 @@ public class DepartmentController {
 
     @RequestMapping("save")
     @ResponseBody
-    public JsonResult save(Department entity){
+    public JsonResult save(Department department){
        JsonResult result=new JsonResult();
         try {
-            departmentService.save(entity);
+            departmentService.save(department);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存操作失败!");
@@ -41,15 +43,33 @@ public class DepartmentController {
     }
     @RequestMapping("update")
     @ResponseBody
-    public JsonResult update(Department entity){
+    public JsonResult update(Department department){
         JsonResult result=new JsonResult();
         try {
-            departmentService.update(entity);
+            departmentService.update(department);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("编辑操作失败!");
         }
         return result;
     }
+    @RequestMapping("changeState")
+    @ResponseBody
+    public JsonResult changeState(Long id){
+        JsonResult result=new JsonResult();
+        try {
+            departmentService.changeState(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("改变状态失败!");
+        }
+        return result;
+    }
 
+    @RequestMapping("queryDepts")
+    @ResponseBody
+    public List<Department> queryDepts() {
+        List<Department> departments = departmentService.list();
+        return departments;
+    }
 }
