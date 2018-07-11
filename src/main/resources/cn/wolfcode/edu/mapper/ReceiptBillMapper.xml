@@ -8,20 +8,32 @@
     <result column="billNum" property="billnum" />
     <result column="remark" property="remark" />
     <result column="totalMoney" property="totalmoney" />
-
+    <result column="state" property="state" />
     <!--学员-->
-
+    <association property="client" javaType="cn.wolfcode.edu.domain.Client">
+      <id column="c_id" property="id"></id>
+      <result column="c_name" property="name"></result>
+    </association>
     <!--课程-->
 
-    <!--支付方式-->
 
+    <!--支付方式-->
+    <association property="payment" javaType="cn.wolfcode.edu.domain.PayMent">
+      <id column="pay_id" property="id"></id>
+      <result column="pay_payname" property="payname"></result>
+    </association>
     <!--班级-->
 
     <!--收款人-->
-
+    <association property="receipter" javaType="cn.wolfcode.edu.domain.Employee">
+      <id column="receipter_id" property="id"></id>
+      <result column="receipter_realname" property="realname"></result>
+    </association>
     <!--营销人员-->
-
-    <!--班级变动-->
+    <association property="marketer" javaType="cn.wolfcode.edu.domain.Employee">
+      <id column="marketer_id" property="id"></id>
+      <result column="marketer_realname" property="realname"></result>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `receiptbill`
@@ -30,10 +42,10 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ReceiptBill" useGeneratedKeys="true" keyProperty="id" >
     insert into `receiptbill` (client_id, receiptTime, receiptMoney, course_id, payment_id, 
       billNum, grade_id, remark, receipter_id, marketer_id, classTrend_id, 
-      totalMoney)
+      totalMoney,state)
     values (#{client.id}, #{receipttime}, #{receiptmoney}, #{course.id}, #{payment.id},
       #{billnum}, #{grade.id}, #{remark}, #{receipter.id}, #{marketer.id}, #{classtrend.id},
-      #{totalmoney})
+      #{totalmoney},#{state})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ReceiptBill" >
     update `receiptbill`
@@ -49,6 +61,7 @@
       marketer_id = #{marketer.id},
       classTrend_id = #{classtrend.id},
       totalMoney = #{totalmoney}
+      state = #{state}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -59,7 +72,7 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum, 
-    grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney
+    grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney,state
     from `receiptbill`
   </select>
 
@@ -69,9 +82,18 @@
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum,
-    grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney
-    from `receiptbill`
+    select re.id,  re.receiptTime, re.receiptMoney, re.course_id, re.billNum,
+    re.grade_id, re.remark, re.classTrend_id, re.totalMoney,re.state,
+    c.id c_id, c.name c_name,
+    pay.id pay_id, pay.payname pay_payname,
+    receipter.id receipter_id, receipter.realname receipter_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname
+    from `receiptbill` re
+    left  join client c on re.client_id = c.id
+    left  join payment pay on re.payment_id = pay.id
+    left  join employee receipter on re.receipter_id = receipter.id
+    left  join employee marketer on re.marketer_id = marketer.id
+
     limit #{startIndex},#{rows}
   </select>
 </mapper>

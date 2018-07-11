@@ -45,4 +45,8 @@ public class ClientServiceImpl implements IClientService{
         List<Client> rows = clientMapper.queryForList(qo);
         return new PageResult(total, rows);
     }
+    @Override
+    public List<Client> queryClients() {
+        return clientMapper.queryClients();
+    }
 }
