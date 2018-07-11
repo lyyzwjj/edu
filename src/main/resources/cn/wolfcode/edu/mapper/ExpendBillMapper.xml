@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ExpendBillMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ExpendBill" >
+    <id column="id" property="id" />
+    <result column="pay_time" property="payTime" />
+    <result column="pay_money" property="payMoney" />
+    <result column="genre" property="genre" />
+    <result column="bill_number" property="billNumber" />
+    <result column="affiliation_subject" property="affiliationSubject" />
+    <result column="state" property="state" />
+    <!--出纳-->
+    <!--审核-->
+    <!--支付方式-->
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `expendbill`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ExpendBill" useGeneratedKeys="true" keyProperty="id" >
+    insert into `expendbill` (pay_time, pay_money, cashier_id, auditor_id, payment_id, genre,
+      bill_number, affiliation_subject, state)
+    values (#{payTime}, #{payMoney}, #{cashier.id}, #{auditor.id}, #{payment.id}, #{genre},
+      #{billNumber}, #{affiliationSubject}, #{state})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ExpendBill" >
+    update `expendbill`
+    set pay_time = #{payTime},
+      pay_money = #{payMoney},
+      teller_id = #{cashier.id},
+      auditor_id = #{auditor.id},
+      payment_id = #{payment.id},
+      genre = #{genre},
+      bill_number = #{billNumber},
+      affiliation_subject = #{affiliationSubject},
+      state = #{state}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, pay_time, pay_money, cashier_id, auditor_id, payment_id, genre, bill_number,
+    affiliation_subject, state
+    from `expendbill`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, pay_time, pay_money, cashier_id, auditor_id, payment_id, genre, bill_number,
+    affiliation_subject, state
+    from `expendbill`
+  </select>
+</mapper>
