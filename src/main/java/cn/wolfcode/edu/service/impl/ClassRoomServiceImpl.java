@@ -16,6 +16,10 @@ public class ClassRoomServiceImpl implements IClassRoomService{
     private ClassRoomMapper classRoomMapper;
 
     public void save(ClassRoom classroom) {
+
+        //设置初始状态为可用
+        classroom.setState(ClassRoom.STATE_NORMAL);
+
         classRoomMapper.insert(classroom);
     }
 
