@@ -21,8 +21,8 @@
     </association>
     <!--支付方式-->
     <association property="payment" javaType="cn.wolfcode.edu.domain.PayMent">
-      <id column="auditor_id" property="id"></id>
-      <result column="payment_payname" property="payname"></result>
+      <id column="p_id" property="id"></id>
+      <result column="p_payname" property="payname"></result>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
