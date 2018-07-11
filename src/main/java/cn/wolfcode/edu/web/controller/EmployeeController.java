@@ -1,16 +1,14 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Employee;
-import cn.wolfcode.edu.query.DepartmentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("employee")
@@ -25,7 +23,7 @@ public class EmployeeController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(DepartmentQueryObject qo) {
+    public PageResult list(QueryObject qo) {
         PageResult result = employeeService.query(qo);
         return result;
     }
@@ -69,9 +67,5 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("queryTeachers")
-    @ResponseBody
-    public List<Employee> queryTeachers(){
-        return employeeService.list();
-    }
+
 }
