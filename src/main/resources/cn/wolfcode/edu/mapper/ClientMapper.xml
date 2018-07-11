@@ -135,7 +135,7 @@
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
-
+  </select>
   <select id="queryForList" resultMap="BaseResultMap">
 
     select c.id,
