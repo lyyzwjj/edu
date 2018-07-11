@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.web.controller;
 
+import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IDataDictionaryService;
-import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +20,7 @@ public class DataDictionaryController {
         return "/dataDictionary/list";
     }
     @RequestMapping("list")
-    public JsonResult list(QueryObject qo){
-        JsonResult result = new JsonResult();
-        try {
-            dataDictionaryService.query(qo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.markMsg(e.getMessage());
-        }
-        return result;
+    public PageResult list(QueryObject qo){
+        return dataDictionaryService.query(qo);
     }
 }
