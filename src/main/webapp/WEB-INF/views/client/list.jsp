@@ -37,7 +37,7 @@
                     data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployeeName',
+                    url: '/employee/queryEmployee',
                     panelHeight:'auto'"
                     /></td>
                 <td><font size="1">录入人:</font></td>
@@ -45,7 +45,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployeeName',
+                    url: '/employee/queryEmployee',
                     panelHeight:'auto'"
                 /></td>
             </tr>

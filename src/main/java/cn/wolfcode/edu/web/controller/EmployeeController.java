@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
@@ -65,6 +67,12 @@ public class EmployeeController {
             result.markMsg("删除失败");
         }
         return result;
+    }
+    //chenfen添加 用于获取employee的name等 就是不需要分页效果
+    @RequestMapping("queryEmployee")
+    @ResponseBody
+    public List<Employee> queryEmployeeName(QueryObject qo) {
+        return employeeService.list();
     }
 
 
