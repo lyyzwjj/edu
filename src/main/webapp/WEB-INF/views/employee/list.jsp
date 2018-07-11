@@ -11,14 +11,6 @@
         <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="changeState" id="change_btn">离职</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
-        <!--
-        <input class="easyui-textbox" data-options="iconCls:'icon-search'" type="text" style="width:200px"
-               name="keyword" id="keyword" prompt="请输入关键字">
-        <input class="easyui-combobox" type="text" name="dept.id" id="deptId"
-               data-options="url:'/department/queryDepts',
-                            valueField:'id',textField:'name',panelHeight:'auto'" prompt="所属部门"/>
-        <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="query">查询</a>
-        -->
     </div>
 </table>
 

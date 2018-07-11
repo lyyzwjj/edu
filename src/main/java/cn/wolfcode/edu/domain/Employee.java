@@ -33,20 +33,20 @@ public class Employee {
     //邮箱
     private String eamil;
     //QQ号码
-    private String QQ;
+    private String qq;
     //地址
     private String address;
     //工号
     private Long employeeId;
     //考勤卡号
-    private Long attendanceid;
+    private Long attendanceId;
     //入职日期
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hireDate;
     //工龄
     private Integer seniority;
-    //状态:1表示在职,0 表示离职
+    //状态:true表示在职,false 表示离职
     private Boolean state;
     //头像(数据库中的为地址)
     private String portrait;
