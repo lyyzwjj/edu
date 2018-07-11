@@ -29,10 +29,10 @@ public class DepartmentController {
 
     @RequestMapping("save")
     @ResponseBody
-    public JsonResult save(Department entity){
+    public JsonResult save(Department department){
        JsonResult result=new JsonResult();
         try {
-            departmentService.save(entity);
+            departmentService.save(department);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存操作失败!");
@@ -41,10 +41,10 @@ public class DepartmentController {
     }
     @RequestMapping("update")
     @ResponseBody
-    public JsonResult update(Department entity){
+    public JsonResult update(Department department){
         JsonResult result=new JsonResult();
         try {
-            departmentService.update(entity);
+            departmentService.update(department);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("编辑操作失败!");
