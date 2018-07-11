@@ -15,23 +15,23 @@ public class EmployeeServiceImpl implements IEmployeeService{
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public void deleteByPrimaryKey(Long id) {
+    public void delete(Long id) {
         employeeMapper.deleteByPrimaryKey(id);
     }
 
-    public void insert(Employee record) {
+    public void save(Employee record) {
         employeeMapper.insert(record);
     }
 
-    public Employee selectByPrimaryKey(Long id) {
+    public Employee get(Long id) {
         return employeeMapper.selectByPrimaryKey(id);
     }
 
-    public List<Employee> selectAll() {
+    public List<Employee> list() {
         return employeeMapper.selectAll();
     }
 
-    public void updateByPrimaryKey(Employee record) {
+    public void update(Employee record) {
         employeeMapper.updateByPrimaryKey(record);
     }
 
