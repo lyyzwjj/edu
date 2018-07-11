@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.ClassRoom;
+import cn.wolfcode.edu.query.ClassRoomQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IClassRoomService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ClassRoomController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(ClassRoomQueryObject qo){
         return classRoomService.query(qo);
     }
 

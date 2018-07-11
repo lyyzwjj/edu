@@ -1,7 +1,7 @@
 package cn.wolfcode.edu.mapper;
 
 import cn.wolfcode.edu.domain.ClassRoom;
-import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.ClassRoomQueryObject;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public interface ClassRoomMapper {
 
     int updateByPrimaryKey(ClassRoom record);
 
-    int queryForCount(QueryObject qo);
+    int queryForCount(ClassRoomQueryObject qo);
 
-    List<ClassRoom> queryForList(QueryObject qo);
+    List<ClassRoom> queryForList(ClassRoomQueryObject qo);
 
     void changeState(Long id);
 }

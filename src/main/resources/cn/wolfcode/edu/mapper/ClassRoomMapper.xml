@@ -43,10 +43,19 @@
 
   <select id="queryForList" resultType="ClassRoom">
     select id,name,address,seat,state from classroom
+    <include refid="base_where"></include>
     limit #{startIndex},#{rows}
   </select>
 
   <update id="changeState">
     update classroom set state=state^1 where id=#{id}
   </update>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword !=null">
+        and (name like concat("%",#{keyword},"%") or address like concat ("%",#{keyword},"%"))
+      </if>
+    </where>
+  </sql>
 </mapper>

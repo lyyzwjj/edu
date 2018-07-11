@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.service;
 
 import cn.wolfcode.edu.domain.ClassRoom;
+import cn.wolfcode.edu.query.ClassRoomQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ public interface IClassRoomService {
     List<ClassRoom> list();
 
     /**
-     * 分页
+     * 高级查询
      * @param qo
      * @return
      */
-    PageResult query(QueryObject qo);
+    PageResult query(ClassRoomQueryObject qo);
 
     /**
      * 根据教室id更改教室状态

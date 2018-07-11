@@ -62,6 +62,11 @@ $(function () {
         },
         cancel: function () {
             class_dialog.dialog("close");
+        },query: function () {
+            var keyword = $("#keyword").textbox("getValue");
+            class_datagrid.datagrid("load", {
+                keyword: keyword,
+            });
         },
         save: function () {
             //获取到id
