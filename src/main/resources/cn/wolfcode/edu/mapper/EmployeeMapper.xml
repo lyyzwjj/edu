@@ -123,6 +123,9 @@
       <if test="endDate!=null">
         and e.hireDate &lt;= #{endDate}
       </if>
+      <if test="deptId > 0 ">
+        and e.dept_id = #{deptId}
+      </if>
     </where>
   </sql>
 </mapper>

@@ -1,8 +1,12 @@
 $(function () {
+    //抽取变量
     var emp_datagrid = $("#emp_datagrid");
     var emp_dialog = $("#emp_dialog");
+    var editForm = $("#editForm");
+    var easyui_tabs = $("#easyui-tabs");
+    var staff_salary_form = $("#staff_salary_form");
     emp_datagrid.datagrid({
-        width: 700,
+        width: 900,
         height: 500,
         fit: true,
         url: "/employee/list",
@@ -72,14 +76,30 @@ $(function () {
     });
     emp_dialog.dialog({
         title: "温馨提示",
-        width: 880,
+        width: 800,
         height: 500,
         top: 100,
         buttons: "#bb",
         closed: true
-    })
+    });
+
+    var easyui_tabs_title = "基本信息";
+    /*选项卡切换*/
+    easyui_tabs.tabs({
+        border: false,
+        fit: true,
+        onSelect: function (title, index) {
+            easyui_tabs_title = title;
+            if (index == 1) {
+                $("#btn_save").linkbutton('disable');
+            } else {
+                $("#btn_save").linkbutton('enable');
+            }
+        }
+    });
 
     var cmdObj = {
+        //刷新
         reload: function () {
             emp_datagrid.datagrid("load");
         },
@@ -183,14 +203,16 @@ $(function () {
             emp_dialog.dialog("open");
             emp_dialog.dialog("setTitle", "员工添加");
         },
-        query:function(){
+        query: function () {
             var keyword = $("#keyword").textbox("getText");
             var beginDate = $("#beginDate").datebox("getText");
             var endDate = $("#endDate").datebox("getText");
+            var deptId = $("#deptId").datebox("getValue");
             emp_datagrid.datagrid("load", {
                 keyword: keyword,
                 beginDate: beginDate,
-                endDate: endDate
+                endDate: endDate,
+                deptId: deptId
             });
         }
     }

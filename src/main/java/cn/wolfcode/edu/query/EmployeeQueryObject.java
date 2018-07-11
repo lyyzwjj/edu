@@ -33,4 +33,7 @@ public class EmployeeQueryObject extends QueryObject {
     public String getOrder() {
         return StringUtils.isEmpty(order) ? "" : order;
     }
+
+    //根据部门id查询
+    private Long deptId;
 }
