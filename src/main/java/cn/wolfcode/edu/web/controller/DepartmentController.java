@@ -51,5 +51,16 @@ public class DepartmentController {
         }
         return result;
     }
-
+    @RequestMapping("changeState")
+    @ResponseBody
+    public JsonResult changeState(Long id){
+        JsonResult result=new JsonResult();
+        try {
+            departmentService.changeState(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("改变状态失败!");
+        }
+        return result;
+    }
 }
