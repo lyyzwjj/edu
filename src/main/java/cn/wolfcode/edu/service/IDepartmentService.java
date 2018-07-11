@@ -1,8 +1,8 @@
 package cn.wolfcode.edu.service;
 
 import cn.wolfcode.edu.domain.Department;
+import cn.wolfcode.edu.query.DepartmentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
@@ -17,5 +17,8 @@ public interface IDepartmentService {
 
     List<Department> list();
 
-    PageResult query(QueryObject qo);
+    //改变状态
+    void changeState(Long id);
+
+    PageResult query(DepartmentQueryObject qo);
 }
