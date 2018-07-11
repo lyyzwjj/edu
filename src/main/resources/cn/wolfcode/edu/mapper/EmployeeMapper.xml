@@ -1,32 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wolfcode.edu.mapper.EmployeeMapper" >
+
   <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Employee" >
     <id column="id" property="id" />
-    <result column="name" property="name" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="realname" property="realname" />
     <result column="age" property="age" />
+    <result column="gender" property="gender" />
+    <result column="bornDate" property="bornDate" />
+    <result column="cardId" property="cardId" />
+    <result column="tel" property="tel" />
+    <result column="eamil" property="eamil" />
+    <result column="QQ" property="QQ" />
+    <result column="address" property="address" />
+    <result column="employeeId" property="employeeId" />
+    <result column="attendanceId" property="attendanceid" />
+    <result column="hireDate" property="hireDate" />
+    <result column="seniority" property="seniority" />
+    <result column="state" property="state" />
+    <result column="portrait" property="portrait" />
+    <result column="admin" property="admin" />
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from `employee`
-    where id = #{id}
+    delete from `employee` where id = #{id}
   </delete>
+
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
-    insert into `employee` (name, age)
-    values (#{name}, #{age})
+    insert into `employee` (username, password, realname, age, gender, bornDate, cardId,
+      tel, eamil, QQ, address, employeeId, attendanceId, hireDate, 
+      seniority, state, portrait, admin)
+    values (#{username}, #{password}, #{realname}, #{age}, #{gender}, #{bornDate}, #{cardId},
+      #{tel}, #{eamil}, #{QQ}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
+      #{seniority}, #{state}, #{portrait}, #{admin})
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Employee" >
     update `employee`
-    set name = #{name},
-      age = #{age}
+    set username = #{username},
+      password = #{password},
+      realname = #{realname},
+      age = #{age},
+      gender = #{gender},
+      bornDate = #{bornDate},
+      cardId = #{cardId},
+      tel = #{tel},
+      eamil = #{eamil},
+      QQ = #{QQ},
+      address = #{address},
+      employeeId = #{employeeId},
+      attendanceId = #{attendanceId},
+      hireDate = #{hireDate},
+      seniority = #{seniority},
+      state = #{state},
+      portrait = #{portrait},
+      admin = #{admin},
     where id = #{id}
   </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, age
+    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
+    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
+    dept_id
     from `employee`
     where id = #{id}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, age
+    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil, 
+    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin, 
+    dept_id
     from `employee`
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(id)
+    from `employee`
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select id, username, password, realname, age, gender, bornDate, cardId, tel, eamil,
+    QQ, address, employeeId, attendanceId, hireDate, seniority, state, portrait, admin,
+    dept_id
+    from `employee`
+    limit #{startIndex},#{rows}
   </select>
 </mapper>
