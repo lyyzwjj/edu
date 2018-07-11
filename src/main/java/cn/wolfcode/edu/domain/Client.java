@@ -10,6 +10,15 @@ import java.util.Date;
 @Getter
 public class Client {
 
+    /*
+    设置潜在客户的默认状态
+     */
+    public static final int STATE_DEFAULT=0;
+    /*
+    1表示为正式客户
+     */
+    public static final int STATE_FORMAL=1;
+
     private Long id;
     /*
     客户姓名
@@ -70,7 +79,7 @@ public class Client {
     /*
     客户的当前状态 潜在还是正式
      */
-    private Integer stateId;
+    private int stateId;
     /*
     是否有人在跟进
      */
