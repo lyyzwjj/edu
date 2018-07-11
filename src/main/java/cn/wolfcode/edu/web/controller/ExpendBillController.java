@@ -2,6 +2,7 @@ package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.domain.ExpendBill;
+import cn.wolfcode.edu.query.ExpendBillQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
@@ -34,7 +35,7 @@ public class ExpendBillController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(ExpendBillQueryObject qo){
         PageResult result = expendBillService.query(qo);
         return result;
     }

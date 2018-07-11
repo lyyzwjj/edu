@@ -71,7 +71,11 @@
   </select>
 
   <select id="queryForCount" resultType="int">
-      select count(id) from expendbill
+    select count(e.id) from `expendbill` e
+    left join employee cashier on e.cashier_id = cashier.id
+    left join employee auditor on e.cashier_id = auditor.id
+    left join payment p on e.payment_id = p.id
+    <include refid="BASE_WHERE"></include>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
@@ -84,6 +88,22 @@
     left join employee auditor on e.cashier_id = auditor.id
     left join payment p on e.payment_id = p.id
 
+    <include refid="BASE_WHERE"></include>
+
     limit #{startIndex},#{rows}
   </select>
+
+  <sql id="BASE_WHERE">
+    <where>
+      <if test="keyword != null">
+        and (e.affiliation_subject LIKE concat("%",#{keyword},"%") or e.genre LIKE concat("%",#{keyword},"%"))
+      </if>
+      <if test="begindate != null">
+        and e.pay_time >= #{begindate}
+      </if>
+      <if test="enddate != null">
+        and e.pay_time &lt;= #{enddate}
+      </if>
+    </where>
+  </sql>
 </mapper>

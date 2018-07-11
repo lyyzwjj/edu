@@ -14,10 +14,14 @@
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" data-cmd="add">添加</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" data-cmd="remove">删除</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" data-cmd="reload">刷新</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="search">高级查询</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" data-cmd="ok">审核</a>
 
-
+        <input class="easyui-datetimebox" name="begindate" id="begindate" timeSeparator=":"
+               data-options="required:true,showSeconds:true" style="width:150px"/>~
+        <input class="easyui-datetimebox" name="enddate" id="enddate" timeSeparator=":"
+               data-options="required:true,showSeconds:true" style="width:150px"/>
+        <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="按照学科或者类型查询"/>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
     </div>
 
     <div id="exp_dialog">

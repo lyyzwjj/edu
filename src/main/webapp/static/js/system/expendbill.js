@@ -75,12 +75,12 @@ $(function(){
         //查询操作
         query: function () {
             var keyword = $("#keyword").textbox("getText");
-            var beginDate = $("#beginDate").datebox("getText");
-            var endDate = $("#endDate").datebox("getText");
+            var begindate = $("#begindate").datetimebox("getText");
+            var enddate = $("#enddate").datetimebox("getText");
             exp_datagrid.datagrid("load", {
                 keyword: keyword,
-                beginDate: beginDate,
-                endDate: endDate
+                begindate: begindate,
+                enddate: enddate
             });
         },
 
