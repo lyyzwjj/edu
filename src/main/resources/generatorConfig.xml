@@ -63,7 +63,7 @@
 				value=""/> -->
 		</javaClientGenerator>
 	
-		<table tableName="datadictionary" delimitIdentifiers="true" domainObjectName="DataDictionary">
+		<table tableName="datadictionaryitem" delimitIdentifiers="true" domainObjectName="DataDictionaryItem">
 			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
 			<property name="constructorBased" value="false" />
 			<generatedKey column="id" sqlStatement="JDBC"/>
