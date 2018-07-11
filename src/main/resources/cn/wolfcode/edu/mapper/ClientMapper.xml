@@ -59,7 +59,7 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id" >
-    insert into `client` (name, sale_man_id, input_man_id, traceTimes,
+    insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
     lastTraceDate, bookDate,
       nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
       intention_school_id, intention_class_id, state_id, isManTrace, remark, 
@@ -77,7 +77,8 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Client" >
     update `client`
-    set name = #{name},
+    set
+      clientname= #{name},
       sale_man_id = #{saleMan.id},
       input_man_id = #{inputMan.id},
       traceTimes = #{traceTimes},
@@ -143,7 +144,7 @@
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
 
-    select c.id,
+    select c.id,c.name,
     input_man.id input_man_id, input_man.username input_man_username,
     sale_man.id sale_man_id, sale_man.username sale_man_username,
     c.traceTimes,

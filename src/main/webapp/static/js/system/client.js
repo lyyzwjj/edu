@@ -9,6 +9,7 @@ $(function(){
         pagination:true,
         rownumbers:true,
         toolbar:"#tb",
+        singleSelect:true,
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
@@ -69,9 +70,9 @@ $(function(){
     client_dialog.dialog({
         width:850,
         height:550,
-        buttons:"#bb"
+        buttons:"#bb",
         // 一开始就是关闭的状态
-        /*closed:true*/
+        closed:true
     })
 
     var cmdObj={
@@ -91,12 +92,32 @@ $(function(){
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要编辑的数据");
+            }else{
+                //将选中的行的数据加载到对话框中的form表单中
+                client_dialog.dialog("open");
+                client_dialog.dialog("setTitle","潜在客户编辑");
+                $("#editForm").form("clear");
+                $("#editForm").form("load",row);
+
             }
-            //将选中的行的数据加载到对话框中的form表单中
-            client_dialog.dialog("open");
-            client_dialog.dialog("setTitle","潜在客户编辑");
-            $("#editForm").form("clear");
-            $("#editForm").form("load",row);
+        },
+        //编辑操作
+        view:function(){
+            //编辑需要回显数据
+            //从datagrid中获取编辑的那一行数据
+            var row=client_datagrid.datagrid("getSelected");
+            if(!row){
+                //如果不为true 说明没有选择数据 让用户选择数据
+                $.messager.alert("温馨提示","请选择要查看的数据");
+            }else{
+                //将选中的行的数据加载到对话框中的form表单中
+                client_dialog.dialog("open");
+                client_dialog.dialog("setTitle","潜在客户编辑");
+                $("#editForm").form("clear");
+                $("#editForm").form("load",row);
+                $(":input").prop("readonly",true);
+
+            }
         },
 
         //保存操作
