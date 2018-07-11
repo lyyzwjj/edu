@@ -18,11 +18,11 @@
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.DataDictionaryItem" useGeneratedKeys="true" keyProperty="id" >
     insert into `datadictionaryitem` (parent_id, name, intro)
-    values (#{parentId}, #{name}, #{intro})
+    values (#{parent.id}, #{name}, #{intro})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.DataDictionaryItem" >
     update `datadictionaryitem`
-    set parent_id = #{parentId},
+    set parent_id = #{parent.id},
       name = #{name},
       intro = #{intro}
     where id = #{id}
@@ -35,5 +35,10 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select ddi.id, ddi.name, ddi.intro, dd.id dd_id, dd.name dd_name, dd.sn dd_sn, dd.intro dd_intro
     from `datadictionaryitem` ddi LEFT JOIN datadictionary dd ON ddi.parent_id = dd.id
+  </select>
+  <select id="queryListByParent" resultMap="BaseResultMap" >
+    select ddi.id, ddi.name, ddi.intro, dd.id dd_id, dd.name dd_name, dd.sn dd_sn, dd.intro dd_intro
+    from `datadictionaryitem` ddi LEFT JOIN datadictionary dd ON ddi.parent_id = dd.id
+    WHERE  ddi.parent_id = #{parentId}
   </select>
 </mapper>
