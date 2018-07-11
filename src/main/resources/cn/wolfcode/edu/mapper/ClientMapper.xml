@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClientMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Client" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="traceTimes" property="traceTimes" />
+    <!--关于各种日期时间的-->
+    <result column="lastTraceDate" property="lastTraceDate" />
+    <result column="bookDate" property="bookDate" />
+    <result column="nextTraceDate" property="nextTraceDate" />
+    <result column="buildDate" property="buildDate" />
+    <!--大学入学时间-->
+    <result column="collegeAdmissionTime" property="collegeAdmissionTime" />
+
+    <result column="weChatNum" property="weChatNum" />
+    <result column="QQNum" property="QQNum" />
+    <result column="tel" property="tel" />
+    <result column="school" property="school" />
+    <result column="isManTrace" property="isManTrace" />
+    <result column="remark" property="remark" />
+    <result column="age" property="age" />
+    <result column="gender" property="gender" />
+    <result column="email" property="email" />
+    <result column="address" property="address" />
+    <result column="withComputer" property="withComputer" />
+    <result column="clientAttentionWhat" property="clientAttentionwhat" />
+    <!--来源数据字典的-->
+    <result column="hometown_id" property="hometownId" />
+    <result column="introduce_man_id" property="introduceManId" />
+    <result column="client_type_id" property="clientTypeId" />
+    <result column="degree_of_intention_id" property="degreeOfIntentionId" />
+    <result column="intention_school_id" property="intentionSchoolId" />
+    <result column="intention_class_id" property="intentionClassId" />
+    <result column="state_id" property="stateId" />
+    <result column="major_id" property="majorId" />
+    <result column="years_of_work_experience_id" property="yearsOfWorkExperienceId" />
+    <result column="pay_status_id" property="payStatusId" />
+    <!--怎么学校有id 不是都是输入 客户学校-->
+    <result column="school_id" property="schoolId" />
+    <result column="education_id" property="educationId" />
+    <!--介绍人  算是公司员工吗?-->
+    <result column="source_of_client_id" property="sourceOfClientId" />
+    <!--关联employee表的-->
+    <association property="saleMan" javaType="Employee"   columnPrefix="sale_man_" >
+      <id column="id" property="id" />
+      <result column="username" property="username" />
+    </association>
+    <association property="inputMan" javaType="Employee"   columnPrefix="input_man_" >
+      <id column="id" property="id" />
+      <result column="username" property="username" />
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `client`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id" >
+    insert into `client` (name, sale_man_id, input_man_id, traceTimes,
+    lastTraceDate, bookDate,
+      nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
+      intention_school_id, intention_class_id, state_id, isManTrace, remark, 
+      buildDate, source_of_client_id, age, gender, email, address, school_id, 
+      education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
+      introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+      )
+    values (#{name}, #{sale_man_id}, #{input_man_id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
+      #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntentionId},
+      #{intentionSchoolId}, #{intentionClassId}, #{stateId}, #{isManTrace}, #{remark},
+      #{buildDate}, #{sourceOfClientId}, #{age}, #{gender}, #{email}, #{address}, #{schoolId},
+      #{educationId}, #{hometownId}, #{collegeadmissiontime}, #{majorId}, #{yearsOfWorkExperienceId}, 
+      #{introduceManId}, #{payStatusId}, #{withcomputer}, #{clientattentionwhat}, #{clientTypeId}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Client" >
+    update `client`
+    set name = #{name},
+      sale_man_id = #{sale_man_id},
+      input_man_id = #{input_man_id},
+      traceTimes = #{traceTimes},
+      lastTraceDate = #{lastTraceDate},
+      bookDate = #{bookdate},
+      nextTraceDate = #{nexttracedate},
+      weChatNum = #{wechatnum},
+      QQNum = #{qqnum},
+      tel = #{tel},
+      school = #{school},
+      degree_of_intention_id = #{degreeOfIntentionId},
+      intention_school_id = #{intentionSchoolId},
+      intention_class_id = #{intentionClassId},
+      state_id = #{stateId},
+      isManTrace = #{ismantrace},
+      remark = #{remark},
+      buildDate = #{builddate},
+      source_of_client_id = #{sourceOfClientId},
+      age = #{age},
+      gender = #{gender},
+      email = #{email},
+      address = #{address},
+      school_id = #{schoolId},
+      education_id = #{educationId},
+      hometown_id = #{hometownId},
+      collegeAdmissionTime = #{collegeadmissiontime},
+      major_id = #{majorId},
+      years_of_work_experience_id = #{yearsOfWorkExperienceId},
+      introduce_man_id = #{introduceManId},
+      pay_status_id = #{payStatusId},
+      withComputer = #{withcomputer},
+      clientAttentionWhat = #{clientattentionwhat},
+      client_type_id = #{clientTypeId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
+    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
+    state_id, isManTrace, remark, buildDate, source_of_client_id, age, gender, email, 
+    address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
+    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+    from `client`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
+    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
+    state_id, isManTrace, remark, buildDate, source_of_client_id, age, gender, email, 
+    address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
+    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id
+    from `client`
+
+  </select>
+
+  <select id="queryForCount" resultType="int">
+
+    select count(c.id)
+    from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    left join employee input_man on input_man.id=c.input_man_id
+
+  <select id="queryForList" resultMap="BaseResultMap">
+
+    select c.id,
+    input_man.id input_man_id, input_man.username input_man_username,
+    sale_man.id sale_man.id, sale_man.username sale_man_username,
+    c.traceTimes,
+    c.lastTraceDate, c.bookDate,c.nextTraceDate,
+    c.weChatNum, c.QQNum, c.tel, c.school,
+    c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
+    c.state_id, c.isManTrace, c.remark
+    from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    left join employee input_man on input_man.id=c.input_man_id
+  </select>
+
+</mapper>
