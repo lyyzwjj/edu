@@ -1,8 +1,9 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Employee;
-import cn.wolfcode.edu.query.DepartmentQueryObject;
+import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
