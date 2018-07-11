@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClassRoomMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClassRoom" >
+    <id column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="address" property="address"  />
+    <result column="seat" property="seat"  />
+    <result column="state" property="state"  />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `classroom`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClassRoom" useGeneratedKeys="true" keyProperty="id" >
+    insert into `classroom` (name, address, seat, 
+      state)
+    values (#{name}, #{address}, #{seat}, 
+      #{state})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClassRoom" >
+    update `classroom`
+    set name = #{name},
+      address = #{address},
+      seat = #{seat},
+      state = #{state}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, address, seat, state
+    from `classroom`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, address, seat, state
+    from `classroom`
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(id) from classroom
+  </select>
+
+  <select id="queryForList" resultType="ClassRoom">
+    select id,name,address,seat,state from classroom
+    limit #{startIndex},#{rows}
+  </select>
+</mapper>
