@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
@@ -29,7 +27,6 @@ public class EmployeeController {
         PageResult result = employeeService.query(qo);
         return result;
     }
-
 
     @RequestMapping("/save")
     @ResponseBody
@@ -70,11 +67,5 @@ public class EmployeeController {
         return result;
     }
 
-    //chenfen添加的方法 用来只获取员工的id,username
-    @RequestMapping("queryEmployeeName")
-    @ResponseBody
-    public List<Employee> queryEmployeeName() {
-        List<Employee> list=employeeService.list();
-        return list;
-    }
+
 }

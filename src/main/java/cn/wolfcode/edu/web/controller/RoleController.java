@@ -1,66 +1,71 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.DataDictionary;
+import cn.wolfcode.edu.domain.Role;
+import cn.wolfcode.edu.query.DepartmentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
-import cn.wolfcode.edu.service.IDataDictionaryService;
+import cn.wolfcode.edu.service.IRoleService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * Created by WangZhe on 2018/7/11.
- */
 @Controller
-@RequestMapping("dataDictionary")
-public class DataDictionaryController {
+@RequestMapping("role")
+public class RoleController {
     @Autowired
-    private IDataDictionaryService dataDictionaryService;
+    private IRoleService roleService;
+
     @RequestMapping("")
-    public String index(){
-        return "/dataDictionary/list";
+    public String index() {
+        return "role/list";
     }
+
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
-        return dataDictionaryService.query(qo);
+    public PageResult list(DepartmentQueryObject qo) {
+        PageResult result = roleService.query(qo);
+        return result;
     }
+
+    @RequestMapping("/save")
     @ResponseBody
-    @RequestMapping("save")
-    public JsonResult save(DataDictionary dataDictionary){
+    public JsonResult save(Role role) {
         JsonResult result = new JsonResult();
         try {
-            dataDictionaryService.save(dataDictionary);
+            roleService.save(role);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg(e.getMessage());
+            result.markMsg("保存失败");
         }
         return result;
     }
-    @RequestMapping("update")
+
+    @RequestMapping("/update")
     @ResponseBody
-    public JsonResult update(DataDictionary dataDictionary){
+    public JsonResult update(Role role) {
         JsonResult result = new JsonResult();
         try {
-            dataDictionaryService.update(dataDictionary);
+            roleService.update(role);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg(e.getMessage());
+            result.markMsg("更新失败");
         }
         return result;
     }
-    @RequestMapping("delete")
+
+    @RequestMapping("/delete")
     @ResponseBody
-    public JsonResult delete(Long id){
+    public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
-            dataDictionaryService.delete(id);
+            roleService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg(e.getMessage());
+            result.markMsg("删除失败");
         }
         return result;
     }
+
+
 }

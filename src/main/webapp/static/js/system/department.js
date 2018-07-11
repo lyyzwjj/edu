@@ -57,6 +57,7 @@ $(function() {
         closed : true,
     })
 
+
 })
 function add() {
     $("#editfrom").form("clear");
@@ -144,4 +145,8 @@ function cancel() {
 // 高级查询
 function query() {
     var keyword = $("#keyword").textbox("getValue");
+
+    $("dep_datagrid").dep_datagrid("load",{
+        keyword:keyword
+    })
 }
