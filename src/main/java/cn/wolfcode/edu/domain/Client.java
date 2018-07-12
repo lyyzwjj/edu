@@ -67,7 +67,7 @@ public class Client {
     /*
     意向程度
      */
-    private Long degreeOfIntentionId;
+    private int degreeOfIntentionId;
     /*
      意向校区
      */
@@ -77,9 +77,9 @@ public class Client {
      */
     private Long intentionClassId;
     /*
-    客户的当前状态 潜在还是正式
+    客户的当前状态 潜在还是正式 设置默认值是潜在
      */
-    private int stateId;
+    private int stateId=STATE_DEFAULT;
     /*
     是否有人在跟进
      */
@@ -169,6 +169,6 @@ public class Client {
     /*
     客户当前自身的状态
      */
-    private int clientState;
+    private Long clientState;
 
 }

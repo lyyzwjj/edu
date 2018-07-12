@@ -1,10 +1,10 @@
 $(function(){
-    var client_datagrid=$("#client_datagrid");
-    var client_dialog=$("#client_dialog");
+    var clientTrace_datagrid=$("#clientTrace_datagrid");
     var clientTrace_dialog=$("#clientTrace_dialog");
-    client_datagrid.datagrid({
+    var clientTrace_dialog=$("#clientTrace_dialog");
+    clientTrace_datagrid.datagrid({
         fit:true,
-        url:"/client/list",
+        url:"/clientTrace/list",
         fitColumns:true,
         striped:true,
         pagination:true,
@@ -15,13 +15,7 @@ $(function(){
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
             {field: 'name', title: '客户姓名', width: 90, align: "center"},
-            {
-                field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value) {
-                if (value) {
-                    return value.username;
-                }}
-            },
-            {field: 'inputMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
+            {field: 'traceMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
                     return value.username;
                 }}},
@@ -53,7 +47,7 @@ $(function(){
 
 
 // 初始化一个弹框 点击添加或者编辑的时候才打开
-    client_dialog.dialog({
+    clientTrace_dialog.dialog({
         width:850,
         height:550,
         buttons:"#bb",
@@ -61,21 +55,21 @@ $(function(){
         closed:true
     })
 
-    //初始化学员跟踪表
+   /* //初始化学员跟踪表
     clientTrace_dialog.dialog({
         width:850,
         height:550,
         buttons:"#bb",
         // 一开始就是关闭的状态
        closed:true
-    })
+    })*/
 
     var cmdObj={
         //添加操作
         add: function () {
             $("#editForm").form("clear");
-            client_dialog.dialog("open");
-            client_dialog.dialog("setTitle", "潜在客户添加");
+            clientTrace_dialog.dialog("open");
+            clientTrace_dialog.dialog("setTitle", "潜在客户添加");
         },
 
 
@@ -83,14 +77,14 @@ $(function(){
         edit:function(){
             //编辑需要回显数据
             //从datagrid中获取编辑的那一行数据
-            var row=client_datagrid.datagrid("getSelected");
+            var row=clientTrace_datagrid.datagrid("getSelected");
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要编辑的数据");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
-                client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                clientTrace_dialog.dialog("open");
+                clientTrace_dialog.dialog("setTitle","潜在客户编辑");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
 
@@ -100,14 +94,14 @@ $(function(){
         view:function(){
             //编辑需要回显数据
             //从datagrid中获取编辑的那一行数据
-            var row=client_datagrid.datagrid("getSelected");
+            var row=clientTrace_datagrid.datagrid("getSelected");
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要查看的客户");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
-                client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                clientTrace_dialog.dialog("open");
+                clientTrace_dialog.dialog("setTitle","潜在客户编辑");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
                 $(":input").prop("readonly",true);
@@ -120,9 +114,9 @@ $(function(){
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientId").val();
-            var url = "/client/save";
+            var url = "/clientTrace/save";
             if (id) {
-                url = "/client/update";
+                url = "/clientTrace/update";
             }
 
             $("#editForm").form("submit", {
@@ -136,8 +130,8 @@ $(function(){
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
                         $.messager.alert("温馨提示", "保存成功");
-                        client_dialog.dialog("close");
-                        client_datagrid.datagrid("load");
+                        clientTrace_dialog.dialog("close");
+                        clientTrace_datagrid.datagrid("load");
 
                     }
                 }
@@ -149,47 +143,24 @@ $(function(){
             var beginDate=$("#beginDate").datebox("getValue");
             var endDate=$("#endDate").datebox("getValue");
             //将数据通过load
-            client_datagrid.datagrid("load",{
+            clientTrace_datagrid.datagrid("load",{
                 keyword:keyword,
                 beginDate:beginDate,
                 endDate:endDate
             })
         },
-        //潜在学员转正功能
-        changeState:function(){
-            var row=client_datagrid.datagrid("getSelected");
-            if(!row){
-                //如果不为true 说明没有选择数据 让用户选择数据
-                $.messager.alert("温馨提示","请选择要转正的客户");
-            }else{
-                $.messager.confirm('确认','您确认将该潜在客户转正吗？',function(r){
-                    if (r){
-                        //发起请求
-                        $.get("/client/changeState",{id:row.id},function(data){
-                            if(data.success){
-                                $.messager.alert("温馨提示","转正成功,该条数据已转存在正式学员表中!");
-                                client_datagrid.datagrid("load");
-                            }else{
-                                $.messager.alert("温馨提示",data.errorMsg);
-                            }
-                        })
-                    }
-                });
-
-            }
-        },
         //取消对话框
         cancel:function() {
-            client_dialog.dialog("close");
+            clientTrace_dialog.dialog("close");
         },
         //刷新
         reload:function () {
-            client_datagrid.datagrid("reload");
+            clientTrace_datagrid.datagrid("reload");
         },
 
-        //跟踪
+        /*//跟踪
         trace:function(){
-            var row=client_datagrid.datagrid("getSelected");
+            var row=clientTrace_datagrid.datagrid("getSelected");
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要跟踪的学员");
@@ -201,7 +172,7 @@ $(function(){
                 $("#clientTrace_form").form("load",row);
 
             }
-        }
+        }*/
 
     }
 
