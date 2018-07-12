@@ -1,11 +1,9 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.Client;
+import cn.wolfcode.edu.domain.ClientSchoolLinkman;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.StudentQueryObject;
-import cn.wolfcode.edu.query.QueryObject;
-import cn.wolfcode.edu.service.IClientService;
+import cn.wolfcode.edu.service.IClientSchoolLinkmanService;
 import cn.wolfcode.edu.util.JsonResult;
 import cn.wolfcode.edu.util.PermissionName;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,38 +12,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("client")
-public class ClientController {
+@RequestMapping("clientSchoolLinkman")
+public class ClientSchoolLinkmanController {
     @Autowired
-    private IClientService clientService;
+    private IClientSchoolLinkmanService clientSchoolLinkmanService;
 
     @RequestMapping("")
-    @RequiresPermissions("client:index")
-    @PermissionName("潜在客户首页")
+    @RequiresPermissions("clientSchoolLinkman:index")
+    @PermissionName("学校联系人首页")
     public String index() {
-        return "client/list";
+        return "clientSchoolLinkman/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
-    @RequiresPermissions("client:list")
-    @PermissionName("潜在客户列表")
+    @RequiresPermissions("clientSchoolLinkman:list")
+    @PermissionName("学校联系人列表")
     public PageResult list(ClientQueryObject qo) {
-        PageResult result = clientService.query(qo);
+        PageResult result = clientSchoolLinkmanService.query(qo);
         return result;
     }
 
     @RequestMapping("save")
     @ResponseBody
-    @RequiresPermissions("client:save")
-    @PermissionName("潜在客户保存")
-    public JsonResult save(Client client) {
+    @RequiresPermissions("clientSchoolLinkman:save")
+    @PermissionName("学校联系人保存")
+    public JsonResult save(ClientSchoolLinkman clientSchoolLinkman) {
         JsonResult result = new JsonResult();
         try {
-            clientService.save(client);
+            clientSchoolLinkmanService.save(clientSchoolLinkman);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
@@ -53,36 +49,31 @@ public class ClientController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
-    @RequiresPermissions("client:update")
-    @PermissionName("潜在客户更新")
-    public JsonResult update(Client client) {
+    @RequiresPermissions("clientSchoolLinkman:update")
+    @PermissionName("学校联系人更新")
+    public JsonResult update(ClientSchoolLinkman clientSchoolLinkman) {
         JsonResult result = new JsonResult();
         try {
-            clientService.update(client);
+            clientSchoolLinkmanService.update(clientSchoolLinkman);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("更新失败");
         }
         return result;
     }
-
-    @RequestMapping("changeState")
+    @RequestMapping("delete")
     @ResponseBody
-
-    public JsonResult changeState(Long id,int stateId) {
+    @RequiresPermissions("clientSchoolLinkman:delete")
+    @PermissionName("学校联系人删除")
+    public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
-            clientService.changeState(id,stateId);
-            if (stateId==2){
-                Client client = clientService.get(id);
-                //状态改变的时候同时保存资源池列表
-                clientService.insertPoolClient(client);
-            }
+            clientSchoolLinkmanService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg("转正失败");
+            result.markMsg("删除失败");
         }
         return result;
     }
