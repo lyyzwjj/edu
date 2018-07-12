@@ -280,7 +280,6 @@ $(function () {
                 methodObj.accept_family();
                 var rows = staff_family_datagrid.datagrid('getRows');
                 var staff_id = {staff_id: staff_datagrid.datagrid('getSelected').id};
-                console.log(staff_id);
                 for(var i = 0; i< rows.length; i++){
                     var arys = new Array();
                     var newborndate = rows[i].bornDate;
@@ -307,13 +306,24 @@ $(function () {
                 methodObj.accept_work();
                 var rows = staff_work_datagrid.datagrid('getRows');
                 var staff_id = {staff_id: staff_datagrid.datagrid('getSelected').id};
+                for(var i = 0; i< rows.length; i++){
+                    var arys = new Array();
+                    var date1 = rows[i].beginDate;
+                    var date2 = rows[i].endDate;
+                    arys1 = date1.split('-');
+                    arys2 = date2.split('-');
+                    var date1 = new Date(arys1[0],arys1[1],arys1[2]);
+                    var date2 = new Date(arys2[0],arys2[1],arys2[2]);
+                    rows[i].beginDate = date1.getTime();
+                    rows[i].endDate = date2.getTime();
+                    rows[i].staff_id = staff_id.staff_id;
+                }
                 rows = JSON.stringify(rows);
-                staff_id = JSON.stringify(staff_id);
                 $.ajax({
                     url: '/work/saveWork',
                     type: 'post',
                     dataType: 'json',
-                    data: {rows: rows, staff_id: staff_id},
+                    data: {rows: rows},
                     success: function (data) {
                         if (data.success) {
                             $.messager.alert("温馨提示", '操作成功', 'info', function () {
@@ -326,13 +336,24 @@ $(function () {
                 methodObj.accept_education();
                 var rows = staff_education_datagrid.datagrid('getRows');
                 var staff_id = {staff_id: staff_datagrid.datagrid('getSelected').id};
+                for(var i = 0; i< rows.length; i++){
+                    var arys = new Array();
+                    var date1 = rows[i].beginDate;
+                    var date2 = rows[i].endDate;
+                    arys1 = date1.split('-');
+                    arys2 = date2.split('-');
+                    var date1 = new Date(arys1[0],arys1[1],arys1[2]);
+                    var date2 = new Date(arys2[0],arys2[1],arys2[2]);
+                    rows[i].beginDate = date1.getTime();
+                    rows[i].endDate = date2.getTime();
+                    rows[i].staff_id = staff_id.staff_id;
+                }
                 rows = JSON.stringify(rows);
-                staff_id = JSON.stringify(staff_id);
                 $.ajax({
                     url: '/education/saveEducation',
                     type: 'post',
                     dataType: 'json',
-                    data: {rows: rows, staff_id: staff_id},
+                    data: {rows: rows},
                     success: function (data) {
                         if (data.success) {
                             $.messager.alert("温馨提示", '操作成功', 'info', function () {
