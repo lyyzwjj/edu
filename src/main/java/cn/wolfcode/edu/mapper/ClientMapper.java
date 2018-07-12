@@ -3,6 +3,7 @@ package cn.wolfcode.edu.mapper;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,8 +22,11 @@ public interface ClientMapper {
 
     List<Client> queryForList(ClientQueryObject qo);
 
+    void changeState(@Param("id") Long id, @Param("stateId") Long stateId);
+
     List<Client> queryClients(QueryObject qo);
 
-    void changeState(Long id);
 
+
+    List<Client> queryPoolClient();
 }
