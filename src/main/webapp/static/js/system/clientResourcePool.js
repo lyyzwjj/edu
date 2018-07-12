@@ -27,7 +27,6 @@ $(function(){
             {field: 'traceTimes', title: '跟踪次数', width: 100, align: "center"},
             {field: 'lastTraceDate', title: '最后跟踪时间', width: 100, align: "center"},
             {field: 'tel', title: '电话', width: 110, align: "center"},
-            {field: 'intentionClassId', title: '意向班级', width: 100, align: "center"},
             {field: 'remark', title: '备注', width: 100, align: "center"}
         ]],
     })
