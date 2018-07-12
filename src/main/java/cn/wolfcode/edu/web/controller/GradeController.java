@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("grade")
 public class GradeController {
@@ -67,4 +69,13 @@ public class GradeController {
         }
         return result;
     }
+
+    //查班级方法
+    @RequestMapping("queryGrades")
+    @ResponseBody
+    public List<Grade> queryGrades()
+    {
+        return gradeService.list();
+    }
+
 }
