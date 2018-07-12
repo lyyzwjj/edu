@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.FamilyMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Family">
+        <id column="id" property="id"/>
+        <result column="appellation" property="appellation"/>
+        <result column="username" property="username"/>
+        <result column="company" property="company"/>
+        <result column="profession" property="profession"/>
+        <result column="bornDate" property="bornDate"/>
+        <result column="remark" property="remark"/>
+        <result column="staff_id" property="staff_id"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `family`
+    where id = #{id}
+  </delete>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from `family`
+        where staff_id = #{staff_id}
+    </delete>
+
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Family" useGeneratedKeys="true" keyProperty="id">
+    insert into `family` (appellation, username, company, profession, bornDate, remark, 
+      staff_id)
+    values (#{appellation}, #{username}, #{company}, #{profession}, #{bornDate}, #{remark},
+      #{staff_id})
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Family">
+    update `family`
+    set appellation = #{appellation},
+      username = #{username},
+      company = #{company},
+      profession = #{profession},
+      bornDate = #{bornDate},
+      remark = #{remark},
+      staff_id = #{staff_id}
+    where id = #{id}
+  </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, appellation, username, company, profession, bornDate, remark, staff_id
+    from `family`
+    where id = #{id}
+  </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, appellation, username, company, profession, bornDate, remark, staff_id
+    from `family`
+  </select>
+
+    <select id="queryByStaffId" resultMap="BaseResultMap">
+        select id, appellation, username, company, profession, bornDate, remark, staff_id
+    from `family`
+    where staff_id = #{staff_id}
+    </select>
+</mapper>
