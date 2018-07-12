@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.CourseNameMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.CourseName" >
+    <id column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="sn" property="sn"  />
+    <result column="series" property="series"  />
+    <result column="state" property="state"  />
+  </resultMap>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.CourseName" useGeneratedKeys="true" keyProperty="id" >
+    insert into `coursename` (name, sn, series, 
+      state)
+    values (#{name}, #{sn}, #{series}, 
+      #{state})
+  </insert>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, sn, series, state
+    from `coursename`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, sn, series, state
+    from `coursename`
+  </select>
+  <select id="queryForCount" resultType="int">
+    select count(id) from coursename
+    <include refid="base_where"></include>
+  </select>
+  <select id="queryForList" resultType="cn.wolfcode.edu.domain.CourseName">
+    select id,name,sn,series,state from coursename
+    <include refid="base_where"></include>
+    limit #{startIndex},#{rows}
+  </select>
+
+
+  <update id="changeState">
+    update coursename set state=state^1 where id=#{id}
+  </update>
+
+  <sql id="base_where">
+    <where>
+      <if test="keyword !=null">
+        and (name like concat("%",#{keyword},"%") or series like concat("%",#{keyword},"%"))
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryCourseIdsByGradeId" resultType="Long">
+    select coursename_id from grade_coursename where grade_id =#{gradeId}
+  </select>
+</mapper>

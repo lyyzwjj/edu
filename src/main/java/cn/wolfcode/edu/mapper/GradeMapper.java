@@ -27,9 +27,9 @@ public interface GradeMapper {
     /**
      * 维护班级与课程表关系
      * @param gradeId
-     * @param courseId
+     * @param coursenameId
      */
-    void insertCourseRelation(@Param("gradeId") Long gradeId,@Param("courseId")Long courseId);
+    void insertCourseRelation(@Param("gradeId") Long gradeId,@Param("coursenameId")Long coursenameId);
 
 
     /**

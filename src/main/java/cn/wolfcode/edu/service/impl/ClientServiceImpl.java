@@ -3,6 +3,7 @@ package cn.wolfcode.edu.service.impl;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.mapper.ClientMapper;
 import cn.wolfcode.edu.query.ClientQueryObject;
+import cn.wolfcode.edu.query.StudentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,9 @@ public class ClientServiceImpl implements IClientService{
     public void changeState(Long id,Long stateId) {
          clientMapper.changeState(id,stateId);
     }
-    @Override
-    public List<Client> queryClients() {
-        return clientMapper.queryClients();
+
+    public List<Client> queryClients(StudentQueryObject qo) {
+        return clientMapper.queryClients(qo);
     }
 
     public List<Client> queryPoolClient() {

@@ -1,6 +1,6 @@
 package cn.wolfcode.edu.service.impl;
 
-import cn.wolfcode.edu.domain.Course;
+import cn.wolfcode.edu.domain.CourseName;
 import cn.wolfcode.edu.domain.Grade;
 import cn.wolfcode.edu.mapper.GradeMapper;
 import cn.wolfcode.edu.query.GradeQueryObject;
@@ -24,10 +24,10 @@ public class GradeServiceImpl implements IGradeService{
         gradeMapper.insert(grade);
 
         //维护关系
-        List<Course> courses = grade.getCourse();
-        if(courses !=null){
-            for (Course course : courses) {
-                gradeMapper.insertCourseRelation(grade.getId(),course.getId());
+        List<CourseName> courseNames = grade.getCourseName();
+        if(courseNames !=null){
+            for (CourseName courseName : courseNames) {
+                gradeMapper.insertCourseRelation(grade.getId(),courseName.getId());
             }
         }
     }
@@ -37,10 +37,10 @@ public class GradeServiceImpl implements IGradeService{
         gradeMapper.deleteCourseRelation(grade.getId());
         gradeMapper.updateByPrimaryKey(grade);
         //维护关系
-        List<Course> courses = grade.getCourse();
-        if(courses !=null){
-            for (Course course : courses) {
-                gradeMapper.insertCourseRelation(grade.getId(),course.getId());
+        List<CourseName> courseNames = grade.getCourseName();
+        if(courseNames !=null){
+            for (CourseName courseName : courseNames) {
+                gradeMapper.insertCourseRelation(grade.getId(),courseName.getId());
             }
         }
 

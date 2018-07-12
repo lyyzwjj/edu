@@ -183,4 +183,9 @@ public class Client {
      */
     private Long clientState;
 
+    /*
+    客户收款信息
+     */
+    private ReceiptBill receiptBill;
+
 }
