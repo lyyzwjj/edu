@@ -47,7 +47,7 @@ $(function(){
             },
             {field: 'remark', title: '备注', width: 100, align: "center"}
         ]],
-    })
+    });
 
 
 
@@ -59,13 +59,13 @@ $(function(){
         buttons:"#bb",
         // 一开始就是关闭的状态
         closed:true
-    })
+    });
 
     //初始化学员跟踪表
     clientTrace_dialog.dialog({
         width:850,
         height:550,
-        buttons:"#bb",
+        buttons:"#trace-bb",
         // 一开始就是关闭的状态
        closed:true
     })
@@ -201,6 +201,23 @@ $(function(){
                 $("#clientTrace_form").form("load",row);
 
             }
+        },
+        saveTrace:function(){
+            $("#clientTrace_form").form("submit", {
+                url : "/clientTrace/update",
+                success : function(data) {
+                    // 接受返回的数据
+                    // 操作失败 提示用户
+                    // 操作成功,提示用户 关闭当前对话框,刷新页面
+                    data = $.parseJSON(data);
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.errorMsg);
+                    } else {
+                        $.messager.alert("温馨提示", "保存成功");
+                        clientTrace_dialog.dialog("close");
+                    }
+                }
+            })
         }
 
     }

@@ -18,7 +18,7 @@
 <%--学员跟踪--%>
 <div id="clientTrace_dialog">
 
-    <form id="editForm" method="post" style="padding: 0px 0px 0px 10px;">
+    <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
         <input type="hidden" name="id" >
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
