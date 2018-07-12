@@ -80,7 +80,22 @@ public class EmployeeController {
         return result;
     }
 
-
+    @RequestMapping("/saveOrUpdate")
+    @ResponseBody
+    public JsonResult saveOrUpdate(Employee employee) {
+        JsonResult result = new JsonResult();
+        try {
+            if (employee.getId() == null) {
+                employeeService.save(employee);
+            } else {
+                employeeService.update(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("更新失败");
+        }
+        return result;
+    }
 
 
 }
