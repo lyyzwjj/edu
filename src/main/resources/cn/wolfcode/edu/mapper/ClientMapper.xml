@@ -200,10 +200,21 @@
     <include refid="BASE_WHERE"></include>
   </select>
   <!--资源池列表-->
-  <select id="queryPoolClient" resultMap="BaseResultMap" >
+  <select id="queryPoolClientList" resultMap="BaseResultMap" >
 
-    select *
+    select c.id.c.name,sale_man.id sale_man_id,
+    sale_man.username sale_man_username,
+    c.school,c.gender,c.traceTimes,
+    c.lastTraceDate,c.tel,c.remark
      from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    where state_id=2
+    limit #{startIndex},#{rows}
+  </select>
+
+  <select id="queryForPoolClientCount" resultType="int">
+
+    select count(c.id) from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     where state_id=2
   </select>
