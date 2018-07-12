@@ -117,9 +117,9 @@
     where id = #{id}
   </update>
 
-  <!--潜在学员转正 只需要更新stateId即可-->
+  <!--潜在学员转正 放入资源池 只需要更新stateId即可-->
   <update id="changeState">
-    update client set state_id=1 where id=#{id}
+    update client set state_id=#{stateId} where id=#{id}
 
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -173,7 +173,15 @@
     limit #{startIndex},#{rows}
   </select>
 
-  <select id="queryClients">
+  <select id="queryClients" resultMap="BaseResultMap">
 
+  </select>
+  <!--资源池列表-->
+  <select id="queryPoolClient" resultMap="BaseResultMap" >
+
+    select *
+     from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    where state_id=2
   </select>
 </mapper>

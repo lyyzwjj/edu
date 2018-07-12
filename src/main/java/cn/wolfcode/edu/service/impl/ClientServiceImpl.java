@@ -46,11 +46,20 @@ public class ClientServiceImpl implements IClientService{
         return new PageResult(total, rows);
     }
 
-    public void changeState(Long id) {
-         clientMapper.changeState(id);
+    /**
+     * 根据传入的id和状态值 修改状态
+     * @param id
+     * @param stateId
+     */
+    public void changeState(Long id,Long stateId) {
+         clientMapper.changeState(id,stateId);
     }
     @Override
     public List<Client> queryClients() {
         return clientMapper.queryClients();
+    }
+
+    public List<Client> queryPoolClient() {
+        return clientMapper.queryPoolClient();
     }
 }

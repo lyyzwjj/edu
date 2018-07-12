@@ -49,8 +49,14 @@ public interface IClientService {
      * 根据id将潜在学员转正
      * @return
      */
-    void changeState(Long id);
+    void changeState(Long id,Long stateId);
 
     //收款列表的所有正式学员
     List<Client> queryClients();
+
+    /**
+     * 资源池中的客户列表
+     * @return
+     */
+    List<Client> queryPoolClient();
 }
