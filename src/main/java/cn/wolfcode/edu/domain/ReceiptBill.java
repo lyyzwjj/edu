@@ -51,4 +51,7 @@ public class ReceiptBill {
     //状态
     private int state;
 
+    //校区
+    private Campus campus;
+
 }

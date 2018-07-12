@@ -4,6 +4,8 @@ import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.mapper.ClientMapper;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.StudentQueryObject;
 import cn.wolfcode.edu.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements IClientService{
+public class ClientServiceImpl implements IClientService {
     @Autowired
     private ClientMapper clientMapper;
 
@@ -38,7 +40,7 @@ public class ClientServiceImpl implements IClientService{
     public PageResult query(ClientQueryObject qo) {
         //查询总条数
         int total = clientMapper.queryForCount(qo);
-        if(total==0){
+        if (total == 0) {
             return new PageResult();
         }
         //查询分页数据
@@ -46,11 +48,12 @@ public class ClientServiceImpl implements IClientService{
         return new PageResult(total, rows);
     }
 
-    public void changeState(Long id) {
-         clientMapper.changeState(id);
-    }
     @Override
-    public List<Client> queryClients() {
-        return clientMapper.queryClients();
+    public void changeState(Long id) {
+        clientMapper.changeState(id);
+    }
+
+    public List<Client> queryClients(StudentQueryObject qo) {
+        return clientMapper.queryClients(qo);
     }
 }

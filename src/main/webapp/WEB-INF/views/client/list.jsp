@@ -1,3 +1,4 @@
+<%@ page import="com.sun.xml.internal.rngom.ast.builder.Include" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
@@ -5,6 +6,7 @@
     <title>潜在客户管理</title>
     <%@include file="/WEB-INF/views/commons/commons.jsp" %>
     <script src="../../../static/js/system/client.js"></script>
+    <script src="../../../static/js/system/clientTrace.js"></script>
 </head>
 <body>
 <table id="client_datagrid" fit="true"></table>
@@ -232,10 +234,13 @@
     </form>
 
 </div>
-
+<div id="bb">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
+</div>
 
 <%--学员跟踪--%>
-<div id="clientTrace_dialog">
+<%--<div id="clientTrace_dialog">
 
     <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
         <input type="hidden" name="id" >
@@ -331,11 +336,15 @@
             </tr>
         </table>
     </form>
-    </div>
+    </div>--%>
 <%--底部工具按钮--%>
-<div id="bb">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
+<%--<div>
+<div id="trace-bb">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveTrace">保存</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
 </div>
-</body>
+</div>--%>
+<div>
+    <jsp:include page="/WEB-INF/views/clientTrace/list.jsp"></jsp:include>
+    </div>
 </html>
