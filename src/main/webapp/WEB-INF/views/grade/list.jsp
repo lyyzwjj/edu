@@ -18,7 +18,7 @@
 <div id="tb">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="add">添加</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="changeState" id="change_btn">不可用</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="changeState" id="change_btn">毕业</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
 
     <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="按照班级名称查询"/>
