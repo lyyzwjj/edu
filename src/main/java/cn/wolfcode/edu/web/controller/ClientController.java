@@ -3,6 +3,8 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.StudentQueryObject;
 import cn.wolfcode.edu.service.IClientService;
 import cn.wolfcode.edu.util.JsonResult;
 import cn.wolfcode.edu.util.PermissionName;
@@ -84,8 +86,8 @@ public class ClientController {
 
     @RequestMapping("queryClients")
     @ResponseBody
-    public List<Client> queryClients(ClientQueryObject qo) {
-        List<Client> list = clientService.queryClients();
+    public List<Client> queryClients(StudentQueryObject qo) {
+        List<Client> list = clientService.queryClients(qo);
         return list;
     }
 
@@ -96,9 +98,9 @@ public class ClientController {
      */
     @RequestMapping("queryPoolClient")
     @ResponseBody
-    public List<Client> queryPoolClient() {
-        List<Client> list = clientService.queryPoolClient();
-        return list;
+    public PageResult queryPoolClient(QueryObject qo) {
+        PageResult result = clientService.queryPoolClient(qo);
+        return result;
     }
 
 }
