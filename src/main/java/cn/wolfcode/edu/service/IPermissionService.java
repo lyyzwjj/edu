@@ -1,6 +1,6 @@
 package cn.wolfcode.edu.service;
 
-import cn.wolfcode.edu.domain.Permission;
+import cn.wolfcode.edu.domain   .Permission;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 

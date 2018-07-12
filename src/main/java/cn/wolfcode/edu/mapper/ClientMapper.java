@@ -20,5 +20,7 @@ public interface ClientMapper {
 
     List<Client> queryForList(ClientQueryObject qo);
 
+    void changeState(Long id);
+
     List<Client> queryClients();
 }

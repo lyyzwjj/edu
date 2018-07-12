@@ -1,12 +1,12 @@
 package cn.wolfcode.edu.service;
 
-import cn.wolfcode.edu.domain.Client;
-import cn.wolfcode.edu.query.ClientQueryObject;
+import cn.wolfcode.edu.domain.ClientTrace;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
-public interface IClientService {
+public interface IClientTraceService {
     /**
      * 删除潜在客户
      * @param id 待删除潜在客户的id
@@ -17,40 +17,32 @@ public interface IClientService {
      * 添加潜在客户
      * @param record
      */
-    void save(Client record);
+    void save(ClientTrace record);
 
     /**
      * 查询单个潜在客户
      * @param id  待查询潜在客户的id
      * @return
      */
-    Client get(Long id);
+    ClientTrace get(Long id);
 
     /**
      * 查询所有的潜在客户
      * @return
      */
-    List<Client> list();
+    List<ClientTrace> list();
 
     /**
      * 更新潜在客户
      * @param record
      */
-    void update(Client record);
+    void update(ClientTrace record);
 
     /**
      * 查询到分页结果集
      * @param qo 查询参数对象
      * @return
      */
-    PageResult query(ClientQueryObject qo);
+    PageResult query(QueryObject qo);
 
-    /**
-     * 根据id将潜在学员转正
-     * @return
-     */
-    void changeState(Long id);
-
-    //收款列表的所有正式学员
-    List<Client> queryClients();
 }

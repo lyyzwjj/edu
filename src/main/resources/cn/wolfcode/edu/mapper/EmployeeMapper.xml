@@ -128,4 +128,14 @@
       </if>
     </where>
   </sql>
+
+  <!--删除员工与角色的关系-->
+  <delete id="deleteRelation">
+    delete from role_employee where employee_id = #{id}
+  </delete>
+
+  <!--保存员工和角色的关系 -->
+  <insert id="insertRelation">
+    insert into role_employee (employee_id,role_id) values (#{empId},#{roleId})
+  </insert>
 </mapper>

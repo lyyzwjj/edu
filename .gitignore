@@ -6,6 +6,7 @@ edu.iml
 .classpath
 generatorConfig.xml
 rebel.xml
+/src/main/resource/generatorConfig.xml
 
 
 

@@ -25,7 +25,7 @@
     <result column="email" property="email" />
     <result column="address" property="address" />
     <result column="withComputer" property="withComputer" />
-    <result column="clientAttentionWhat" property="clientAttentionwhat" />
+    <result column="clientAttentionWhat" property="clientAttentionWhat" />
     <!--来源数据字典的-->
     <result column="hometown_id" property="hometownId" />
     <result column="introduce_man_id" property="introduceManId" />
@@ -116,22 +116,34 @@
       client_state = #{clientState}
     where id = #{id}
   </update>
+
+  <!--潜在学员转正 只需要更新stateId即可-->
+  <update id="changeState">
+    update client set state_id=1 where id=#{id}
+
+  </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
-    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
+    select c.id, c.name,  c.traceTimes, c.lastTraceDate, c.bookDate, c.nextTraceDate,
+    c.weChatNum, c.QQNum, c.tel, c.school, degree_of_intention_id, intention_school_id, intention_class_id,
     state_id, isManTrace, remark, buildDate, inputDate,source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
-    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
-    from `client`
-    where id = #{id}
+    introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state,
+    input_man.id input_man_id, input_man.username input_man_username,
+    sale_man.id sale_man_id, sale_man.username sale_man_username
+     from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    left join employee input_man on input_man.id=c.input_man_id
+    where c.id = #{clientId}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
-    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id, 
+    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id,
     state_id, isManTrace, remark, buildDate,inputDate, source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
     introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
-    from `client`
+    from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    left join employee input_man on input_man.id=c.input_man_id
 
   </select>
 
@@ -143,6 +155,7 @@
     left join employee input_man on input_man.id=c.input_man_id
     where state_id=0
   </select>
+
   <select id="queryForList" resultMap="BaseResultMap">
 
     select c.id,c.name,
@@ -156,8 +169,11 @@
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
-    where state_id=0
+     where state_id=0
     limit #{startIndex},#{rows}
   </select>
 
+  <select id="queryClients">
+
+  </select>
 </mapper>

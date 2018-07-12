@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -54,4 +56,7 @@ public class Employee {
     private Boolean admin;
     //所属部门
     private Department dept;
+
+    //多对多关系,维护与角色的关系
+    private List<Role> roles = new ArrayList<>();
 }

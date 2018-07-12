@@ -19,4 +19,6 @@ public interface RoleMapper {
     int queryForCount(QueryObject qo);
 
     List<Role> queryForList(QueryObject qo);
+
+    List<Long> getRoleIdByEmpId(Long empId);
 }
