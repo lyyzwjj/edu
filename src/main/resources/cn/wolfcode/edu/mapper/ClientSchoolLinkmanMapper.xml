@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClientSchoolLinkmanMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientSchoolLinkman" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="gender" property="gender" />
+    <result column="birthday" property="birthday" />
+    <result column="department" property="department" />
+    <result column="job" property="job" />
+    <result column="tel" property="tel" />
+    <result column="QQ" property="QQ" />
+    <result column="weChat" property="weChat" />
+    <result column="email" property="email" />
+    <result column="isMajorLinkman" property="isMajorLinkman" />
+    <result column="introduce" property="introduce" />
+    <association property="schoolName" javaType="ClientMajor" >
+      <id property="id" column="c_id"/>
+      <result property="name" column="c_name"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `clientschoollinkman`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientSchoolLinkman" useGeneratedKeys="true" keyProperty="id" >
+    insert into `clientschoollinkman` (name, gender, school_name, birthday, department, job, tel, 
+      QQ, weChat, email, isMajorLinkman, introduce)
+    values (#{name}, #{gender}, #{schoolName.id}, #{birthday}, #{department}, #{job}, #{tel},
+      #{QQ}, #{weChat}, #{email}, #{isMajorLinkman}, #{introduce})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientSchoolLinkman" >
+    update `clientschoollinkman`
+    set name = #{name},
+      gender = #{gender},
+      school_name = #{schoolName.id},
+      birthday = #{birthday},
+      department = #{department},
+      job = #{job},
+      tel = #{tel},
+      QQ = #{QQ},
+      weChat = #{weChat},
+      email = #{email},
+      isMajorLinkman = #{isMajorLinkman},
+      introduce = #{introduce}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, gender, school_name, birthday, department, job, tel, QQ, weChat, 
+    email, isMajorLinkman, introduce
+    from `clientschoollinkman`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, gender, school_name, birthday, department, job, tel, QQ, weChat, 
+    email, isMajorLinkman, introduce
+    from `clientschoollinkman`
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select m.id, m.name, m.gender,  m.birthday, m.department, m.job, m.tel, m.QQ, m.weChat,
+    m.email, m.isMajorLinkman,
+    c.id c_id,c.name c_name
+    from clientschoollinkman m
+    left join clientmajor c
+    on c.id=m.school_name
+  limit #{startIndex},#{rows}
+  </select>
+
+  <select id="queryForCount"resultType="int">
+  select count(m.id)
+  from clientschoollinkman m
+    left join clientmajor c
+    on c.id=m.school_name
+  </select>
+</mapper>

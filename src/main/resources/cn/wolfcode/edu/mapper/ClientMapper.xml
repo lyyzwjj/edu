@@ -170,7 +170,7 @@
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
-     where state_id=0
+    where state_id=0
     limit #{startIndex},#{rows}
   </select>
 
@@ -202,7 +202,7 @@
   <!--资源池列表-->
   <select id="queryPoolClientList" resultMap="BaseResultMap" >
 
-    select c.id.c.name,sale_man.id sale_man_id,
+    select c.id,c.name,sale_man.id sale_man_id,
     sale_man.username sale_man_username,
     c.school,c.gender,c.traceTimes,
     c.lastTraceDate,c.tel,c.remark
@@ -211,13 +211,20 @@
     where state_id=2
     limit #{startIndex},#{rows}
   </select>
-
+<!--资源池列表的total-->
   <select id="queryForPoolClientCount" resultType="int">
 
     select count(c.id) from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     where state_id=2
   </select>
+  <!--保存资源池-->
+  <insert id="insertPoolClient">
+    insert into clientresourcepool
+     (name,sale_man_id,school,gender,traceTimes,lastTraceTime,tel,remark)
+    values (#{name},#{saleMan.id},#{school},#{gender},#{traceTimes},#{lastTraceTime},
+    #{tel},#{remark})
+  </insert>
 
   <sql id="BASE_WHERE">
       <if test="keyword != null">

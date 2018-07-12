@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements IClientService{
+public class ClientServiceImpl implements IClientService {
     @Autowired
     private ClientMapper clientMapper;
 
@@ -40,7 +40,7 @@ public class ClientServiceImpl implements IClientService{
     public PageResult query(ClientQueryObject qo) {
         //查询总条数
         int total = clientMapper.queryForCount(qo);
-        if(total==0){
+        if (total == 0) {
             return new PageResult();
         }
         //查询分页数据
@@ -53,7 +53,7 @@ public class ClientServiceImpl implements IClientService{
      * @param id
      * @param stateId
      */
-    public void changeState(Long id,Long stateId) {
+    public void changeState(Long id,int stateId) {
          clientMapper.changeState(id,stateId);
     }
 
@@ -75,5 +75,9 @@ public class ClientServiceImpl implements IClientService{
         //查询分页数据
         List<Client> rows = clientMapper.queryPoolClientList(qo);
         return new PageResult(total, rows);
+    }
+
+    public void insertPoolClient(Client client){
+        clientMapper.insertPoolClient(client);
     }
 }

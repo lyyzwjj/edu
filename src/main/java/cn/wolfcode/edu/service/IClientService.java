@@ -51,7 +51,7 @@ public interface IClientService {
      * 根据id将潜在学员转正
      * @return
      */
-    void changeState(Long id,Long stateId);
+    void changeState(Long id,int stateId);
 
     //收款列表的所有正式学员
 
@@ -60,6 +60,12 @@ public interface IClientService {
      * @return
      */
     PageResult queryPoolClient(QueryObject qo);
+
+    /**
+     * 当状态改变为2的同时 保存资源池列表
+     * @param client
+     */
+    void insertPoolClient(Client client);
 
     List<Client> queryClients(StudentQueryObject qo);
 }
