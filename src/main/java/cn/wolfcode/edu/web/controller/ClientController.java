@@ -64,18 +64,18 @@ public class ClientController {
         return result;
     }
 
-    @RequestMapping("delete")
+    @RequestMapping("changeState")
     @ResponseBody
-    @RequiresPermissions("client:delete")
+    @RequiresPermissions("client:changeState")
     @PermissionName("潜在客户删除")
     //没有这个方法
-    public JsonResult delete(Long id) {
+    public JsonResult changeState(Long id) {
         JsonResult result = new JsonResult();
         try {
-            clientService.delete(id);
+            clientService.changeState(id);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg("删除失败");
+            result.markMsg("转正失败");
         }
         return result;
     }

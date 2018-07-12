@@ -125,8 +125,8 @@ $(function () {
             }
         },
         add: function () {
-            $("#meditForm").form("clear");
             dataDictionaryItem_dialog.dialog("open");
+            $("#editForm").form("clear");
             dataDictionaryItem_dialog.dialog("setTitle", "字典添加");
             console.log(object)
             $("#editForm").form("load",object);
