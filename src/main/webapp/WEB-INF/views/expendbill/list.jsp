@@ -17,9 +17,9 @@
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" data-cmd="ok">审核</a>
 
         <input class="easyui-datetimebox" name="begindate" id="begindate" timeSeparator=":"
-               data-options="required:true,showSeconds:true" style="width:150px"/>~
+               data-options="showSeconds:true" style="width:150px"/>~
         <input class="easyui-datetimebox" name="enddate" id="enddate" timeSeparator=":"
-               data-options="required:true,showSeconds:true" style="width:150px"/>
+               data-options="showSeconds:true" style="width:150px"/>
         <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="按照学科或者类型查询"/>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
     </div>
@@ -41,8 +41,10 @@
                     <td><input class="easyui-textbox" type="text" name="billNumber"/></td>
                 </tr>
                 <tr>
-                    <td><font size="1">归属学院:</font></td>
-                    <td><input class="easyui-textbox" type="text" name="affiliationSubject"/></td>
+                    <td><font size="1">归属学科:</font></td>
+                    <td><input class="easyui-combobox" type="text" name="courseName.id"
+                               data-options="url:'/courseName/queryCours',
+                    valueField:'id',textField:'name',panelHeight:'auto'"/></td>
                 </tr>
                 <tr>
                     <td><font size="1">支付方式::</font></td>

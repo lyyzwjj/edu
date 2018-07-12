@@ -39,4 +39,6 @@ public interface ClientMapper {
      * @return
      */
     int queryForPoolClientCount(QueryObject qo);
+
+    List<Client> listStudents();
 }

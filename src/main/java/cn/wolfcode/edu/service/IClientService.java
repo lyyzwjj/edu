@@ -62,4 +62,6 @@ public interface IClientService {
     PageResult queryPoolClient(QueryObject qo);
 
     List<Client> queryClients(StudentQueryObject qo);
+
+    List<Client> listStudents();
 }

@@ -28,4 +28,7 @@ public interface IReceiptBillService {
      * @return
      */
     PageResult query(QueryObject qo);
+
+    //审核
+    void check(Long id);
 }

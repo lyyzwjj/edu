@@ -7,7 +7,6 @@
     <result column="pay_money" property="payMoney" />
     <result column="genre" property="genre" />
     <result column="bill_number" property="billNumber" />
-    <result column="affiliation_subject" property="affiliationSubject" />
     <result column="state" property="state" />
     <!--出纳-->
     <association property="cashier" javaType="cn.wolfcode.edu.domain.Employee">
@@ -24,6 +23,10 @@
       <id column="p_id" property="id"></id>
       <result column="p_payname" property="payname"></result>
     </association>
+    <association property="courseName" javaType="cn.wolfcode.edu.domain.CourseName">
+      <id column="cou_id" property="id"></id>
+      <result column="cou_name" property="name"></result>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `expendbill`
@@ -31,9 +34,9 @@
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ExpendBill" useGeneratedKeys="true" keyProperty="id" >
     insert into `expendbill` (pay_time, pay_money, cashier_id, auditor_id, payment_id, genre,
-      bill_number, affiliation_subject, state)
+      bill_number, coursename_id, state)
     values (#{payTime}, #{payMoney}, #{cashier.id}, #{auditor.id}, #{payment.id}, #{genre},
-      #{billNumber}, #{affiliationSubject}, #{state})
+      #{billNumber}, #{courseName.id}, #{state})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ExpendBill" >
     update `expendbill`
@@ -44,50 +47,57 @@
       payment_id = #{payment.id},
       genre = #{genre},
       bill_number = #{billNumber},
-      affiliation_subject = #{affiliationSubject},
+      coursename_id = #{courseName.id},
       state = #{state}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.affiliation_subject, e.state,
+    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.state,
     cashier.id cashier_id, cashier.realname cashier_realname,
     auditor.id auditor_id, auditor.realname auditor_realname,
-    p.id p_id, p.payname p_payname
+    p.id p_id, p.payname p_payname,
+    cou.id cou_id, cou.name cou_name
     from `expendbill` e
     left join employee cashier on e.cashier_id = cashier.id
     left join employee auditor on e.cashier_id = auditor.id
     left join payment p on e.payment_id = p.id
+    left join coursename cou on e.coursename_id = cou.id
     where e.id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.affiliation_subject, e.state,
+    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.state,
     cashier.id cashier_id, cashier.realname cashier_realname,
     auditor.id auditor_id, auditor.realname auditor_realname,
     p.id p_id, p.payname p_payname
+    cou.id cou_id, cou.name cou_name
     from `expendbill` e
     left join employee cashier on e.cashier_id = cashier.id
     left join employee auditor on e.cashier_id = auditor.id
     left join payment p on e.payment_id = p.id
+    left join coursename cou on e.coursename_id = cou.id
   </select>
 
   <select id="queryForCount" resultType="int">
-    select count(e.id) from `expendbill` e
+    select count(e.id)
+    from `expendbill` e
     left join employee cashier on e.cashier_id = cashier.id
     left join employee auditor on e.cashier_id = auditor.id
     left join payment p on e.payment_id = p.id
+    left join coursename cou on e.coursename_id = cou.id
     <include refid="BASE_WHERE"></include>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.affiliation_subject, e.state,
+    select e.id, e.pay_time, e.pay_money, e.genre, e.bill_number, e.state,
     cashier.id cashier_id, cashier.realname cashier_realname,
     auditor.id auditor_id, auditor.realname auditor_realname,
-    p.id p_id, p.payname p_payname
+    p.id p_id, p.payname p_payname,
+    cou.id cou_id, cou.name cou_name
     from `expendbill` e
     left join employee cashier on e.cashier_id = cashier.id
     left join employee auditor on e.cashier_id = auditor.id
     left join payment p on e.payment_id = p.id
-
+    left join coursename cou on e.coursename_id = cou.id
     <include refid="BASE_WHERE"></include>
 
     limit #{startIndex},#{rows}
