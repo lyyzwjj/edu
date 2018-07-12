@@ -2,6 +2,7 @@ package cn.wolfcode.edu.mapper;
 
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
+import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface ClientMapper {
 
     List<Client> queryForList(ClientQueryObject qo);
 
-    List<Client> queryClients();
+    List<Client> queryClients(QueryObject qo);
 }

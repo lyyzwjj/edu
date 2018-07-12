@@ -34,6 +34,11 @@
       <id column="marketer_id" property="id"></id>
       <result column="marketer_realname" property="realname"></result>
     </association>
+    <!--校区-->
+    <association property="campus" javaType="cn.wolfcode.edu.domain.Campus">
+      <id column="cam_id" property="id" />
+      <result column="cam_name" property="name"/>
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `receiptbill`
@@ -65,20 +70,45 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum, 
-    grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney
-    from `receiptbill`
-    where id = #{id}
+    select re.id,  re.receiptTime, re.receiptMoney, re.course_id, re.billNum,
+    re.grade_id, re.remark, re.classTrend_id, re.totalMoney,re.state,
+    c.id c_id, c.name c_name,
+    pay.id pay_id, pay.payname pay_payname,
+    receipter.id receipter_id, receipter.realname receipter_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    cam.id cam_id, cam.name cam_name
+    from `receiptbill` re
+    left join client c on re.client_id = c.id
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
+    where re.id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum, 
-    grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney,state
-    from `receiptbill`
+    select re.id,  re.receiptTime, re.receiptMoney, re.course_id, re.billNum,
+    re.grade_id, re.remark, re.classTrend_id, re.totalMoney,re.state,
+    c.id c_id, c.name c_name,
+    pay.id pay_id, pay.payname pay_payname,
+    receipter.id receipter_id, receipter.realname receipter_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    cam.id cam_id, cam.name cam_name
+    from `receiptbill` re
+    left join client c on re.client_id = c.id
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
   </select>
 
   <select id="queryForCount" resultType="int">
     select count(id)
-    from `receiptbill`
+    from `receiptbill` re
+    left join client c on re.client_id = c.id
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
@@ -87,13 +117,30 @@
     c.id c_id, c.name c_name,
     pay.id pay_id, pay.payname pay_payname,
     receipter.id receipter_id, receipter.realname receipter_realname,
-    marketer.id marketer_id, marketer.realname marketer_realname
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    cam.id cam_id, cam.name cam_name
     from `receiptbill` re
-    left  join client c on re.client_id = c.id
-    left  join payment pay on re.payment_id = pay.id
-    left  join employee receipter on re.receipter_id = receipter.id
-    left  join employee marketer on re.marketer_id = marketer.id
+    left join client c on re.client_id = c.id
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
 
     limit #{startIndex},#{rows}
+  </select>
+
+  <select id="selectByClientId" resultMap="BaseResultMap">
+    select re.id,  re.receiptTime, re.receiptMoney, re.course_id, re.billNum,
+    re.grade_id, re.remark, re.classTrend_id, re.totalMoney,re.state,
+    pay.id pay_id, pay.payname pay_payname,
+    receipter.id receipter_id, receipter.realname receipter_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    cam.id cam_id, cam.name cam_name
+    from `receiptbill` re
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
+    where re.client_id = #{id}
   </select>
 </mapper>

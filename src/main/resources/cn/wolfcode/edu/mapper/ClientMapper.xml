@@ -45,13 +45,33 @@
     <!--介绍人  算是公司员工吗?-->
     <result column="source_of_client_id" property="sourceOfClientId" />
     <!--关联employee表的-->
-    <association property="saleMan" javaType="Employee"   columnPrefix="sale_man_" >
+    <association property="saleMan" javaType="cn.wolfcode.edu.domain.Employee"   columnPrefix="sale_man_" >
       <id column="id" property="id" />
       <result column="username" property="username" />
+      <result column="realname" property="realname" />
     </association>
-    <association property="inputMan" javaType="Employee"   columnPrefix="input_man_" >
+    <association property="inputMan" javaType="cn.wolfcode.edu.domain.Employee"   columnPrefix="input_man_" >
       <id column="id" property="id" />
       <result column="username" property="username" />
+      <result column="realname" property="realname" />
+    </association>
+
+    <!--关联收款表-->
+    <association property="receiptBill" javaType="cn.wolfcode.edu.domain.ReceiptBill">
+      <id column="bill_id" property="id"/>
+      <result column="bill_totalMoney" property="totalmoney"/>
+      <result column="bill_totalMoney" property="totalmoney"/>
+      <result column="bill_receiptMoney" property="receiptmoney"/>
+      <result column="bill_receiptTime" property="receipttime"/>
+      <result column="bill_state" property="state"/>
+    </association>
+    <association property="receiptBill.payment" javaType="cn.wolfcode.edu.domain.PayMent">
+      <id column="pay_id" property="id"/>
+      <result column="pay_payname" property="payname"/>
+    </association>
+    <association property="receiptBill.campus" javaType="cn.wolfcode.edu.domain.Campus">
+      <id column="cam_id" property="id"/>
+      <result column="cam_name" property="name"/>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -78,24 +98,24 @@
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Client" >
     update `client`
     set
-      clientname= #{name},
+      name= #{name},
       sale_man_id = #{saleMan.id},
       input_man_id = #{inputMan.id},
       traceTimes = #{traceTimes},
       lastTraceDate = #{lastTraceDate},
-      bookDate = #{bookdate},
-      nextTraceDate = #{nexttracedate},
-      weChatNum = #{wechatnum},
-      QQNum = #{qqnum},
+      bookDate = #{bookDate},
+      nextTraceDate = #{nextTraceDate},
+      weChatNum = #{weChatNum},
+      QQNum = #{QQNum},
       tel = #{tel},
       school = #{school},
       degree_of_intention_id = #{degreeOfIntentionId},
       intention_school_id = #{intentionSchoolId},
       intention_class_id = #{intentionClassId},
       state_id = #{stateId},
-      isManTrace = #{ismantrace},
+      isManTrace = #{isManTrace},
       remark = #{remark},
-      buildDate = #{builddate},
+      buildDate = #{buildDate},
       inputDate = #{inputDate},
       source_of_client_id = #{sourceOfClientId},
       age = #{age},
@@ -160,4 +180,41 @@
     limit #{startIndex},#{rows}
   </select>
 
+  <select id="queryClients" resultMap="BaseResultMap">
+
+    select c.id,
+    input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
+    sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
+    c.traceTimes,c.name, c.age, c.gender,
+    c.lastTraceDate, c.bookDate,c.nextTraceDate,
+    c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+    c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
+    c.state_id, c.isManTrace, c.remark, c.client_state,
+    bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime bill_receiptTime, bill.state bill_state,
+    pay.id pay_id, pay.payname pay_payname,
+    cam.id cam_id, cam.name cam_name
+    from client c
+    left join employee sale_man on sale_man.id=c.sale_man_id
+    left join employee input_man on input_man.id=c.input_man_id
+    left join receiptbill bill on bill.client_id = c.id
+    left join payment pay on bill.payment_id = pay.id
+    left join campus cam on bill.campus_id = cam.id
+    /*班级表未连接*/
+
+
+    where c.client_state = 1
+    <include refid="BASE_WHERE"></include>
+  </select>
+
+  <sql id="BASE_WHERE">
+      <if test="keyword != null">
+        and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
+      </if>
+    <if test="begindate != null">
+      and bill.receiptTime >= #{begindate}
+    </if>
+    <if test="enddate != null">
+      and bill.receiptTime &lt;= #{enddate}
+    </if>
+  </sql>
 </mapper>

@@ -4,6 +4,8 @@ import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.mapper.ClientMapper;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.StudentQueryObject;
 import cn.wolfcode.edu.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,8 +47,8 @@ public class ClientServiceImpl implements IClientService{
         List<Client> rows = clientMapper.queryForList(qo);
         return new PageResult(total, rows);
     }
-    @Override
-    public List<Client> queryClients() {
-        return clientMapper.queryClients();
+
+    public List<Client> queryClients(StudentQueryObject qo) {
+        return clientMapper.queryClients(qo);
     }
 }
