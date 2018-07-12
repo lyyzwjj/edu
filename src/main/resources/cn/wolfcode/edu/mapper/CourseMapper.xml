@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Course" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="coursedate" property="coursedate" jdbcType="DATE" />
+    <result column="week" property="week" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `course`
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.Course" useGeneratedKeys="true" keyProperty="id" >
+    insert into `course` (name, sequence, coursedate, 
+      week, class_teacher_id, course_teacher_id, 
+      classroom_id, remark, state
+      )
+    values (#{name,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{coursedate,jdbcType=DATE}, 
+      #{week,jdbcType=DATE}, #{classTeacherId,jdbcType=BIGINT}, #{courseTeacherId,jdbcType=BIGINT}, 
+      #{classroomId,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Course" >
+    update `course`
+    set name = #{name,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      coursedate = #{coursedate,jdbcType=DATE},
+      week = #{week,jdbcType=DATE},
+      class_teacher_id = #{classTeacherId,jdbcType=BIGINT},
+      course_teacher_id = #{courseTeacherId,jdbcType=BIGINT},
+      classroom_id = #{classroomId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, sequence, coursedate, week, class_teacher_id, course_teacher_id, 
+    classroom_id, remark, state
+    from `course`
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, sequence, coursedate, week, class_teacher_id, course_teacher_id, 
+    classroom_id, remark, state
+    from `course`
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(id) from course
+  </select>
+
+  <select id="queryForList" resultType="Course">
+    select id,name,address,seat,state from course
+    limit #{startIndex},#{rows}
+  </select>
+
+  <select id="queryCourseIdsByGradeId" resultType="Long">
+    select course_id from grade_course where grade_id=#{gradeId}
+  </select>
+
+  <update id="changeState">
+    update course set state=state^1 where id=#{id}
+  </update>
+</mapper>
