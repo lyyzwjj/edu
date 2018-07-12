@@ -3,15 +3,12 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("employee")
@@ -70,12 +67,6 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("queryTeachers")
-    @ResponseBody
-    public List<Employee> queryTeachers(){
-        return employeeService.list();
-    }
-
     @RequestMapping("/changeState")
     @ResponseBody
     public JsonResult changeState(Long id) {
@@ -88,11 +79,23 @@ public class EmployeeController {
         }
         return result;
     }
-    //chenfen添加 用于获取employee的name等 就是不需要分页效果
-    @RequestMapping("queryEmployee")
+
+    @RequestMapping("/saveOrUpdate")
     @ResponseBody
-    public List<Employee> queryEmployeeName(QueryObject qo) {
-        return employeeService.list();
+    public JsonResult saveOrUpdate(Employee employee) {
+        JsonResult result = new JsonResult();
+        try {
+            if (employee.getId() == null) {
+                employeeService.save(employee);
+            } else {
+                employeeService.update(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("更新失败");
+        }
+        return result;
     }
+
 
 }
