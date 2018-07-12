@@ -59,4 +59,7 @@ public class Employee {
 
     //多对多关系,维护与角色的关系
     private List<Role> roles = new ArrayList<>();
+
+    //客户来源,于数据字典
+    private Long sourceOfClientId;
 }

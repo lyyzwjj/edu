@@ -5,11 +5,16 @@ import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -104,5 +109,31 @@ public class EmployeeController {
     @ResponseBody
     public List<Employee> queryTeachers() {
         return employeeService.list();
+    }
+
+
+    //图片上传
+    @RequestMapping("upload")
+    @ResponseBody
+    public JsonResult upload(MultipartFile file, Long staff_id, String portrait, HttpServletRequest request) {
+        JsonResult result = new JsonResult();
+        ServletContext servletContext = request.getServletContext();
+        try {
+            if (!StringUtils.isEmpty(file) && file.getSize() > 0L && !StringUtils.isEmpty(portrait))
+                UploadUtil.deleteFile(servletContext, portrait);
+            if (!StringUtils.isEmpty(file) && file.getSize() > 0L) {
+
+                String realPath = servletContext.getRealPath("/upload");
+                String upload = UploadUtil.upload(file, realPath);
+                System.out.println(upload+"================================================================================");
+                System.out.println(staff_id+"================================================================================");
+                employeeService.uploadPortrait(staff_id, upload);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("上传失败");
+        }
+        return result;
     }
 }

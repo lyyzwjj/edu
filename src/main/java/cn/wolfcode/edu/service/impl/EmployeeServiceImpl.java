@@ -71,4 +71,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void changeState(Long id) {
         employeeMapper.changeState(id);
     }
+
+    public void uploadPortrait(Long staff_id, String upload) {
+        employeeMapper.uploadPortrait(staff_id,upload);
+    }
 }

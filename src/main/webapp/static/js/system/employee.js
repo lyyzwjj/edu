@@ -612,7 +612,7 @@ $(function () {
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#upload_pic'
-            , url: '/staff/upload'
+            , url: '/employee/upload'
             , size: "500"
             , auto: false
             , bindAction: '#btn_save'
@@ -637,13 +637,7 @@ $(function () {
                 staff_dialog.dialog("close");
                 staff_datagrid.datagrid("reload");
                 if (res.success) {
-                    layer.open({
-                        content: '上传成功'
-                        , btn: ['确认']
-                        , yes: function (index) {
-                            layer.close(index);
-                        }
-                    });
+                        $.messager.alert("温馨提示","上传成功");
                 } else {
                     ErroAlert("上传失败,请稍后重试");
                 }
