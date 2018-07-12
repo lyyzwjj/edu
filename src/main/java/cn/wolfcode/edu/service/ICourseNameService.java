@@ -26,4 +26,11 @@ public interface ICourseNameService {
      * @param id
      */
     void changeState(Long id);
+
+    /**
+     * 根据班级id查询课程表
+     * @param gradeId
+     * @return
+     */
+    List<Long> queryCourseIdsByGradeId(Long gradeId);
 }

@@ -34,6 +34,7 @@
     limit #{startIndex},#{rows}
   </select>
 
+
   <update id="changeState">
     update coursename set state=state^1 where id=#{id}
   </update>
@@ -45,4 +46,8 @@
       </if>
     </where>
   </sql>
+
+  <select id="queryCourseIdsByGradeId" resultType="Long">
+    select coursename_id from grade_coursename where grade_id =#{gradeId}
+  </select>
 </mapper>

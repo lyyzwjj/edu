@@ -46,4 +46,8 @@ public class CourseNameServiceImpl implements ICourseNameService{
         courseNameMapper.changeState(id);
     }
 
+    public List<Long> queryCourseIdsByGradeId(Long gradeId) {
+        return courseNameMapper.queryCourseIdsByGradeId(gradeId);
+    }
+
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("courseName")
 public class CourseNameController {
@@ -54,5 +56,19 @@ public class CourseNameController {
             result.markMsg("更新失败");
         }
         return result;
+    }
+
+    @RequestMapping("queryCours")
+    @ResponseBody
+    public List<CourseName> queryCours()
+    {
+        return courseNameService.list();
+    }
+
+    @RequestMapping("queryCourseIdsByGradeId")
+    @ResponseBody
+    public List<Long> queryCourseIdsByGradeId(Long gradeId){
+
+        return courseNameService.queryCourseIdsByGradeId(gradeId);
     }
 }

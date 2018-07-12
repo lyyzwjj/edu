@@ -82,14 +82,14 @@ $(function () {
             $("#editForm").form("submit", {
                 url: controller,
                 onSubmit: function (param) {
-                    var ids = $("#courseId").combobox("getValues");
+                    var ids = $("#courseNameId").combobox("getValues");
                     for (var i = 0; i < ids.length; i++) {
-                        param["course[" + i + "].id"] = ids[i];
+                        param["courseName[" + i + "].id"] = ids[i];
                     }
+                    console.log(param)
                 },
                 success: function (data) {
                     data = $.parseJSON(data);
-                    console.log(data);
                     if (!data.success) {
                         $.messager.alert('温馨提示', data.msg);
                     } else {
@@ -126,8 +126,8 @@ $(function () {
                 $("#adminId").combobox('setValue', row.admin);
 
                 //角色数据的回显
-                $.get("/course/queryCourseIdsByGradeId?gradeId="+row.id,function(data){
-                    $("#courseId").combobox("setValues",data);
+                $.get("/courseName/queryCourseIdsByGradeId?gradeId="+row.id,function(data){
+                    $("#courseNameId").combobox("setValues",data);
                 });
             }
         },

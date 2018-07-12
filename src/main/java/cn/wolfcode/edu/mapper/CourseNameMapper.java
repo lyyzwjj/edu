@@ -18,4 +18,6 @@ public interface CourseNameMapper {
     List<CourseName> queryForList(CourseNameQueryObject qo);
 
     void changeState(Long id);
+
+    List<Long> queryCourseIdsByGradeId(Long gradeId);
 }

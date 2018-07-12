@@ -20,7 +20,7 @@ public class Grade {
     private Employee classTeacher;
 
     //课程表,一对多
-    private List<Course> course =new ArrayList<>();
+    private List<CourseName> courseName =new ArrayList<>();
 
     private int state;
 

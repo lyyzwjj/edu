@@ -42,8 +42,8 @@
             </tr>
             <tr>
                 <td>课程表</td>
-                <td><input type="text" class="easyui-combobox"  id="courseId"
-                           data-options="url:'/course/queryCours',valueField:'id',textField:'name',panelHeight:'auto',required:true,multiple:true">
+                <td><input type="text" class="easyui-combobox"  id="courseNameId"
+                           data-options="url:'/courseName/queryCours',valueField:'id',textField:'name',panelHeight:'auto',required:true,multiple:true">
                 </td>
             </tr>
 
