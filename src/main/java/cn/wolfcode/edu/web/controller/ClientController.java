@@ -82,11 +82,4 @@ public class ClientController {
         return result;
     }
 
-    @RequestMapping("queryClients")
-    @ResponseBody
-    public List<Client> queryClients(ClientQueryObject qo) {
-        List<Client> list = clientService.queryClients();
-        return list;
-    }
-
 }
