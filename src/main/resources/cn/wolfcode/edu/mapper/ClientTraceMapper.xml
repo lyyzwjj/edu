@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClientTraceMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientTrace" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="email" property="email" />
+    <result column="QQ" property="QQ" />
+    <result column="tel" property="tel" />
+    <result column="current_state_id" property="currentStateId" />
+    <result column="prevTraceDate" property="nextTraceDate" />
+    <result column="intention_school_id" property="intentionSchoolId" />
+    <result column="intention_class_id" property="intentionClassId" />
+    <result column="communicative_purpose_id" property="communicativePurposeId" />
+    <result column="communicative_way_id" property="communicativeWayId" />
+    <result column="degree_of_intention_id" property="degreeOfIntentionId" />
+    <result column="lastTraceDate" property="lastTraceDate" />
+    <result column="traceTimes" property="traceTimes" />
+    <result column="contentAbstract" property="contentAbstract" />
+    <result column="communicationContent" property="communicationContent" />
+    <result column="status" property="status" />
+    <association property="traceMan" javaType="Employee" columnPrefix="trace_man_">
+      <id property="id" column="id"/>
+      <result column="username" property="username"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `clienttrace`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTrace" useGeneratedKeys="true" keyProperty="id" >
+    insert into `clienttrace` (name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, 
+      intention_school_id, intention_class_id, communicative_purpose_id, communicative_way_id, 
+      degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communicationContent, 
+      status)
+    values (#{name}, #{email}, #{QQ}, #{tel}, #{currentStateId}, #{traceMan.id}, #{nextTraceDate},
+      #{intentionSchoolId}, #{intentionClassId}, #{communicativePurposeId}, #{communicativeWayId}, 
+      #{degreeOfIntentionId}, #{lastTraceDate}, #{traceTimes}, #{contentAbstract}, #{communicationContent},
+      #{status})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTrace" >
+    update `clienttrace`
+    set name = #{name},
+      email = #{email},
+      QQ = #{QQ},
+      tel = #{tel},
+      current_state_id = #{currentStateId},
+      trace_man_id = #{traceMan.id},
+      nextTraceDate = #{nextTraceDate},
+      intention_school_id = #{intentionSchoolId},
+      intention_class_id = #{intentionClassId},
+      communicative_purpose_id = #{communicativePurposeId},
+      communicative_way_id = #{communicativeWayId},
+      degree_of_intention_id = #{degreeOfIntentionId},
+      lastTraceDate = #{lastTraceDate},
+      traceTimes = #{traceTimes},
+      contentAbstract = #{contentAbstract},
+      communicationContent = #{communicationContent},
+      status = #{status}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
+    intention_class_id, communicative_purpose_id, communicative_way_id, degree_of_intention_id, 
+    lastTraceDate, traceTimes, contentAbstract, communicationContent, status
+    from `clienttrace`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
+    intention_class_id, communicative_purpose_id, communicative_way_id, degree_of_intention_id, 
+    lastTraceDate, traceTimes, contentAbstract, communicationContent, status
+    from `clienttrace`
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+  select cl.id, c.name,  c.tel, c.current_state_id, trace_man.id trace_man_id, c.nextTraceDate,communicative_way_id,c.lastTraceDate,
+  communicative_purpose_id,cl.contentAbstract
+  from clienttrace cl
+  left join employee e on e.id=cl.trace_man_id
+  left join client c on c.name=cl.name
+  limit #{startIndex},#{rows}
+  </select>
+  <select id="queryForCount" resultType="int">
+  select count(cl.id)
+  from clienttrace cl
+  left join employee e on e.id=cl.trace_man_id
+  left join client c on c.name=cl.name
+  </select>
+</mapper>

@@ -4,7 +4,7 @@ $(function(){
     var clientTrace_dialog=$("#clientTrace_dialog");
     client_datagrid.datagrid({
         fit:true,
-        url:"/client/list",
+        url:"/student/queryStudents",
         fitColumns:true,
         striped:true,
         pagination:true,
@@ -14,40 +14,54 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '客户姓名', width: 90, align: "center"},
+            {field: 'name', title: '学员姓名', width: 90, align: "center"},
             {
-                field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value) {
+                field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value, row, index) {
                 if (value) {
-                    return value.username;
+                    return value.realname;
                 }}
             },
-            {field: 'inputMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
-                if (value) {
-                    return value.username;
-                }}},
-            {field: 'traceTimes', title: '跟踪次数', width: 100, align: "center"},
-            {field: 'lastTraceDate', title: '最后跟踪时间', width: 100, align: "center"},
-            {field: 'bookDate', title: '预约日期', width: 100, align: "center"},
-            {field: 'nextTraceDate', title: '下次跟踪时间', width: 100, align: "center"},
-            {field: 'weChatNum', title: '微信号', width: 100, align: "center"},
-            {field: 'tel', title: '电话', width: 110, align: "center"},
-            {field: 'shcool', title: '学校', width: 100, align: "center"},
-            {field: 'degreeofIntention', title: '意向程度', width: 100, align: "center"},
-            {field: 'intentionSchool', title: '意向校区', width: 100, align: "center"},
-            {field: 'intentionClass', title: '意向班级', width: 100, align: "center"},
-            {field: 'clientState', title: '客户当前状态', width: 100, align: "center"},
             {
-                field: 'isManTrace', title: '未跟踪', width: 100, align: "center", formatter: function (value, row, index) {
-                if (value) {
-                    return "<font color='green'>有</font>";
-                } else {
-                    return "<font color='red'>无</font>";
+                field: 'receipttime', title: '入学时间', width: 90, align: "center", formatter: function (value, row, index) {
+                    return row.receiptBill.receipttime;
+                }
+            },
+            {
+                field: 'totalmoney', title: '总学费', width: 90, align: "center", formatter: function (value, row, index) {
+                return row.receiptBill.totalmoney;
+            }
+            },
+            {
+                field: 'receiptmoney', title: '已缴学费', width: 90, align: "center", formatter: function (value, row, index) {
+                    return row.receiptBill.receiptmoney;
+                }
+            },
+            {
+                field: 'state', title: '缴款状态', width: 90, align: "center", formatter: function (value, row, index) {
+                    value = row.receiptBill.state
+                    if (value == 1) {
+                    return "<font color='green'>已缴清</font>";
+                } else if (value == 0) {
+                    return "<font color='red'>未缴清</font>";
                 }
             }
             },
-            {field: 'remark', title: '备注', width: 100, align: "center"}
+            {
+                field: 'name', title: '校区', width: 90, align: "center", formatter: function (value, row, index) {
+                    return ow.receiptBill.name;
+                }
+            },
+            {field: 'tel', title: '电话', width: 90, align: "center"},
+            {field: 'email', title: '邮箱', width: 90, align: "center"},
+            //{field: 'grade', title: '班级', width: 90, align: "center"},
+            {
+                field: 'payname', title: '支付方式', width: 90, align: "center", formatter: function (value, row, index) {
+                    return row.receiptBill.payment.payname;
+
+            }
+            }
         ]],
-    });
+    })
 
 
 
@@ -59,15 +73,6 @@ $(function(){
         buttons:"#bb",
         // 一开始就是关闭的状态
         closed:true
-    });
-
-    //初始化学员跟踪表
-    clientTrace_dialog.dialog({
-        width:850,
-        height:550,
-        buttons:"#trace-bb",
-        // 一开始就是关闭的状态
-       closed:true
     })
 
     var cmdObj={
@@ -90,7 +95,7 @@ $(function(){
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
                 client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                client_dialog.dialog("setTitle","学员编辑");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
 
@@ -103,11 +108,11 @@ $(function(){
             var row=client_datagrid.datagrid("getSelected");
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
-                $.messager.alert("温馨提示","请选择要查看的客户");
+                $.messager.alert("温馨提示","请选择要查看的数据");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
                 client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                client_dialog.dialog("setTitle","学员信息");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
                 $(":input").prop("readonly",true);
@@ -120,11 +125,10 @@ $(function(){
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientId").val();
-            var url = "/client/save";
-            if (id) {
-                url = "/client/update";
+            url = "/student/update";
+            if (!id){
+                return ;
             }
-
             $("#editForm").form("submit", {
                 url : url,
                 success : function(data) {
@@ -143,31 +147,29 @@ $(function(){
                 }
             })
         },
-        //高级查询
-        query:function() {
-            var keyword=$("#keyword").textbox("getValue");
-            var beginDate=$("#beginDate").datebox("getValue");
-            var endDate=$("#endDate").datebox("getValue");
-            //将数据通过load
-            client_datagrid.datagrid("load",{
-                keyword:keyword,
-                beginDate:beginDate,
-                endDate:endDate
-            })
+        //查询操作
+        query: function () {
+            var keyword = $("#keyword").textbox("getText");
+            var begindate = $("#begindate").datetimebox("getText");
+            var enddate = $("#enddate").datetimebox("getText");
+            client_datagrid.datagrid("load", {
+                keyword: keyword,
+                begindate: begindate,
+                enddate: enddate
+            });
         },
-        //潜在学员转正功能
+        //改变离职/在职状态
         changeState:function(){
             var row=client_datagrid.datagrid("getSelected");
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
-                $.messager.alert("温馨提示","请选择要转正的客户");
+                $.messager.alert("温馨提示","请选择要编辑的数据");
             }else{
-                $.messager.confirm('确认','您确认将该潜在客户转正吗？',function(r){
+                $.messager.confirm('确认','您确认想要编辑该条记录吗？',function(r){
                     if (r){
                         //发起请求
-                        $.get("/client/changeState",{id:row.id},function(data){
+                        $.get("/employee/changeState",{id:row.id,state:row.state},function(data){
                             if(data.success){
-                                $.messager.alert("温馨提示","转正成功,该条数据已转存在正式学员表中!");
                                 client_datagrid.datagrid("load");
                             }else{
                                 $.messager.alert("温馨提示",data.errorMsg);
@@ -197,27 +199,10 @@ $(function(){
                 //将选中的行的数据加载到对话框中的form表单中
                 clientTrace_dialog.dialog("open");
                 clientTrace_dialog.dialog("setTitle","客户跟踪");
-                $("#clientTrace_form").form("clear");
-                $("#clientTrace_form").form("load",row);
+                $("#editForm").form("clear");
+                $("#editForm").form("load",row);
 
             }
-        },
-        saveTrace:function(){
-            $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/update",
-                success : function(data) {
-                    // 接受返回的数据
-                    // 操作失败 提示用户
-                    // 操作成功,提示用户 关闭当前对话框,刷新页面
-                    data = $.parseJSON(data);
-                    if (!data.success) {
-                        $.messager.alert("温馨提示", data.errorMsg);
-                    } else {
-                        $.messager.alert("温馨提示", "保存成功");
-                        clientTrace_dialog.dialog("close");
-                    }
-                }
-            })
         }
 
     }

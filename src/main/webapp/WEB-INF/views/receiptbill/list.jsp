@@ -67,7 +67,7 @@
                                data-options="
                     valueField:'id',
                     textField:'name',
-                    url:'/Employee/queryUser',
+                    url:'/Employee/queryTeachers',
                     panelHeight:'auto'"/></td>
                 </tr>
                 <tr>
@@ -80,7 +80,7 @@
                                data-options="
                     valueField:'id',
                     textField:'name',
-                    url:'/Employee/queryUser',
+                    url:'/Employee/queryTeachers',
                     panelHeight:'auto'"/></td>
                 </tr>
                 <tr>

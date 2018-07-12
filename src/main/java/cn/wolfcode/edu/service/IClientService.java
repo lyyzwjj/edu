@@ -3,6 +3,7 @@ package cn.wolfcode.edu.service;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.StudentQueryObject;
 
 import java.util.List;
 
@@ -52,5 +53,5 @@ public interface IClientService {
     void changeState(Long id);
 
     //收款列表的所有正式学员
-    List<Client> queryClients();
+    List<Client> queryClients(StudentQueryObject qo);
 }
