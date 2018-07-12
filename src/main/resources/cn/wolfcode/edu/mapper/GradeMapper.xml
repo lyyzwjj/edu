@@ -40,16 +40,16 @@
   <select id="queryForCount" resultType="int">
     select count(g.id) from grade g
     LEFT JOIN employee e on g.class_teacher_id =e.id
-    LEFT JOIN grade_course gc on g.id =gc.grade_id
-    LEFT JOIN course c on c.id = gc.course_id
+    LEFT JOIN grade_coursename gc on g.id =gc.grade_id
+    LEFT JOIN coursename c on c.id = gc.coursename_id
     <include refid="base_where"></include>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     select g.id,g.name,g.state,e.realname e_realname,e.id e_id,c.id c_id,c.name c_name from grade g
     LEFT JOIN employee e on g.class_teacher_id =e.id
-    LEFT JOIN grade_course gc on g.id =gc.grade_id
-    LEFT JOIN course c on c.id = gc.course_id
+    LEFT JOIN grade_coursename gc on g.id =gc.grade_id
+    LEFT JOIN coursename c on c.id = gc.coursename_id
     <include refid="base_where"></include>
     limit #{startIndex},#{rows}
   </select>
@@ -70,10 +70,10 @@
   </sql>
 
   <insert id="insertCourseRelation">
-    insert into grade_course(grade_id,course_id) values(#{gradeId},#{courseId})
+    insert into grade_coursename(grade_id,coursename_id) values(#{gradeId},#{coursenameId})
   </insert>
 
   <delete id="deleteCourseRelation">
-    delete from grade_course where grade_id =#{gradeId}
+    delete from grade_coursename where grade_id =#{gradeId}
   </delete>
 </mapper>

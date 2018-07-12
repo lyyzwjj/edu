@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
@@ -97,5 +99,10 @@ public class EmployeeController {
         return result;
     }
 
-
+    //查班主任方法
+    @RequestMapping("queryTeachers")
+    @ResponseBody
+    public List<Employee> queryTeachers() {
+        return employeeService.list();
+    }
 }
