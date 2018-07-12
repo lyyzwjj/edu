@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.WorkMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Work">
+        <id column="id" property="id"/>
+        <result column="company" property="company"/>
+        <result column="profession" property="profession"/>
+        <result column="business" property="business"/>
+        <result column="beginDate" property="beginDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="remark" property="remark"/>
+        <result column="staff_id" property="staff_id"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `work`
+    where id = #{id}
+  </delete>
+
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Work" useGeneratedKeys="true" keyProperty="id">
+    insert into `work` (company, profession, business, beginDate, endDate, remark, 
+      staff_id)
+    values (#{company}, #{profession}, #{business}, #{beginDate}, #{endDate}, #{remark},
+      #{staff_id})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Work">
+    update `work`
+    set company = #{company},
+      profession = #{profession},
+      business = #{business},
+      beginDate = #{beginDate},
+      endDate = #{endDate},
+      remark = #{remark},
+      staff_id = #{staff_id}
+    where id = #{id}
+  </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, company, profession, business, beginDate, endDate, remark, staff_id
+    from `work`
+    where id = #{id}
+  </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, company, profession, business, beginDate, endDate, remark, staff_id
+    from `work`
+  </select>
+
+    <select id="queryByStaffId" resultMap="BaseResultMap">
+        select id, company, profession, business, beginDate, endDate, remark, staff_id
+    from `work`
+    where staff_id=#{staff_id}
+    </select>
+
+    <delete id="delete">
+ delete from `work`
+    where staff_id = #{staff_id}
+    </delete>
+</mapper>

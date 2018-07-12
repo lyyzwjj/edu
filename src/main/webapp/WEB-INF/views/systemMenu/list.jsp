@@ -4,6 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+    <title>员工管理</title>
     <jsp:include page="/WEB-INF/views/commons/commons.jsp"/>
     <script src="/static/js/plugins/jquery-form/jquery.form.min.js"></script>
     <script src="/static/js/system/employee.js"></script>
@@ -20,6 +21,7 @@
 <div id="loading"></div>
 <div class="layui-fluid">
     <div class="layui-card">
+        <div class="layui-card-header">员工管理</div>
         <div class="layui-card-body" style="height: 850px">
             <%--自己写的管理--%>
             <table id="staff_datagrid"></table>
@@ -62,7 +64,7 @@
                                 <input name="id" id="empId" type="hidden">
                                 <tr>
                                     <td><font size="1">员工账号:</font></td>
-                                    <td width=100px"><input class="easyui-textbox" type="text" name="username"/></td>
+                                    <td><input class="easyui-textbox" type="text" name="username"/></td>
 
                                     <td><font size="1">员工密码:</font></td>
                                     <td><input class="easyui-textbox" type="text" name="password"/></td>
