@@ -1,6 +1,7 @@
 $(function(){
     var client_datagrid=$("#client_datagrid");
     var client_dialog=$("#client_dialog");
+    var clientTrace_dialog=$("#clientTrace_dialog");
     client_datagrid.datagrid({
         fit:true,
         url:"/client/list",
@@ -68,6 +69,15 @@ $(function(){
 
 // 初始化一个弹框 点击添加或者编辑的时候才打开
     client_dialog.dialog({
+        width:850,
+        height:550,
+        buttons:"#bb",
+        // 一开始就是关闭的状态
+        closed:true
+    })
+
+    //初始化学员跟踪表
+    clientTrace_dialog.dialog({
         width:850,
         height:550,
         buttons:"#bb",
@@ -189,6 +199,22 @@ $(function(){
         //刷新
         reload:function () {
             client_datagrid.datagrid("reload");
+        },
+
+        //跟踪
+        trace:function(){
+            var row=client_datagrid.datagrid("getSelected");
+            if(!row){
+                //如果不为true 说明没有选择数据 让用户选择数据
+                $.messager.alert("温馨提示","请选择要跟踪的学员");
+            }else{
+                //将选中的行的数据加载到对话框中的form表单中
+                clientTrace_dialog.dialog("open");
+                clientTrace_dialog.dialog("setTitle","客户跟踪");
+                $("#editForm").form("clear");
+                $("#editForm").form("load",row);
+
+            }
         }
 
     }
