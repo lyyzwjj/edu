@@ -18,4 +18,6 @@ public interface IRoleService {
     List<Role> list();
     
     PageResult query(QueryObject qo);
+
+    List<Long> getRoleIdByEmpId(Long empId);
 }

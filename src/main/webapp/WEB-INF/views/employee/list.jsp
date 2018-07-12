@@ -137,9 +137,9 @@
                                 </tr>
                                 <tr>
                                     <td><font size="1">添加角色:</font></td>
-                                    <td><input class="easyui-combobox" type="text" id="rolesId"
-                                               data-options="url:'/role/queryRoles',
-                            valueField:'id',textField:'name',panelHeight:'auto', multiple:true"/></td>
+                                    <td><input class="easyui-combobox" id="roles_combobox"
+                                               data-options="url:'/role/selectAll',valueField: 'id',textField: 'name',panelHeight:'auto',multiple : true"/>
+                                    </td>
                                 </tr>
                             </table>
                         </form>
