@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.wolfcode.edu.mapper.ReceiptBillMapper" >
-  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ReceiptBill" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.edu.mapper.ReceiptBillMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ReceiptBill">
     <id column="id" property="id" />
     <result column="receiptTime" property="receipttime" />
     <result column="receiptMoney" property="receiptmoney" />
@@ -10,44 +10,44 @@
     <result column="totalMoney" property="totalmoney" />
     <result column="state" property="state" />
     <!--学员-->
-    <association property="client" javaType="cn.wolfcode.edu.domain.Client">
-      <id column="c_id" property="id"></id>
-      <result column="c_name" property="name"></result>
+    <association javaType="cn.wolfcode.edu.domain.Client" property="client">
+      <id column="c_id" property="id" />
+      <result column="c_name" property="name" />
     </association>
     <!--课程-->
 
 
     <!--支付方式-->
-    <association property="payment" javaType="cn.wolfcode.edu.domain.PayMent">
-      <id column="pay_id" property="id"></id>
-      <result column="pay_payname" property="payname"></result>
+    <association javaType="cn.wolfcode.edu.domain.PayMent" property="payment">
+      <id column="pay_id" property="id" />
+      <result column="pay_payname" property="payname" />
     </association>
     <!--班级-->
 
     <!--收款人-->
-    <association property="receipter" javaType="cn.wolfcode.edu.domain.Employee">
-      <id column="receipter_id" property="id"></id>
-      <result column="receipter_realname" property="realname"></result>
+    <association javaType="cn.wolfcode.edu.domain.Employee" property="receipter">
+      <id column="receipter_id" property="id" />
+      <result column="receipter_realname" property="realname" />
     </association>
     <!--营销人员-->
-    <association property="marketer" javaType="cn.wolfcode.edu.domain.Employee">
-      <id column="marketer_id" property="id"></id>
-      <result column="marketer_realname" property="realname"></result>
+    <association javaType="cn.wolfcode.edu.domain.Employee" property="marketer">
+      <id column="marketer_id" property="id" />
+      <result column="marketer_realname" property="realname" />
     </association>
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `receiptbill`
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ReceiptBill" useGeneratedKeys="true" keyProperty="id" >
-    insert into `receiptbill` (client_id, receiptTime, receiptMoney, course_id, payment_id, 
-      billNum, grade_id, remark, receipter_id, marketer_id, classTrend_id, 
+  <insert id="insert" keyProperty="id" parameterType="cn.wolfcode.edu.domain.ReceiptBill" useGeneratedKeys="true">
+    insert into `receiptbill` (client_id, receiptTime, receiptMoney, course_id, payment_id,
+      billNum, grade_id, remark, receipter_id, marketer_id, classTrend_id,
       totalMoney,state)
     values (#{client.id}, #{receipttime}, #{receiptmoney}, #{course.id}, #{payment.id},
       #{billnum}, #{grade.id}, #{remark}, #{receipter.id}, #{marketer.id}, #{classtrend.id},
       #{totalmoney},#{state})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ReceiptBill" >
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ReceiptBill">
     update `receiptbill`
     set client_id = #{client.id},
       receiptTime = #{receipttime},
@@ -64,14 +64,14 @@
       state = #{state}
     where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum, 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum,
     grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney
     from `receiptbill`
     where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum, 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, client_id, receiptTime, receiptMoney, course_id, payment_id, billNum,
     grade_id, remark, receipter_id, marketer_id, classTrend_id, totalMoney,state
     from `receiptbill`
   </select>

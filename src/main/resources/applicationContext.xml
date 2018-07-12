@@ -33,6 +33,10 @@
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
+    <!--日志操作bean-->
+    <bean id="logAspect" class="cn.wolfcode.edu.util.SystemlogAspect">
+        <property name="systemlogService" ref="systemlogServiceImpl"/>
+    </bean>
         <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -40,10 +44,11 @@
         <!--事务的增强-->
     <tx:advice id="advice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="query*" read-only="true"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="list*" read-only="true"/>
-            <tx:method name="select*" read-only="true"/>
+            <tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="list*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="select*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="check*" read-only="true" propagation="SUPPORTS"/>
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
@@ -51,6 +56,10 @@
     <aop:config>
         <aop:pointcut expression="execution(* cn.wolfcode.edu.service.*.*(..))" id="crudPointCut"/>
         <aop:advisor advice-ref="advice" pointcut-ref="crudPointCut"/>
+        <!--日志的切面操作-->
+        <aop:aspect ref="logAspect">
+            <aop:after method="write" pointcut-ref="crudPointCut"/>
+        </aop:aspect>
     </aop:config>
     <!-- 开启aop，对类代理 -->
     <aop:config proxy-target-class="true"></aop:config>

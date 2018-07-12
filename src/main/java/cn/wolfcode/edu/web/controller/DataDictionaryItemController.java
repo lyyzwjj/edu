@@ -24,6 +24,7 @@ public class DataDictionaryItemController {
     private IDataDictionaryItemService dataDictionaryItemService;
     @RequestMapping("list")
     @ResponseBody
+
     public List<DataDictionaryItem> list(){
         return dataDictionaryItemService.list();
     }
