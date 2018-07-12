@@ -22,6 +22,7 @@
     <result column="state" property="state" />
     <result column="portrait" property="portrait" />
     <result column="admin" property="admin" />
+    <result column="sourceOfClient_id" property="sourceOfClientId"/>
     <association property="dept" javaType="cn.wolfcode.edu.domain.Department" columnPrefix="d_">
         <id property="id" column="id"></id>
         <result property="name" column="name"></result>
@@ -36,10 +37,10 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
     insert into `employee` (username, password, realname, age, gender, bornDate, cardId,
       tel, eamil, qq, address, employeeId, attendanceId, hireDate, 
-      seniority, state, portrait, admin,dept_id)
+      seniority, state, portrait, admin,dept_id,sourceOfClient_id)
     values (#{username}, #{password}, #{realname}, #{age}, #{gender}, #{bornDate}, #{cardId},
       #{tel}, #{eamil}, #{qq}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
-      #{seniority}, #{state}, #{portrait}, #{admin},#{dept.id})
+      #{seniority}, #{state}, #{portrait}, #{admin},#{dept.id},#{sourceOfClientId})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Employee" >
@@ -62,14 +63,16 @@
       state = #{state},
       portrait = #{portrait},
       admin = #{admin},
-      dept_id=#{dept.id}
+      dept_id=#{dept.id},
+      sourceOfClient_id=#{sourceOfClientId}
     where id = #{id}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,
+    d.id d_id,d.name d_name , d.sn d_sn
     from `employee` e
     LEFT JOIN department d
     on e.dept_id =d.id
@@ -79,7 +82,8 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,
+    d.id d_id,d.name d_name , d.sn d_sn
     from `employee` e
     LEFT JOIN department d
     on e.dept_id =d.id
@@ -96,7 +100,8 @@
   <select id="queryForList" resultMap="BaseResultMap">
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,
+    d.id d_id,d.name d_name , d.sn d_sn
     from `employee` e
     LEFT JOIN department d
     on e.dept_id =d.id
@@ -138,4 +143,10 @@
   <insert id="insertRelation">
     insert into role_employee (employee_id,role_id) values (#{empId},#{roleId})
   </insert>
+
+  <update id="uploadPortrait">
+     update `employee`
+    set portrait = #{imgPath}
+    where id=#{empId}
+  </update>
 </mapper>

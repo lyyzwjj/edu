@@ -3,7 +3,6 @@ package cn.wolfcode.edu.service;
 import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
@@ -51,4 +50,11 @@ public interface IEmployeeService {
      * @param id  待离职或复职的员工id
      */
     void changeState(Long id);
+
+    /**
+     * 上传身份证图片的路径
+     * @param staff_id
+     * @param upload
+     */
+    void uploadPortrait(Long staff_id, String upload);
 }

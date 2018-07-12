@@ -71,4 +71,11 @@ public interface EmployeeMapper {
      * @param roleId 角色id
      */
     void insertRelation(@Param("empId") Long empId, @Param("roleId")Long roleId);
+
+    /**
+     * 上传图片相对路径的方法
+     * @param empId
+     * @param imgPath
+     */
+    void uploadPortrait(@Param("empId") Long empId, @Param("imgPath")String imgPath);
 }
