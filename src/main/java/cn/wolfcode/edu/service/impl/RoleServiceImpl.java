@@ -44,4 +44,8 @@ public class RoleServiceImpl implements IRoleService{
         return new PageResult(total,rows);
     }
 
+    public List<Long> getRoleIdByEmpId(Long empId) {
+        return roleMapper.getRoleIdByEmpId(empId);
+    }
+
 }

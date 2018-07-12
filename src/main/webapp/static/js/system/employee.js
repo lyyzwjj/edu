@@ -15,7 +15,6 @@ $(function () {
         pagination: true,
         pagePosition: "bottom",
         fit: true,
-        sortName: "hireDate",
         columns: [[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'ID', width: 50, align: "center"},
@@ -267,7 +266,7 @@ $(function () {
                         } else {
                             $.messager.alert("温馨提示", data.msg, 'error');
                         }
-                    }/*,
+                    },
                     onSubmit: function (param) {
                         var ids = $("#roles_combobox").combobox('getValues');
                         console.log(ids);
@@ -275,19 +274,27 @@ $(function () {
                             //提交额外的参数
                             param['roles[' + i + '].id'] = ids[i];
                         }
-                    }*/
+                    }
                 });
             } else if (easyui_tabs_title == "家庭情况") {
                 methodObj.accept_family();
                 var rows = staff_family_datagrid.datagrid('getRows');
                 var staff_id = {staff_id: staff_datagrid.datagrid('getSelected').id};
+                console.log(staff_id);
+                for(var i = 0; i< rows.length; i++){
+                    var arys = new Array();
+                    var newborndate = rows[i].bornDate;
+                    arys = newborndate.split('-');
+                    var newDate = new Date(arys[0],arys[1],arys[2]);
+                    rows[i].bornDate = newDate.getTime();
+                    rows[i].staff_id = staff_id.staff_id;
+                }
                 rows = JSON.stringify(rows);
-                staff_id = JSON.stringify(staff_id);
                 $.ajax({
-                    url: '/family/saveFamily',
+                    url: '/family/save',
                     type: 'post',
                     dataType: 'json',
-                    data: {rows: rows, staff_id: staff_id},
+                    data: {rows: rows},
                     success: function (data) {
                         if (data.success) {
                             $.messager.alert("温馨提示", '操作成功', 'info', function () {
@@ -351,11 +358,8 @@ $(function () {
             staff_dialog.dialog("setTitle", '编辑员工');
             staff_dialog.dialog("open", true);
             //角色回显
-            $.get("/role/getRoleByStaffId", {staffId: row.id}, function (data) {
-                var arr = $.map(data, function (item) {
-                    return item.id;
-                });
-                $("#roles_combobox").combobox("setValues", arr);
+            $.get("/role/getRoleIdByEmpId?empId=" + row.id, function (data) {
+                $("#roles_combobox").combobox("setValues", data);
             });
 
 
@@ -434,7 +438,7 @@ $(function () {
                 keyword: keyword,
                 beginDate: beginDate,
                 endDate: endDate,
-                deptId:deptId
+                deptId: deptId
             });
         },
         //更新状态
@@ -448,6 +452,23 @@ $(function () {
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
                         $.messager.alert("温馨提示", "操作成功");
+                        staff_dialog.dialog("close");
+                        staff_datagrid.datagrid("reload");
+                    }
+                })
+            }
+        },
+        //删除
+        delete: function () {
+            var row = staff_datagrid.datagrid("getSelected");
+            if (!row) {
+                $.messager.alert("温馨提示", "请选择需要删除的行")
+            } else {
+                $.get("/employee/delete", {id: row.id}, function (data) {
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.errorMsg)
+                    } else {
+                        $.messager.alert("温馨提示", "删除成功")
                         staff_dialog.dialog("close");
                         staff_datagrid.datagrid("reload");
                     }

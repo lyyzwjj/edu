@@ -1,10 +1,9 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.Role;
-import cn.wolfcode.edu.query.DepartmentQueryObject;
-import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.service.IRoleService;
+import cn.wolfcode.edu.domain.Family;
+import cn.wolfcode.edu.service.IFamilyService;
 import cn.wolfcode.edu.util.JsonResult;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,29 +12,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("role")
-public class RoleController {
+@RequestMapping("family")
+public class FamilyController {
+
     @Autowired
-    private IRoleService roleService;
+    private IFamilyService familyService;
 
     @RequestMapping("")
     public String index() {
-        return "role/list";
+        return "family/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(DepartmentQueryObject qo) {
-        PageResult result = roleService.query(qo);
-        return result;
+    public List<Family> list() {
+        List<Family> families = familyService.selectAll();
+        return families;
     }
 
     @RequestMapping("/save")
     @ResponseBody
-    public JsonResult save(Role role) {
+    public JsonResult saveFamily(String rows) {
         JsonResult result = new JsonResult();
         try {
-            roleService.save(role);
+            List<Family> families = JSON.parseArray(rows, Family.class);
+            familyService.delete(families.get(0).getStaff_id());
+            for (Family family : families) {
+                familyService.insert(family);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
@@ -45,10 +49,10 @@ public class RoleController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public JsonResult update(Role role) {
+    public JsonResult update(Family family) {
         JsonResult result = new JsonResult();
         try {
-            roleService.update(role);
+            familyService.updateByPrimaryKey(family);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("更新失败");
@@ -61,7 +65,7 @@ public class RoleController {
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
-            roleService.delete(id);
+            familyService.deleteByPrimaryKey(id);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("删除失败");
@@ -69,18 +73,11 @@ public class RoleController {
         return result;
     }
 
-    @RequestMapping("selectAll")
+    @RequestMapping("queryByStaffId")
     @ResponseBody
-    public List<Role> selectAll() {
-        List<Role> roles = roleService.list();
-        return roles;
+    public List<Family> queryByStaffId(Long staff_id) {
+        List<Family> families = familyService.queryByStaffId(staff_id);
+        return families;
     }
-
-    @RequestMapping("getRoleIdByEmpId")
-    @ResponseBody
-    public List<Long> queryRoles(Long empId) {
-        return roleService.getRoleIdByEmpId(empId);
-    }
-
 
 }

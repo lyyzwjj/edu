@@ -2,6 +2,7 @@ package cn.wolfcode.edu.mapper;
 
 import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.query.EmployeeQueryObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,4 +58,17 @@ public interface EmployeeMapper {
      * @param id
      */
     void changeState(Long id);
+
+    /**
+     * 删除员工和角色的关系
+     * @param id
+     */
+    void deleteRelation(Long id);
+
+    /**
+     * 维护员工和角色的关系
+     * @param empId 员工id
+     * @param roleId 角色id
+     */
+    void insertRelation(@Param("empId") Long empId, @Param("roleId")Long roleId);
 }
