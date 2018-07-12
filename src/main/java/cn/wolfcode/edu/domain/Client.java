@@ -18,6 +18,18 @@ public class Client {
     1表示为正式客户
      */
     public static final int STATE_FORMAL=1;
+    /*
+    2表示为资源池客户
+     */
+    public static final int STATE_UNDETERMINED=2;
+    /*
+    3表示为休学学生
+     */
+    public static final int STATE_QUIT=3;
+    /*
+    4表示为学生流失
+     */
+    public static final int STATE_LOSSING=4;
 
     private Long id;
     /*

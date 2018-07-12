@@ -71,15 +71,34 @@ public class ClientController {
     @RequiresPermissions("client:changeState")
     @PermissionName("潜在客户删除")
     //没有这个方法
-    public JsonResult changeState(Long id) {
+    public JsonResult changeState(Long id,Long stateId) {
         JsonResult result = new JsonResult();
         try {
-            clientService.changeState(id);
+            clientService.changeState(id,stateId);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("转正失败");
         }
         return result;
+    }
+
+    @RequestMapping("queryClients")
+    @ResponseBody
+    public List<Client> queryClients(ClientQueryObject qo) {
+        List<Client> list = clientService.queryClients();
+        return list;
+    }
+
+    /**
+     * 资源池客户列表
+     * @param qo
+     * @return
+     */
+    @RequestMapping("queryPoolClient")
+    @ResponseBody
+    public List<Client> queryPoolClient() {
+        List<Client> list = clientService.queryPoolClient();
+        return list;
     }
 
 }
