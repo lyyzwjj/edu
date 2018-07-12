@@ -3,6 +3,7 @@ package cn.wolfcode.edu.service.impl;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.mapper.ClientMapper;
 import cn.wolfcode.edu.query.ClientQueryObject;
+import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.StudentQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IClientService;
@@ -60,7 +61,19 @@ public class ClientServiceImpl implements IClientService{
         return clientMapper.queryClients(qo);
     }
 
-    public List<Client> queryPoolClient() {
-        return clientMapper.queryPoolClient();
+    /**
+     * 资源池客户的列表显示
+     * @param qo
+     * @return
+     */
+    public PageResult queryPoolClient(QueryObject qo) {
+        //查询总条数
+        int total = clientMapper.queryForPoolClientCount(qo);
+        if(total==0){
+            return new PageResult();
+        }
+        //查询分页数据
+        List<Client> rows = clientMapper.queryPoolClientList(qo);
+        return new PageResult(total, rows);
     }
 }

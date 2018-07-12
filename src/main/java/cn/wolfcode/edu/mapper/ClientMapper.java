@@ -26,7 +26,17 @@ public interface ClientMapper {
 
     List<Client> queryClients(QueryObject qo);
 
+    /**
+     * 资源池客户列表
+     * @param qo
+     * @return
+     */
+    List<Client> queryPoolClientList(QueryObject qo);
 
-
-    List<Client> queryPoolClient();
+    /**
+     * 资源池客户的条数
+     * @param qo
+     * @return
+     */
+    int queryForPoolClientCount(QueryObject qo);
 }
