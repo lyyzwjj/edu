@@ -48,4 +48,11 @@ public class StudentController {
         List<Client> list = clientService.queryClients(qo);
         return list;
     }
+
+    @RequestMapping("queryClients")
+    @ResponseBody
+    public List<Client> list() {
+        List<Client> list = clientService.listStudents();
+        return list;
+    }
 }

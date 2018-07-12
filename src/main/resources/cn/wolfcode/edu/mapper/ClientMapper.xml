@@ -39,27 +39,46 @@
     <result column="pay_status_id" property="payStatusId" />
     <result column="clientState" property="clientState" />
 
-    <!--怎么学校有id 不是都是输入 客户学校-->
-    <result column="school_id" property="schoolId" />
-    <result column="education_id" property="educationId" />
-    <!--介绍人  算是公司员工吗?-->
-    <result column="source_of_client_id" property="sourceOfClientId" />
-    <!--关联employee表的-->
-    <association property="saleMan" javaType="cn.wolfcode.edu.domain.Employee"   columnPrefix="sale_man_" >
-      <id column="id" property="id" />
-      <result column="username" property="username" />
-      <result column="realname" property="realname" />
-    </association>
-    <association property="inputMan" javaType="cn.wolfcode.edu.domain.Employee"   columnPrefix="input_man_" >
-      <id column="id" property="id" />
-      <result column="username" property="username" />
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        <!--怎么学校有id 不是都是输入 客户学校-->
+        <result column="school_id" property="schoolId"/>
+        <result column="education_id" property="educationId"/>
+        <!--介绍人  算是公司员工吗?-->
+        <result column="source_of_client_id" property="sourceOfClientId"/>
+        <!--关联employee表的-->
+        <association property="saleMan" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="sale_man_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="realname" property="realname"/>
+        </association>
+        <association property="inputMan" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="input_man_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="realname" property="realname"/>
+        </association>
+
+        <!--关联收款表-->
+        <association property="receiptBill" javaType="cn.wolfcode.edu.domain.ReceiptBill">
+            <id column="bill_id" property="id"/>
+            <result column="bill_totalMoney" property="totalmoney"/>
+            <result column="bill_totalMoney" property="totalmoney"/>
+            <result column="bill_receiptMoney" property="receiptmoney"/>
+            <result column="bill_receiptTime" property="receipttime"/>
+            <result column="bill_state" property="state"/>
+        </association>
+        <association property="receiptBill.payment" javaType="cn.wolfcode.edu.domain.PayMent">
+            <id column="pay_id" property="id"/>
+            <result column="pay_payname" property="payname"/>
+        </association>
+        <association property="receiptBill.campus" javaType="cn.wolfcode.edu.domain.Campus">
+            <id column="cam_id" property="id"/>
+            <result column="cam_name" property="name"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `client`
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id">
     insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
     lastTraceDate, bookDate,
       nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
@@ -156,8 +175,7 @@
     left join employee input_man on input_man.id=c.input_man_id
     where state_id=0
   </select>
-
-  <select id="queryForList" resultMap="BaseResultMap">
+    <select id="queryForList" resultMap="BaseResultMap">
 
     select c.id,c.name,
     input_man.id input_man_id, input_man.username input_man_username,
@@ -170,30 +188,31 @@
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
-     where state_id=0
+    where state_id=0
     limit #{startIndex},#{rows}
   </select>
 
-  <select id="queryClients" resultMap="BaseResultMap">
+    <select id="queryClients" resultMap="BaseResultMap">
 
-    select c.id,
-    input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
-    sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
-    c.traceTimes,c.name, c.age, c.gender,
-    c.lastTraceDate, c.bookDate,c.nextTraceDate,
-    c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
-    c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-    c.state_id, c.isManTrace, c.remark, c.client_state,
-    bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime bill_receiptTime, bill.state bill_state,
-    pay.id pay_id, pay.payname pay_payname,
-    cam.id cam_id, cam.name cam_name
-    from client c
-    left join employee sale_man on sale_man.id=c.sale_man_id
-    left join employee input_man on input_man.id=c.input_man_id
-    left join receiptbill bill on bill.client_id = c.id
-    left join payment pay on bill.payment_id = pay.id
-    left join campus cam on bill.campus_id = cam.id
-    /*班级表未连接*/
+        select c.id,
+        input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
+        sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
+        c.traceTimes,c.name, c.age, c.gender,
+        c.lastTraceDate, c.bookDate,c.nextTraceDate,
+        c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+        c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
+        c.state_id, c.isManTrace, c.remark, c.client_state,
+        bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime
+        bill_receiptTime, bill.state bill_state,
+        pay.id pay_id, pay.payname pay_payname,
+        cam.id cam_id, cam.name cam_name
+        from client c
+        left join employee sale_man on sale_man.id=c.sale_man_id
+        left join employee input_man on input_man.id=c.input_man_id
+        left join receiptbill bill on bill.client_id = c.id
+        left join payment pay on bill.payment_id = pay.id
+        left join campus cam on bill.campus_id = cam.id
+        /*班级表未连接*/
 
 
     where c.client_state = 1
@@ -202,7 +221,7 @@
   <!--资源池列表-->
   <select id="queryPoolClientList" resultMap="BaseResultMap" >
 
-    select c.id.c.name,sale_man.id sale_man_id,
+    select c.id,c.name,sale_man.id sale_man_id,
     sale_man.username sale_man_username,
     c.school,c.gender,c.traceTimes,
     c.lastTraceDate,c.tel,c.remark
@@ -211,23 +230,53 @@
     where state_id=2
     limit #{startIndex},#{rows}
   </select>
-
+<!--资源池列表的total-->
   <select id="queryForPoolClientCount" resultType="int">
 
     select count(c.id) from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     where state_id=2
   </select>
+  <!--保存资源池-->
+  <insert id="insertPoolClient">
+    insert into clientresourcepool
+     (name,sale_man_id,school,gender,traceTimes,lastTraceTime,tel,remark)
+    values (#{name},#{saleMan.id},#{school},#{gender},#{traceTimes},#{lastTraceTime},
+    #{tel},#{remark})
+  </insert>
 
-  <sql id="BASE_WHERE">
-      <if test="keyword != null">
-        and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
-      </if>
-    <if test="begindate != null">
-      and bill.receiptTime >= #{begindate}
-    </if>
-    <if test="enddate != null">
-      and bill.receiptTime &lt;= #{enddate}
-    </if>
-  </sql>
+    <sql id="BASE_WHERE">
+        <if test="keyword != null">
+            and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
+        </if>
+        <if test="begindate != null">
+            and bill.receiptTime >= #{begindate}
+        </if>
+        <if test="enddate != null">
+            and bill.receiptTime &lt;= #{enddate}
+        </if>
+    </sql>
+
+    <select id="listStudents" resultMap="BaseResultMap">
+
+          select c.id,
+          input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
+          sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
+          c.traceTimes,c.name, c.age, c.gender,
+          c.lastTraceDate, c.bookDate,c.nextTraceDate,
+          c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+          c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
+          c.state_id, c.isManTrace, c.remark, c.client_state,
+          bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime bill_receiptTime, bill.state bill_state,
+          pay.id pay_id, pay.payname pay_payname,
+          cam.id cam_id, cam.name cam_name
+          from client c
+          left join employee sale_man on sale_man.id=c.sale_man_id
+          left join employee input_man on input_man.id=c.input_man_id
+          left join receiptbill bill on bill.client_id = c.id
+          left join payment pay on bill.payment_id = pay.id
+          left join campus cam on bill.campus_id = cam.id
+
+           where c.client_state = 1
+     </select>
 </mapper>

@@ -3,6 +3,7 @@ package cn.wolfcode.edu.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Setter
 @Getter
+@ToString
 public class ReceiptBill {
     private Long id;
 
@@ -22,10 +24,10 @@ public class ReceiptBill {
     private Date receipttime;
 
     //收款金额
-    private Long receiptmoney;
+    private BigDecimal receiptmoney;
 
     //课程
-    //private Course course;
+    private CourseName courseName;
 
     //支付方式
     private PayMent payment;
@@ -34,7 +36,7 @@ public class ReceiptBill {
     private String billnum;
 
     //班级
-    //private Grade grade;
+    private Grade grade;
 
     //备注
     private String remark;

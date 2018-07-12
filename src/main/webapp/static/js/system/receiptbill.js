@@ -40,7 +40,7 @@ $(function(){
             },
             {field:'billnum',title:'订单号',width:100},
             {
-                field: "course", title: "学科", width: 100, formatter: function (value, row, index) {
+                field: "courseName", title: "学科", width: 100, formatter: function (value, row, index) {
                 return value ? value.name : "";
             }
             },
@@ -92,10 +92,14 @@ $(function(){
             var keyword = $("#keyword").textbox("getText");
             var begindate = $("#begindate").datetimebox("getText");
             var enddate = $("#enddate").datetimebox("getText");
+            var paymentId = $("#paymentId").combobox("getValue");
+            var gradeId = $("#gradeId").combobox("getValue");
             rep_datagrid.datagrid("load", {
                 keyword: keyword,
                 begindate: begindate,
-                enddate: enddate
+                enddate: enddate,
+                paymentId:paymentId,
+                gradeId:gradeId
             });
         },
 
