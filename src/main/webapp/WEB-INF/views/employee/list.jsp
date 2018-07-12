@@ -1,25 +1,32 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>员工管理</title>
-    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/css/admin.css" media="all">
-    <jsp:include page="/WEB-INF/views/commons/commons.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/commons/commons.jsp"/>
     <script src="/static/js/plugins/jquery-form/jquery.form.min.js"></script>
     <script src="/static/js/system/employee.js"></script>
+    <script src="/static/js/layui/layui.js"></script>
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css" media="all">
+    <style>
+        #staff_form td {
+            padding: 5px 0px;
+        }
+    </style>
 </head>
 <body>
 <div id="loading"></div>
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-header">员工管理</div>
-        <div class="layui-card-body" style="height: 900px">
-            <!--员工管理弹窗-->
-            <table id="emp_datagrid"></table>
-            <div id="tb">
+        <div class="layui-card-body" style="height: 850px">
+            <%--自己写的管理--%>
+            <table id="staff_datagrid"></table>
+            <!--左上方工具栏-->
+            <div id="toolbar">
                 <div>
                     <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="add">添加</a>
                     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
@@ -27,7 +34,8 @@
                        id="change_btn">离职</a>
                     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
                     <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="delete">删除</a>
-
+                </div>
+                <div>
                     <input class="easyui-textbox" data-options="iconCls:'icon-search'" type="text" style="width:200px"
                            name="keyword" id="keyword" prompt="请输入用户名或真实姓名查询">
 
@@ -35,9 +43,9 @@
                            data-options="url:'/department/queryDepts',
                             valueField:'id',textField:'name',panelHeight:'auto'" prompt="所属部门"/>
                     通过入职时间查询:
-                    <input class="easyui-datebox" data-options="iconCls:'icon-search'" type="text" style="width:150px"
+                    <input class="easyui-datebox" data-options="iconCls:'icon-search'" type="text" style="width:200px"
                            name="beginDate" id="beginDate" prompt="开始时间">~
-                    <input class="easyui-datebox" data-options="iconCls:'icon-search'" type="text" style="width:150px"
+                    <input class="easyui-datebox" data-options="iconCls:'icon-search'" type="text" style="width:200px"
                            name="endDate" id="endDate" prompt="结束时间">
 
 
@@ -46,14 +54,14 @@
                 </div>
             </div>
 
-
-            <div id="emp_dialog" style="display: none">
+            <%--<!--模态框-->--%>
+            <div id="staff_dialog" style="display: none">
                 <input id="pageContext" type="hidden" value="${pageContext.request.contextPath}"/>
                 <div id="easyui-tabs" class="easyui-tabs">
                     <div title="基本信息" style="padding:10px">
-                        <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
-                            <input name="id" id="empId" type="hidden">
-                            <table style="border-collapse:separate; border-spacing:10px;">
+                        <form id="staff_form" method="post">
+                            <table style="margin: 20px auto 0px;" cellpadding="10px">
+                                <input name="id" id="empId" type="hidden">
                                 <tr>
                                     <td><font size="1">员工账号:</font></td>
                                     <td><input class="easyui-textbox" type="text" name="username"/></td>
@@ -197,7 +205,6 @@
                             </table>
                         </form>
                     </div>
-
                     <div title="家庭情况" style="padding:10px">
                         <table id="staff_family_datagrid"></table>
                         <div id="staff_family_toolbar">
@@ -211,7 +218,6 @@
                                data-options="iconCls:'icon-undo',plain:true" data-cmd="reject_family">撤销</a>
                         </div>
                     </div>
-
                     <div title="工作经历" style="padding:10px">
                         <table id="staff_work_datagrid"></table>
                         <div id="staff_work_toolbar">
@@ -225,7 +231,6 @@
                                data-options="iconCls:'icon-undo',plain:true" data-cmd="reject_work">撤销</a>
                         </div>
                     </div>
-
                     <div title="教育情况" style="padding:10px">
                         <table id="staff_education_datagrid"></table>
                         <div id="staff_education_toolbar">
@@ -239,7 +244,6 @@
                                data-options="iconCls:'icon-undo',plain:true" data-cmd="reject_education">撤销</a>
                         </div>
                     </div>
-
                     <div title="身份证图片" style="padding:10px">
                         <div class="layui-upload" align="center">
                             <button type="button" class="layui-btn" id="upload_pic">上传图片</button>
@@ -249,14 +253,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--模态框管理-->
-                    <div id="form_btns">
-                        <a id="btn_save" href="javascript:;" class="easyui-linkbutton" iconCls="icon-save" plain="true"
-                           data-cmd="save">保存</a>
-                        <a href="javascript:;" class="easyui-linkbutton" iconCls="icon-cancel" plain="true"
-                           data-cmd="cancel">取消</a>
-                    </div>
+                </div>
+                <%--<!--模态框管理-->--%>
+                <div id="form_btns">
+                    <a id="btn_save" href="javascript:;" class="easyui-linkbutton" iconCls="icon-save" plain="true"
+                       data-cmd="save">保存</a>
+                    <a href="javascript:;" class="easyui-linkbutton" iconCls="icon-cancel" plain="true"
+                       data-cmd="cancel">取消</a>
                 </div>
             </div>
         </div>

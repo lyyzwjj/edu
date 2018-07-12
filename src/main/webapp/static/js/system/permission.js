@@ -5,11 +5,12 @@ $(function () {
         height: 500,
         fit: true,
         url: "/permission/list",
+        pagination:true,
         columns: [[
             {field: 'x', checkbox: true},
             {field: 'id', title: '编号', width: 100, align: "center"},
             {field: 'name', title: '权限名称', width: 100, align: "center"},
-            {field: 'name', title: '权限表达式', width: 100, align: "center"},
+            {field: 'resource', title: '权限表达式', width: 100, align: "center"},
 
         ]],
     })
