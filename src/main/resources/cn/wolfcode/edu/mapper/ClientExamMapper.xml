@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClientExamMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientExam" >
+    <id column="id" property="id" />
+    <result column="remark" property="remark" />
+      <result column="exam_date" property="examDate" />
+      <result column="pass_exam" property="passExam" />
+    <!--关联client表-->
+   <!-- <result column="client_id" property="client" />-->
+    <association property="client" columnPrefix="client_" javaType="Client">
+      <id property="id" column="id" />
+      <result property="name" column="name"></result>
+    </association>
+
+    <!--关联字典-->
+    <!--<result column="exam_type_id" property="examType" />-->
+    <association property="examType" javaType="DataDictionaryItem" columnPrefix="examType_">
+      <id property="id" column="id" />
+      <result property="name" column="name"></result>
+    </association>
+   <!-- <result column="intention_class_id" property="intentionClass" />-->
+    <association property="intentionClass" javaType="DataDictionaryItem" columnPrefix="intentionClass_">
+      <id property="id" column="id" />
+      <result property="name" column="name"></result>
+    </association>
+
+    <!--关联employee表-->
+    <!--<result column="sale_man_id" property="saleMan" />-->
+    <association property="saleMan" javaType="Employee" columnPrefix="saleMan_">
+      <id property="id" column="id" />
+      <result property="username" column="username"></result>
+    </association>
+    <!--<result column="input_man_id" property="inputMan" />-->
+    <association property="inputMan" javaType="Employee" columnPrefix="inputMan_">
+      <id property="id" column="id" />
+      <result property="username" column="username"></result>
+    </association>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `clientexam`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientExam" useGeneratedKeys="true" keyProperty="id" >
+    insert into `clientexam` (client_id, exam_type_id, intention_class_id, exam_date, pass_exam, 
+      sale_man_id, input_man_id, remark)
+    values (#{client.id}, #{examType.id}, #{intentionClass.id}, #{examDate}, #{passExam},
+      #{saleMan.id}, #{inputMan.id}, #{remark})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientExam" >
+    update `clientexam`
+    set client_id = #{client.id},
+      exam_type_id = #{examType.id},
+      intention_class_id = #{intentionClass.id},
+      exam_date = #{examDate},
+      pass_exam = #{passExam},
+      sale_man_id = #{saleMan.id},
+      input_man_id = #{inputMan.id},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, client_id, exam_type_id, intention_class_id, exam_date, pass_exam, sale_man_id, 
+    input_man_id, remark
+    from `clientexam`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, client_id, exam_type_id, intention_class_id, exam_date, pass_exam, sale_man_id, 
+    input_man_id, remark
+    from `clientexam`
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select c.id,c.exam_date, c.pass_exam,, c.remark,
+    client.id client_id,client.name client_name,
+    inputMan.id inputMan_id,inputMan.name inputMan_name,
+    saleMan.id saleMan_id,saleMan.name saleMan_name,
+    examType.id examType_id ,examType.name examType_name,
+    intentionClass.id intentionClass_id,intentionClass.name intentionClass_name
+    from clientexam c
+    left join client client on c.client_id = client.id
+    left join datadictionaryitem examType on examType.id=c.exam_type_id
+    left join datadictionaryitem intentionClass on intentionClass.id=c.intention_class_id
+    left join employee saleMan on saleMan.id=c.sale_man_id
+    left join employee inputMan on inputMan.id=c.input_man_id
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(c.id)
+    from clientexam c
+    left join client client on c.client_id = client.id
+    left join datadictionaryitem examType on examType.id=c.exam_type_id
+    left join datadictionaryitem intentionClass on intentionClass.id=c.intention_class_id
+    left join employee saleMan on saleMan.id=c.sale_man_id
+    left join employee inputMan on inputMan.id=c.input_man_id
+  </select>
+</mapper>
