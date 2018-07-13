@@ -1,10 +1,11 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.StudentTrend;
+import cn.wolfcode.edu.domain.StudentLeave;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.StudentTrendQueryObject;
-import cn.wolfcode.edu.service.IStudentTrendService;
+import cn.wolfcode.edu.query.StudentLeaveQueryObject;
+import cn.wolfcode.edu.query.StudentQueryObject;
+import cn.wolfcode.edu.service.IStudentLeaveService;
 import cn.wolfcode.edu.util.JsonResult;
 import cn.wolfcode.edu.util.PermissionName;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -16,33 +17,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("studentTrend")
-public class StudentTrendController {
+@RequestMapping("studentLeave")
+public class StudentLeaveController {
 
     @Autowired
-    private IStudentTrendService studentTrendService;
+    private IStudentLeaveService studentLeaveService;
     @RequestMapping("")
     @PermissionName("学员流失列表")
     public String index(){
-        return "studentTrend/list";
+        return "studentLeave/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
-    @RequiresPermissions("studentTrend:list")
+    @RequiresPermissions("studentLeave:list")
     @PermissionName("学员流失数据")
-    public PageResult list(StudentTrendQueryObject qo){
-        return studentTrendService.query(qo);
+    public PageResult list(StudentLeaveQueryObject qo){
+        return studentLeaveService.query(qo);
     }
 
     @RequestMapping("save")
     @ResponseBody
-    @RequiresPermissions("studentTrend:save")
+    @RequiresPermissions("studentLeave:save")
     @PermissionName("保存学员流失")
-    public JsonResult save(StudentTrend studentTrend){
+    public JsonResult save(StudentLeave studentLeave){
        JsonResult result=new JsonResult();
         try {
-            studentTrendService.save(studentTrend);
+            studentLeaveService.save(studentLeave);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存操作失败!");
@@ -51,12 +52,12 @@ public class StudentTrendController {
     }
     @RequestMapping("update")
     @ResponseBody
-    @RequiresPermissions("studentTrend:update")
+    @RequiresPermissions("studentLeave:update")
     @PermissionName("更新学员流失")
-    public JsonResult update(StudentTrend studentTrend){
+    public JsonResult update(StudentLeave studentLeave){
         JsonResult result=new JsonResult();
         try {
-            studentTrendService.update(studentTrend);
+            studentLeaveService.update(studentLeave);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("编辑操作失败!");
@@ -66,28 +67,29 @@ public class StudentTrendController {
 
     @RequestMapping("delete")
     @ResponseBody
-    @RequiresPermissions("studentTrend:delete")
-    @PermissionName("更新学员流失")
+    @RequiresPermissions("studentLeave:delete")
+    @PermissionName("删除学员流失")
     public JsonResult delete(Long id){
         JsonResult result=new JsonResult();
         try {
-            studentTrendService.delete(id);
+            studentLeaveService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("编辑操作失败!");
         }
         return result;
     }
-
     @RequestMapping("changeState")
     @ResponseBody
-    public JsonResult changeState(Long id,int stateId) {
-        JsonResult result = new JsonResult();
+    @RequiresPermissions("studentLeave:changeState")
+    @PermissionName("更新学员流失状态")
+    public JsonResult changeState(Long id){
+        JsonResult result=new JsonResult();
         try {
-            studentTrendService.changeState(id,stateId);
+            studentLeaveService.changeState(id);
         } catch (Exception e) {
             e.printStackTrace();
-            result.markMsg("审核失败");
+            result.markMsg("改变状态失败!");
         }
         return result;
     }
