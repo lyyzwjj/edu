@@ -138,6 +138,13 @@
                                     <td><input class="easyui-combobox" id="roles_combobox"
                                                data-options="url:'/role/selectAll',valueField: 'id',textField: 'name',panelHeight:'auto',multiple : true"/>
                                     </td>
+
+                                    <td><font size="1">客户来源:</font></td>
+                                    <td><input class="easyui-combobox" type="text" name="sourceOfClientId"
+                                               prompt="请选择客户来源"
+                                               data-options="valueField: 'id',textField: 'name',url: '/dataDictionaryItem/queryListByParent?parentId=10',
+                    panelHeight:'auto'"/></td>
+
                                 </tr>
                             </table>
                         </form>
@@ -147,56 +154,56 @@
                             <table style="margin: 20px ;border-collapse:separate; border-spacing:0px 10px;">
                                 <tr>
                                     <td>
-                                        银行卡卡号: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">银行卡卡号:</font> <input type="text" editable="false" class="easyui-textbox"
                                                       name="bankcardNumber"/>
                                     </td>
                                     <td>
-                                        工作天数: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">工作天数: </font><input type="text" editable="false" class="easyui-textbox"
                                                      name="workday"/>
                                     </td>
                                     <td>
-                                        基本工资: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">基本工资: </font><input type="text" editable="false" class="easyui-textbox"
                                                      name="baseSalary"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        五险总金额: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">五险总金额:</font> <input type="text" editable="false" class="easyui-textbox"
                                                       name="socialInsurance"/>
                                     </td>
                                     <td>
-                                        项目奖金: <input type="text" editable="false" class="easyui-textbox" name="bonus"/>
+                                        <font size="1">项目奖金:</font> <input type="text" editable="false" class="easyui-textbox" name="bonus"/>
                                     </td>
                                     <td>
-                                        加班补贴: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">加班补贴: </font><input type="text" editable="false" class="easyui-textbox"
                                                      name="overtime"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        住房公积金: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">住房公积金: </font><input type="text" editable="false" class="easyui-textbox"
                                                       name="accumulationFund"/>
                                     </td>
 
                                     <td>
-                                        本月月份: <input type="text" editable="false" class="easyui-textbox" name="month"/>
+                                        <font size="1">本月月份:</font> <input type="text" editable="false" class="easyui-textbox" name="month"/>
                                     </td>
                                     <td>
-                                        迟到天数: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">迟到天数: </font><input type="text" editable="false" class="easyui-textbox"
                                                      name="lateday"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        个人所得税: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">个人所得税: </font><input type="text" editable="false" class="easyui-textbox"
                                                       name="personalIncome"/>
                                     </td>
                                     <td>
-                                        奖金系数: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">奖金系数:</font> <input type="text" editable="false" class="easyui-textbox"
                                                      name="coefficient"/>
                                     </td>
                                     <td>
-                                        实发工资: <input type="text" editable="false" class="easyui-textbox"
+                                        <font size="1">实发工资:</font> <input type="text" editable="false" class="easyui-textbox"
                                                      name="realWages"/>
                                     </td>
                                 </tr>

@@ -3,6 +3,7 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.ReceiptBill;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.PageResult;
+import cn.wolfcode.edu.query.ReceiptBillQueryObject;
 import cn.wolfcode.edu.service.IReceiptBillService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ReceiptBillController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    public PageResult list(ReceiptBillQueryObject qo){
         PageResult result = receiptBillService.query(qo);
         return result;
     }
@@ -53,6 +54,20 @@ public class ReceiptBillController {
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
+        }
+        return result;
+    }
+
+    //审核操作
+    @RequestMapping("/check")
+    @ResponseBody
+    public JsonResult check(Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            receiptBillService.check(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("审核失败");
         }
         return result;
     }

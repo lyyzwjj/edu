@@ -165,7 +165,7 @@ $(function(){
                 $.messager.confirm('确认','您确认将该潜在客户转正吗？',function(r){
                     if (r){
                         //发起请求
-                        $.get("/client/changeState",{id:row.id},function(data){
+                        $.get("/client/changeState",{id:row.id,stateId:1},function(data){
                             if(data.success){
                                 $.messager.alert("温馨提示","转正成功,该条数据已转存在正式学员表中!");
                                 client_datagrid.datagrid("load");
@@ -218,6 +218,29 @@ $(function(){
                     }
                 }
             })
+        },
+
+        //将客户放入资源池
+        pushPool:function(){
+            var row=client_datagrid.datagrid("getSelected");
+            if(!row){
+                //如果不为true 说明没有选择数据 让用户选择数据
+                $.messager.alert("温馨提示","请选择要放入资源池的学员");
+            }else {
+                $.messager.confirm('确认', '您确认将该潜在客户转正吗？', function (r) {
+                    if (r) {
+                        //发起请求
+                        $.get("/client/changeState", {id: row.id,stateId:2}, function (data) {
+                            if (data.success) {
+                                $.messager.alert("温馨提示", "操作成功,该条数据已转存在客户资源池中!");
+                                client_datagrid.datagrid("load");
+                            } else {
+                                $.messager.alert("温馨提示", data.errorMsg);
+                            }
+                        })
+                    }
+                });
+            }
         }
 
     }
