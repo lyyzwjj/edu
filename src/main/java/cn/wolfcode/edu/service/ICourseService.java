@@ -1,40 +1,31 @@
 package cn.wolfcode.edu.service;
 
 import cn.wolfcode.edu.domain.Course;
+import cn.wolfcode.edu.query.CourseQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ICourseService {
 
-    void save(Course course);
-
-    void update(Course course);
-
-    void delete(Long id);
-
     Course get(Long id);
 
     List<Course> list();
+
+    void update(Course course);
 
     /**
      * 高级查询
      * @param qo
      * @return
      */
-    PageResult query(QueryObject qo);
+    PageResult query(CourseQueryObject qo);
+
 
     /**
-     * 根据班级id更改班级状态
-     * @param id
+     * 根据时间查询符合条件的数据
+     * @param date
      */
-    void changeState(Long id);
-
-    /**
-     * 根据班级id查询课程表
-     * @param gradeId
-     * @return
-     */
-    List<Long> queryCourseIdsByGradeId(Long gradeId);
+    List<Course> querytodayByDate(Date date);
 }

@@ -1,26 +1,22 @@
 package cn.wolfcode.edu.mapper;
 
 import cn.wolfcode.edu.domain.Course;
-import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.query.CourseQueryObject;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CourseMapper {
-    int deleteByPrimaryKey(Long id);
-
-    int insert(Course record);
 
     Course selectByPrimaryKey(Long id);
 
     List<Course> selectAll();
 
-    int updateByPrimaryKey(Course record);
+    int queryForCount(CourseQueryObject qo);
 
-    int queryForCount(QueryObject qo);
+    List<Course> queryForList(CourseQueryObject qo);
 
-    List<Course> queryForList(QueryObject qo);
+    void updateByPrimaryKey(Course course);
 
-    void changeState(Long id);
-
-    List<Long> queryCourseIdsByGradeId(Long gradeId);
+    List<Course> querytodayByDate(Date date);
 }
