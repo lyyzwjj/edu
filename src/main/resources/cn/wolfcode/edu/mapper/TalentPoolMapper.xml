@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.TalentPoolMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.TalentPool" >
+    <id column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="employdate" property="employDate" jdbcType="DATE" />
+    <result column="recruitRequired" property="recruitrequired"  />
+    <result column="remark" property="remark"  />
+      <association property="duty" javaType="DataDictionaryItem" columnPrefix="d_">
+          <id column="id" property="id"  />
+          <result column="name" property="name"  />
+      </association>
+      <association property="education" javaType="DataDictionaryItem" columnPrefix="e_">
+          <id column="id" property="id"  />
+          <result column="name" property="name"  />
+      </association>
+      <association property="hireType" javaType="DataDictionaryItem" columnPrefix="h_">
+          <id column="id" property="id"  />
+          <result column="name" property="name"  />
+      </association>
+      <association property="workYear" javaType="DataDictionaryItem" columnPrefix="w_">
+          <id column="id" property="id"  />
+          <result column="name" property="name"  />
+      </association>
+      <association property="recruitSalary" javaType="DataDictionaryItem" columnPrefix="r_">
+          <id column="id" property="id"  />
+          <result column="name" property="name"  />
+      </association>
+  </resultMap>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.TalentPool" useGeneratedKeys="true" keyProperty="id" >
+    insert into `talentpool` (name, employdate,duty_id,
+      hiretype_id,workyear_id,education_id,
+      recruitRequired, recruitsalary_id,remark
+      )
+    values (#{name}, #{employDate}, #{duty.id},
+      #{hireType.id}, #{workYear.id}, #{education.id},
+      #{recruitrequired}, #{recruitSalary.id}, #{remark}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.TalentPool" >
+    update `talentpool`
+    set name = #{name},
+      employdate = #{employDate},
+      duty_id = #{duty.id},
+      hiretype_id = #{hireType.id},
+      workyear_id = #{workYear.id},
+      education_id = #{education.id},
+      recruitRequired = #{recruitrequired},
+      recruitsalary_id = #{recruitSalary.id},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, employdate, duty_id, hiretype_id, workyear_id, education_id, recruitRequired, 
+    recruitsalary_id, remark
+    from `talentpool`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, employdate, duty_id, hiretype_id, workyear_id, education_id, recruitRequired, 
+    recruitsalary_id, remark
+    from `talentpool`
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(t.id) from talentpool t
+    LEFT JOIN datadictionaryitem d ON d.id = t.duty_id
+    LEFT JOIN datadictionaryitem h on h.id =t.hiretype_id
+    LEFT JOIN datadictionaryitem w on w.id =t.workyear_id
+    LEFT JOIN datadictionaryitem e on e.id =t.education_id
+    LEFT JOIN datadictionaryitem r on r.id =t.recruitsalary_id
+    <include refid="base_where"></include>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap">
+    select t.id, t.name, t.employdate,t.remark,t.recruitRequired,
+    d.id d_id,d.name d_name,
+    h.id h_id,h.name h_name,
+    w.id w_id,w.name w_name,
+    e.id e_id,e.name e_name,
+    r.id r_id,r.name r_name
+    from talentpool t
+    LEFT JOIN datadictionaryitem d ON d.id = t.duty_id
+    LEFT JOIN datadictionaryitem h on h.id =t.hiretype_id
+    LEFT JOIN datadictionaryitem w on w.id =t.workyear_id
+    LEFT JOIN datadictionaryitem e on e.id =t.education_id
+    LEFT JOIN datadictionaryitem r on r.id =t.recruitsalary_id
+    <include refid="base_where"></include>
+      <if test="sort !=null">
+          order by ${sort} ${order}
+      </if>
+    limit #{startIndex},#{rows}
+  </select>
+
+    <sql id="base_where">
+        <where>
+            <if test="beginDate !=null">
+             and  t.employdate >=#{beginDate}
+            </if>
+            <if test="endDate !=null">
+                and t.employdate &lt;=#{endDate}
+            </if>
+        </where>
+    </sql>
+</mapper>
