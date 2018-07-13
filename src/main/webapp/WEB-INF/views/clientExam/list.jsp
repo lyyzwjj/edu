@@ -2,12 +2,12 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
-    <title>大客户管理</title>
+    <title>客户考试管理</title>
     <%@include file="/WEB-INF/views/commons/commons.jsp" %>
-    <script src="../../../static/js/system/clientMajor.js"></script>
+    <script src="../../../static/js/system/clientExam.js"></script>
 </head>
 <body>
-<table id="clientMajor_datagrid" fit="true"></table>
+<table id="clientExam_datagrid" fit="true"></table>
 <div id="tb">
     <div>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',text:'添加'" data-cmd="add"></a>
@@ -33,8 +33,8 @@
 
 
 
-<div id="clientMajor_dialog" style="display: none">
-    <form id="clientMajor_form" method="post">
+<div id="clientExam_dialog" style="display: none">
+    <form id="clientExam_form" method="post">
         <div class="easyui-tabs">
             <div title="客户信息" style="padding:10px">
                 <table style="margin: 5px auto 0px;">

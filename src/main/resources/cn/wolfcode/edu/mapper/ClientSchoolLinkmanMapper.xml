@@ -9,14 +9,14 @@
     <result column="department" property="department" />
     <result column="job" property="job" />
     <result column="tel" property="tel" />
-    <result column="QQ" property="QQ" />
+    <result column="qq" property="qq" />
     <result column="weChat" property="weChat" />
     <result column="email" property="email" />
     <result column="isMajorLinkman" property="isMajorLinkman" />
     <result column="introduce" property="introduce" />
-    <association property="schoolName" javaType="ClientMajor" >
-      <id property="id" column="c_id"/>
-      <result property="name" column="c_name"/>
+    <association property="schoolName" javaType="ClientMajor" columnPrefix="c_">
+      <id property="id" column="id"/>
+      <result property="name" column="name"/>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

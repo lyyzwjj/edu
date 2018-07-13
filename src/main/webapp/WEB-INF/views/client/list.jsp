@@ -40,7 +40,7 @@
                     data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployee',
+                    url: '/employee/queryTeachers',
                     panelHeight:'auto'"
                     /></td>
                 <td><font size="1">录入人:</font></td>
@@ -48,7 +48,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployee',
+                    url: '/employee/queryTeachers',
                     panelHeight:'auto'"
                 /></td>
             </tr>
@@ -347,14 +347,52 @@
     &lt;%&ndash;<jsp:include page="/WEB-INF/views/clientTrace/list.jsp"></jsp:include>&ndash;%&gt;
     </div>--%>
 <%--放入资源池--%>
-<div id="clientResourcePool_dialog">
-    <form id="clientResourcePool_form" method="post" style="padding: 0px 0px 0px 10px;">
+
+
+<%--考试登记表--%>
+<div id="clientExam_dialog">
+
+    <form id="clientExam_form" method="post" style="padding: 0px 0px 0px 10px;">
+        <input type="hidden" name="id" >
         <table style="border-collapse:separate; border-spacing:10px;">
-
-
+            <tr>
+                <td><font size="1">客户姓名:</font></td>
+                <td><input class="easyui-textbox" type="text" name="name" /></td>
+            </tr>
+            <tr>
+                <td><font size="1">考试类型:</font></td>
+                <td><input class="easyui-combobox" type="text" name="examType.id" prompt="请选择客户考试类型"
+                           data-options="
+                    valueField: 'id',
+                    textField: 'name',
+                    url: '/dataDictionaryItem/queryListByParent?parentId=17',
+                    panelHeight:'auto'"/></td>
+            </tr>
+            <tr>
+                <td><font size="1">意向班级:</font></td>
+                <td><input class="easyui-combobox" type="text" name="intentionClass.id" prompt="请选择客户意向班级"
+                           data-options="
+                    valueField: 'id',
+                    textField: 'name',
+                    url: '/dataDictionaryItem/queryListByParent?parentId=17',
+                    panelHeight:'auto'"/></td>
+            </tr>
+            <tr>
+                <td><font size="1">考试时间:</font></td>
+                <td><input class="easyui-textbox" type="text" name="examDate" prompt="请输入考试时间"/></td>
+            </tr>
+            <tr >
+                <td><font size="1">备注:</font></td>
+                <td colspan="5"><input class="easyui-textbox" multiline="true"
+                                       data-options="width:210,height:60" type="text" name="remark" prompt="备注"/></td>
+            </tr>
         </table>
-
     </form>
-
 </div>
+
+<div id="bb-exam">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveExam">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
+</div>
+</body>
 </html>
