@@ -21,10 +21,12 @@
             <tr>
                 <td>角色编号:</td>
                 <td><input class="easyui-textbox" type="text" name="sn"/></td>
-            </tr>
-            <tr>
                 <td>角色全称:</td>
                 <td><input class="easyui-textbox" type="text" name="name"/></td>
+            </tr>
+            <tr>
+            <td colspan="2"><div id="allPermissions"></div></td>
+            <td colspan="2"><div id="selfPermissions"></div></td>
             </tr>
 
         </table>

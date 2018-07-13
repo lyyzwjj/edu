@@ -32,11 +32,17 @@
   <select id="queryForCount" resultType="int">
     select count(id) from role
   </select>
-  <select id="queryForList" resultType="cn.wolfcode.edu.domain.Role" >
+  <select id="queryForList" resultType="Department" >
     select id, sn, name
     from `role`
     limit #{startIndex},#{rows}
   </select>
+  <insert id="insertRelation">
+    insert INTO role_permission(role_id,permission_id)values(#{roleId},#{pId})
+  </insert>
+  <delete id="delePermVissionRelation">
+    delete from role_permission where role_id=#{roleId}
+  </delete>
 
   <select id="getRoleIdByEmpId" resultType="long">
     select role_id from role_employee where employee_id= #{empId}

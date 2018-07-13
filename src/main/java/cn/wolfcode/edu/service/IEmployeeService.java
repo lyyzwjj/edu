@@ -57,4 +57,6 @@ public interface IEmployeeService {
      * @param upload
      */
     void uploadPortrait(Long staff_id, String upload);
+
+    Employee checkName(String username);
 }

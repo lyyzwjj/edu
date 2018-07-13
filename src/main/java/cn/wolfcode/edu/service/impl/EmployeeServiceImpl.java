@@ -75,4 +75,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void uploadPortrait(Long staff_id, String upload) {
         employeeMapper.uploadPortrait(staff_id,upload);
     }
+
+    public Employee checkName(String username) {
+        return employeeMapper.checkName(username);
+    }
 }

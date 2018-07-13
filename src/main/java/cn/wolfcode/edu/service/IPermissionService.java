@@ -20,4 +20,6 @@ public interface IPermissionService {
     PageResult query(QueryObject qo);
 
     void reload();
+
+    List<Permission> queryPermissionByRoleId(Long roleId);
 }
