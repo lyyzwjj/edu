@@ -78,4 +78,6 @@ public interface EmployeeMapper {
      * @param imgPath
      */
     void uploadPortrait(@Param("empId") Long empId, @Param("imgPath")String imgPath);
+
+    Employee checkName(String username);
 }

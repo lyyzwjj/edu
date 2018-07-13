@@ -1,6 +1,7 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Department;
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IPermissionService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("permission")
@@ -29,6 +32,14 @@ public class PermissionController {
         return permissionService.query(qo);
     }
 
+    @RequestMapping("all")
+    @ResponseBody
+    public List<Permission> all(){
+
+        return permissionService.list();
+    }
+
+
     @RequestMapping("reload")
     @ResponseBody
     public JsonResult save(Department permission){
@@ -41,5 +52,10 @@ public class PermissionController {
         }
         return result;
     }
+    @RequestMapping("queryPermissionByRoleId")
+    @ResponseBody
+    public List<Permission> queryPermissionByRoleId(Long roleId){
 
+        return permissionService.queryPermissionByRoleId(roleId);
+    }
 }

@@ -24,6 +24,7 @@ public class PermissionServiceImpl implements IPermissionService{
     private RequestMappingHandlerMapping rmhm;
     public void save(Permission entity) {
         permissionMapper.insert(entity);
+
     }
 
     public void update(Permission entity) {
@@ -78,5 +79,9 @@ public class PermissionServiceImpl implements IPermissionService{
             permission.setResource(resource);
             permissionMapper.insert(permission);
         }
+    }
+
+    public List<Permission> queryPermissionByRoleId(Long roleId) {
+        return permissionMapper.queryPermissionByRoleId(roleId);
     }
 }
