@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("classRoom")
 public class ClassRoomController {
@@ -67,4 +69,13 @@ public class ClassRoomController {
         }
         return result;
     }
+
+    //查教室方法
+    @RequestMapping("queryClassRooms")
+    @ResponseBody
+    public List<ClassRoom> queryClassRooms(){
+
+        return classRoomService.list();
+    }
+
 }

@@ -1,6 +1,5 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.CourseName;
 import cn.wolfcode.edu.domain.Grade;
 import cn.wolfcode.edu.query.GradeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
@@ -71,10 +70,12 @@ public class GradeController {
         return result;
     }
 
+    //查班级方法
     @RequestMapping("queryGrades")
     @ResponseBody
-    public List<Grade> queryCours() {
-
+    public List<Grade> queryGrades()
+    {
         return gradeService.list();
     }
+
 }
