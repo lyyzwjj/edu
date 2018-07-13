@@ -1,9 +1,9 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.ClientMajor;
-import cn.wolfcode.edu.query.ClientMajorQueryObject;
+import cn.wolfcode.edu.domain.ClientExam;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.service.IClientMajorService;
+import cn.wolfcode.edu.query.QueryObject;
+import cn.wolfcode.edu.service.IClientExamService;
 import cn.wolfcode.edu.util.JsonResult;
 import cn.wolfcode.edu.util.PermissionName;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -12,44 +12,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("clientMajor")
-public class ClientMajorController {
+@RequestMapping("clientExam")
+public class ClientExamController {
     @Autowired
-    private IClientMajorService clientMajorService;
+    private IClientExamService clientExamService;
 
     @RequestMapping("")
-    @RequiresPermissions("clientMajor:index")
-    @PermissionName("大客户首页")
+    @RequiresPermissions("clientExam:index")
+    @PermissionName("客户考试首页")
     public String index() {
-        return "clientMajor/list";
+        return "clientExam/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
-    @RequiresPermissions("clientMajor:list")
-    @PermissionName("大客户列表")
-    public PageResult list(ClientMajorQueryObject qo) {
-        PageResult result = clientMajorService.query(qo);
+    @RequiresPermissions("clientExam:list")
+    @PermissionName("客户考试列表")
+    public PageResult list(QueryObject qo) {
+        PageResult result = clientExamService.query(qo);
         return result;
-    }
-    //获得学校的名字
-    @RequestMapping("querySchoolName")
-    @ResponseBody
-    public List<ClientMajor> querySchoolName() {
-        return clientMajorService.list();
     }
 
     @RequestMapping("save")
     @ResponseBody
-    @RequiresPermissions("clientMajor:save")
-    @PermissionName("大客户保存")
-    public JsonResult save(ClientMajor clientMajor) {
+    @RequiresPermissions("clientExam:save")
+    @PermissionName("客户考试保存")
+    public JsonResult save(ClientExam clientExam) {
         JsonResult result = new JsonResult();
         try {
-            clientMajorService.save(clientMajor);
+            clientExamService.save(clientExam);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
@@ -59,12 +51,12 @@ public class ClientMajorController {
 
     @RequestMapping("update")
     @ResponseBody
-    @RequiresPermissions("clientMajor:update")
-    @PermissionName("大客户更新")
-    public JsonResult update(ClientMajor clientMajor) {
+    @RequiresPermissions("clientExam:update")
+    @PermissionName("客户考试更新")
+    public JsonResult update(ClientExam clientExam) {
         JsonResult result = new JsonResult();
         try {
-            clientMajorService.update(clientMajor);
+            clientExamService.update(clientExam);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("更新失败");
@@ -73,12 +65,12 @@ public class ClientMajorController {
     }
     @RequestMapping("delete")
     @ResponseBody
-    @RequiresPermissions("clientMajor:delete")
-    @PermissionName("大客户删除")
+    @RequiresPermissions("clientExam:delete")
+    @PermissionName("客户考试删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
-            clientMajorService.delete(id);
+            clientExamService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("删除失败");

@@ -12,6 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 @Controller
 @RequestMapping("clientSchoolLinkman")
 public class ClientSchoolLinkmanController {
@@ -34,11 +39,24 @@ public class ClientSchoolLinkmanController {
         return result;
     }
 
+    //获取学校联系人的基本信息
+    @RequestMapping("queryLinkman")
+    @ResponseBody
+    public List<ClientSchoolLinkman> queryLinkman() {
+        return clientSchoolLinkmanService.list();
+    }
+
     @RequestMapping("save")
     @ResponseBody
     @RequiresPermissions("clientSchoolLinkman:save")
     @PermissionName("学校联系人保存")
-    public JsonResult save(ClientSchoolLinkman clientSchoolLinkman) {
+    public JsonResult save(String birthday,String name) throws ParseException {
+        ClientSchoolLinkman clientSchoolLinkman = new ClientSchoolLinkman();
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd");
+        Date date = sdf.parse(birthday);
+        clientSchoolLinkman.setBirthday(date);
+        clientSchoolLinkman.setName(name);
         JsonResult result = new JsonResult();
         try {
             clientSchoolLinkmanService.save(clientSchoolLinkman);

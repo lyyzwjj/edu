@@ -1,8 +1,8 @@
 $(function(){
-    var clientMajor_datagrid=$("#clientMajor_datagrid");
-    var clientMajor_dialog=$("#clientMajor_dialog");
+    var clientExam_datagrid=$("#clientExam_datagrid");
+    var clientExam_dialog=$("#clientExam_dialog");
     var clientTrace_dialog=$("#clientTrace_dialog");
-    clientMajor_datagrid.datagrid({
+    clientExam_datagrid.datagrid({
         fit:true,
         url:"/clientMajor/list",
         fitColumns:true,
@@ -70,7 +70,7 @@ $(function(){
 
 
 // 初始化一个弹框 点击添加或者编辑的时候才打开
-    clientMajor_dialog.dialog({
+    clientExam_dialog.dialog({
         width:850,
         height:550,
         buttons:"#bb",
@@ -82,9 +82,9 @@ $(function(){
     var cmdObj= {
         //添加操作
         add: function () {
-            $("#clientMajor_form").form("clear");
-            clientMajor_dialog.dialog("open");
-            clientMajor_dialog.dialog("setTitle", "潜在客户添加");
+            $("#clientExam_form").form("clear");
+            clientExam_dialog.dialog("open");
+            clientExam_dialog.dialog("setTitle", "潜在客户添加");
         },
 
 
@@ -92,7 +92,7 @@ $(function(){
         edit: function () {
             //编辑需要回显数据
             //从datagrid中获取编辑的那一行数据
-            var row = clientMajor_datagrid.datagrid("getSelected");
+            var row = clientExam_datagrid.datagrid("getSelected");
             alert(row.id)
             if (!row) {
                 //如果不为true 说明没有选择数据 让用户选择数据
@@ -100,10 +100,10 @@ $(function(){
             } else {
                 alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
-                clientMajor_dialog.dialog("open");
-                clientMajor_dialog.dialog("setTitle", "大客户编辑");
-                $("#clientMajor_form").form("clear");
-                $("#clientMajor_form").form("load", row);
+                clientExam_dialog.dialog("open");
+                clientExam_dialog.dialog("setTitle", "大客户编辑");
+                $("#clientExam_form").form("clear");
+                $("#clientExam_form").form("load", row);
                 console.log(row)
 
             }
@@ -120,7 +120,7 @@ $(function(){
                 url = "/clientMajor/update";
             }
             alert(url)
-            $("#clientMajor_form").form("submit", {
+            $("#clientExam_form").form("submit", {
                 url: url,
                 success: function (data) {
                     console.log(data);
@@ -134,8 +134,8 @@ $(function(){
                     } else {
                         alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");
-                        clientMajor_dialog.dialog("close");
-                        clientMajor_datagrid.datagrid("load");
+                        clientExam_dialog.dialog("close");
+                        clientExam_datagrid.datagrid("load");
 
                     }
                 }
@@ -147,7 +147,7 @@ $(function(){
             var beginDate = $("#beginDate").datebox("getValue");
             var endDate = $("#endDate").datebox("getValue");
             //将数据通过load
-            clientMajor_datagrid.datagrid("load", {
+            clientExam_datagrid.datagrid("load", {
                 keyword: keyword,
                 beginDate: beginDate,
                 endDate: endDate
@@ -155,7 +155,7 @@ $(function(){
         },
         //删除大客户功能
         remove: function () {
-            var row = clientMajor_datagrid.datagrid("getSelected");
+            var row = clientExam_datagrid.datagrid("getSelected");
             if (!row) {
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示", "请选择要删除的客户");
@@ -166,7 +166,7 @@ $(function(){
                         $.get("/clientMajor/delete", {id: row.id}, function (data) {
                             if (data.success) {
                                 $.messager.alert("温馨提示", "删除成功");
-                                clientMajor_datagrid.datagrid("load");
+                                clientExam_datagrid.datagrid("load");
                             } else {
                                 $.messager.alert("温馨提示", data.errorMsg);
                             }
@@ -178,11 +178,11 @@ $(function(){
         },
         //取消对话框
         cancel: function () {
-            clientMajor_dialog.dialog("close");
+            clientExam_dialog.dialog("close");
         },
         //刷新
         reload: function () {
-            clientMajor_datagrid.datagrid("reload");
+            clientExam_datagrid.datagrid("reload");
         }
     }
 
