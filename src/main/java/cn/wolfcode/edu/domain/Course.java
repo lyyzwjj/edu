@@ -23,7 +23,7 @@ public class Course {
 
     //课程日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GTM+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone ="GMT+8")
     private Date courseDate;
 
     //星期几
