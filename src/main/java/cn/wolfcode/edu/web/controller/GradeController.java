@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.web.controller;
 
+import cn.wolfcode.edu.domain.CourseName;
 import cn.wolfcode.edu.domain.Grade;
 import cn.wolfcode.edu.query.GradeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("grade")
@@ -66,5 +69,12 @@ public class GradeController {
             result.markMsg("更新失败");
         }
         return result;
+    }
+
+    @RequestMapping("queryGrades")
+    @ResponseBody
+    public List<Grade> queryCours() {
+
+        return gradeService.list();
     }
 }

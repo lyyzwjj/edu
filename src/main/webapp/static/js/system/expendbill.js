@@ -34,7 +34,11 @@ $(function(){
             },
             {field:'genre',title:'类型',width:100},
             {field:'billNumber',title:'订单号',width:100},
-            {field:'affiliationSubject',title:'归属学科',width:100},
+            {
+                field: "courseName", title: "归属学科", width: 100, formatter: function (value, row, index) {
+                return value ? value.name : "";
+            }
+            },
             {
                 field: "state", title: "审核", width: 100, formatter: function (value, row, index) {
                 if (value == 1) {

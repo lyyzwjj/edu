@@ -22,7 +22,7 @@ public interface ClientMapper {
 
     List<Client> queryForList(ClientQueryObject qo);
 
-    void changeState(@Param("id") Long id, @Param("stateId") Long stateId);
+    void changeState(@Param("id") Long id, @Param("stateId") int stateId);
 
     List<Client> queryClients(QueryObject qo);
 
@@ -39,4 +39,8 @@ public interface ClientMapper {
      * @return
      */
     int queryForPoolClientCount(QueryObject qo);
+
+    List<Client> listStudents();
+
+    void insertPoolClient(Client client);
 }

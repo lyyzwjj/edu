@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.service.impl;
 
+import cn.wolfcode.edu.domain.ExpendBill;
 import cn.wolfcode.edu.domain.ReceiptBill;
 import cn.wolfcode.edu.mapper.ReceiptBillMapper;
 import cn.wolfcode.edu.query.PageResult;
@@ -8,6 +9,7 @@ import cn.wolfcode.edu.service.IReceiptBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class ReceiptBillServiceImpl implements IReceiptBillService{
 
     @Override
     public int save(ReceiptBill record) {
+        Date date = new Date();
+        record.setReceipttime(date);
         return receiptBillMapper.insert(record);
     }
 
@@ -53,5 +57,18 @@ public class ReceiptBillServiceImpl implements IReceiptBillService{
         }
         List<ReceiptBill> rows = receiptBillMapper.queryForList(qo);
         return new PageResult(total,rows);
+    }
+
+    @Override
+    public void check(Long id) {
+        ReceiptBill receiptBill = receiptBillMapper.selectByPrimaryKey(id);
+        if (receiptBill != null){
+            if (receiptBill.getState() == 0){
+                //审核人还没设置
+
+                receiptBill.setState(1);
+                receiptBillMapper.updateByPrimaryKey(receiptBill);
+            }
+        }
     }
 }

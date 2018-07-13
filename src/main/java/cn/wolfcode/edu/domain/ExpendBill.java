@@ -32,7 +32,7 @@ public class ExpendBill {
 
     private String billNumber;
 
-    private String affiliationSubject;
+    private CourseName courseName;
 
     private int state;
 
