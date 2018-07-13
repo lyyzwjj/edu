@@ -1,7 +1,6 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.StudentLeave;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.StudentLeaveQueryObject;
 import cn.wolfcode.edu.query.StudentQueryObject;
