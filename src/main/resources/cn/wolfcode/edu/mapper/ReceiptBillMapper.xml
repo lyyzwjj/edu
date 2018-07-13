@@ -13,6 +13,8 @@
     <association property="client" javaType="cn.wolfcode.edu.domain.Client">
       <id column="c_id" property="id"></id>
       <result column="c_name" property="name"></result>
+      <result column="c_tel" property="tel"></result>
+      <result column="c_QQNum" property="QQNum"></result>
     </association>
     <!--课程-->
     <association property="courseName" javaType="cn.wolfcode.edu.domain.CourseName">
@@ -103,7 +105,7 @@
     cam.id cam_id, cam.name cam_name,
     cou.id cou_id, cou.name cou_name,
     g.id g_id, g.name g_name,
-    c.id c_id, c.name c_name
+    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum
     from `receiptbill` re
     left join client c on re.client_id = c.id
     left join payment pay on re.payment_id = pay.id

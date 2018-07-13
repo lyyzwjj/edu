@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by WangZhe on 2018/7/10.
  */
@@ -71,5 +73,11 @@ public class ReceiptBillController {
         }
         return result;
     }
-    
+
+    @RequestMapping("/queryAllBills")
+    @ResponseBody
+    public List<ReceiptBill> queryAllBills(){
+        List<ReceiptBill> list = receiptBillService.list();
+        return list;
+    }
 }

@@ -14,7 +14,7 @@
     <result column="email" property="email" />
     <result column="isMajorLinkman" property="isMajorLinkman" />
     <result column="introduce" property="introduce" />
-    <association property="schoolName" javaType="ClientMajor" >
+    <association property="schoolName" javaType="cn.wolfcode.edu.domain.ClientMajor" >
       <id property="id" column="c_id"/>
       <result property="name" column="c_name"/>
     </association>
