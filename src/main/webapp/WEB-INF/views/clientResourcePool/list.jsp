@@ -11,14 +11,43 @@
 <div id="tb">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',text:'编辑'" data-cmd="edit"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'查看'" data-cmd="trace"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'跟踪'" data-cmd="trace"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'指派给某人'" data-cmd="send"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'接收他/她'" data-cmd="accept"></a>
 </div>
 
+<%--指派给某人的弹框--%>
+<div id="send_dialog">
+
+    <form id="send_form" method="post" style="padding: 0px 0px 0px 10px;">
+        <input type="hidden" name="id" >
+        <table style="border-collapse:separate; border-spacing:10px;">
+            <tr>
+                <td><font size="1">客户姓名:</font></td>
+                <td><input class="easyui-textbox" type="text" name="name" /></td>
+            </tr>
+            <tr>
+                <%--接收人员显示在转移记录中--%>
+                <td><font size="1">接收人员:</font></td>
+                <td><input class="easyui-combobox" type="text" name="receptionMan.id"  prompt="请选择接收人员"
+                           data-options="
+                    valueField: 'id',
+                    textField: 'username',
+                    url: '/employee/queryTeachers',
+                    panelHeight:'auto'"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="bb2">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveSend">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
+</div>
 
 <%--学员跟踪--%>
-<div id="clientResourcePool_dialog">
+<div id="clientTrace_dialog">
 
-    <form id="clientResourcePool_form" method="post" style="padding: 0px 0px 0px 10px;">
+    <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
         <input type="hidden" name="id" >
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
@@ -36,7 +65,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployee',
+                    url: '/employee/queryTeachers',
                     panelHeight:'auto'"
                 /></td>
             </tr>
@@ -115,8 +144,10 @@
     </div>
 <%--底部工具按钮--%>
 <div id="bb">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveTrace">保存</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
 </div>
+
+
 </body>
 </html>

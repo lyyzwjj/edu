@@ -36,4 +36,9 @@
     select id, name,resource
     from `permission`
     limit #{startIndex},#{rows}
-  </select></mapper>
+  </select>
+  <select id="queryPermissionByRoleId" resultMap="BaseResultMap">
+  SELECT p.id, p.name from permission p left join role_permission rp on p.id=rp.permission_id
+  where rp.role_id=#{roleId}
+  </select>
+</mapper>

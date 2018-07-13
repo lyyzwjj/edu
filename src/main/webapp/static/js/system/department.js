@@ -146,7 +146,7 @@ function cancel() {
 function query() {
     var keyword = $("#keyword").textbox("getValue");
 
-    $("dep_datagrid").dep_datagrid("load",{
+    $("dep_datagrid").datagrid("load",{
         keyword:keyword
     })
 }

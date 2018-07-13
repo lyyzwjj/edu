@@ -10,6 +10,7 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="cn.wolfcode.edu.web.controller"/>
     <import resource="applicationContext.xml"/>
+    <import resource="shiro.xml"/>
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

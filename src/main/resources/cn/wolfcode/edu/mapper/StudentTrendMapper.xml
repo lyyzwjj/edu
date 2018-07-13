@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.StudentTrendMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.StudentTrend" >
+    <id column="id" property="id" />
+    <result column="genre" property="genre" />
+    <result column="exchangeTime" property="exchangetime" />
+    <result column="trendstate" property="trendstate" />
+    <!--收款-->
+    <association property="receiptbill" javaType="cn.wolfcode.edu.domain.ReceiptBill">
+      <id column="rb_id" property="id"/>
+      <result column="rb_totalMoney" property="totalmoney"/>
+      <result column="rb_receiptMoney" property="receiptmoney"/>
+    </association>
+    <association property="receiptbill.client" javaType="cn.wolfcode.edu.domain.Client">
+      <id column="c_id" property="id"/>
+      <result column="c_name" property="name"/>
+      <result column="c_tel" property="tel"/>
+      <result column="c_QQNum" property="QQNum"/>
+    </association>
+    <!--原班级-->
+    <association property="oldclass" javaType="cn.wolfcode.edu.domain.Grade">
+      <id column="oldClass_id" property="id"/>
+      <result column="oldClass_name" property="name"/>
+    </association>
+    <!--新班级-->
+    <association property="newclass" javaType="cn.wolfcode.edu.domain.Grade">
+      <id column="newClass_id" property="id"/>
+      <result column="newClass_name" property="name"/>
+    </association>
+    <!--营销人员-->
+    <association property="marketer" javaType="cn.wolfcode.edu.domain.Employee">
+      <id column="marketer_id" property="id"/>
+      <result column="marketer_realname" property="realname"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `studenttrend`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.StudentTrend" useGeneratedKeys="true" keyProperty="id" >
+    insert into `studenttrend` (genre, receiptbill_id, exchangeTime, oldClass_id, newClass_id, 
+      marketer_id, trendstate)
+    values (#{genre}, #{receiptbill.id}, #{exchangetime}, #{oldclass.id}, #{newclass.id},
+      #{marketer.id}, #{trendstate})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.StudentTrend" >
+    update `studenttrend`
+    set genre = #{genre},
+      receiptbill_id = #{receiptbill.id},
+      exchangeTime = #{exchangetime},
+      oldClass_id = #{oldclass.id},
+      newClass_id = #{newclass.id},
+      marketer_id = #{marketer.id},
+      trendstate = #{trendstate}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, genre, receiptbill_id, exchangeTime, oldClass_id, newClass_id, marketer_id, 
+    trendstate
+    from `studenttrend`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, genre, receiptbill_id, exchangeTime, oldClass_id, newClass_id, marketer_id, 
+    trendstate
+    from `studenttrend`
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(st.id)
+    from studenttrend st
+    left join receiptbill rb on st.receiptbill_id = rb.id
+    left join client c on rb.client_id = c.id
+    left join grade oldClass on st.oldClass_id = oldClass.id
+    left join grade newClass on st.newClass_id = newClass.id
+    left join employee marketer on st.marketer_id = marketer.id
+    <include refid="BASE_WHERE"/>
+  </select>
+  <select id="queryForList" resultMap="BaseResultMap" >
+    select st.id, st.genre, st.exchangeTime, st.trendstate,
+    rb.id rb_id, rb.receiptMoney rb_receiptMoney, rb.totalMoney rb_totalMoney,
+    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    oldClass.id oldClass_id, oldClass.name oldClass_name,
+    newClass.id newClass_id, newClass.name newClass_name,
+    marketer.id marketer_id, marketer.realname marketer_realname
+    from studenttrend st
+    left join receiptbill rb on st.receiptbill_id = rb.id
+    left join client c on rb.client_id = c.id
+    left join grade oldClass on st.oldClass_id = oldClass.id
+    left join grade newClass on st.newClass_id = newClass.id
+    left join employee marketer on st.marketer_id = marketer.id
+
+    <include refid="BASE_WHERE"/>
+
+    limit #{startIndex},#{rows}
+  </select>
+
+  <update id="changeState">
+    update studenttrend set trendstate=#{stateId} where id=#{id}
+  </update>
+
+  <sql id="BASE_WHERE">
+    <where>
+      <if test="keyword != null">
+        and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
+      </if>
+      <if test="begindate != null">
+        and st.exchangeTime >= #{begindate}
+      </if>
+      <if test="enddate != null">
+        and st.exchangeTime &lt;= #{enddate}
+      </if>
+    </where>
+  </sql>
+</mapper>

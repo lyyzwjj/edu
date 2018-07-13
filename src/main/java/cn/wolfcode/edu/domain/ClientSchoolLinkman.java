@@ -1,7 +1,9 @@
 package cn.wolfcode.edu.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Getter@Setter
@@ -10,12 +12,13 @@ public class ClientSchoolLinkman {
 
     private String name;
 
-    private Integer gender;
+    private int gender;
     /*
     关联大客户表 学校名字
      */
     private ClientMajor schoolName;
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     private String department;
@@ -26,7 +29,7 @@ public class ClientSchoolLinkman {
 
     private String tel;
 
-    private String QQ;
+    private String qq;
 
     private String weChat;
 
