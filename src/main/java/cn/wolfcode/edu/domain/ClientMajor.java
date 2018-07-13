@@ -1,7 +1,9 @@
 package cn.wolfcode.edu.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Getter@Setter
@@ -9,22 +11,39 @@ public class ClientMajor {
     private Long id;
 
     private String name;
+
+    //=========================关联数据字典的字段  开始==================
     /*
     重要程度
      */
-    private Long importantDegree;
+    private DataDictionaryItem importantDegree;
     /*
     意向程度
      */
-    private Long intentionDegree;
+    private DataDictionaryItem intentionDegree;
     /*
-    意向班级/课程
+    意向学科
      */
-    private Long intentionClass;
+    private DataDictionaryItem intentionClass;
     /*
     意向校区
      */
-    private Long intentionSchool;
+    private DataDictionaryItem intentionSchool;
+    /*
+    规定学历
+   */
+    private DataDictionaryItem academicDiplomas;
+    /*
+    学校体制
+   */
+    private DataDictionaryItem schoolSystem;
+    /*
+   办学性质
+  */
+    private DataDictionaryItem natureOfSchool;
+
+    //=========================关联数据字典的字段  结束=========================
+
     /*
     校方联系人员
     */
@@ -52,10 +71,14 @@ public class ClientMajor {
     /*
     上次跟踪日期
    */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     private Date pervTraceDate;
     /*
     下次跟踪时间
    */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     private Date nextTraceTime;
     /*
     地址
@@ -69,18 +92,7 @@ public class ClientMajor {
     邮箱
    */
     private String email;
-    /*
-    办学性质
-   */
-    private Long natureOfSchool;
-    /*
-    规定学历
-   */
-    private Long academicDiplomas;
-    /*
-    学校体制
-   */
-    private Long schoolSystem;
+
     /*
     邮政编码
    */
