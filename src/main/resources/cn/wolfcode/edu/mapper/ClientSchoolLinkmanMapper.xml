@@ -67,7 +67,7 @@
   limit #{startIndex},#{rows}
   </select>
 
-  <select id="queryForCount"resultType="int">
+  <select id="queryForCount" resultType="int">
   select count(m.id)
   from clientschoollinkman m
     left join clientmajor c
