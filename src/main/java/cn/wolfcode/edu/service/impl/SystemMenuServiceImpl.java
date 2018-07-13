@@ -52,4 +52,9 @@ public class SystemMenuServiceImpl implements ISystemMenuService{
         List<SystemMenu> rows = systemMenuMapper.queryForList(qo);
         return new PageResult(total, rows);
     }
+
+    @Override
+    public List<SystemMenu> queryAllParentSystemMenu() {
+        return systemMenuMapper.queryAllParentSystemMenu();
+    }
 }
