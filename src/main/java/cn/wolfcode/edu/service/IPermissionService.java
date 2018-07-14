@@ -22,4 +22,6 @@ public interface IPermissionService {
     void reload();
 
     List<Permission> queryPermissionByRoleId(Long roleId);
+
+    List<String> selectAllResourcesByEmployeeId(Long id);
 }

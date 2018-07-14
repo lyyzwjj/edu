@@ -20,4 +20,6 @@ public interface IRoleService {
     PageResult query(QueryObject qo);
 
     List<Long> getRoleIdByEmpId(Long empId);
+
+    List<String> queryRoleSnByEmployeeId(Long id);
 }
