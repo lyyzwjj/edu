@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.SalaryMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Salary">
+        <id column="id" property="id"/>
+        <result column="workDay" property="workDay"/>
+        <result column="bankcardNumber" property="bankcardNumber"/>
+        <result column="lateday" property="lateday"/>
+        <result column="realWages" property="realWages"/>
+        <result column="month" property="month"/>
+        <association property="employee" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="e_">
+            <id column="id" property="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+        <association property="employee.dept" javaType="cn.wolfcode.edu.domain.Department" columnPrefix="d_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+        <association property="employee.job" javaType="cn.wolfcode.edu.domain.Job" columnPrefix="j_">
+            <id column="id" property="id"/>
+            <result column="baseSalary" property="baseSalary"/>
+            <result column="accumulationFund" property="accumulationFund"/>
+            <result column="socialInsurance" property="socialInsurance"/>
+            <result column="overtimeAllowance" property="overtimeAllowance"/>
+            <result column="bonus" property="bonus"/>
+            <result column="coefficient" property="coefficient"/>
+            <result column="jobName" property="jobName"/>
+            <result column="proportion" property="proportion"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `salary`
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Salary" useGeneratedKeys="true" keyProperty="id">
+    insert into `salary` (workDay, bankcardNumber, lateday, realWages,
+      employee_id, month)
+    values (#{workDay}, #{bankcardNumber}, #{lateday}, #{realWages},
+      #{employee.id}, #{month})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Salary">
+    update `salary`
+    set workDay = #{workDay},
+      bankcardNumber = #{bankcardNumber},
+      lateday = #{lateday},
+      realWages = #{realWages},
+      employee_id = #{employee.id},
+      month = #{month}
+    where id = #{id}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, workDay, bankcardNumber, lateday, realWages, employee_id,
+    month
+    from `salary`
+    where id = #{id}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, workDay, bankcardNumber, lateday, realWages, employee_id,
+    month
+    from `salary`
+  </select>
+
+    <select id="queryForList" resultMap="BaseResultMap">
+     select s.id, s.workDay, s.bankcardNumber, s.lateday, s.realWages, s.employee_id,
+    s.month,e.id e_id ,e.realname e_realname,
+    d.id d_id,d.name d_name,
+		j.id j_id,j.baseSalary j_baseSalary,j.accumulationFund j_accumulationFund,j.socialInsurance j_socialInsurance,
+		j.overtimeAllowance j_overtimeAllowance,j.bonus j_bonus,j.coefficient j_coefficient ,j.jobName j_jobName,
+		j.proportion j_proportion
+    from `salary` s
+    left join employee e on s.employee_id=e.id
+    left join department d on e.dept_id = d.id
+    left join job j on e.job_id = j.id
+    limit #{startIndex},#{rows}
+    </select>
+
+    <select id="queryForCount" resultType="java.lang.Integer">
+    select count(s.id)
+    from `salary` s
+    left join employee e on s.employee_id=e.id
+    left join department d on e.dept_id = d.id
+    left join job j on e.job_id = j.id
+    </select>
+</mapper>

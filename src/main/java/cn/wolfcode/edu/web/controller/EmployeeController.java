@@ -32,6 +32,13 @@ public class EmployeeController {
         return "employee/list";
     }
 
+    @RequestMapping("queryEmployees")
+    @ResponseBody
+    public List<Employee> queryEmployees() {
+        List<Employee> employees = employeeService.list();
+        return employees;
+    }
+
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("employee:list")
@@ -139,8 +146,6 @@ public class EmployeeController {
 
                 String realPath = servletContext.getRealPath("/upload");
                 String upload = UploadUtil.upload(file, realPath);
-                System.out.println(upload+"================================================================================");
-                System.out.println(staff_id+"================================================================================");
                 employeeService.uploadPortrait(staff_id, upload);
             }
 
