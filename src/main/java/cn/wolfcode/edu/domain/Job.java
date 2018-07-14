@@ -3,22 +3,28 @@ package cn.wolfcode.edu.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 public class Job {
 
     private Long id;
     //基本工资
-    private Long baseSalary;
+    private BigDecimal baseSalary;
     //公积金
-    private Long accumulationFund;
+    private BigDecimal accumulationFund;
     //社保
-    private Long socialInsurance;
+    private BigDecimal socialInsurance;
     //加班津贴
-    private Long overtimeAllowance;
+    private BigDecimal overtimeAllowance;
     //奖金
-    private Long bonus;
+    private BigDecimal bonus;
     //奖金系数
-    private Long coefficient;
+    private BigDecimal coefficient;
+    //职务
+    private String jobName;
+    //公积金缴存基数
+    private BigDecimal proportion;
 
 }

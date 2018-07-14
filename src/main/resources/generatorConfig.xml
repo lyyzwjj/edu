@@ -63,7 +63,7 @@
 				value=""/> -->
 		</javaClientGenerator>
 	
-		<table tableName="job" delimitIdentifiers="true" domainObjectName="Job">
+		<table tableName="salary" delimitIdentifiers="true" domainObjectName="Salary">
 			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
 			<property name="constructorBased" value="false" />
 			<generatedKey column="id" sqlStatement="JDBC"/>

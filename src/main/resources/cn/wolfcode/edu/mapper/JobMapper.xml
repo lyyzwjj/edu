@@ -9,6 +9,8 @@
         <result column="overtimeAllowance" property="overtimeAllowance"/>
         <result column="bonus" property="bonus"/>
         <result column="coefficient" property="coefficient"/>
+        <result column="jobName" property="jobName"/>
+        <result column="proportion" property="proportion"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `job`
@@ -16,9 +18,9 @@
   </delete>
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.Job" useGeneratedKeys="true" keyProperty="id">
     insert into `job` (baseSalary, accumulationFund, socialInsurance, overtimeAllowance, 
-      bonus, coefficient)
+      bonus, coefficient,jobName,proportion)
     values (#{baseSalary}, #{accumulationFund}, #{socialInsurance}, #{overtimeAllowance},
-      #{bonus}, #{coefficient})
+      #{bonus}, #{coefficient},#{jobName},#{proportion})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Job">
     update `job`
@@ -27,31 +29,32 @@
       socialInsurance = #{socialInsurance},
       overtimeAllowance = #{overtimeAllowance},
       bonus = #{bonus},
-      coefficient = #{coefficient}
+      coefficient = #{coefficient},
+      jobName=#{jobName},
+      proportion=#{proportion}
     where id = #{id}
   </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus, 
-    coefficient
+    coefficient,jobName,proportion
     from `job`
     where id = #{id}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus, 
-    coefficient
+    coefficient,jobName,proportion
     from `job`
   </select>
 
     <select id="queryForList" resultMap="BaseResultMap">
     select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus,
-    coefficient
+    coefficient,jobName,proportion
     from `job`
     limit #{startIndex},#{rows}
     </select>
 
     <select id="queryForCount" resultType="int">
-select count(id)
+    select count(id)
     from `job`
-
     </select>
 </mapper>

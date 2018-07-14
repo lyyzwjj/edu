@@ -383,9 +383,11 @@ $(function () {
                 $("#roles_combobox").combobox("setValues", data);
             });
 
-
             if (row.dept) {
                 row['dept.id'] = row.dept.id;
+            }
+            if (row.job) {
+                row['job.id'] = row.job.id;
             }
             if (row.engage) {
                 row['engage.id'] = row.engage.id;
