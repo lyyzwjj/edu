@@ -16,4 +16,21 @@ public class SystemMenu {
 
     private Permission permission;
 
+    private String parentText;
+
+    private Long _parentId;
+
+    public String getParentText(){
+        if (parent == null){
+            return "";
+        }
+        return parent.getText();
+    }
+    public Object get_parentId(){
+        if (parent == null){
+            return "";
+        }
+        return parent.getId();
+    }
+
 }

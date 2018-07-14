@@ -19,4 +19,6 @@ public interface SystemMenuMapper {
     int queryForCount(QueryObject qo);
 
     List<SystemMenu> queryForList(QueryObject qo);
+
+    List<SystemMenu> queryAllParentSystemMenu();
 }

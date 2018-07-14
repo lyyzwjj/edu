@@ -22,14 +22,14 @@
   </delete>
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.SystemMenu" useGeneratedKeys="true" keyProperty="id">
     insert into `systemmenu` (text, url, parent_id, permission_id)
-    values (#{text}, #{url}, #{parentId}, #{permissionId})
+    values (#{text}, #{url}, #{parent.id}, #{permission.id})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.SystemMenu">
     update `systemmenu`
     set text = #{text},
       url = #{url},
-      parent_id = #{parentId},
-      permission_id = #{permissionId}
+      parent_id = #{parent.id},
+      permission_id = #{permission.id}
     where id = #{id}
   </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -40,7 +40,7 @@
     left join systemmenu ps on s.parent_id = ps.id
     left join permission p on s.permission_id = p.id
     from `systemmenu`
-    where id = #{id}
+    where s.id = #{id}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select s.id, s.text, s.url,
@@ -52,7 +52,7 @@
   </select>
 
     <select id="queryForCount" resultType="int">
-    select count(id)  from `systemmenu` s
+    select count(s.id)  from `systemmenu` s
     left join systemmenu ps on s.parent_id = ps.id
     left join permission p on s.permission_id = p.id
     </select>
@@ -65,5 +65,14 @@
     left join systemmenu ps on s.parent_id = ps.id
     left join permission p on s.permission_id = p.id
     limit #{startIndex},#{rows}
+    </select>
+    <select id="queryAllParentSystemMenu" resultType="cn.wolfcode.edu.domain.SystemMenu">
+    select s.id, s.text, s.url,
+    ps.id ps_id, ps.url ps_url, ps.text ps_text,
+    p.id p_id,p.name p_name, p.resource p_resource
+    from `systemmenu` s
+    left join systemmenu ps on s.parent_id = ps.id
+    left join permission p on s.permission_id = p.id
+    where s.url is NULL
     </select>
 </mapper>

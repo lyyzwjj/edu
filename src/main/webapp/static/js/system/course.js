@@ -44,9 +44,9 @@ $(function () {
             {field: 'remark', title: '备注', width: 100},
             {field:"state",title:"状态",width:100,formatter:function(value,row,index){
                 if(value==1){
-                    return "<font color='green'>毕业</font>"
+                    return "<font color='green'>已上</font>"
                 }else if(value==0){
-                    return "<font color='red'>未毕业</font>"
+                    return "<font color='red'>未上</font>"
                 }
             }}
         ]]

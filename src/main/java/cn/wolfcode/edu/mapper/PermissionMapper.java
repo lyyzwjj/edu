@@ -20,4 +20,7 @@ public interface PermissionMapper {
     int queryForCount(QueryObject qo);
 
     List<Permission> queryForList(QueryObject qo);
+
+    List<Permission> queryPermissionByRoleId(Long roleId);
+
 }
