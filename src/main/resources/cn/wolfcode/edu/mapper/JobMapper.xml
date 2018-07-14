@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.JobMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Job">
+        <id column="id" property="id"/>
+        <result column="baseSalary" property="baseSalary"/>
+        <result column="accumulationFund" property="accumulationFund"/>
+        <result column="socialInsurance" property="socialInsurance"/>
+        <result column="overtimeAllowance" property="overtimeAllowance"/>
+        <result column="bonus" property="bonus"/>
+        <result column="coefficient" property="coefficient"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `job`
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Job" useGeneratedKeys="true" keyProperty="id">
+    insert into `job` (baseSalary, accumulationFund, socialInsurance, overtimeAllowance, 
+      bonus, coefficient)
+    values (#{baseSalary}, #{accumulationFund}, #{socialInsurance}, #{overtimeAllowance},
+      #{bonus}, #{coefficient})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Job">
+    update `job`
+    set baseSalary = #{baseSalary},
+      accumulationFund = #{accumulationFund},
+      socialInsurance = #{socialInsurance},
+      overtimeAllowance = #{overtimeAllowance},
+      bonus = #{bonus},
+      coefficient = #{coefficient}
+    where id = #{id}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus, 
+    coefficient
+    from `job`
+    where id = #{id}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus, 
+    coefficient
+    from `job`
+  </select>
+
+    <select id="queryForList" resultMap="BaseResultMap">
+    select id, baseSalary, accumulationFund, socialInsurance, overtimeAllowance, bonus,
+    coefficient
+    from `job`
+    limit #{startIndex},#{rows}
+    </select>
+
+    <select id="queryForCount" resultType="int">
+select count(id)
+    from `job`
+
+    </select>
+</mapper>

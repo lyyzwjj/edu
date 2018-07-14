@@ -11,6 +11,7 @@
     <result column="nextTraceDate" property="nextTraceDate" />
     <result column="buildDate" property="buildDate" />
     <result column="inputDate" property="inputDate" />
+      <result column="transferDate" property="transferDate"/>
     <!--大学入学时间-->
     <result column="collegeAdmissionTime" property="collegeAdmissionTime" />
 
@@ -26,24 +27,63 @@
     <result column="address" property="address" />
     <result column="withComputer" property="withComputer" />
     <result column="clientAttentionWhat" property="clientAttentionWhat" />
-    <!--来源数据字典的-->
-    <result column="hometown_id" property="hometownId" />
     <result column="introduce_man_id" property="introduceManId" />
+    <result column="pay_status_id" property="payStatusId" />
+    <result column="clientType" property="clientTypeId" />
+    <result column="state_id" property="stateId" />
+    <!--来源数据字典的-->
+   <!-- <result column="hometown_id" property="hometownId" />
     <result column="client_type_id" property="clientTypeId" />
     <result column="degree_of_intention_id" property="degreeOfIntentionId" />
     <result column="intention_school_id" property="intentionSchoolId" />
     <result column="intention_class_id" property="intentionClassId" />
-    <result column="state_id" property="stateId" />
     <result column="major_id" property="majorId" />
     <result column="years_of_work_experience_id" property="yearsOfWorkExperienceId" />
-    <result column="pay_status_id" property="payStatusId" />
-    <result column="clientState" property="clientState" />
-
-        <!--怎么学校有id 不是都是输入 客户学校-->
-        <result column="school_id" property="schoolId"/>
         <result column="education_id" property="educationId"/>
-        <!--介绍人  算是公司员工吗?-->
-        <result column="source_of_client_id" property="sourceOfClientId"/>
+        <result column="source_of_client_id" property="sourceOfClientId"/>-->
+
+      <association property="hometown" javaType="DataDictionaryItem" columnPrefix="hometown_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="clientState" javaType="DataDictionaryItem" columnPrefix="clientState_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="degreeOfIntention" javaType="DataDictionaryItem" columnPrefix="degreeOfIntention_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="intentionSchool" javaType="DataDictionaryItem" columnPrefix="intentionSchool_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="major" javaType="DataDictionaryItem" columnPrefix="major_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="yearsOfWorkExperience" javaType="DataDictionaryItem" columnPrefix="yearsOfWorkExperience_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="education" javaType="DataDictionaryItem" columnPrefix="education_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="sourceOfClient" javaType="DataDictionaryItem" columnPrefix="sourceOfClient_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+      <association property="intentionClass" javaType="DataDictionaryItem" columnPrefix="intentionClass_">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
+    <!--关联学校的客户-->
+      <!--<result column="school_id" property="schoolId"/>-->
+      <association property="clientMajor" columnPrefix="clientMajor_" javaType="ClientMajor">
+          <id column="id" property="id"/>
+          <result column="name" property="name"/>
+      </association>
         <!--关联employee表的-->
         <association property="saleMan" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="sale_man_">
             <id column="id" property="id"/>
@@ -80,19 +120,19 @@
   </delete>
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id">
     insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
-    lastTraceDate, bookDate,
+    lastTraceDate, bookDate,transferDate
       nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
       intention_school_id, intention_class_id, state_id, isManTrace, remark, 
       buildDate,inputDate, source_of_client_id, age, gender, email, address, school_id,
       education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
       introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
       )
-    values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
-      #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntentionId},
-      #{intentionSchoolId}, #{intentionClassId}, #{stateId}, #{isManTrace}, #{remark},
-      #{buildDate}, #{inputDate}, #{sourceOfClientId}, #{age}, #{gender}, #{email}, #{address}, #{schoolId},
-      #{educationId}, #{hometownId}, #{collegeAdmissionTime}, #{majorId}, #{yearsOfWorkExperienceId},
-      #{introduceManId}, #{payStatusId}, #{withComputer}, #{clientAttentionWhat}, #{clientTypeId},#{clientState}
+    values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},#{transferDate}
+      #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntention.id},
+      #{intentionSchool.id}, #{intentionClass.id}, #{stateId}, #{isManTrace}, #{remark},
+      #{buildDate}, #{inputDate}, #{sourceOfClient.id}, #{age}, #{gender}, #{email}, #{address}, #{clientMajor.id},
+      #{education.id}, #{hometown.id}, #{collegeAdmissionTime}, #{major.id}, #{yearsOfWorkExperience.id},
+      #{introduceManId}, #{payStatusId}, #{withComputer}, #{clientAttentionWhat}, #{clientTypeId},#{clientState.id}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Client" >
@@ -109,37 +149,37 @@
       QQNum = #{QQNum},
       tel = #{tel},
       school = #{school},
-      degree_of_intention_id = #{degreeOfIntentionId},
-      intention_school_id = #{intentionSchoolId},
-      intention_class_id = #{intentionClassId},
+      degree_of_intention_id = #{degreeOfIntention.id},
+      intention_school_id = #{intentionSchool.id},
+      intention_class_id = #{intentionClass.id},
       state_id = #{stateId},
       isManTrace = #{isManTrace},
       remark = #{remark},
       buildDate = #{buildDate},
       inputDate = #{inputDate},
-      source_of_client_id = #{sourceOfClientId},
+      source_of_client_id = #{sourceOfClient.id},
       age = #{age},
       gender = #{gender},
       email = #{email},
       address = #{address},
-      school_id = #{schoolId},
-      education_id = #{educationId},
-      hometown_id = #{hometownId},
+      school_id = #{clientMajor.id},
+      education_id = #{education.id},
+      hometown_id = #{hometown.id},
       collegeAdmissionTime = #{collegeAdmissionTime},
-      major_id = #{majorId},
-      years_of_work_experience_id = #{yearsOfWorkExperienceId},
+      major_id = #{major.id},
+      years_of_work_experience_id = #{yearsOfWorkExperience.id},
       introduce_man_id = #{introduceManId},
       pay_status_id = #{payStatusId},
       withComputer = #{withComputer},
       clientAttentionWhat = #{clientAttentionWhat},
       client_type_id = #{clientTypeId},
-      client_state = #{clientState}
+      client_state = #{clientState.id}
     where id = #{id}
   </update>
 
-  <!--潜在学员转正 放入资源池 只需要更新stateId即可-->
+  <!--潜在学员转正 放入资源池 只需要更新stateId即可 同时要设定下转正时间-->
   <update id="changeState">
-    update client set state_id=#{stateId} where id=#{id}
+    update client set state_id=#{stateId} ,transferDate=#{transferDate} where id=#{id}
 
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -173,6 +213,10 @@
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
+    left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
+    left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+    left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+        left join datadictionaryitem clientState on c.client_state=clientState.id
     where state_id=0
   </select>
     <select id="queryForList" resultMap="BaseResultMap">
@@ -183,11 +227,17 @@
     c.traceTimes,
     c.lastTraceDate, c.bookDate,c.nextTraceDate,
     c.weChatNum, c.QQNum, c.tel, c.school,
-    c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-    c.state_id, c.isManTrace, c.remark,c.client_state
+    c.degree_of_intention_id degreeOfIntention_id ,degreeOfIntention.name degreeOfIntention_name,
+     c.intention_school_id intentionSchool_id ,intentionSchool.name intentionSchool_name,
+      c.intention_class_id intentionClass_id,intentionClass.name intentionClass_name,
+    c.state_id, c.isManTrace, c.remark,c.client_state clientState_id,clientState.name clientState_name
     from client c
     left join employee sale_man on sale_man.id=c.sale_man_id
     left join employee input_man on input_man.id=c.input_man_id
+    left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
+    left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+    left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+    left join datadictionaryitem clientState on c.client_state=clientState.id
     where state_id=0
     limit #{startIndex},#{rows}
   </select>

@@ -37,8 +37,8 @@
             <p>登陆系统</p>
         </div>
         <form method="post" id="loginForm">
-            <p><input type="text" name="username" value="" placeholder="账号"></p>
-            <p><input type="password" name="password" value="" placeholder="密码"></p>
+            <p><input type="text" name="username" value="admin" placeholder="账号"></p>
+            <p><input type="password" name="password" value="1" placeholder="密码"></p>
             <p class="submit">
             <input value="登录" style="width:100%;" type="button" onclick="login()">
             </p>

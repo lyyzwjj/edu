@@ -84,4 +84,8 @@ public class PermissionServiceImpl implements IPermissionService{
     public List<Permission> queryPermissionByRoleId(Long roleId) {
         return permissionMapper.queryPermissionByRoleId(roleId);
     }
+    @Override
+    public List<String> selectAllResourcesByEmployeeId(Long id) {
+        return permissionMapper.selectAllResourcesByEmployeeId(id);
+    }
 }

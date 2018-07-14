@@ -28,7 +28,7 @@ public class ClientTrace {
     private Employee traceMan;
     //下次跟踪时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date nextTraceDate;
     /*
     客户的意向校区
@@ -54,7 +54,7 @@ public class ClientTrace {
    最后一次跟踪
     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date lastTraceDate;
     //追踪次数
     private Integer traceTimes;

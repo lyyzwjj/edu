@@ -23,4 +23,5 @@ public interface PermissionMapper {
 
     List<Permission> queryPermissionByRoleId(Long roleId);
 
+    List<String> selectAllResourcesByEmployeeId(Long id);
 }
