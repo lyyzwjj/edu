@@ -28,4 +28,6 @@ public interface ICourseService {
      * @param date
      */
     List<Course> querytodayByDate(Date date);
+
+    void save(Course course);
 }

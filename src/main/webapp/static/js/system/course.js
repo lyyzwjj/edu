@@ -56,8 +56,8 @@ $(function () {
 //工具栏初始
     course_dialog.dialog(
         {
-            width: 300,
-            height: 300,
+            width: 400,
+            height: 600,
             buttons: "#bb",
             closed: true
         }
@@ -71,6 +71,12 @@ $(function () {
         },
         cancel: function () {
             course_dialog.dialog("close");
+        },
+        add: function () {
+            //保存之前清空数据
+            $("#editForm").form("clear");
+            course_dialog.dialog("open");
+            course_dialog.dialog("setTitle", "课程表保存");
         },
         reload: function () {
             course_datagrid.datagrid("reload");
@@ -121,6 +127,21 @@ $(function () {
                 course_dialog.dialog("open");
                 //设置标题
                 course_dialog.dialog("setTitle", "备注编辑");
+                if (row.classTeacher) {
+                    row['classTeacher.id'] = row.classTeacher.id;
+                }
+                if (row.courseTeacher) {
+                    row['courseTeacher.id'] = row.courseTeacher.id;
+                }
+                if (row.classroom) {
+                    row['classroom.id'] = row.classroom.id;
+                }
+                if (row.courseName) {
+                    row['courseName.id'] = row.courseName.id;
+                }
+                if (row.grade) {
+                    row['grade.id'] = row.grade.id;
+                }
                 //将数据加载到form表单中
                 $("#editForm").form("load", row);
 
@@ -137,3 +158,60 @@ $(function () {
     })
 })
 
+$(function(){
+    $('#cc').calendar({
+        onSelect: function(date){
+            data = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+            $("#course_datagrid").datagrid({
+                url: "/course/today?data="+data,
+                fit: true,
+                //单选
+                singleSelect: true,
+                //是否显示分页栏
+                pagination: true,
+                //按比例分配宽度
+                fitColumns: true,
+                toolbar: "#tb",
+                columns: [[
+                    {field: 'sequence', title: '顺序', width: 100},
+                    {field:"courseDate",title:"日期",width:100,sortable:true,order:"desc"},
+                    {field: 'week', title: '星期', width: 100},
+                    {field:"grade",title:"班级",width:100,formatter:function(value,row,index){
+                        if(value){
+                            return value.name;
+                        }
+                        console.log(value);
+                    }},
+                    {field:"courseName",title:"课程名称",width:100,formatter:function(value,row,index){
+                        if(value){
+                            return value.name;
+                        }
+                    }},
+                    {field:"classTeacher",title:"班主任",width:100,formatter:function(value,row,index){
+                        if(value){
+                            return value.realname;
+                        }
+                    }},
+                    {field:"courseTeacher",title:"上课教师",width:100,formatter:function(value,row,index){
+                        if(value){
+                            return value.realname;
+                        }
+                    }},
+                    {field:"classroom",title:"教室",width:100,formatter:function(value,row,index){
+                        if(value){
+                            return value.name;
+                        }
+                    }},
+                    {field: 'remark', title: '备注', width: 100},
+                    {field:"state",title:"状态",width:100,formatter:function(value,row,index){
+                        if(value==1){
+                            return "<font color='green'>已上</font>"
+                        }else if(value==0){
+                            return "<font color='red'>未上</font>"
+                        }
+                    }}
+                ]]
+            });
+        }
+    });
+})

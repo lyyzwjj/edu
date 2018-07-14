@@ -1,6 +1,7 @@
 package cn.wolfcode.edu.web.controller;
 
 import cn.wolfcode.edu.domain.Course;
+import cn.wolfcode.edu.domain.Grade;
 import cn.wolfcode.edu.query.CourseQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.ICourseService;
@@ -37,6 +38,22 @@ public class CourseController {
     public PageResult list(CourseQueryObject qo)
     {
         return courseService.query(qo);
+    }
+
+
+    @RequestMapping("save")
+    @ResponseBody
+    @RequiresPermissions("course:save")
+    @PermissionName("课程表保存")
+    public JsonResult save(Course course) {
+        JsonResult result = new JsonResult();
+        try {
+            courseService.save(course);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("保存失败");
+        }
+        return result;
     }
 
 
