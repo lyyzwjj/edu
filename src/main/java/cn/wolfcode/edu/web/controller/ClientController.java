@@ -72,11 +72,6 @@ public class ClientController {
         JsonResult result = new JsonResult();
         try {
             clientService.changeState(id,stateId);
-            if (stateId==2){
-                Client client = clientService.get(id);
-                //状态改变的时候同时保存资源池列表
-                clientService.insertPoolClient(client);
-            }
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("转正失败");
