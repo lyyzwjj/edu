@@ -10,6 +10,7 @@ import cn.wolfcode.edu.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,6 +55,12 @@ public class ClientServiceImpl implements IClientService {
      * @param stateId
      */
     public void changeState(Long id,int stateId) {
+         if (stateId==1){
+             //转正同时 设置下转正时间
+             Client client = clientMapper.selectByPrimaryKey(id);
+             client.setTransferDate(new Date());
+
+         }
          clientMapper.changeState(id,stateId);
     }
 

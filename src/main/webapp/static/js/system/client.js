@@ -33,10 +33,27 @@ $(function(){
             {field: 'weChatNum', title: '微信号', width: 100, align: "center"},
             {field: 'tel', title: '电话', width: 110, align: "center"},
             {field: 'shcool', title: '学校', width: 100, align: "center"},
-            {field: 'degreeofIntention', title: '意向程度', width: 100, align: "center"},
-            {field: 'intentionSchool', title: '意向校区', width: 100, align: "center"},
-            {field: 'intentionClass', title: '意向班级', width: 100, align: "center"},
-            {field: 'clientState', title: '客户当前状态', width: 100, align: "center"},
+            {field: 'degreeofIntention', title: '意向程度', width: 100, align: "center",formatter:function(value){
+                    if(value){
+                        return value.name;
+                    }
+                }
+            },
+            {field: 'intentionSchool', title: '意向校区', width: 100, align: "center",formatter:function(value){
+                if(value){
+                    return value.name;
+                }
+            }},
+            {field: 'intentionClass', title: '意向班级', width: 100, align: "center",formatter:function(value){
+                if(value){
+                    return value.name;
+                }
+            }},
+            {field: 'clientState', title: '客户当前状态', width: 100, align: "center",formatter:function(value){
+                if(value){
+                    return value.name;
+                }
+            }},
             {
                 field: 'isManTrace', title: '未跟踪', width: 100, align: "center", formatter: function (value, row, index) {
                 if (value) {
@@ -47,7 +64,7 @@ $(function(){
             }
             },
             {field: 'remark', title: '备注', width: 100, align: "center"}
-        ]],
+        ]]
     });
 
 
@@ -57,27 +74,28 @@ $(function(){
     client_dialog.dialog({
         width:850,
         height:550,
-        buttons:"#bb",
+        buttons:"#bb_client",
         // 一开始就是关闭的状态
         closed:true
-    });
+});
 
     //初始化学员跟踪表
     clientTrace_dialog.dialog({
+        title:"客户跟踪",
         width:850,
         height:550,
-        buttons:"#trace-bb",
+       buttons:"#bb_trace",
         // 一开始就是关闭的状态
-       closed:true
+      closed:true
     });
     //初始化考试表
     clientExam_dialog.dialog({
         title:"考试登记",
         width:350,
         height:300,
-        buttons:"#bb-exam"
+        buttons:"#bb_exam",
         // 一开始就是关闭的状态
-       /*closed:true*/
+       closed:true
     })
 
     var cmdObj={
@@ -126,10 +144,11 @@ $(function(){
         },
 
         //保存操作
-        save : function() {
+        saveClient : function() {
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientId").val();
+            alert(id)
             var url = "/client/save";
             if (id) {
                 url = "/client/update";
@@ -138,6 +157,7 @@ $(function(){
             $("#editForm").form("submit", {
                 url : url,
                 success : function(data) {
+                    alert(url)
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
@@ -206,15 +226,21 @@ $(function(){
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
                 clientTrace_dialog.dialog("open");
-                clientTrace_dialog.dialog("setTitle","客户跟踪");
                 $("#clientTrace_form").form("clear");
                 $("#clientTrace_form").form("load",row);
 
             }
         },
+        //保存客户跟踪表
         saveTrace:function(){
+            var id = $("#clientTraceId").val();
+            var url = "/clientTrace/save";
+            if (id) {
+                url = "/clientTrace/update";
+            }
+
             $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/update",
+                url : url,
                 success : function(data) {
                     // 接受返回的数据
                     // 操作失败 提示用户
@@ -228,6 +254,11 @@ $(function(){
                     }
                 }
             })
+        },
+
+        //关闭跟踪表
+        cancelTrace:function() {
+            clientTrace_dialog.dialog("close");
         },
 
         //将客户放入资源池
@@ -281,10 +312,14 @@ $(function(){
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
                         $.messager.alert("温馨提示", "保存成功");
-                        clientTrace_dialog.dialog("close");
+                        clientExam_dialog.dialog("close");
                     }
                 }
             })
+        },
+        //取消考试对话框
+        cancelExam:function( ){
+            clientExam_dialog.dialog("close");
         }
 
     }

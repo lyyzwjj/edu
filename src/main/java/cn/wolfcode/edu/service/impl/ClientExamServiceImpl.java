@@ -46,4 +46,8 @@ public class ClientExamServiceImpl implements IClientExamService{
         return new PageResult(total, rows);
     }
 
+    public void changeState(Long id) {
+        clientMapper.changeState(id);
+    }
+
 }

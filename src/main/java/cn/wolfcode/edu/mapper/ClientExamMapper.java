@@ -19,4 +19,6 @@ public interface ClientExamMapper {
     int queryForCount(QueryObject qo);
 
     List<ClientExam> queryForList(QueryObject qo);
+
+    void changeState(Long id);
 }
