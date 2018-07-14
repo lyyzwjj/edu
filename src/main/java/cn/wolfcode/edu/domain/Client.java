@@ -48,24 +48,7 @@ public class Client {
     跟踪次数
      */
     private int traceTimes;
-    /*
-    最后跟踪日期
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
-    private Date lastTraceDate;
-    /*
-    预约时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
-    private Date bookDate;
-    /*
-    下一次跟踪时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
-    private Date nextTraceDate;
+
 
     private String weChatNum;
 
@@ -77,17 +60,51 @@ public class Client {
     */
     private String school;
     /*
+  学校客户选择其学校
+   */
+    private ClientMajor clientMajor;
+
+    //===============关联数据字典的==============
+    /*
     意向程度
      */
-    private int degreeOfIntentionId;
+    private DataDictionaryItem degreeOfIntention;
     /*
      意向校区
      */
-    private Long intentionSchoolId;
+    private DataDictionaryItem intentionSchool;
     /*
     意向班级/课程
      */
-    private Long intentionClassId;
+    private DataDictionaryItem intentionClass;
+
+    /*
+    客户来源
+     */
+    private DataDictionaryItem sourceOfClient;
+    /*
+   客户的学历
+   */
+    private DataDictionaryItem education;
+    /*
+   客户家乡
+    */
+    private DataDictionaryItem hometown;
+
+    /*
+    客户当前自身的状态
+     */
+    private DataDictionaryItem clientState;
+    /*
+   专业
+    */
+    private DataDictionaryItem major;
+    /*
+    工作年限
+     */
+    private DataDictionaryItem yearsOfWorkExperience;
+
+    //==============关联字典的结束=============
     /*
     客户的当前状态 潜在还是正式 设置默认值是潜在
      */
@@ -101,21 +118,42 @@ public class Client {
      */
     private String remark;
     /*
+   最后跟踪日期
+    */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date lastTraceDate;
+    /*
+    预约时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date bookDate;
+    /*
+    下一次跟踪时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date nextTraceDate;
+    /*
     建档时间 实际与当前新增事录入时间一致
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date buildDate;
     /*
     录入时间 就是当前时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date inputDate;
     /*
-    客户来源
+    转正时间 就是点击转正之后设置进去的时间
      */
-    private Long sourceOfClientId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date transferDate;
+
     /*
     客户年龄
      */
@@ -132,36 +170,20 @@ public class Client {
    客户地址
     */
     private String address;
-    /*
-   学校客户选择其学校
-    */
-    private Long schoolId;
-    /*
-    客户的学历
-    */
-    private Long educationId;
-    /*
-   客户家乡
-    */
-    private Long hometownId;
+
+
+
     /*
    客户的大学入学时间
     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date collegeAdmissionTime;
-    /*
-    专业
-     */
-    private Long majorId;
-    /*
-    工作年限
-     */
-    private Long yearsOfWorkExperienceId;
+
     /*
     介绍人姓名
      */
-    private Long introduceManId;
+    private String introduceManId;
     /*
     付款状态
      */
@@ -175,13 +197,9 @@ public class Client {
      */
     private String clientAttentionWhat;
     /*
-    客户类型
-     */
-    private Long clientTypeId;
-    /*
-    客户当前自身的状态
-     */
-    private Long clientState;
+     客户类型 线上 线下
+      */
+    private int clientTypeId;
 
     /*
     客户收款信息

@@ -150,6 +150,6 @@
     where id=#{empId}
   </update>
   <select id="checkName" resultType="Employee">
-    SELECT id,username,password from employee WHERE  username = #{username}
+    SELECT id,username,password,state from employee WHERE  username = #{username}
   </select>
 </mapper>

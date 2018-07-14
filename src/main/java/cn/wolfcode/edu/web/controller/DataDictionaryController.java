@@ -5,6 +5,8 @@ import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IDataDictionaryService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,18 +20,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DataDictionaryController {
     @Autowired
     private IDataDictionaryService dataDictionaryService;
+
     @RequestMapping("")
-    public String index(){
+    @RequiresPermissions("dataDictionary:index")
+    @PermissionName("字典首页")
+    public String index() {
         return "/dataDictionary/list";
     }
+
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    @RequiresPermissions("dataDictionary:list")
+    @PermissionName("字典数据")
+    public PageResult list(QueryObject qo) {
         return dataDictionaryService.query(qo);
     }
+
     @ResponseBody
     @RequestMapping("save")
-    public JsonResult save(DataDictionary dataDictionary){
+    @RequiresPermissions("dataDictionary:save")
+    @PermissionName("字典保存")
+    public JsonResult save(DataDictionary dataDictionary) {
         JsonResult result = new JsonResult();
         try {
             dataDictionaryService.save(dataDictionary);
@@ -39,9 +50,12 @@ public class DataDictionaryController {
         }
         return result;
     }
+
     @RequestMapping("update")
     @ResponseBody
-    public JsonResult update(DataDictionary dataDictionary){
+    @RequiresPermissions("dataDictionary:update")
+    @PermissionName("字典更新")
+    public JsonResult update(DataDictionary dataDictionary) {
         JsonResult result = new JsonResult();
         try {
             dataDictionaryService.update(dataDictionary);
@@ -51,9 +65,12 @@ public class DataDictionaryController {
         }
         return result;
     }
+
     @RequestMapping("delete")
     @ResponseBody
-    public JsonResult delete(Long id){
+    @RequiresPermissions("dataDictionary:delete")
+    @PermissionName("字典删除")
+    public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
             dataDictionaryService.delete(id);

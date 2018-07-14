@@ -3,6 +3,8 @@ package cn.wolfcode.edu.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class SystemMenu {
@@ -18,7 +20,7 @@ public class SystemMenu {
 
     private String parentText;
 
-    private Long _parentId;
+    private Long parentId;
 
     public String getParentText(){
         if (parent == null){
@@ -26,11 +28,12 @@ public class SystemMenu {
         }
         return parent.getText();
     }
-    public Object get_parentId(){
+    public Object getParentId(){
         if (parent == null){
             return "";
         }
         return parent.getId();
     }
+    private List<SystemMenu> children;
 
 }

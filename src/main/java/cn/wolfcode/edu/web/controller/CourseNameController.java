@@ -5,6 +5,8 @@ import cn.wolfcode.edu.query.CourseNameQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.ICourseNameService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +22,16 @@ public class CourseNameController {
     private ICourseNameService courseNameService;
 
     @RequestMapping("")
+    @RequiresPermissions("course:index")
+    @PermissionName("课程系列首页")
     public String index() {
         return "courseName/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("course:list")
+    @PermissionName("课程系列数据")
     public PageResult list(CourseNameQueryObject qo)
     {
         return courseNameService.query(qo);
@@ -33,6 +39,8 @@ public class CourseNameController {
 
     @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("course:save")
+    @PermissionName("课程系列保存")
     public JsonResult save(CourseName courseName) {
         JsonResult result = new JsonResult();
         try {
@@ -47,6 +55,8 @@ public class CourseNameController {
 
     @RequestMapping("changeState")
     @ResponseBody
+    @RequiresPermissions("course:changeState")
+    @PermissionName("课程系列审核")
     public JsonResult changeState(Long id) {
         JsonResult result = new JsonResult();
         try {

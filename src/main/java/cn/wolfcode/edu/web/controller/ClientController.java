@@ -3,8 +3,6 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.StudentQueryObject;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IClientService;
 import cn.wolfcode.edu.util.JsonResult;
 import cn.wolfcode.edu.util.PermissionName;
@@ -13,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("client")
@@ -32,7 +28,7 @@ public class ClientController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("client:list")
-    @PermissionName("潜在客户列表")
+    @PermissionName("潜在客户数据")
     public PageResult list(ClientQueryObject qo) {
         PageResult result = clientService.query(qo);
         return result;
@@ -53,7 +49,7 @@ public class ClientController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("client:update")
     @PermissionName("潜在客户更新")
@@ -70,7 +66,8 @@ public class ClientController {
 
     @RequestMapping("changeState")
     @ResponseBody
-
+    @RequiresPermissions("client:changeState")
+    @PermissionName("潜在客户转正")
     public JsonResult changeState(Long id,int stateId) {
         JsonResult result = new JsonResult();
         try {

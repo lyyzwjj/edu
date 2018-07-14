@@ -30,7 +30,7 @@ public class ClientMajorController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("clientMajor:list")
-    @PermissionName("大客户列表")
+    @PermissionName("大客户数据")
     public PageResult list(ClientMajorQueryObject qo) {
         PageResult result = clientMajorService.query(qo);
         return result;

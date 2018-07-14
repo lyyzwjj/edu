@@ -45,4 +45,10 @@ public interface IClientExamService {
      */
     PageResult query(QueryObject qo);
 
+    /**
+     * 审核考试是否通过
+     * @param id
+     */
+    void changeState(Long id);
+
 }

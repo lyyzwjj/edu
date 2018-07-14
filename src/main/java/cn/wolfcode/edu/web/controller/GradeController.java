@@ -5,6 +5,8 @@ import cn.wolfcode.edu.query.GradeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IGradeService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +22,16 @@ public class GradeController {
     private IGradeService gradeService;
 
     @RequestMapping("")
+    @RequiresPermissions("grade:index")
+    @PermissionName("班级首页")
     public String index() {
         return "grade/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("grade:list")
+    @PermissionName("班级数据")
     public PageResult list(GradeQueryObject qo)
     {
         return gradeService.query(qo);
@@ -33,6 +39,8 @@ public class GradeController {
 
     @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("grade:save")
+    @PermissionName("班级保存")
     public JsonResult save(Grade grade) {
         JsonResult result = new JsonResult();
         try {
@@ -46,6 +54,8 @@ public class GradeController {
 
     @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("grade:update")
+    @PermissionName("班级更新")
     public JsonResult update(Grade grade) {
         JsonResult result = new JsonResult();
         try {
@@ -59,6 +69,8 @@ public class GradeController {
 
     @RequestMapping("changeState")
     @ResponseBody
+    @RequiresPermissions("grade:changeState")
+    @PermissionName("班级状态改变")
     public JsonResult changeState(Long id) {
         JsonResult result = new JsonResult();
         try {

@@ -62,5 +62,8 @@ public class RoleServiceImpl implements IRoleService{
     public List<Long> getRoleIdByEmpId(Long empId) {
         return roleMapper.getRoleIdByEmpId(empId);
     }
-
+    @Override
+    public List<String> queryRoleSnByEmployeeId(Long id) {
+        return roleMapper.queryRoleSnByEmployeeId(id);
+    }
 }

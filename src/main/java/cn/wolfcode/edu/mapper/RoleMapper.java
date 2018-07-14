@@ -28,4 +28,5 @@ public interface RoleMapper {
     List<Long> getRoleIdByEmpId(Long empId);
 
 
+    List<String> queryRoleSnByEmployeeId(Long id);
 }
