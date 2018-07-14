@@ -15,43 +15,48 @@
     </div>
 </table>
 
+
 <div id="job_dialog">
     <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
-        <input name="id" id="empId" type="hidden">
+        <input name="id" id="jobId" type="hidden">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
-                <td><font size="1">员工账号:</font></td>
-                <td><input class="easyui-textbox" type="text" name="username"/></td>
+                <td><font size="1">职务名称:</font></td>
+                <td><input class="easyui-textbox" type="text" name="jobName"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">真实姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="realname"/></td>
+                <td><font size="1">基本工资:</font></td>
+                <td><input class="easyui-textbox" type="text" name="baseSalary"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">出生日期:</font></td>
-                <td><input class="easyui-datebox" type="text" name="bornDate"/></td>
+                <td><font size="1">公积金缴存基数:</font></td>
+                <td><input class="easyui-textbox" type="text" name="accumulationFund"/></td>
+            </tr>
+            <tr>
+                <td><font size="1">公积金缴存比例:</font></td>
+                <td><input class="easyui-textbox" type="text" name="proportion"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">联系邮箱:</font></td>
-                <td><input class="easyui-textbox" type="text" name="eamil"/></td>
+                <td><font size="1">社保缴存金额:</font></td>
+                <td><input class="easyui-textbox" type="text" name="socialInsurance"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">考勤卡号:</font></td>
-                <td><input class="easyui-textbox" type="text" name="attendanceId"/></td>
+                <td><font size="1">加班补贴:</font></td>
+                <td><input class="easyui-textbox" type="text" name="overtimeAllowance"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">考勤卡号:</font></td>
-                <td><input class="easyui-textbox" type="text" name="attendanceId"/></td>
+                <td><font size="1">奖金:</font></td>
+                <td><input class="easyui-textbox" type="text" name="bonus"/></td>
             </tr>
 
             <tr>
-                <td><font size="1">考勤卡号:</font></td>
-                <td><input class="easyui-textbox" type="text" name="attendanceId"/></td>
+                <td><font size="1">奖金系数:</font></td>
+                <td><input class="easyui-textbox" type="text" name="coefficient"/></td>
             </tr>
 
         </table>
@@ -62,5 +67,6 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
 </div>
+
 </body>
 </html>

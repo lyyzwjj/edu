@@ -145,6 +145,11 @@
                                                data-options="valueField: 'id',textField: 'name',url: '/dataDictionaryItem/queryListByParent?parentId=10',
                     panelHeight:'auto'"/></td>
 
+                                    <td><font size="1">所属职务:</font></td>
+                                    <td><input class="easyui-combobox" type="text" name="job.id"
+                                               data-options="url:'/job/selectAll',
+                            valueField:'id',textField:'jobName',panelHeight:'auto'"/></td>
+
                                 </tr>
                             </table>
                         </form>

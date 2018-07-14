@@ -23,10 +23,14 @@
     <result column="portrait" property="portrait" />
     <result column="admin" property="admin" />
     <result column="sourceOfClient_id" property="sourceOfClientId"/>
-    <association property="dept" javaType="cn.wolfcode.edu.domain.Department" columnPrefix="d_">
+    <association property="dept" javaType="Department" columnPrefix="d_">
         <id property="id" column="id"></id>
         <result property="name" column="name"></result>
         <result property="sn" column="sn"></result>
+    </association>
+    <association property="job" javaType="Job" columnPrefix="j_">
+        <id property="id" column="id"></id>
+        <result property="jobName" column="jobName"></result>
     </association>
   </resultMap>
 
@@ -37,10 +41,10 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.Employee" useGeneratedKeys="true" keyProperty="id" >
     insert into `employee` (username, password, realname, age, gender, bornDate, cardId,
       tel, eamil, qq, address, employeeId, attendanceId, hireDate, 
-      seniority, state, portrait, admin,dept_id,sourceOfClient_id)
+      seniority, state, portrait, admin,dept_id,sourceOfClient_id,job_id)
     values (#{username}, #{password}, #{realname}, #{age}, #{gender}, #{bornDate}, #{cardId},
       #{tel}, #{eamil}, #{qq}, #{address}, #{employeeId}, #{attendanceId}, #{hireDate},
-      #{seniority}, #{state}, #{portrait}, #{admin},#{dept.id},#{sourceOfClientId})
+      #{seniority}, #{state}, #{portrait}, #{admin},#{dept.id},#{sourceOfClientId},#{job.id})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Employee" >
@@ -64,6 +68,7 @@
       portrait = #{portrait},
       admin = #{admin},
       dept_id=#{dept.id},
+      job_id=#{job.id},
       sourceOfClient_id=#{sourceOfClientId}
     where id = #{id}
   </update>
@@ -71,40 +76,42 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,e.sourceOfClient_id,
-    d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,e.job_id,
+    d.id d_id,d.name d_name , d.sn d_sn,j.id j_id ,j.jobName j_jobName
     from `employee` e
-    LEFT JOIN department d
-    on e.dept_id =d.id
+    LEFT JOIN department d on e.dept_id =d.id
+    LEFT JOIN job j on e.job_id=j.id
     where id = #{id}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,e.sourceOfClient_id,
-    d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,e.job_id,
+    d.id d_id,d.name d_name , d.sn d_sn,j.id j_id ,j.jobName j_jobName
     from `employee` e
     LEFT JOIN department d
     on e.dept_id =d.id
+    LEFT JOIN job j on e.job_id=j.id
   </select>
 
   <select id="queryForCount" resultType="int">
     select count(e.id)
     from `employee` e
-    LEFT JOIN department d
-    on e.dept_id =d.id
+    LEFT JOIN department d on e.dept_id =d.id
+    LEFT JOIN job j on e.job_id=j.id
     <include refid="query_sql"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
     select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
     e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
-    e.dept_id,e.sourceOfClient_id,
-    d.id d_id,d.name d_name , d.sn d_sn
+    e.dept_id,e.sourceOfClient_id,e.job_id,
+    d.id d_id,d.name d_name , d.sn d_sn ,j.id j_id ,j.jobName j_jobName
     from `employee` e
     LEFT JOIN department d
     on e.dept_id =d.id
+    LEFT JOIN job j on e.job_id=j.id
     <include refid="query_sql"/>
       <if test="sort!=null">
         order by ${sort} ${order}

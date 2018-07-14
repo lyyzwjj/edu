@@ -62,4 +62,7 @@ public class Employee {
 
     //客户来源,于数据字典
     private Long sourceOfClientId;
+
+    //员工对应的职务
+    private Job job;
 }
