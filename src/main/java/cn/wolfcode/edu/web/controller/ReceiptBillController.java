@@ -6,6 +6,8 @@ import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.ReceiptBillQueryObject;
 import cn.wolfcode.edu.service.IReceiptBillService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,19 +25,25 @@ public class ReceiptBillController {
     private IReceiptBillService receiptBillService;
 
     @RequestMapping("")
+    @RequiresPermissions("receiptbill:index")
+    @PermissionName("收款明细首页")
     public String index(){
         return "receiptbill/list";
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("receiptbill:list")
+    @PermissionName("收款明细数据")
     public PageResult list(ReceiptBillQueryObject qo){
         PageResult result = receiptBillService.query(qo);
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("receiptbill:delete")
+    @PermissionName("收款明细删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
@@ -47,8 +55,10 @@ public class ReceiptBillController {
         return result;
     }
 
-    @RequestMapping("/save")
+    @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("receiptbill:save")
+    @PermissionName("收款明细保存")
     public JsonResult save(ReceiptBill exp) {
         JsonResult result = new JsonResult();
         try {
@@ -61,8 +71,10 @@ public class ReceiptBillController {
     }
 
     //审核操作
-    @RequestMapping("/check")
+    @RequestMapping("check")
     @ResponseBody
+    @RequiresPermissions("receiptbill:check")
+    @PermissionName("收款明细审核")
     public JsonResult check(Long id) {
         JsonResult result = new JsonResult();
         try {

@@ -33,7 +33,7 @@ public class ClientSchoolLinkmanController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("clientSchoolLinkman:list")
-    @PermissionName("学校联系人列表")
+    @PermissionName("学校联系人数据")
     public PageResult list(ClientQueryObject qo) {
         PageResult result = clientSchoolLinkmanService.query(qo);
         return result;

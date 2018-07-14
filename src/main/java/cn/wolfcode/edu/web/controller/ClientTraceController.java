@@ -28,7 +28,7 @@ public class ClientTraceController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("clientTrace:list")
-    @PermissionName("客户追踪列表")
+    @PermissionName("客户追踪数据")
     public PageResult list(QueryObject qo) {
         PageResult result = clientTraceService.query(qo);
         return result;

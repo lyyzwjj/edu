@@ -28,7 +28,7 @@ public class ClientExamController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("clientExam:list")
-    @PermissionName("客户考试列表")
+    @PermissionName("客户考试数据")
     public PageResult list(QueryObject qo) {
         PageResult result = clientExamService.query(qo);
         return result;
@@ -81,7 +81,8 @@ public class ClientExamController {
     //审核考试结果
     @RequestMapping("changeState")
     @ResponseBody
-
+    @RequiresPermissions("clientExam:changeState")
+    @PermissionName("客户考试审核")
     public JsonResult changeState(Long id) {
         JsonResult result = new JsonResult();
         try {

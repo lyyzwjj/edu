@@ -8,6 +8,7 @@ import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.service.IExpendBillService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,19 +30,25 @@ public class ExpendBillController {
     private IExpendBillService expendBillService;
 
     @RequestMapping("")
+    @RequiresPermissions("expendbill:index")
+    @PermissionName("支出首页")
     public String index(){
         return "expendbill/list";
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("expendbill:list")
+    @PermissionName("支出数据")
     public PageResult list(ExpendBillQueryObject qo){
         PageResult result = expendBillService.query(qo);
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("expendbill:delete")
+    @PermissionName("支出删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
@@ -53,8 +60,10 @@ public class ExpendBillController {
         return result;
     }
 
-    @RequestMapping("/save")
+    @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("expendbill:save")
+    @PermissionName("支出保存")
     public JsonResult save(ExpendBill exp) {
         JsonResult result = new JsonResult();
         try {
@@ -67,8 +76,10 @@ public class ExpendBillController {
     }
 
     //审核操作
-    @RequestMapping("/check")
+    @RequestMapping("check")
     @ResponseBody
+    @RequiresPermissions("expendbill:check")
+    @PermissionName("支出审核")
     public JsonResult check(Long id) {
         JsonResult result = new JsonResult();
         try {

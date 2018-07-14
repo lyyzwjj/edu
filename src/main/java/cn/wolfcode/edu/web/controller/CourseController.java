@@ -5,6 +5,8 @@ import cn.wolfcode.edu.query.CourseQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.ICourseService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ public class CourseController {
     private ICourseService courseService;
 
     @RequestMapping("")
+    @RequiresPermissions("course:index")
+    @PermissionName("课程表首页")
     public String index()
     {
         return "course/list";
@@ -38,6 +42,8 @@ public class CourseController {
 
     @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("course:update")
+    @PermissionName("课程表更新")
     public JsonResult update(Course course) {
         JsonResult result = new JsonResult();
         try {
@@ -51,6 +57,8 @@ public class CourseController {
 
     @RequestMapping("today")
     @ResponseBody
+    @RequiresPermissions("course:today")
+    @PermissionName("课程表按时间查看")
     public List<Course> date(String data) throws ParseException {
         String string = data;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

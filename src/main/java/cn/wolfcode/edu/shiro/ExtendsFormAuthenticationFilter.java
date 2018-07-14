@@ -1,5 +1,10 @@
 package cn.wolfcode.edu.shiro;
 
+import cn.wolfcode.edu.domain.SystemMenu;
+import cn.wolfcode.edu.service.ISystemMenuService;
+import cn.wolfcode.edu.util.SystemMenuUtil;
+import lombok.Setter;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -11,15 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 
 public class ExtendsFormAuthenticationFilter extends FormAuthenticationFilter {
+    @Setter
+    private ISystemMenuService systemMenuService;
+
     //登录成功处理方法
     protected boolean onLoginSuccess(AuthenticationToken token,
                                      Subject subject, ServletRequest request, ServletResponse response)
             throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
+        /*List<SystemMenu> menus = systemMenuService.queryRootMenu();
+        SystemMenuUtil.filterMenu(menus);*/
+        List<SystemMenu> menus  = systemMenuService.list();
+        SecurityUtils.getSubject().getSession().setAttribute(SystemMenuUtil.SYSTEM_MENU_IN_SESSION,menus);
         resp.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();
         out.println("{\"success\":true,\"msg\":\"登陆成功\"}");
