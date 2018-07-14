@@ -40,7 +40,13 @@ public class EmployeeRealm extends AuthorizingRealm {
         //登陆
         String name = (String) token.getPrincipal();
         //根据用户名查询数据库
-        Employee employee = employeeService.checkName(name);
+        Employee employee =null;
+        try {
+            employee = employeeService.checkName(name);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if (employee == null) {
             return null;
         }
