@@ -25,9 +25,9 @@
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientSchoolLinkman" useGeneratedKeys="true" keyProperty="id" >
     insert into `clientschoollinkman` (name, gender, school_name, birthday, department, job, tel, 
-      QQ, weChat, email, isMajorLinkman, introduce)
+      qq, weChat, email, isMajorLinkman, introduce)
     values (#{name}, #{gender}, #{schoolName.id}, #{birthday}, #{department}, #{job}, #{tel},
-      #{QQ}, #{weChat}, #{email}, #{isMajorLinkman}, #{introduce})
+      #{qq}, #{weChat}, #{email}, #{isMajorLinkman}, #{introduce})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientSchoolLinkman" >
     update `clientschoollinkman`
@@ -38,7 +38,7 @@
       department = #{department},
       job = #{job},
       tel = #{tel},
-      QQ = #{QQ},
+      qq = #{qq},
       weChat = #{weChat},
       email = #{email},
       isMajorLinkman = #{isMajorLinkman},
@@ -46,19 +46,19 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, gender, school_name, birthday, department, job, tel, QQ, weChat, 
+    select id, name, gender, school_name, birthday, department, job, tel, qq, weChat, 
     email, isMajorLinkman, introduce
     from `clientschoollinkman`
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, gender, school_name, birthday, department, job, tel, QQ, weChat, 
+    select id, name, gender, school_name, birthday, department, job, tel, qq, weChat, 
     email, isMajorLinkman, introduce
     from `clientschoollinkman`
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select m.id, m.name, m.gender,  m.birthday, m.department, m.job, m.tel, m.QQ, m.weChat,
+    select m.id, m.name, m.gender,  m.birthday, m.department, m.job, m.tel, m.qq, m.weChat,
     m.email, m.isMajorLinkman,
     c.id c_id,c.name c_name
     from clientschoollinkman m
