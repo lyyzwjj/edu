@@ -78,4 +78,19 @@ public class ClientExamController {
         return result;
     }
 
+    //审核考试结果
+    @RequestMapping("changeState")
+    @ResponseBody
+
+    public JsonResult changeState(Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            clientExamService.changeState(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("审核失败");
+        }
+        return result;
+    }
+
 }

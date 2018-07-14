@@ -15,18 +15,18 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text" class="easyui-textbox" name="keyword" prompt="请输入关键字" id="keyword">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    入职时间:<input type="text" id="beginDate" class="easyui-datebox" name="beginDate"prompt="起始时间">~
+    入职时间:<input type="text" id="beginDate" class="easyui-datebox" name="beginDate" prompt="起始时间">~
     <input type="text" id="endDate" class="easyui-datebox" name="endDate" prompt="结束时间">
-    <a  class="easyui-linkbutton"data-options="iconCls:'icon-search'"  data-cmd="query">查询</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="query">查询</a>
     <br>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',text:'添加'" data-cmd="add"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',text:'编辑'" data-cmd="edit"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',text:'查看'" data-cmd="view">查看</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload">刷新</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'转正'" data-cmd="changeState" ></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'客户跟踪'" data-cmd="trace" ></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'放入资源池'" data-cmd="pushPool" ></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'考试登记'" data-cmd="bookExam" ></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'转正'" data-cmd="changeState"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'客户跟踪'" data-cmd="trace"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'放入资源池'" data-cmd="pushPool"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'考试登记'" data-cmd="bookExam"></a>
 </div>
 <div id="client_dialog">
     <form id="editForm" method="post" style="padding: 0px 0px 0px 10px;">
@@ -36,15 +36,15 @@
                 <td><font size="1">建档日期:</font></td>
                 <td><input class="easyui-datebox" type="text" name="buildDate" prompt="请选择建档日期"/></td>
                 <td><font size="1">营销人员:</font></td>
-                <td><input class="easyui-combobox" type="text"  name="saleMan.id" prompt="请选择营销人员"
-                    data-options="
+                <td><input class="easyui-combobox" type="text" name="saleMan.id" prompt="请选择营销人员"
+                           data-options="
                     valueField: 'id',
                     textField: 'username',
                     url: '/employee/queryTeachers',
                     panelHeight:'auto'"
-                    /></td>
+                /></td>
                 <td><font size="1">录入人:</font></td>
-                <td><input class="easyui-combobox" type="text"  name="inputMan.id" prompt="请选择录入人"
+                <td><input class="easyui-combobox" type="text" name="inputMan.id" prompt="请选择录入人"
                            data-options="
                     valueField: 'id',
                     textField: 'username',
@@ -94,7 +94,7 @@
                 <td><font size="1">地址:</font></td>
                 <td><input class="easyui-textbox" type="text" name="address" prompt="请输入客户住址"/></td>
                 <td><font size="1">学校:</font></td>
-                <td><input class="easyui-textbox" type="text" name="school" prompt="请输入客户住址"/></td>
+                <td><input class="easyui-textbox" type="text" name="school" prompt="请输入客户学校"/></td>
 
             </tr>
             <tr>
@@ -125,7 +125,12 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=10',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">学校客户:</font></td>
-                <td><input class="easyui-combobox" type="text" name="schoolId" prompt="请选择学校客户"/></td>
+                <td><input class="easyui-combobox" type="text" name="schoolId" prompt="请选择学校客户"
+                           data-options="
+                    valueField: 'id',
+                    textField: 'name',
+                    url: '/clientMajor/querySchoolName',
+                    panelHeight:'auto'"/></td>
                 <td><font size="1">客户类型:</font></td>
                 <td><input class="easyui-combobox" type="text" name="clientTypeId" prompt="请选择客户类型"
                            data-options="
@@ -151,7 +156,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=11',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">介绍人:</font></td>
-                <td><input class="easyui-combobox" type="text" name="introduceMan" prompt="请选择介绍人"/></td>
+                <td><input class="easyui-textbox" type="text" name="introduceMan" prompt="请选择介绍人"/></td>
                 <td><font size="1">地域:</font></td>
                 <td><input class="easyui-combobox" type="text" name="hometownId" prompt="请选择客户地域"
                            data-options="
@@ -221,38 +226,37 @@
                     }],
                     panelHeight:'auto'"/></td>
             </tr>
-            <tr >
+            <tr>
                 <td><font size="1">客户关注点:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="clientAttentionWhat" prompt="请输入客户的关注点"/></td>
+                                       data-options="width:680,height:120" type="text" name="clientAttentionWhat"
+                                       prompt="请输入客户的关注点"/></td>
             </tr>
-            <tr >
+            <tr>
                 <td><font size="1">备注:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="remark" prompt="请输入备注"/></td>
+                                       data-options="width:680,height:120" type="text" name="remark" prompt="请输入备注"/>
+                </td>
             </tr>
         </table>
-    </form>
 
-<div id="bb">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
+<div id="bb_client">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveClient">保存</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
 </div>
-    <div id="trace-bb">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveTrace">保存</a>
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
-    </div>
+    </form>
 </div>
 
-<%--学员跟踪--%>
+
+<%--客户跟踪--%>
 <div id="clientTrace_dialog">
 
     <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
-        <input type="hidden" name="id" >
+        <input type="hidden" name="id">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name" /></td>
+                <td><input class="easyui-textbox" type="text" name="name"/></td>
                 <td><font size="1">客户当前状态:</font></td>
                 <td><input class="easyui-combobox" type="text" name="clientState" prompt="请选择客户当前状态"
                            data-options="
@@ -261,7 +265,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=18',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">跟踪人:</font></td>
-                <td><input class="easyui-combobox" type="text"  name="inputMan.id" prompt="请选择当前跟踪人员"
+                <td><input class="easyui-combobox" type="text" name="inputMan.id" prompt="请选择当前跟踪人员"
                            data-options="
                     valueField: 'id',
                     textField: 'username',
@@ -329,35 +333,35 @@
                 <td colspan="3"><input class="easyui-filebox" style="width:300px" buttonText="请选择文件"
                                        buttonAlign="left" prompt="请选择需要上传的文件">
             </tr>
-            <tr >
+            <tr>
                 <td><font size="1">交流内容:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="communicationContent" prompt="请输入与客户交流的内容"/></td>
+                                       data-options="width:680,height:120" type="text" name="communicationContent"
+                                       prompt="请输入与客户交流的内容"/></td>
             </tr>
-            <tr >
+            <tr>
                 <td><font size="1">摘要:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="abstract" prompt="本次跟踪的摘要"/></td>
+                                       data-options="width:680,height:120" type="text" name="abstract"
+                                       prompt="本次跟踪的摘要"/></td>
             </tr>
         </table>
     </form>
-    </div>
-<%--底部工具按钮--%>
-<%--<div>
-    &lt;%&ndash;<jsp:include page="/WEB-INF/views/clientTrace/list.jsp"></jsp:include>&ndash;%&gt;
-    </div>--%>
-<%--放入资源池--%>
-
+</div>
+<div id="bb_trace">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveTrace">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancelTrace">取消</a>
+</div>
 
 <%--考试登记表--%>
 <div id="clientExam_dialog">
 
     <form id="clientExam_form" method="post" style="padding: 0px 0px 0px 10px;">
-        <input type="hidden" name="id" >
+        <input type="hidden" name="id" id="clientTraceId">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name" /></td>
+                <td><input class="easyui-textbox" type="text" name="name"/></td>
             </tr>
             <tr>
                 <td><font size="1">考试类型:</font></td>
@@ -365,7 +369,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'name',
-                    url: '/dataDictionaryItem/queryListByParent?parentId=17',
+                    url: '/dataDictionaryItem/queryListByParent?parentId=27',
                     panelHeight:'auto'"/></td>
             </tr>
             <tr>
@@ -379,9 +383,9 @@
             </tr>
             <tr>
                 <td><font size="1">考试时间:</font></td>
-                <td><input class="easyui-textbox" type="text" name="examDate" prompt="请输入考试时间"/></td>
+                <td><input class="easyui-datebox" type="text" name="examDate" prompt="请输入考试时间"/></td>
             </tr>
-            <tr >
+            <tr>
                 <td><font size="1">备注:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
                                        data-options="width:210,height:60" type="text" name="remark" prompt="备注"/></td>
@@ -390,9 +394,9 @@
     </form>
 </div>
 
-<div id="bb-exam">
+<div id="bb_exam">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="saveExam">保存</a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancelExam">取消</a>
 </div>
 </body>
 </html>
