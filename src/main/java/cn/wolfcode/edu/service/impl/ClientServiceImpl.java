@@ -55,13 +55,14 @@ public class ClientServiceImpl implements IClientService {
      * @param stateId
      */
     public void changeState(Long id,int stateId) {
+             Client client = clientMapper.selectByPrimaryKey(id);
          if (stateId==1){
              //转正同时 设置下转正时间
-             Client client = clientMapper.selectByPrimaryKey(id);
              client.setTransferDate(new Date());
 
          }
-         clientMapper.changeState(id,stateId);
+        Date transferDate = client.getTransferDate();
+        clientMapper.changeState(id,stateId,transferDate);
     }
 
     public List<Client> queryClients(StudentQueryObject qo) {
