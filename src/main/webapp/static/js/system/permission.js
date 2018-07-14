@@ -3,7 +3,7 @@ $(function () {
     per_datagrid.datagrid({
         width: 700,
         height: 500,
-        fit: true,
+       // fit: true,
         url: "/permission/list",
         pagination:true,
         columns: [[

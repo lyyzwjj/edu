@@ -2,6 +2,7 @@ $(function(){
     var client_datagrid=$("#client_datagrid");
     var client_dialog=$("#client_dialog");
     var clientTrace_dialog=$("#clientTrace_dialog");
+    var clientExam_dialog=$("#clientExam_dialog");
     client_datagrid.datagrid({
         fit:true,
         url:"/client/list",
@@ -68,6 +69,15 @@ $(function(){
         buttons:"#trace-bb",
         // 一开始就是关闭的状态
        closed:true
+    });
+    //初始化考试表
+    clientExam_dialog.dialog({
+        title:"考试登记",
+        width:350,
+        height:300,
+        buttons:"#bb-exam"
+        // 一开始就是关闭的状态
+       /*closed:true*/
     })
 
     var cmdObj={
@@ -241,6 +251,40 @@ $(function(){
                     }
                 });
             }
+        },
+
+        //预约考试
+        bookExam:function() {
+            var row = client_datagrid.datagrid("getSelected");
+            if (!row) {
+                //如果不为true 说明没有选择数据 让用户选择数据
+                $.messager.alert("温馨提示", "请选择要预约考试的学员");
+            } else {
+                //将选中的行的数据加载到对话框中的form表单中
+                clientExam_dialog.dialog("open");
+                $("#clientExam_form").form("clear");
+                $("#clientExam_form").form("load", row);
+
+            }
+        },
+
+        //预约考试的保存方法
+        saveExam:function(){
+            $("#clientExam_form").form("submit", {
+                url : "/clientExam/save",
+                success : function(data) {
+                    // 接受返回的数据
+                    // 操作失败 提示用户
+                    // 操作成功,提示用户 关闭当前对话框,刷新页面
+                    data = $.parseJSON(data);
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.errorMsg);
+                    } else {
+                        $.messager.alert("温馨提示", "保存成功");
+                        clientTrace_dialog.dialog("close");
+                    }
+                }
+            })
         }
 
     }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--1:创建自定义shiro-->
+    <bean id="employeeRealm" class="cn.wolfcode.edu.shiro.EmployeeRealm">
+        <!--引入员工的service操作-->
+        <property name="employeeService" ref="employeeServiceImpl"></property>
+        <property name="permissionService" ref="permissionServiceImpl"></property>
+        <property name="roleService" ref="roleServiceImpl"></property>
+        <!--配置加密凭证-->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
+    <!--2:配置安全管理器securityManager-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="employeeRealm"/>
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+    <!-- 配置shiro登陆校验过滤器-->
+    <bean id="myFormFilter" class="cn.wolfcode.edu.shiro.ExtendsFormAuthenticationFilter"></bean>
+    <!--3:定义真实的shiroFilter-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="unauthorizedUrl" value="/nopermission.jsp"/>
+        <property name="filters">
+            <map>
+                <entry key="authc" value-ref="myFormFilter"></entry>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /static/**=anon
+                /favicon.ico=anon
+                /login.jsp=anon
+                /logout=logout
+                /**=authc
+            </value>
+        </property>
+    </bean>
+    <aop:config proxy-target-class="true"></aop:config>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"></property>
+    </bean>
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager"/>
+    </bean>
+    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:shiro-ehcache.xml"/>
+        <property name="shared" value="true"></property>
+    </bean>
+    <!--加密器-->
+    <bean id="credentialsMatcher"
+          class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="1"/>
+    </bean>
+</beans>

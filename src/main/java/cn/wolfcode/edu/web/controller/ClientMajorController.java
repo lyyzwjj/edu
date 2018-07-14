@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("clientMajor")
 public class ClientMajorController {
@@ -32,6 +34,12 @@ public class ClientMajorController {
     public PageResult list(ClientMajorQueryObject qo) {
         PageResult result = clientMajorService.query(qo);
         return result;
+    }
+    //获得学校的名字
+    @RequestMapping("querySchoolName")
+    @ResponseBody
+    public List<ClientMajor> querySchoolName() {
+        return clientMajorService.list();
     }
 
     @RequestMapping("save")

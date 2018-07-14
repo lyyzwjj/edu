@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.StudentLeaveMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.StudentLeave">
+        <id column="id" property="id"/>
+        <result column="phase" property="phase"/>
+        <result column="reason" property="reason"/>
+        <result column="leaveTime" property="leavetime"/>
+        <result column="reimburse" property="reimburse"/>
+        <result column="state" property="state"/>
+        <result column="day" property="day"/>
+        <!--学员-->
+        <association property="client" javaType="Client">
+            <id column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_tel" property="tel"/>
+            <result column="c_QQNum" property="QQNum"/>
+        </association>
+        <!--班级-->
+        <association property="grade" javaType="Grade">
+            <id column="g_id" property="id"/>
+            <result column="g_name" property="name"/>
+        </association>
+        <!--经办人-->
+        <association property="operator" javaType="Employee">
+            <id column="operator_id" property="id"/>
+            <result column="operator_realname" property="realname"/>
+        </association>
+        <!--录入人-->
+        <association property="inputer" javaType="Employee">
+            <id column="inputer_id" property="id"/>
+            <result column="inputer_realname" property="realname"/>
+        </association>
+        <!--营销人员-->
+        <association property="marketer" javaType="Employee">
+            <id column="marketer_id" property="id"/>
+            <result column="marketer_realname" property="realname"/>
+        </association>
+        <!--审核人-->
+        <association property="auditor" javaType="Employee">
+            <id column="auditor_id" property="id"/>
+            <result column="auditor_realname" property="realname"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `studentleave`
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.StudentLeave" useGeneratedKeys="true" keyProperty="id">
+    insert into `studentleave` (client_id, grade_id, phase, reason, leaveTime, operator_id, 
+      inputer_id, marketer_id, reimburse, state, day,auditor_id)
+    values (#{client.id}, #{grade.id}, #{phase}, #{reason}, #{leavetime}, #{operator.id},
+      #{inputer.id}, #{marketer.id}, #{reimburse}, #{state}, #{day}),#{auditor.id}
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.StudentLeave">
+    update `studentleave`
+    set client_id = #{client.id},
+      grade_id = #{grade.id},
+      phase = #{phase},
+      reason = #{reason},
+      leaveTime = #{leavetime},
+      operator_id = #{operator.id},
+      inputer_id = #{inputer.id},
+      marketer_id = #{marketer.id},
+      reimburse = #{reimburse},
+      state = #{state},
+      day = #{day},
+      auditor_id = #{auditor.id}
+    where id = #{id}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
+    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    g.id g_id, g.name g_name,
+    operator.id operator_id, operator.realname operator_realname,
+    inputer.id inputer_id, inputer.realname inputer_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname
+    from `studentleave` sl
+    left JOIN client c on sl.client_id = c.id
+    left JOIN grade g on sl.grade_id = g.id
+    left JOIN employee operator on sl.operator_id = operator.id
+    left JOIN employee inputer on sl.inputer_id = inputer.id
+    left JOIN employee marketer on sl.marketer_id = marketer.id
+    left JOIN employee auditor on sl.auditor_id = auditor.id
+
+    where sl.id = #{id}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+   select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
+    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    g.id g_id, g.name g_name,
+    operator.id operator_id, operator.realname operator_realname,
+    inputer.id inputer_id, inputer.realname inputer_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname
+    from `studentleave` sl
+    left JOIN client c on sl.client_id = c.id
+    left JOIN grade g on sl.grade_id = g.id
+    left JOIN employee operator on sl.operator_id = operator.id
+    left JOIN employee inputer on sl.inputer_id = inputer.id
+    left JOIN employee marketer on sl.marketer_id = marketer.id
+    left JOIN employee auditor on sl.auditor_id = auditor.id
+  </select>
+
+    <select id="queryForCount" resultType="int">
+        select count(sl.id)
+        from `studentleave` sl
+        left JOIN client c on sl.client_id = c.id
+        left JOIN grade g on sl.grade_id = g.id
+        left JOIN employee operator on sl.operator_id = operator.id
+        left JOIN employee inputer on sl.inputer_id = inputer.id
+        left JOIN employee marketer on sl.marketer_id = marketer.id
+        left JOIN employee auditor on sl.auditor_id = auditor.id
+
+        <include refid="BASE_WHERE"/>
+    </select>
+    <select id="queryForList" resultMap="BaseResultMap">
+        select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
+        c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+        g.id g_id, g.name g_name,
+        operator.id operator_id, operator.realname operator_realname,
+        inputer.id inputer_id, inputer.realname inputer_realname,
+        marketer.id marketer_id, marketer.realname marketer_realname,
+        auditor.id auditor_id, auditor.realname auditor_realname
+        from `studentleave` sl
+        left JOIN client c on sl.client_id = c.id
+        left JOIN grade g on sl.grade_id = g.id
+        left JOIN employee operator on sl.operator_id = operator.id
+        left JOIN employee inputer on sl.inputer_id = inputer.id
+        left JOIN employee marketer on sl.marketer_id = marketer.id
+        left JOIN employee auditor on sl.auditor_id = auditor.id
+
+        <include refid="BASE_WHERE"/>
+
+        limit #{startIndex},#{rows}
+    </select>
+
+    <sql id="BASE_WHERE">
+        <where>
+            <if test="keyword != null">
+                and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
+            </if>
+            <if test="begindate != null">
+                and sl.leaveTime >= #{begindate}
+            </if>
+            <if test="enddate != null">
+                and sl.leaveTime &lt;= #{enddate}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

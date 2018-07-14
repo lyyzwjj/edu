@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.service.impl;
 
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.domain.Role;
 import cn.wolfcode.edu.mapper.RoleMapper;
 import cn.wolfcode.edu.query.PageResult;
@@ -16,11 +17,25 @@ public class RoleServiceImpl implements IRoleService{
     private RoleMapper roleMapper;
 
     public void save(Role entity) {
+
         roleMapper.insert(entity);
+
+        List<Permission> permissions = entity.getPermissions();
+        if(permissions!=null){
+            for (Permission permission : permissions) {
+                roleMapper.insertRelation(entity.getId(),permission.getId());
+            }
+        }
     }
 
     public void update(Role entity) {
+        //维护与permission关系
+        roleMapper.delePermVissionRelation(entity.getId());
         roleMapper.updateByPrimaryKey(entity);
+        List<Permission>permissions=entity.getPermissions();
+        for (Permission permission : permissions) {
+            roleMapper.insertRelation(entity.getId(),permission.getId());
+        }
     }
 
     public void delete(Long id) {
