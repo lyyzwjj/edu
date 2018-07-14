@@ -1,6 +1,7 @@
 package cn.wolfcode.edu.service.impl;
 
 import cn.wolfcode.edu.domain.StudentLeave;
+import cn.wolfcode.edu.mapper.ClientMapper;
 import cn.wolfcode.edu.mapper.StudentLeaveMapper;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.PageResult;
@@ -14,9 +15,14 @@ import java.util.List;
 public class StudentLeaveServiceImpl implements IStudentLeaveService{
     @Autowired
     private StudentLeaveMapper studentLeaveMapper;
+    @Autowired
+    private ClientMapper clientMapper;
 
     public void save(StudentLeave entity) {
+
         studentLeaveMapper.insert(entity);
+
+        clientMapper.changeState(entity.getClient().getId(),4);
     }
 
     public void update(StudentLeave entity) {

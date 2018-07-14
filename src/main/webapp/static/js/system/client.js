@@ -64,7 +64,8 @@ $(function(){
             }
             },
             {field: 'remark', title: '备注', width: 100, align: "center"}
-        ]]
+
+        ]],
     });
 
 

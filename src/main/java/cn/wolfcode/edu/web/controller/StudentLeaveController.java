@@ -54,6 +54,7 @@ public class StudentLeaveController {
     @RequiresPermissions("studentLeave:update")
     @PermissionName("学员流失更新")
     public JsonResult update(StudentLeave studentLeave){
+        System.out.println("============1");
         JsonResult result=new JsonResult();
         try {
             studentLeaveService.update(studentLeave);

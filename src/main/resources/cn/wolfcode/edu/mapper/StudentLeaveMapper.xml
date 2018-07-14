@@ -50,7 +50,7 @@
     insert into `studentleave` (client_id, grade_id, phase, reason, leaveTime, operator_id, 
       inputer_id, marketer_id, reimburse, state, day,auditor_id)
     values (#{client.id}, #{grade.id}, #{phase}, #{reason}, #{leavetime}, #{operator.id},
-      #{inputer.id}, #{marketer.id}, #{reimburse}, #{state}, #{day}),#{auditor.id}
+      #{inputer.id}, #{marketer.id}, #{reimburse}, #{state}, #{day},#{auditor.id})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.StudentLeave">
     update `studentleave`

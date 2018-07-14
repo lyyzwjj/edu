@@ -9,6 +9,7 @@
     <result column="remark" property="remark" />
     <result column="totalMoney" property="totalmoney" />
     <result column="state" property="state" />
+    <result column="unpaidmoney" property="unpaidmoney"/>
     <!--学员-->
     <association property="client" javaType="cn.wolfcode.edu.domain.Client">
       <id column="c_id" property="id"></id>
@@ -42,6 +43,11 @@
       <id column="marketer_id" property="id"></id>
       <result column="marketer_realname" property="realname"></result>
     </association>
+    <!--审核人-->
+    <association property="auditor" javaType="cn.wolfcode.edu.domain.Employee">
+      <id column="auditor_id" property="id"></id>
+      <result column="auditor_realname" property="realname"></result>
+    </association>
     <!--校区-->
     <association property="campus" javaType="cn.wolfcode.edu.domain.Campus">
       <id column="cam_id" property="id" />
@@ -53,12 +59,12 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ReceiptBill" useGeneratedKeys="true" keyProperty="id" >
-    insert into `receiptbill` (client_id, receiptTime, receiptMoney, coursename_id, payment_id,
+    insert into `receiptbill` (client_id, receiptTime, receiptMoney, coursename_id, payment_id,campus_id,auditor_id,
       billNum, grade_id, remark, receipter_id, marketer_id,
-      totalMoney,state)
-    values (#{client.id}, #{receipttime}, #{receiptmoney}, #{courseName.id}, #{payment.id},
+      totalMoney,state,unpaidmoney)
+    values (#{client.id}, #{receipttime}, #{receiptmoney}, #{courseName.id}, #{payment.id},#{campus.id}, #{auditor.id},
       #{billnum}, #{grade.id}, #{remark}, #{receipter.id}, #{marketer.id},
-      #{totalmoney},#{state})
+      #{totalmoney},#{state},#{unpaidmoney})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ReceiptBill" >
     update `receiptbill`
@@ -66,6 +72,7 @@
       receiptTime = #{receipttime},
       receiptMoney = #{receiptmoney},
       coursename_id = #{courseName.id},
+      auditor_id = #{auditor.id},
       payment_id = #{payment.id},
       billNum = #{billnum},
       grade_id = #{grade.id},
@@ -73,15 +80,18 @@
       receipter_id = #{receipter.id},
       marketer_id = #{marketer.id},
       totalMoney = #{totalmoney},
-      state = #{state}
+      state = #{state},
+      unpaidmoney = #{unpaidmoney},
+      campus_id = #{campus.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,
-    re.remark, re.totalMoney,re.state,
+    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,re.unpaidmoney, re.remark,
+    re.totalMoney,re.state,
     pay.id pay_id, pay.payname pay_payname,
     receipter.id receipter_id, receipter.realname receipter_realname,
     marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname,
     cam.id cam_id, cam.name cam_name,
     cou.id cou_id, cou.name cou_name,
     g.id g_id, g.name g_name,
@@ -94,18 +104,21 @@
     left JOIN campus cam on re.campus_id = cam.id
     left JOIN coursename cou on re.coursename_id = cou.id
     left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
     where re.id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,
-    re.remark, re.totalMoney,re.state,
+
+  <select id="selectBillsByClientId" resultMap="BaseResultMap" >
+    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,re.unpaidmoney, re.remark,
+    re.totalMoney,re.state,
     pay.id pay_id, pay.payname pay_payname,
     receipter.id receipter_id, receipter.realname receipter_realname,
     marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname,
     cam.id cam_id, cam.name cam_name,
     cou.id cou_id, cou.name cou_name,
     g.id g_id, g.name g_name,
-    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum
+    c.id c_id, c.name c_name
     from `receiptbill` re
     left join client c on re.client_id = c.id
     left join payment pay on re.payment_id = pay.id
@@ -114,6 +127,30 @@
     left JOIN campus cam on re.campus_id = cam.id
     left JOIN coursename cou on re.coursename_id = cou.id
     left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
+    where c.id = #{id}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,re.unpaidmoney, re.remark,
+    re.totalMoney,re.state,
+    pay.id pay_id, pay.payname pay_payname,
+    receipter.id receipter_id, receipter.realname receipter_realname,
+    marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname,
+    cam.id cam_id, cam.name cam_name,
+    cou.id cou_id, cou.name cou_name,
+    g.id g_id, g.name g_name,
+    c.id c_id, c.name c_name
+    from `receiptbill` re
+    left join client c on re.client_id = c.id
+    left join payment pay on re.payment_id = pay.id
+    left join employee receipter on re.receipter_id = receipter.id
+    left join employee marketer on re.marketer_id = marketer.id
+    left JOIN campus cam on re.campus_id = cam.id
+    left JOIN coursename cou on re.coursename_id = cou.id
+    left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
   </select>
 
   <select id="queryForCount" resultType="int">
@@ -126,15 +163,17 @@
     left JOIN campus cam on re.campus_id = cam.id
     left JOIN coursename cou on re.coursename_id = cou.id
     left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
     <include refid="BASE_WHERE"/>
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select re.id,  re.receiptTime, re.receiptMoney, re.billNum
-    , re.remark, re.totalMoney,re.state,
+    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,re.unpaidmoney, re.remark,
+    re.totalMoney,re.state,
     pay.id pay_id, pay.payname pay_payname,
     receipter.id receipter_id, receipter.realname receipter_realname,
     marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname,
     cam.id cam_id, cam.name cam_name,
     cou.id cou_id, cou.name cou_name,
     g.id g_id, g.name g_name,
@@ -147,6 +186,7 @@
     left JOIN campus cam on re.campus_id = cam.id
     left JOIN coursename cou on re.coursename_id = cou.id
     left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
     <include refid="BASE_WHERE"/>
     limit #{startIndex},#{rows}
   </select>
@@ -157,10 +197,10 @@
         and (c.name LIKE concat("%",#{keyword},"%") or receipter.realname LIKE concat("%",#{keyword},"%"))
       </if>
       <if test="begindate != null">
-        and re.receiptTime >= #{begindate}
+        and re.lastreceiptTime >= #{begindate}
       </if>
       <if test="enddate != null">
-        and re.receiptTime &lt;= #{enddate}
+        and re.lastreceiptTime &lt;= #{enddate}
       </if>
       <if test="paymentId != null">
         and pay.id = #{paymentId}
@@ -172,11 +212,12 @@
   </sql>
 
   <select id="selectByClientId" resultMap="BaseResultMap">
-    select re.id,  re.receiptTime, re.receiptMoney, re.course_id, re.billNum,
-    re.grade_id, re.remark, re.totalMoney,re.state,
+    select re.id,  re.receiptTime, re.receiptMoney, re.billNum,re.unpaidmoney, re.remark,
+    re.totalMoney,re.state,
     pay.id pay_id, pay.payname pay_payname,
     receipter.id receipter_id, receipter.realname receipter_realname,
     marketer.id marketer_id, marketer.realname marketer_realname,
+    auditor.id auditor_id, auditor.realname auditor_realname,
     cam.id cam_id, cam.name cam_name,
     cou.id cou_id, cou.name cou_name,
     g.id g_id, g.name g_name,
@@ -189,6 +230,7 @@
     left JOIN campus cam on re.campus_id = cam.id
     left JOIN coursename cou on re.coursename_id = cou.id
     left JOIN grade g on re.grade_id = g.id
+    left join employee auditor on re.auditor_id = auditor.id
     where re.client_id = #{id}
   </select>
 </mapper>

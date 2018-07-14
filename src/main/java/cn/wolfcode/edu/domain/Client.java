@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
+
 @Setter
 @Getter
 public class Client {
@@ -191,7 +193,7 @@ public class Client {
     /*
     是否携带电脑 1:是 0:没有
      */
-    private Integer withComputer;
+    private int withComputer;
     /*
     客户的关注点是什么
      */
@@ -204,6 +206,7 @@ public class Client {
     /*
     客户收款信息
      */
+    private StudentReceiptGather studentReceiptGather;
     private ReceiptBill receiptBill;
 
 }
