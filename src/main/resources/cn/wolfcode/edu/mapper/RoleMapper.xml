@@ -47,4 +47,7 @@
   <select id="getRoleIdByEmpId" resultType="long">
     select role_id from role_employee where employee_id= #{empId}
   </select>
+  <select id="queryRoleSnByEmployeeId" resultType="string">
+    SELECT sn FROM role r LEFT JOIN employee_role er ON r.id =  er.role_id WHERE er.employee_id = #{employeeId}
+  </select>
 </mapper>

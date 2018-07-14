@@ -14,12 +14,12 @@ import java.io.PrintWriter;
 
 
 public class ExtendsFormAuthenticationFilter extends FormAuthenticationFilter {
+    //登录成功处理方法
     protected boolean onLoginSuccess(AuthenticationToken token,
                                      Subject subject, ServletRequest request, ServletResponse response)
             throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        System.out.println("登陆成功");
         resp.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();
         out.println("{\"success\":true,\"msg\":\"登陆成功\"}");
