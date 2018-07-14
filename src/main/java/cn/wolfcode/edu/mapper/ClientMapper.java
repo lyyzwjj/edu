@@ -43,4 +43,6 @@ public interface ClientMapper {
     List<Client> listStudents();
 
     void insertPoolClient(Client client);
+
+    void updateByStudent(Client client);
 }

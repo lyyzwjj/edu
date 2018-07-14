@@ -35,6 +35,7 @@ public class ClientServiceImpl implements IClientService {
     }
 
     public void update(Client record) {
+
         clientMapper.updateByPrimaryKey(record);
     }
 
@@ -91,5 +92,22 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public List<Client> listStudents() {
         return clientMapper.listStudents();
+    }
+
+    @Override
+    public void updateByStudent(Client client) {
+        clientMapper.updateByStudent(client);
+    }
+
+    @Override
+    public void changeTrend(Long id) {
+        Client client = clientMapper.selectByPrimaryKey(id);
+        if (client.getStateId() == 1){
+            clientMapper.changeState(id,3);
+            return;
+        } else if(client.getStateId() == 3){
+            clientMapper.changeState(id,1);
+            return;
+        }
     }
 }

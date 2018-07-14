@@ -1,28 +1,38 @@
-$(function(){
+$(function () {
     var rep_datagrid = $('#rep_datagrid');
     var rep_dialog = $("#rep_dialog");
 
     //datagrid的初始化
     rep_datagrid.datagrid({
-        url:"/receiptbill/list",
-        fitColumns:true,
-        striped:true,
-        pagination:true,
-        rownumbers:true,
-        fit:true,
-        singleSelect:true,
-        checkOnSelect:true,
-        columns:[[
-            {field:'x',checkbox:'true'},
-            {field:'id',title:'编号',width:100,hidden:true},
+        url: "/receiptbill/list",
+        fitColumns: true,
+        striped: true,
+        pagination: true,
+        rownumbers: true,
+        fit: true,
+        singleSelect: true,
+        checkOnSelect: true,
+        columns: [[
+            {field: 'x', checkbox: 'true'},
+            {field: 'id', title: '编号', width: 100, hidden: true},
             {
                 field: "client", title: "学员名称", width: 100, formatter: function (value, row, index) {
                 return value ? value.name : "";
             }
             },
-            {field:'receipttime',title:'收款时间',width:100},
-            {field:'receiptmoney',title:'收款金额',width:100},
-            {field:'totalmoney',title:'总金额',width:100},
+            {field: 'receipttime', title: '收款时间', width: 100},
+            {field: 'receiptmoney', title: '收款金额', width: 100},
+            {field: 'totalmoney', title: '总金额', width: 100},
+            /*{field: 'unpaidmoney', title: '待付金额', width: 100},*/
+            {
+                field: "unpaidmoney", title: "待付金额", width: 100, formatter: function (value, row, index) {
+                if (value) {
+                    return value;
+                } else {
+                    return 0;
+                }
+            }
+            },
             {
                 field: "grade", title: "班级", width: 100, formatter: function (value, row, index) {
                 return value ? value.name : "";
@@ -38,7 +48,7 @@ $(function(){
                 return value ? value.payname : "";
             }
             },
-            {field:'billnum',title:'订单号',width:100},
+            {field: 'billnum', title: '订单号', width: 100},
             {
                 field: "courseName", title: "学科", width: 100, formatter: function (value, row, index) {
                 return value ? value.name : "";
@@ -49,18 +59,29 @@ $(function(){
                 return value ? value.realname : "";
             }
             },
-            {field:'remark',title:'备注',width:100},
+            {
+                field: "campus", title: "校区", width: 100, formatter: function (value, row, index) {
+                return value ? value.name : "";
+            }
+            },
+            {field: 'remark', title: '备注', width: 100},
+            {
+                field: 'auditor', title: '审核人', width: 90, align: "center", formatter: function (value, row, index) {
+                if (value) {
+                    return value.realname;
+                }}
+            },
             {
                 field: "state", title: "审核", width: 100, formatter: function (value, row, index) {
                 if (value == 1) {
                     return "<font color='green'>已审核</font>";
-                } else if (value == 0){
+                } else if (value == 0) {
                     return "<font color='red'>未审核</font>";
                 }
             }
             }
         ]],
-        toolbar:"#tb",
+        toolbar: "#tb",
     });
     //end
 
@@ -98,8 +119,8 @@ $(function(){
                 keyword: keyword,
                 begindate: begindate,
                 enddate: enddate,
-                paymentId:paymentId,
-                gradeId:gradeId
+                paymentId: paymentId,
+                gradeId: gradeId
             });
         },
 
@@ -113,11 +134,11 @@ $(function(){
             $("#editForm").form("submit", {
                 url: controller,
                 /*onSubmit: function (param) {
-                    var ids = $("#rolesId").combobox("getValues");
-                    for (var i = 0; i < ids.length; i++) {
-                        param["roles[" + i + "].id"] = ids[i];
-                    }
-                },*/
+                 var ids = $("#rolesId").combobox("getValues");
+                 for (var i = 0; i < ids.length; i++) {
+                 param["roles[" + i + "].id"] = ids[i];
+                 }
+                 },*/
                 success: function (data) {
                     data = $.parseJSON(data);
                     if (!data.success) {
@@ -151,7 +172,74 @@ $(function(){
         add: function () {
             $("#editForm").form("clear");
             rep_dialog.dialog("open");
-            rep_dialog.dialog("setTitle", "员工添加");
+            rep_dialog.dialog("setTitle", "收款添加");
+            $('#receiptbill_combogrid').combogrid({
+                panelWidth: 450,
+                textField: 'name',
+                idField: 'id',
+                url: '/student/queryStudents',
+                columns: [[
+                    {field: 'id', title: '编号', width: 100, hidden: true},
+                    {
+                        field: 'name', title: '学员名称', width: 100, formatter: function (value, row, index) {
+                            if (value){
+                                return value.name;
+                            }
+                    }
+                    },
+                    {
+                        field: 'tel', title: '电话', width: 100, formatter: function (value, row, index) {
+                        if (value){
+                            return value.tel;
+                        }
+                    }
+                    },
+                    {
+                        field: 'qqnum', title: 'QQ', width: 100, formatter: function (value, row, index) {
+                        if (value){
+                            return value.qqnum;
+                        }
+                    }
+                    },
+                    {
+                        field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value, row, index) {
+                        if (value) {
+                            return value.realname;
+                        }}
+                    },
+                    {
+                        field: 'receipttime', title: '入学时间', width: 90, align: "center", formatter: function (value, row, index) {
+                        return row.receiptBill.receipttime;
+                    }
+                    },
+                    {
+                        field: 'totalmoney', title: '总学费', width: 90, align: "center", formatter: function (value, row, index) {
+                        return row.receiptBill.totalmoney;
+                    }
+                    },
+                    {
+                        field: 'receiptmoney', title: '已缴学费', width: 90, align: "center", formatter: function (value, row, index) {
+                        return row.receiptBill.receiptmoney;
+                    }
+                    },
+                    {
+                        field: 'state', title: '缴款状态', width: 90, align: "center", formatter: function (value, row, index) {
+                        value = row.receiptBill.state
+                        if (value == 1) {
+                            return "<font color='green'>已缴清</font>";
+                        } else if (value == 0) {
+                            return "<font color='red'>未缴清</font>";
+                        }
+                    }
+                    },
+                    {
+                        field: 'name', title: '校区', width: 90, align: "center", formatter: function (value, row, index) {
+                        return ow.receiptBill.name;
+                    }
+                    },
+                    {field: 'email', title: '邮箱', width: 90, align: "center"},
+                ]]
+            });
         },
 
         //审核
@@ -172,7 +260,8 @@ $(function(){
         }
     }
 
-    $("a[data-cmd]").click(function () {
+    $("a[data-cmd]"
+    ).click(function () {
         var cmd = $(this).data("cmd");
         cmdObj[cmd]();
     })

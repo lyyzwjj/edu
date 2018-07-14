@@ -1,10 +1,13 @@
 package cn.wolfcode.edu.service.impl;
 
+import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.domain.ExpendBill;
 import cn.wolfcode.edu.mapper.ExpendBillMapper;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IExpendBillService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +34,9 @@ public class ExpendBillServiceImpl implements IExpendBillService{
         Date payTime = new Date();
         record.setPayTime(payTime);
         record.setState(0);
-        //设置出纳,登录还没有
 
-
-
+        Employee currentUser = (Employee) SecurityUtils.getSubject();
+        record.getCashier().setId(currentUser.getId());
         return expendBillMapper.insert(record);
     }
 
@@ -68,8 +70,8 @@ public class ExpendBillServiceImpl implements IExpendBillService{
         ExpendBill expendBill = expendBillMapper.selectByPrimaryKey(id);
         if (expendBill != null){
             if (expendBill.getState() == 0){
-                //审核人还没设置
-
+                Employee currentUser = (Employee) SecurityUtils.getSubject();
+                expendBill.getAuditor().setId(currentUser.getId());
                 expendBill.setState(1);
                 expendBillMapper.updateByPrimaryKey(expendBill);
             }

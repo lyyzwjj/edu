@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.StudentReceiptGatherMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.StudentReceiptGather" >
+    <id column="id" property="id" />
+    <result column="totalreceiptmoney" property="totalreceiptmoney" />
+    <result column="totalmoney" property="totalmoney" />
+    <result column="unpaidmoney" property="unpaidmoney" />
+    <collection property="receiptbills" ofType="ReceiptBill" column="client_id" select="cn.wolfcode.edu.mapper.ReceiptBillMapper.selectBillsByClientId"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `studentreceiptgather`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.StudentReceiptGather" useGeneratedKeys="true" keyProperty="id" >
+    insert into `studentreceiptgather` (receiptbill_id, totalreceiptmoney, totalmoney)
+    values (#{receiptbillId}, #{totalreceiptmoney}, #{totalmoney})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.StudentReceiptGather" >
+    update `studentreceiptgather`
+    set receiptbill_id = #{receiptbillId},
+      totalreceiptmoney = #{totalreceiptmoney},
+      totalmoney = #{totalmoney}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select srp.id, receiptbill_id, totalreceiptmoney, totalmoney, srp.unpaidmoney
+    from `studentreceiptgather` srp
+    left join receiptbill rp on srp.client_id = rp.client_id
+    where id = #{id}
+  </select>
+  <select id="selectByClientId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select srp.id, totalreceiptmoney, totalmoney, srp.unpaidmoney
+    from `studentreceiptgather` srp
+    left join receiptbill rp on srp.client_id = rp.client_id
+    where srp.client_id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select srp.id, srp.totalreceiptmoney, srp.totalmoney, srp.unpaidmoney
+    from `studentreceiptgather` srp
+    left join receiptbill rp on srp.client_id = rp.client_id
+  </select>
+</mapper>
