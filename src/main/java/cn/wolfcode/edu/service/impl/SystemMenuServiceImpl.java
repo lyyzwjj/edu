@@ -57,4 +57,10 @@ public class SystemMenuServiceImpl implements ISystemMenuService{
     public List<SystemMenu> queryAllParentSystemMenu() {
         return systemMenuMapper.queryAllParentSystemMenu();
     }
+
+    @Override
+    public List<SystemMenu> queryRootMenu() {
+        return systemMenuMapper.queryRootMenu();
+    }
+
 }

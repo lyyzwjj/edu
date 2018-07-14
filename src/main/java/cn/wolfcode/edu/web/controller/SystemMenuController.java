@@ -5,7 +5,9 @@ import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.ISystemMenuService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.SystemMenuUtil;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,6 +87,11 @@ public class SystemMenuController {
         jsonString = jsonString.replace("parentId","_parentId");
         response.getWriter().write("{\"rows\":" + jsonString + "}");
         return null;
+    }
+    @RequestMapping("queryRootMenu")
+    @ResponseBody
+    public List<SystemMenu> queryRootMenu() {
+        return (List<SystemMenu>) SecurityUtils.getSubject().getSession().getAttribute(SystemMenuUtil.SYSTEM_MENU_IN_SESSION);
     }
     @ResponseBody
     @RequestMapping("queryAllParentSystemMenu")

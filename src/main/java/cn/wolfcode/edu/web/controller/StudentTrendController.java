@@ -22,7 +22,7 @@ public class StudentTrendController {
     @Autowired
     private IStudentTrendService studentTrendService;
     @RequestMapping("")
-    @PermissionName("学员流失列表")
+    @PermissionName("学员转换首页")
     public String index(){
         return "studentTrend/list";
     }
@@ -30,7 +30,7 @@ public class StudentTrendController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("studentTrend:list")
-    @PermissionName("学员流失数据")
+    @PermissionName("学员转换数据")
     public PageResult list(StudentTrendQueryObject qo){
         return studentTrendService.query(qo);
     }
@@ -38,7 +38,7 @@ public class StudentTrendController {
     @RequestMapping("save")
     @ResponseBody
     @RequiresPermissions("studentTrend:save")
-    @PermissionName("保存学员流失")
+    @PermissionName("学员转换保存")
     public JsonResult save(StudentTrend studentTrend){
        JsonResult result=new JsonResult();
         try {
@@ -52,7 +52,7 @@ public class StudentTrendController {
     @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("studentTrend:update")
-    @PermissionName("更新学员流失")
+    @PermissionName("学员转换更新")
     public JsonResult update(StudentTrend studentTrend){
         JsonResult result=new JsonResult();
         try {
@@ -67,7 +67,7 @@ public class StudentTrendController {
     @RequestMapping("delete")
     @ResponseBody
     @RequiresPermissions("studentTrend:delete")
-    @PermissionName("更新学员流失")
+    @PermissionName("学员转换删除")
     public JsonResult delete(Long id){
         JsonResult result=new JsonResult();
         try {

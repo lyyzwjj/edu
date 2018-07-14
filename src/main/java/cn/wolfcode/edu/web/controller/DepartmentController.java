@@ -21,7 +21,7 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
     @RequestMapping("")
-    @PermissionName("部门列表")
+    @PermissionName("部门首页")
     public String index(){
         return "department/list";
     }
@@ -37,7 +37,7 @@ public class DepartmentController {
     @RequestMapping("save")
     @ResponseBody
     @RequiresPermissions("department:save")
-    @PermissionName("保存部门")
+    @PermissionName("部门保存")
     public JsonResult save(Department department){
        JsonResult result=new JsonResult();
         try {
@@ -51,7 +51,7 @@ public class DepartmentController {
     @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("department:update")
-    @PermissionName("更新部门")
+    @PermissionName("部门更新")
     public JsonResult update(Department department){
         JsonResult result=new JsonResult();
         try {
@@ -65,7 +65,7 @@ public class DepartmentController {
     @RequestMapping("changeState")
     @ResponseBody
     @RequiresPermissions("department:changeState")
-    @PermissionName("更新部门状态")
+    @PermissionName("部门状态更新")
     public JsonResult changeState(Long id){
         JsonResult result=new JsonResult();
         try {

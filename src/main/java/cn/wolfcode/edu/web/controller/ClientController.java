@@ -28,7 +28,7 @@ public class ClientController {
     @RequestMapping("list")
     @ResponseBody
     @RequiresPermissions("client:list")
-    @PermissionName("潜在客户列表")
+    @PermissionName("潜在客户数据")
     public PageResult list(ClientQueryObject qo) {
         PageResult result = clientService.query(qo);
         return result;
@@ -66,7 +66,8 @@ public class ClientController {
 
     @RequestMapping("changeState")
     @ResponseBody
-
+    @RequiresPermissions("client:changeState")
+    @PermissionName("潜在客户转正")
     public JsonResult changeState(Long id,int stateId) {
         JsonResult result = new JsonResult();
         try {

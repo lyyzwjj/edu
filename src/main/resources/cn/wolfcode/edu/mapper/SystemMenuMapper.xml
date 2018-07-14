@@ -75,4 +75,16 @@
     left join permission p on s.permission_id = p.id
     where s.url is NULL
     </select>
+    <select id="queryRootMenu" resultMap="BaseResultMap">
+        select id, text, url from   systemMenu where parent_id is null
+    </select>
+    <select id="querySubMenuByParentId" resultMap="BaseResultMap">
+        select s.id, s.text, s.url,
+        ps.id ps_id, ps.text ps_text,
+        p.id p_id, p.resource p_resource
+        from systemMenu s
+        LEFT JOIN systemmenu ps on s.parent_id = ps.id
+        LEFT JOIN permission p  on s.permission_id = p.id
+        where s.parent_id = #{id}
+    </select>
 </mapper>

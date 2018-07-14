@@ -27,7 +27,7 @@ public class StudentController {
         return "student/list";
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("student:update")
     @PermissionName("潜在客户更新")

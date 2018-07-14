@@ -21,4 +21,6 @@ public interface SystemMenuMapper {
     List<SystemMenu> queryForList(QueryObject qo);
 
     List<SystemMenu> queryAllParentSystemMenu();
+
+    List<SystemMenu> queryRootMenu();
 }
