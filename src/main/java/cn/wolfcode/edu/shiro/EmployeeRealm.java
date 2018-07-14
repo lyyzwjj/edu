@@ -32,9 +32,6 @@ public class EmployeeRealm extends AuthorizingRealm{
 
       //  employeeService.getEmployeeByUserName(username);
         //根据用户名查询数据库
-        Employee employee1 = employeeService.get(1L);
-        if(employee1 != null){}
-        System.out.println(employee1.getUsername());
         Employee employee = employeeService.checkName(username);
          if(employee==null){
             return null;

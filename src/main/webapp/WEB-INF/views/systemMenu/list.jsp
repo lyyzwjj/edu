@@ -4,41 +4,36 @@
     <jsp:include page="/WEB-INF/views/commons/commons.jsp"></jsp:include>
     <script src="/static/js/system/systemMenu.js"></script>
 </head>
-<%--系统菜单--%>
+<body>
+<%--数据字典--%>
 <table id="systemMenu_treegrid">
-    <%--    <div id="mtb">
-            <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="madd">添加</a>
-            <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="medit">编辑</a>
-            <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="mdelete">删除</a>
-            <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="mreload">刷新</a>
-        </div>--%>
 </table>
-<%--<div id="systemMenu_dialog">
-    <form id="meditForm" method="post" style="padding: 40px 0px 0px 30px;">
-        <input name="id" id="mId" type="hidden">
+<div id="tb">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="add">添加</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="delete">删除</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
+</div>
+<div id="systemMenu_dialog">
+    <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
+        <input name="id" id="id" type="hidden">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">菜单名称：</font></td>
-                <td><input class="easyui-textbox" type="text" name="sn"/></td>
+                <td><input class="easyui-textbox" type="text" name="text"/></td>
             </tr>
             <tr>
-                <td><font size="1">菜单路劲：</font></td>
-                <td><input class="easyui-textbox" type="text" name="sn"/></td>
+                <td><font size="1">菜单路径:</font></td>
+                <td><input id="mytextbox" class="easyui-textbox" data-options="prompt:'需选择父级菜单才能输入',value:'null'" type="text" name="url" readonly="readonly" /></td>
             </tr>
-            <tr>
-                <td><font size="1">根菜单:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name"/></td>
-            </tr>
-            <tr>
-                <td><font size="1">父菜单:</font></td>
-                <td><input class="easyui-textbox" type="text" name="intro"/></td>
-            </tr>
+            <td><font size="1">父级菜单:</font></td>
+            <td><input id="mycombobox" type="text" name="parent.id" /></td>
         </table>
     </form>
-    <div id="mbb">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="msave">保存</a>
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="mcancel">取消</a>
-    </div>
-</div>--%>
+</div>
+<div id="bb">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" data-cmd="save">保存</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
+</div>
 </body>
 </html>

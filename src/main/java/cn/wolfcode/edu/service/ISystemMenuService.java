@@ -47,4 +47,10 @@ public interface ISystemMenuService {
      * @return
      */
     PageResult query(QueryObject qo);
+
+    /**
+     * 查询所有有子菜单的父级菜单 通过判断url是否有值
+     * @return
+     */
+    List<SystemMenu> queryAllParentSystemMenu();
 }
