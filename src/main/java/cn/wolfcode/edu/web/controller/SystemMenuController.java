@@ -95,7 +95,8 @@ public class SystemMenuController {
     @RequiresPermissions("systemMenu:data")
     @PermissionName("主页菜单数据")
     public ModelAndView data(HttpServletResponse response) throws IOException {
-        List<SystemMenu> list = systemMenuService.list();
+        //List<SystemMenu> list = systemMenuService.list();
+        List<SystemMenu> list = (List<SystemMenu>) SecurityUtils.getSubject().getSession().getAttribute(SystemMenuUtil.SYSTEM_MENU_IN_SESSION);
         String jsonString = JSON.toJSONString(list);
         jsonString = jsonString.replace("\"parentId\":\"\",", "");
         jsonString = jsonString.replace("parentId", "_parentId");
@@ -120,5 +121,11 @@ public class SystemMenuController {
     @RequestMapping("queryIndexPermission")
     public List<Permission> queryIndexPermission() {
         return systemMenuService.queryIndexPermission();
+    }
+
+    @RequestMapping("test")
+    public ModelAndView test(){
+        systemMenuService.test();
+        return null;
     }
 }

@@ -25,4 +25,5 @@ public interface SystemMenuMapper {
 
     List<SystemMenu> queryRootMenu();
 
+    List<SystemMenu> queryIndexMenu();
 }

@@ -30,7 +30,7 @@ public class ExtendsFormAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         List<SystemMenu> menus = systemMenuService.queryRootMenu();
-        SystemMenuUtil.filterMenu(menus);
+        SystemMenuUtil.filterSystemMenu(menus);
         SecurityUtils.getSubject().getSession().setAttribute(SystemMenuUtil.SYSTEM_MENU_IN_SESSION,menus);
         resp.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();

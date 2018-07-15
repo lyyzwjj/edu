@@ -62,4 +62,6 @@ public interface ISystemMenuService {
     List<SystemMenu> queryRootMenu();
 
     List<Permission> queryIndexPermission();
+
+    void test();
 }
