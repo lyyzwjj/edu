@@ -4,10 +4,6 @@
   <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientMajor" >
     <id column="id" property="id" />
     <result column="name" property="name" />
-    <result column="important_degree" property="importantDegree" />
-    <result column="intention_degree" property="intentionDegree" />
-    <result column="intention_class" property="intentionClass" />
-    <result column="intention_school" property="intentionSchool" />
     <result column="client_state" property="clientState" />
     <result column="trace_state" property="traceState" />
     <result column="preferential_policy" property="preferentialPolicy" />
@@ -16,24 +12,59 @@
     <result column="address" property="address" />
     <result column="tel" property="tel" />
     <result column="email" property="email" />
-    <result column="nature_of_school" property="natureOfSchool" />
-    <result column="academic_diplomas" property="academicDiplomas" />
-    <result column="school_system" property="schoolSystem" />
     <result column="postcode" property="postcode" />
     <result column="website" property="website" />
     <result column="student_total" property="studentTotal" />
     <result column="stuent_total_IT" property="stuentTotalIT" />
     <result column="schoo_introduce" property="schooIntroduce" />
     <result column="remark" property="remark" />
-    <association property="saleMan" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="sale_man_">
+    <!--关联DataDictionaryItem的数据-->
+    <association property="importantDegree" javaType="DataDictionaryItem"
+                 columnPrefix="importantDegree_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="intention_degree" property="intentionDegree" />-->
+    <association property="intentionDegree" javaType="DataDictionaryItem" columnPrefix="intentionDegree_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!-- <result column="intention_class" property="intentionClass" />-->
+    <association property="intentionClass" javaType="DataDictionaryItem" columnPrefix="intentionClass_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="intention_school" property="intentionSchool" />-->
+    <association property="intentionSchool" javaType="DataDictionaryItem" columnPrefix="intentionSchool_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--  <result column="nature_of_school" property="natureOfSchool" />-->
+    <association property="natureOfSchool" javaType="DataDictionaryItem" columnPrefix="natureOfSchool_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!-- <result column="academic_diplomas" property="academicDiplomas" />-->
+    <association property="academicDiplomas" javaType="DataDictionaryItem" columnPrefix="academicDiplomas_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="school_system" property="schoolSystem" />-->
+    <association property="schoolSystem" javaType="DataDictionaryItem" columnPrefix="schoolSystem_" >
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+
+
+    <association property="saleMan" javaType="Employee" columnPrefix="sale_man_">
       <id property="id" column="id"/>
       <result column="username" property="username"/>
     </association>
-    <association property="traceMan" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="trace_man_">
+    <association property="traceMan" javaType="Employee" columnPrefix="trace_man_">
       <id property="id" column="id"/>
       <result column="username" property="username"/>
     </association>
-    <association property="contactPerson" javaType="cn.wolfcode.edu.domain.ClientSchoolLinkman" columnPrefix="contact_man_">
+    <association property="contactPerson" javaType="ClientSchoolLinkman" columnPrefix="contact_man_">
       <id property="id" column="id"/>
       <result column="name" property="name"/>
     </association>
@@ -43,80 +74,133 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientMajor" useGeneratedKeys="true" keyProperty="id" >
-    insert into `clientmajor` (name, important_degree, intention_degree, intention_class, intention_school, 
-      contact_person_id, sale_man_id, trace_man_id, client_state, trace_state, 
-      preferential_policy, perv_trace_date, next_trace_time, address, tel, 
-      email, nature_of_school, academic_diplomas, school_system, postcode, 
-      website, student_total, stuent_total_IT, schoo_introduce, remark)
-    values (#{name}, #{importantDegree}, #{intentionDegree}, #{intentionClass}, #{intentionSchool}, 
-      #{contactPerson.id}, #{saleMan.id}, #{traceMan.id}, #{clientState}, #{traceState},
-      #{preferentialPolicy}, #{pervTraceDate}, #{nextTraceTime}, #{address}, #{tel}, 
-      #{email}, #{natureOfSchool}, #{academicDiplomas}, #{schoolSystem}, #{postcode}, 
-      #{website}, #{studentTotal}, #{stuentTotalIT}, #{schooIntroduce}, #{remark})
+    insert into `clientmajor` (name, important_degree, intention_degree, intention_class, intention_school,
+    contact_person_id, sale_man_id, trace_man_id, client_state, trace_state,
+    preferential_policy, perv_trace_date, next_trace_time, address, tel,
+    email, nature_of_school, academic_diplomas, school_system, postcode,
+    website, student_total, stuent_total_IT, schoo_introduce, remark)
+    values (#{name}, #{importantDegree.id}, #{intentionDegree.id}, #{intentionClass.id}, #{intentionSchool.id},
+    #{contactPerson.id}, #{saleMan.id}, #{traceMan.id}, #{clientState}, #{traceState},
+    #{preferentialPolicy}, #{pervTraceDate}, #{nextTraceTime}, #{address}, #{tel},
+    #{email}, #{natureOfSchool.id}, #{academicDiplomas.id}, #{schoolSystem.id}, #{postcode},
+    #{website}, #{studentTotal}, #{stuentTotalIT}, #{schooIntroduce}, #{remark})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientMajor" >
     update `clientmajor`
     set name = #{name},
-      important_degree = #{importantDegree},
-      intention_degree = #{intentionDegree},
-      intention_class = #{intentionClass},
-      intention_school = #{intentionSchool},
-      contact_person_id = #{contactPerson.id},
-      sale_man_id = #{saleMan.id},
-      trace_man_id = #{traceMan.id},
-      client_state = #{clientState},
-      trace_state = #{traceState},
-      preferential_policy = #{preferentialPolicy},
-      perv_trace_date = #{pervTraceDate},
-      next_trace_time = #{nextTraceTime},
-      address = #{address},
-      tel = #{tel},
-      email = #{email},
-      nature_of_school = #{natureOfSchool},
-      academic_diplomas = #{academicDiplomas},
-      school_system = #{schoolSystem},
-      postcode = #{postcode},
-      website = #{website},
-      student_total = #{studentTotal},
-      stuent_total_IT = #{stuentTotalIT},
-      schoo_introduce = #{schooIntroduce},
-      remark = #{remark}
+    important_degree = #{importantDegree.id},
+    intention_degree = #{intentionDegree.id},
+    intention_class = #{intentionClass.id},
+    intention_school = #{intentionSchool.id},
+    contact_person_id = #{contactPerson.id},
+    sale_man_id = #{saleMan.id},
+    trace_man_id = #{traceMan.id},
+    client_state = #{clientState},
+    trace_state = #{traceState},
+    preferential_policy = #{preferentialPolicy},
+    perv_trace_date = #{pervTraceDate},
+    next_trace_time = #{nextTraceTime},
+    address = #{address},
+    tel = #{tel},
+    email = #{email},
+    nature_of_school = #{natureOfSchool.id},
+    academic_diplomas = #{academicDiplomas.id},
+    school_system = #{schoolSystem.id},
+    postcode = #{postcode},
+    website = #{website},
+    student_total = #{studentTotal},
+    stuent_total_IT = #{stuentTotalIT},
+    schoo_introduce = #{schooIntroduce},
+    remark = #{remark}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, important_degree, intention_degree, intention_class, intention_school, 
-    contact_person_id, sale_man_id, trace_man_id, client_state, trace_state, preferential_policy, 
-    perv_trace_date, next_trace_time, address, tel, email, nature_of_school, academic_diplomas, 
-    school_system, postcode, website, student_total, stuent_total_IT, schoo_introduce, 
-    remark
-    from `clientmajor`
-    where id = #{id}
+    select
+    c.id, c.name,
+    c.client_state, c.trace_state, c.preferential_policy,
+    c.perv_trace_date, c.next_trace_time, c.address, c.tel, c.email,
+    c.postcode, c.website, c.student_total, c.stuent_total_IT,
+    c.schoo_introduce,
+    c.remark,
+    importantDegree.id importantDegree_id,importantDegree.name importantDegree_name,
+    intentionDegree.id intentionDegree_id, intentionDegree.name intentionDegree_name,
+    intentionClass.id intentionClass_id,intentionClass.name intentionClass_name,
+    intentionSchool.id intentionSchool_id,intentionSchool.name intentionSchool_name,
+    natureOfSchool.id natureOfSchool_id,natureOfSchool.name natureOfSchool_name,
+    academicDiplomas.id academicDiplomas_id,academicDiplomas.name academicDiplomas_nam,
+    schoolSystem.id schoolSystem_id,schoolSystem.name schoolSystem_name,
+
+    sale_man.id sale_man_id,sale_man.username sale_man_username,
+    trace_man.id trace_man_id,trace_man.username trace_man_username,
+
+    contact_man.id contact_man_id,contact_man.name contact_man_name,contact_man.tel contact_man_tel
+    from `clientmajor` c
+    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
+    left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id
+    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    left join datadictionaryitem intentionSchool on c.intention_school=intentionSchool.id
+    left join datadictionaryitem natureOfSchool on c.nature_of_school=natureOfSchool.id
+    left join datadictionaryitem academicDiplomas on c.academic_diplomas=academicDiplomas.id
+    left join datadictionaryitem schoolSystem on c.school_system=schoolSystem.id
+    left join employee sale_man on c.sale_man_id=sale_man.id
+    left join employee trace_man on c.trace_man_id=trace_man.id
+    left join ClientSchoolLinkman contact_man on c.contact_person_id=contact_man.id
+    where c.id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, important_degree, intention_degree, intention_class, intention_school, 
-    contact_person_id, sale_man_id, trace_man_id, client_state, trace_state, preferential_policy, 
-    perv_trace_date, next_trace_time, address, tel, email, nature_of_school, academic_diplomas, 
-    school_system, postcode, website, student_total, stuent_total_IT, schoo_introduce, 
+    select id, name, important_degree, intention_degree, intention_class, intention_school,
+    contact_person_id, sale_man_id, trace_man_id, client_state, trace_state, preferential_policy,
+    perv_trace_date, next_trace_time, address, tel, email, nature_of_school, academic_diplomas,
+    school_system, postcode, website, student_total, stuent_total_IT, schoo_introduce,
     remark
     from `clientmajor`
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    SELECT c.id,c.name,c.tel,c.important_degree,c.client_state, c.trace_state,
-    s.id sale_man_id,s.username sale_man_username,
-    t.id trace_man_id,t.username trace_man_username,
-    m.id  contact_man_id,m.name contact_man_name,m.tel contact_man_tel
-    from clientmajor c
-    left join clientschoollinkman m on m.id=c.contact_person_id
-    left join employee s on s.id=c.sale_man_id
-    left join employee t on t.id=c.trace_man_id
+   select
+    c.id, c.name,
+    c.client_state, c.trace_state, c.preferential_policy,
+    c.perv_trace_date, c.next_trace_time, c.address, c.tel, c.email,
+    c.postcode, c.website, c.student_total, c.stuent_total_IT,
+    c.schoo_introduce,
+    c.remark,
+    importantDegree.id importantDegree_id,importantDegree.name importantDegree_name,
+    intentionDegree.id intentionDegree_id, intentionDegree.name intentionDegree_name,
+    intentionClass.id intentionClass_id,intentionClass.name intentionClass_name,
+    intentionSchool.id intentionSchool_id,intentionSchool.name intentionSchool_name,
+    natureOfSchool.id natureOfSchool_id,natureOfSchool.name natureOfSchool_name,
+    academicDiplomas.id academicDiplomas_id,academicDiplomas.name academicDiplomas_nam,
+    schoolSystem.id schoolSystem_id,schoolSystem.name schoolSystem_name,
+
+    sale_man.id sale_man_id,sale_man.username sale_man_username,
+    trace_man.id trace_man_id,trace_man.username trace_man_username,
+
+    contact_man.id contact_man_id,contact_man.name contact_man_name,contact_man.tel contact_man_tel
+    from `clientmajor` c
+    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
+    left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id
+    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    left join datadictionaryitem intentionSchool on c.intention_school=intentionSchool.id
+    left join datadictionaryitem natureOfSchool on c.nature_of_school=natureOfSchool.id
+    left join datadictionaryitem academicDiplomas on c.academic_diplomas=academicDiplomas.id
+    left join datadictionaryitem schoolSystem on c.school_system=schoolSystem.id
+    left join employee sale_man on c.sale_man_id=sale_man.id
+    left join employee trace_man on c.trace_man_id=trace_man.id
+    left join ClientSchoolLinkman contact_man on c.contact_person_id=contact_man.id
     limit #{startIndex},#{rows}
   </select>
   <select id="queryForCount" resultType="int">
     select count(c.id)
-    from clientmajor c
-    left join clientschoollinkman m on m.id=c.contact_person_id
-    left join employee s on s.id=c.sale_man_id
-    left join employee t on t.id=c.trace_man_id
+    from `clientmajor` c
+    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
+    left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id
+    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    left join datadictionaryitem intentionSchool on c.intention_school=intentionSchool.id
+    left join datadictionaryitem natureOfSchool on c.nature_of_school=natureOfSchool.id
+    left join datadictionaryitem academicDiplomas on c.academic_diplomas=academicDiplomas.id
+    left join datadictionaryitem schoolSystem on c.school_system=schoolSystem.id
+    left join employee sale_man on c.sale_man_id=sale_man.id
+    left join employee trace_man on c.trace_man_id=trace_man.id
+    left join ClientSchoolLinkman contact_man on c.contact_person_id=contact_man.id
   </select>
 </mapper>
