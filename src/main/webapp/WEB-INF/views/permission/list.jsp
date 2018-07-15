@@ -5,12 +5,9 @@
     <script src="/static/js/system/permission.js"></script>
 </head>
 <body>
-<table id="per_datagrid">
-    <div id="tb">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="reload">加载权限</a>
-
-    </div>
-</table>
-
+<table id="per_datagrid"></table>
+<div id="tb">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="reload">加载权限</a>
+</div>
 </body>
 </html>

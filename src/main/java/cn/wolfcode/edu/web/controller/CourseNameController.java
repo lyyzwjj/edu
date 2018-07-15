@@ -22,7 +22,7 @@ public class CourseNameController {
     private ICourseNameService courseNameService;
 
     @RequestMapping("")
-    @RequiresPermissions("course:index")
+    @RequiresPermissions("courseName:index")
     @PermissionName("课程系列首页")
     public String index() {
         return "courseName/list";
@@ -30,7 +30,7 @@ public class CourseNameController {
 
     @RequestMapping("list")
     @ResponseBody
-    @RequiresPermissions("course:list")
+    @RequiresPermissions("courseName:list")
     @PermissionName("课程系列数据")
     public PageResult list(CourseNameQueryObject qo)
     {
@@ -39,7 +39,7 @@ public class CourseNameController {
 
     @RequestMapping("save")
     @ResponseBody
-    @RequiresPermissions("course:save")
+    @RequiresPermissions("courseName:save")
     @PermissionName("课程系列保存")
     public JsonResult save(CourseName courseName) {
         JsonResult result = new JsonResult();

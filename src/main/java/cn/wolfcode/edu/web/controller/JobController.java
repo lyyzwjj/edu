@@ -48,6 +48,8 @@ public class JobController {
 
     @RequestMapping("/save")
     @ResponseBody
+    @RequiresPermissions("job:save")
+    @PermissionName("职务保存")
     public JsonResult save(Job job) {
         JsonResult result = new JsonResult();
         try {
@@ -61,6 +63,8 @@ public class JobController {
 
     @RequestMapping("/update")
     @ResponseBody
+    @RequiresPermissions("job:update")
+    @PermissionName("职务更新")
     public JsonResult update(Job job) {
         JsonResult result = new JsonResult();
         try {
@@ -74,6 +78,8 @@ public class JobController {
 
     @RequestMapping("/delete")
     @ResponseBody
+    @RequiresPermissions("job:delete")
+    @PermissionName("职务删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {

@@ -17,6 +17,9 @@
 <div id="systemMenu_dialog">
     <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
         <input name="id" id="id" type="hidden">
+        <input name="parent.id" type="hidden"/>
+        <input name="permission.id" type="hidden"/>
+        <input name="permission.resource" type="hidden"/>
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">菜单名称：</font></td>
@@ -26,8 +29,15 @@
                 <td><font size="1">菜单路径:</font></td>
                 <td><input id="mytextbox" class="easyui-textbox" data-options="prompt:'需选择父级菜单才能输入',value:'null'" type="text" name="url" readonly="readonly" /></td>
             </tr>
+            <tr>
             <td><font size="1">父级菜单:</font></td>
-            <td><input id="mycombobox" type="text" name="parent.id" /></td>
+            <td><input id="mycombobox" type="text" name="parent.text" /></td>
+            </tr>
+            <td><font size="1">对应页面:</font></td>
+            <td><input id="mycombobox2" type="text" name="permission.text" /></td>
+            <tr>
+
+            </tr>
         </table>
     </form>
 </div>

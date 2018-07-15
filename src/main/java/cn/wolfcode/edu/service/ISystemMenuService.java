@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.service;
 
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.domain.SystemMenu;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
@@ -59,4 +60,6 @@ public interface ISystemMenuService {
      * @return 菜单树
      */
     List<SystemMenu> queryRootMenu();
+
+    List<Permission> queryIndexPermission();
 }

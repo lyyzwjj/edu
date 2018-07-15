@@ -38,7 +38,16 @@ $(function () {
         onSelect: function () {
             $("#mytextbox").textbox('readonly', false)
         }
-    })
+    });
+    $("#mycombobox2").combobox({
+        url: '/systemMenu/queryIndexPermission',
+        valueField: 'id',
+        textField: 'name',
+        prompt: '默认为根菜单',
+        onSelect: function () {
+            $("#mytextbox").textbox('readonly', false)
+        }
+    });
     var cmdObj = {
         reload: function () {
             systemMenu_treegrid.treegrid("reload");
@@ -74,14 +83,20 @@ $(function () {
             if (!row) {
                 $.messager.alert("温馨提示", "想选择要编辑的行")
             } else {
-                console.log(row.parent)
+                console.log(row)
                 if (row.url && row.parent) {
-                    row["parent.id"] = row.parent.text;
+                    row["parent.text"] = row.parent.text;
+                    row["parent.id"] = row.parent.id;
+                    // row["permission.name"] = row.permission.name;
+                    // row["permission.id"] = row.permission.id;
                     $("#mycombobox").combobox('readonly', false)
                 } else {
                     row.url = null;
                     if (row.parent) {
-                        row["parent.id"] = row.parent.text;
+                        row["parent.text"] = row.parent.text;
+                        row["parent.id"] = row.parent.id;
+                        // row["permission.name"] = row.permission.name;
+                        // row["permission.id"] = row.permission.id;
                     }
                     $("#mycombobox").combobox('readonly', true)
                 }

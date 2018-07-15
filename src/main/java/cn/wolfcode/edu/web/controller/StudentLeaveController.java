@@ -22,9 +22,10 @@ public class StudentLeaveController {
     @Autowired
     private IStudentLeaveService studentLeaveService;
     @RequestMapping("")
+    @RequiresPermissions("studentLeave:")
     @PermissionName("学员流失首页")
     public String index(){
-        return "studentLeave/list";
+        return "studentLeave/listindex";
     }
 
     @RequestMapping("list")

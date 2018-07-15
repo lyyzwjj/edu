@@ -21,6 +21,7 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
     @RequestMapping("")
+    @RequiresPermissions("department:index")
     @PermissionName("部门首页")
     public String index(){
         return "department/list";

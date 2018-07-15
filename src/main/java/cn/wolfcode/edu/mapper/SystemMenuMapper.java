@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.mapper;
 
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.domain.SystemMenu;
 import cn.wolfcode.edu.query.QueryObject;
 
@@ -23,4 +24,5 @@ public interface SystemMenuMapper {
     List<SystemMenu> queryAllParentSystemMenu();
 
     List<SystemMenu> queryRootMenu();
+
 }

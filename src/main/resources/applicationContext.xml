@@ -54,7 +54,8 @@
     </tx:advice>
     <!--使用AOP在service层织入事务管理-->
     <aop:config>
-        <aop:pointcut expression="execution(* cn.wolfcode.edu.service.*.*(..))" id="crudPointCut"/>
+        <aop:pointcut expression="execution(* cn.wolfcode.edu.service.*.*(..)) and
+        !execution(* cn.wolfcode.edu.service.IEmployeeService.checkName(..))" id="crudPointCut"/>
         <aop:advisor advice-ref="advice" pointcut-ref="crudPointCut"/>
         <!--日志的切面操作-->
         <aop:aspect ref="logAspect">

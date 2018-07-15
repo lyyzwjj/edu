@@ -1,6 +1,8 @@
 package cn.wolfcode.edu.service.impl;
 
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.domain.SystemMenu;
+import cn.wolfcode.edu.mapper.PermissionMapper;
 import cn.wolfcode.edu.mapper.SystemMenuMapper;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
@@ -14,9 +16,11 @@ import java.util.List;
  * Created by WangZhe on 2018/7/11.
  */
 @Service
-public class SystemMenuServiceImpl implements ISystemMenuService{
+public class SystemMenuServiceImpl implements ISystemMenuService {
     @Autowired
     private SystemMenuMapper systemMenuMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
 
 
     @Override
@@ -26,6 +30,13 @@ public class SystemMenuServiceImpl implements ISystemMenuService{
 
     @Override
     public void save(SystemMenu entity) {
+        if ("".equals(entity.getUrl().trim())) {
+            entity.setUrl(null);
+        }
+        if (entity.getPermission().getResource().contains(":index")) {
+            String replace = entity.getPermission().getResource().replace(":index", "");
+            entity.getPermission().setResource(replace);
+        }
         systemMenuMapper.insert(entity);
     }
 
@@ -41,6 +52,13 @@ public class SystemMenuServiceImpl implements ISystemMenuService{
 
     @Override
     public void update(SystemMenu entity) {
+        if ("".equals(entity.getUrl().trim())) {
+            entity.setUrl(null);
+        }
+            if (entity.getPermission().getResource().contains(":index")) {
+                String replace = entity.getPermission().getResource().replace(":index", "");
+                entity.getPermission().setResource(replace);
+            }
         systemMenuMapper.updateByPrimaryKey(entity);
     }
 
@@ -61,6 +79,11 @@ public class SystemMenuServiceImpl implements ISystemMenuService{
     @Override
     public List<SystemMenu> queryRootMenu() {
         return systemMenuMapper.queryRootMenu();
+    }
+
+    @Override
+    public List<Permission> queryIndexPermission() {
+        return permissionMapper.queryIndexPermission();
     }
 
 }
