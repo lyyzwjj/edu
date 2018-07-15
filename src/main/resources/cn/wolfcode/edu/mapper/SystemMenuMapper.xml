@@ -15,6 +15,7 @@
             <result column="name" property="name"/>
             <result column="resource" property="resource"/>
         </association>
+        <collection property="children" ofType="SystemMenu" column="s.id" select="cn.wolfcode.edu.mapper.SystemMenuMapper.querySubMenuByParentId"></collection>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `systemmenu`
@@ -76,7 +77,13 @@
     where s.url = ''
     </select>
     <select id="queryRootMenu" resultMap="BaseResultMap">
-        select id, text, url from   systemMenu where parent_id is null
+        select s.id, s.text, s.url,
+        ps.id ps_id, ps.text ps_text,
+        p.id p_id, p.resource p_resource
+        from systemMenu s
+        LEFT JOIN systemmenu ps on s.parent_id = ps.id
+        LEFT JOIN permission p  on s.permission_id = p.id
+        where s.parent_id is NULL
     </select>
     <select id="querySubMenuByParentId" resultMap="BaseResultMap">
         select s.id, s.text, s.url,
@@ -86,5 +93,14 @@
         LEFT JOIN systemmenu ps on s.parent_id = ps.id
         LEFT JOIN permission p  on s.permission_id = p.id
         where s.parent_id = #{id}
+    </select>
+    <select id="queryIndexMenu" resultMap="BaseResultMap">
+        select s.id, s.text, s.url,
+        ps.id ps_id, ps.text ps_text,
+        p.id p_id, p.resource p_resource
+        from systemMenu s
+        LEFT JOIN systemmenu ps on s.parent_id = ps.id
+        LEFT JOIN permission p  on s.permission_id = p.id
+        WHERE s.permission_id IS NOT NULL ;
     </select>
 </mapper>

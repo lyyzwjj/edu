@@ -86,4 +86,15 @@ public class SystemMenuServiceImpl implements ISystemMenuService {
         return permissionMapper.queryIndexPermission();
     }
 
+    @Override
+    public void test() {
+        List<SystemMenu> systemMenus = systemMenuMapper.queryIndexMenu();
+        for (SystemMenu systemMenu : systemMenus) {
+            Permission permission = systemMenu.getPermission();
+            systemMenu.setUrl(permission.getResource());
+            System.out.println(systemMenu.getId());
+            systemMenuMapper.updateByPrimaryKey(systemMenu);
+        }
+    }
+
 }

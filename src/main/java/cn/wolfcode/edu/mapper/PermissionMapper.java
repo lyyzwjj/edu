@@ -26,4 +26,5 @@ public interface PermissionMapper {
     List<String> selectAllResourcesByEmployeeId(Long id);
 
     List<Permission> queryIndexPermission();
+
 }

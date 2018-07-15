@@ -156,7 +156,14 @@
     set portrait = #{imgPath}
     where id=#{empId}
   </update>
-  <select id="checkName" resultType="Employee">
-    SELECT id,username,password,admin from employee WHERE  username = #{username}
+  <select id="checkName" resultMap="BaseResultMap">
+    select e.id, e.username, e.password, e.realname, e.age, e.gender, e.bornDate, e.cardId, e.tel, e.eamil,
+    e.qq, e.address, e.employeeId, e.attendanceId, e.hireDate, e.seniority, e.state, e.portrait, e.admin,
+    e.dept_id,e.sourceOfClient_id,e.job_id,
+    d.id d_id,d.name d_name , d.sn d_sn ,j.id j_id ,j.jobName j_jobName
+    from `employee` e
+    LEFT JOIN department d
+    on e.dept_id =d.id
+    LEFT JOIN job j on e.job_id=j.id WHERE  e.username = #{username}
   </select>
 </mapper>

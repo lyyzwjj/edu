@@ -25,8 +25,9 @@ public class SystemMenuUtil {
                 }
             }
             List<SystemMenu> children = menu.getChildren();
-            while (children != null && children.size() > 0) ;
-            filterSystemMenu(children);
+            if(children != null && children.size() > 0) {
+                filterSystemMenu(children);
+            }
         }
     }
     //优化, 删除过滤菜单之后存在无儿子的父菜单
