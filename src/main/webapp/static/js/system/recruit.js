@@ -23,6 +23,7 @@ $(function () {
             },
             {field: "plan", title: '计划名称', width: 100, align: 'center'},
             {field: 'draftTime', title: '制定日期', width: 100, align: 'center'},
+
             {
                 field: 'staff', title: '制定人', width: 100, align: 'center', formatter: function (value) {
                 return value ? value.username : '';
@@ -34,9 +35,13 @@ $(function () {
             }
             },
             {
+                field: 'auditTime', title: '审核时间', width: 100, align: 'center', formatter: function (value) {
+                return value ? value : "<span style='color: red'>未审核</span>";
+            }
+            },
+            {
                 field: 'examineState', title: '审批状态', width: 100, align: 'center',
                 formatter: function (value) {
-                    console.log(value);
                     switch (value) {
                         case 0:
                             return "<span style='color: green'>待审批</span>";
@@ -115,19 +120,18 @@ $(function () {
             },
             {field: 'job', width: 100, align: 'center', title: '招聘职位', editor: 'text'},
             {
-                field: 'recruitType', width: 100, align: 'center', title: '招聘方式', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: recruitTypeData,
-                        valueField: 'id',
-                        editable: false,
-                        panelHeight: 'auto',
-                        required: true,
-                        textField: 'name'
-                    }
-                },
-               formatter: function (value, row) {
+                field: 'recruitType', width: 100, align: 'center', title: '招聘方式', editor: {
+                type: 'combobox',
+                options: {
+                    data: recruitTypeData,
+                    valueField: 'id',
+                    editable: false,
+                    panelHeight: 'auto',
+                    required: true,
+                    textField: 'name'
+                }
+            },
+                formatter: function (value, row) {
                     if (id) {
                         return value.name;
                     } else {
@@ -141,18 +145,17 @@ $(function () {
                 }
             },
             {
-                field: 'engage', width: 100, align: 'center', title: '聘用形式', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: engageData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'engage', width: 100, align: 'center', title: '聘用形式', editor: {
+                type: 'combobox',
+                options: {
+                    data: engageData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     console.log(id);
                     if (id) {
@@ -169,18 +172,17 @@ $(function () {
             },
             {field: 'recruitNumber', width: 100, align: 'center', title: '人数', editor: 'text'},
             {
-                field: 'education', width: 100, align: 'center', title: '学历要求', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: educationData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'education', width: 100, align: 'center', title: '学历要求', editor: {
+                type: 'combobox',
+                options: {
+                    data: educationData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     if (id) {
                         return value.name;
@@ -196,18 +198,17 @@ $(function () {
             },
             {field: 'recruitRequired', width: 100, align: 'center', title: '技能要求', editor: 'text'},
             {
-                field: 'recruitSalary', width: 100, align: 'center', title: '薪资情况', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: recruitSalaryData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'recruitSalary', width: 100, align: 'center', title: '薪资情况', editor: {
+                type: 'combobox',
+                options: {
+                    data: recruitSalaryData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     if (id) {
                         return value.name;
@@ -303,6 +304,9 @@ $(function () {
             if (row.planType) {
                 row['planType.id'] = row.planType.id;
             }
+            if (row.recruitType) {
+                row['recruitType.id'] = row.recruitType.id;
+            }
             if (row.engage) {
                 row['engage.id'] = row.engage.id;
             }
@@ -320,6 +324,9 @@ $(function () {
             }
             if (row.married) {
                 row['married.id'] = row.married.id;
+            }
+            if (row.recruitSalary) {
+                row['recruitSalary.id'] = row.recruitSalary.id;
             }
             recruit_form.form('load', row);
             recruititem_datagrid.datagrid("load",
