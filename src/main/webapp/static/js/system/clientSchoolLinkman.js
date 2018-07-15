@@ -96,7 +96,7 @@ $(function(){
                         $.get("/clientSchoolLinkman/delete", {id: row.id}, function (data) {
                             if (data.success) {
                                 $.messager.alert("温馨提示", "删除成功");
-                                clientMajor_datagrid.datagrid("load");
+                                clientSchoolLinkman_datagrid.datagrid("load");
                             } else {
                                 $.messager.alert("温馨提示", data.errorMsg);
                             }

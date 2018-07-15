@@ -16,7 +16,7 @@ public class ClientResourcePoolController {
     @Autowired
     private IClientService service;
     @RequestMapping("")
-    @RequiresPermissions("client:index")
+    @RequiresPermissions("clientResourcePool:index")
     @PermissionName("客户资源池首页")
     public String index() {
         return "clientResourcePool/list";
@@ -29,7 +29,7 @@ public class ClientResourcePoolController {
      */
     @RequestMapping("list")
     @ResponseBody
-    @RequiresPermissions("client:list")
+    @RequiresPermissions("clientResourcePool:list")
     @PermissionName("客户资源池数据")
     public PageResult queryPoolClient(QueryObject qo) {
         PageResult result = service.queryPoolClient(qo);

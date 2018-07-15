@@ -19,8 +19,8 @@ public class ClientTransferRecord {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date currentdate;
 
-    private String originalTraceMan;
+    private Employee originalTraceMan;
 
-    private String currentTraceMan;
+    private Employee currentTraceMan;
 
 }

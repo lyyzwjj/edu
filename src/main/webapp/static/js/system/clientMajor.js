@@ -46,13 +46,6 @@ $(function(){
                     return value.name;
                 }
             }},
-            {field: 'clientState', title: '客户当前状态', width: 100, align: "center", formatter: function (value, row, index) {
-                if (value) {
-                    return "<font color='green'>已签约</font>";
-                } else {
-                    return "<font color='red'>未签约</font>";
-                }
-            }},
             {
                 field: 'traceState', title: '跟踪状态', width: 100, align: "center", formatter: function (value, row, index) {
                 if (value) {
@@ -100,6 +93,17 @@ $(function(){
             } else {
                 alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
+                row["schoolSystem.id"]=row.schoolSystem.id;
+                row["saleMan.id"]=row.saleMan.id;
+                row["traceMan.id"]=row.traceMan.id;
+                row["intentionDegree.id"]=row.intentionDegree.id;
+                row["intentionClass.id"]=row.intentionClass.id;
+                row["intentionSchool.id"]=row.intentionSchool.id;
+                row["importantDegree.id"]=row.importantDegree.id;
+                row["contactPerson.id"]=row.contactPerson.id;
+                row["natureOfSchool.id"]=row.natureOfSchool.id;
+                row["academicDiplomas.id"]=row.academicDiplomas.id;
+                row["schoolSystem.id"]=row.schoolSystem.id;
                 clientMajor_dialog.dialog("open");
                 clientMajor_dialog.dialog("setTitle", "大客户编辑");
                 $("#clientMajor_form").form("clear");
@@ -128,9 +132,9 @@ $(function(){
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
                     var data1 = $.parseJSON(data);
-                    console.log("解析之后的"+data1)
-                    if (!data1.success) {
-                        $.messager.alert("温馨提示", data1.errorMsg);
+                    console.log("解析之后的"+data)
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.errorMsg);
                     } else {
                         alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");

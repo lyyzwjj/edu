@@ -170,6 +170,36 @@
     left join employee t on t.id=c.trace_man_id
     left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
     left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+   select
+    c.id, c.name,
+    c.client_state, c.trace_state, c.preferential_policy,
+    c.perv_trace_date, c.next_trace_time, c.address, c.tel, c.email,
+    c.postcode, c.website, c.student_total, c.stuent_total_IT,
+    c.schoo_introduce,
+    c.remark,
+    importantDegree.id importantDegree_id,importantDegree.name importantDegree_name,
+    intentionDegree.id intentionDegree_id, intentionDegree.name intentionDegree_name,
+    intentionClass.id intentionClass_id,intentionClass.name intentionClass_name,
+    intentionSchool.id intentionSchool_id,intentionSchool.name intentionSchool_name,
+    natureOfSchool.id natureOfSchool_id,natureOfSchool.name natureOfSchool_name,
+    academicDiplomas.id academicDiplomas_id,academicDiplomas.name academicDiplomas_nam,
+    schoolSystem.id schoolSystem_id,schoolSystem.name schoolSystem_name,
+
+    sale_man.id sale_man_id,sale_man.username sale_man_username,
+    trace_man.id trace_man_id,trace_man.username trace_man_username,
+
+    contact_man.id contact_man_id,contact_man.name contact_man_name,contact_man.tel contact_man_tel
+    from `clientmajor` c
+    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
+    left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id
+    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    left join datadictionaryitem intentionSchool on c.intention_school=intentionSchool.id
+    left join datadictionaryitem natureOfSchool on c.nature_of_school=natureOfSchool.id
+    left join datadictionaryitem academicDiplomas on c.academic_diplomas=academicDiplomas.id
+    left join datadictionaryitem schoolSystem on c.school_system=schoolSystem.id
+    left join employee sale_man on c.sale_man_id=sale_man.id
+    left join employee trace_man on c.trace_man_id=trace_man.id
+    left join ClientSchoolLinkman contact_man on c.contact_person_id=contact_man.id
     limit #{startIndex},#{rows}
   </select>
   <select id="queryForCount" resultType="int">
@@ -180,5 +210,16 @@
     left join employee t on t.id=c.trace_man_id
     left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
     left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    from `clientmajor` c
+    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
+    left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id
+    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
+    left join datadictionaryitem intentionSchool on c.intention_school=intentionSchool.id
+    left join datadictionaryitem natureOfSchool on c.nature_of_school=natureOfSchool.id
+    left join datadictionaryitem academicDiplomas on c.academic_diplomas=academicDiplomas.id
+    left join datadictionaryitem schoolSystem on c.school_system=schoolSystem.id
+    left join employee sale_man on c.sale_man_id=sale_man.id
+    left join employee trace_man on c.trace_man_id=trace_man.id
+    left join ClientSchoolLinkman contact_man on c.contact_person_id=contact_man.id
   </select>
 </mapper>

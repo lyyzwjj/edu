@@ -118,6 +118,39 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要编辑的数据");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.saleMan) {
+                    row["saleMan.id"] = row.saleMan.id;
+                }
+                if(row.inputMan) {
+                    row["inputMan.id"] = row.inputMan.id;
+                }
+                if(row.education){
+                    row["education.id"]=row.education.id;
+                }
+                if(row.major){
+                    row["major.id"]=row.major.id;
+                }
+                if(row.sourceOfClient){
+                    row["sourceOfClient.id"]=row.sourceOfClient.id;
+                }
+                if(row.school){
+                    row["school.id"]=row.school.id;
+                }
+                if(row.yearsOfWorkExperience){
+                    row["yearsOfWorkExperience.id"]=row.yearsOfWorkExperience.id;
+                }
+                if(row.hometown){
+                    row["hometown.id"]=row.hometown.id;
+                }
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
                 client_dialog.dialog("open");
                 client_dialog.dialog("setTitle","潜在客户编辑");
                 $("#editForm").form("clear");
@@ -135,8 +168,41 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要查看的客户");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.saleMan) {
+                    row["saleMan.id"] = row.saleMan.id;
+                }
+                if(row.inputMan) {
+                    row["inputMan.id"] = row.inputMan.id;
+                }
+                if(row.education){
+                    row["education.id"]=row.education.id;
+                }
+                if(row.major){
+                    row["major.id"]=row.major.id;
+                }
+                if(row.sourceOfClient){
+                    row["sourceOfClient.id"]=row.sourceOfClient.id;
+                }
+                if(row.school){
+                    row["school.id"]=row.school.id;
+                }
+                if(row.yearsOfWorkExperience){
+                    row["yearsOfWorkExperience.id"]=row.yearsOfWorkExperience.id;
+                }
+                if(row.hometown){
+                    row["hometown.id"]=row.hometown.id;
+                }
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
                 client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                client_dialog.dialog("setTitle","潜在客户查看");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
                 $(":input").prop("readonly",true);

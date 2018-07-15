@@ -6,21 +6,47 @@
     <result column="email" property="email" />
     <result column="qq" property="qq" />
     <result column="tel" property="tel" />
-    <result column="current_state_id" property="currentStateId" />
-    <result column="prevTraceDate" property="nextTraceDate" />
-    <result column="intention_school_id" property="intentionSchoolId" />
-    <result column="intention_class_id" property="intentionClassId" />
-    <result column="communicative_purpose_id" property="communicativePurposeId" />
-    <result column="communicative_way_id" property="communicativeWayId" />
-    <result column="degree_of_intention_id" property="degreeOfIntentionId" />
     <result column="lastTraceDate" property="lastTraceDate" />
     <result column="traceTimes" property="traceTimes" />
     <result column="contentAbstract" property="contentAbstract" />
     <result column="communicationContent" property="communicationContent" />
     <result column="status" property="status" />
+    <result column="prevTraceDate" property="nextTraceDate" />
+
     <association property="traceMan" javaType="Employee" columnPrefix="trace_man_">
       <id property="id" column="id"/>
       <result column="username" property="username"/>
+    </association>
+    <!--<result column="current_state_id" property="currentState" />-->
+    <association property="currentState" columnPrefix="currentState_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+    </association>
+   
+    <!--<result column="intention_school_id" property="intentionSchool" />-->
+    <association property="intentionSchool" columnPrefix="intentionSchool_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="intention_class_id" property="intentionClass" />-->
+    <association property="intentionClass" columnPrefix="intentionClass_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="communicative_purpose_id" property="communicativePurpose" />-->
+    <association property="communicativePurpose" columnPrefix="communicativePurpose_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="communicative_way_id" property="communicativeWay" />-->
+    <association property="communicativeWay" columnPrefix="communicativeWay_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <!--<result column="degree_of_intention_id" property="degreeOfIntention" />-->
+    <association property="degreeOfIntention" columnPrefix="degreeOfIntention_" javaType="DataDictionaryItem">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
     </association>
     <association property="name" javaType="Client" columnPrefix="client_">
       <id property="id" column="id"/>
@@ -37,9 +63,9 @@
       intention_school_id, intention_class_id, communicative_purpose_id, communicative_way_id, 
       degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communicationContent, 
       status)
-    values (#{name.id}, #{email}, #{qq}, #{tel}, #{currentStateId}, #{traceMan.id}, #{nextTraceDate},
-      #{intentionSchoolId}, #{intentionClassId}, #{communicativePurposeId}, #{communicativeWayId}, 
-      #{degreeOfIntentionId}, #{lastTraceDate}, #{traceTimes}, #{contentAbstract}, #{communicationContent},
+    values (#{name.id}, #{email}, #{qq}, #{tel}, #{currentState.id}, #{traceMan.id}, #{nextTraceDate},
+      #{intentionSchool.id}, #{intentionClass.id}, #{communicativePurpose.id}, #{communicativeWay.id}, 
+      #{degreeOfIntention.id}, #{lastTraceDate}, #{traceTimes}, #{contentAbstract}, #{communicationContent},
       #{status})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTrace" >
@@ -48,14 +74,14 @@
       email = #{email},
       qq = #{qq},
       tel = #{tel},
-      current_state_id = #{currentStateId},
+      current_state_id = #{currentState.id},
       trace_man_id = #{traceMan.id},
       nextTraceDate = #{nextTraceDate},
-      intention_school_id = #{intentionSchoolId},
-      intention_class_id = #{intentionClassId},
-      communicative_purpose_id = #{communicativePurposeId},
-      communicative_way_id = #{communicativeWayId},
-      degree_of_intention_id = #{degreeOfIntentionId},
+      intention_school_id = #{intentionSchool.id},
+      intention_class_id = #{intentionClass.id},
+      communicative_purpose_id = #{communicativePurpose.id},
+      communicative_way_id = #{communicativeWay.id},
+      degree_of_intention_id = #{degreeOfIntention.id},
       lastTraceDate = #{lastTraceDate},
       traceTimes = #{traceTimes},
       contentAbstract = #{contentAbstract},
@@ -64,10 +90,31 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
-    intention_class_id, communicative_purpose_id, communicative_way_id, degree_of_intention_id, 
-    lastTraceDate, traceTimes, contentAbstract, communicationContent, status
-    from `clienttrace`
+    select c.id,client.id client_id,
+    client.name client_name,
+    c.email, c.qq, c.tel, c.current_state_id currentState_id,
+    currentState.name currentState_name,
+    c.trace_man_id trace_man_id,trace_man.username trace_man_username,
+    c.nextTraceDate, c.intention_school_id intentionSchool_id,
+    intentionSchool.name intentionSchool_name,
+    c.intention_class_id  intentionClass_id,
+    intentionClass.name intentionClass_name,
+    c.communicative_purpose_id communicativePurpose_id,
+    communicativePurpose.name communicativePurpose_name,
+    c.communicative_way_id  communicativeWay_id,
+    communicativeWay.name communicativeWay_name,
+    c.degree_of_intention_id  degreeOfIntention_id,
+    degreeOfIntention.name degreeOfIntention_name,
+    c.lastTraceDate, c.traceTimes, c.contentAbstract, c.communication_content, c.status
+    from `clienttrace` c
+    left join employee trace_man on trace_man.id=c.trace_man_id
+    left join client client on c.name=client.id
+    left join datadictionaryitem currentState on c.current_state_id=currentState.id
+    left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+    left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+    left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id
+    left join datadictionaryitem communicativeWay on c.communicative_way_id=communicativeWay.id
+    left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
@@ -77,17 +124,43 @@
     from `clienttrace`
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
- select c.id, client.id client_id,client.name client_name,  c.tel, c.current_state_id, trace_man.id trace_man_id, c.nextTraceDate,communicative_way_id,c.lastTraceDate,
-  c.communicative_purpose_id,c.contentAbstract
-  from clienttrace c
-  left join employee trace_man on trace_man.id=c.trace_man_id
+  select c.id,client.id client_id,
+client.name client_name,
+ c.email, c.qq, c.tel, c.current_state_id currentState_id,
+currentState.name currentState_name,
+ c.trace_man_id trace_man_id,trace_man.username trace_man_username,
+ c.nextTraceDate, c.intention_school_id intentionSchool_id,
+intentionSchool.name intentionSchool_name,
+    c.intention_class_id  intentionClass_id,
+intentionClass.name intentionClass_name,
+ c.communicative_purpose_id communicativePurpose_id,
+communicativePurpose.name communicativePurpose_name,
+ c.communicative_way_id  communicativeWay_id,
+communicativeWay.name communicativeWay_name,
+c.degree_of_intention_id  degreeOfIntention_id,
+degreeOfIntention.name degreeOfIntention_name,
+    c.lastTraceDate, c.traceTimes, c.contentAbstract, c.communication_content, c.status
+    from `clienttrace` c
+ left join employee trace_man on trace_man.id=c.trace_man_id
   left join client client on c.name=client.id
+left join datadictionaryitem currentState on c.current_state_id=currentState.id
+left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id
+left join datadictionaryitem communicativeWay on c.communicative_way_id=communicativeWay.id
+left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
   limit #{startIndex},#{rows}
   </select>
   <select id="queryForCount" resultType="int">
   select count(c.id)
-  from clienttrace c
-  left join employee trace_man on trace_man.id=c.trace_man_id
+   from `clienttrace` c
+ left join employee trace_man on trace_man.id=c.trace_man_id
   left join client client on c.name=client.id
+left join datadictionaryitem currentState on c.current_state_id=currentState.id
+left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id
+left join datadictionaryitem communicativeWay on c.communicative_way_id=communicativeWay.id
+left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
   </select>
 </mapper>
