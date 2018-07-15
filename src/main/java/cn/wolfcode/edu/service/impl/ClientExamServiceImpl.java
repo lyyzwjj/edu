@@ -21,7 +21,7 @@ public class ClientExamServiceImpl implements IClientExamService{
     }
 
     public void save(ClientExam record) {
-        Client client = record.getClient();
+      Client client = record.getClient();
         System.out.println("考试登记中的============="+client);
         if (client.getInputMan()!=null){
 
