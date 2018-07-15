@@ -104,10 +104,10 @@ public class ClientServiceImpl implements IClientService {
     public void changeTrend(Long id) {
         Client client = clientMapper.selectByPrimaryKey(id);
         if (client.getStateId() == 1){
-            clientMapper.changeState(id,3);
+            clientMapper.changeTrend(id,3L);
             return;
         } else if(client.getStateId() == 3){
-            clientMapper.changeState(id,1);
+            clientMapper.changeTrend(id,1L);
             return;
         }
     }
