@@ -16,7 +16,7 @@
     <result column="collegeAdmissionTime" property="collegeAdmissionTime" />
 
     <result column="weChatNum" property="weChatNum" />
-    <result column="QQNum" property="QQNum" />
+    <result column="qq" property="qq" />
     <result column="tel" property="tel" />
     <result column="school" property="school" />
     <result column="isManTrace" property="isManTrace" />
@@ -129,14 +129,14 @@
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id">
     insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
     lastTraceDate, bookDate,
-      nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
+      nextTraceDate, weChatNum, qq, tel, school, degree_of_intention_id, 
       intention_school_id, intention_class_id, state_id, isManTrace, remark, 
       buildDate,inputDate, source_of_client_id, age, gender, email, address, school_id,
       education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
       introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
       )
     values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
-      #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntention.id},
+      #{nextTraceDate}, #{weChatNum}, #{qq}, #{tel}, #{school}, #{degreeOfIntention.id},
       #{intentionSchool.id}, #{intentionClass.id}, #{stateId}, #{isManTrace}, #{remark},
       #{buildDate}, #{inputDate}, #{sourceOfClient.id}, #{age}, #{gender}, #{email}, #{address}, #{clientMajor.id},
       #{education.id}, #{hometown.id}, #{collegeAdmissionTime}, #{major.id}, #{yearsOfWorkExperience.id},
@@ -154,13 +154,13 @@
       bookDate = #{bookDate},
       nextTraceDate = #{nextTraceDate},
       weChatNum = #{weChatNum},
-      QQNum = #{QQNum},
+      qq = #{qq},
       tel = #{tel},
       school = #{school},
       degree_of_intention_id = #{degreeOfIntention.id},
       intention_school_id = #{intentionSchool.id},
       intention_class_id = #{intentionClass.id},
-      state_id = #{stateId},
+      state_id = #{clientMajor.id},
       isManTrace = #{isManTrace},
       remark = #{remark},
       buildDate = #{buildDate},
@@ -190,7 +190,7 @@
         set
         name= #{name},
         weChatNum = #{weChatNum},
-        QQNum = #{QQNum},
+        qq = #{qq},
         tel = #{tel},
         intention_school_id = #{intentionSchool.id},
         intention_class_id = #{intentionClass.id},
@@ -221,12 +221,12 @@
     </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-      select c.id,c.name,
+      select c.id,c.name,c.introduce_man_id,
       input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
       sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
       c.traceTimes,c.name, c.age, c.gender,
       c.lastTraceDate, c.bookDate,c.nextTraceDate,
-      c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+      c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
       c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
       c.state_id, c.isManTrace, c.remark, c.client_state,
       degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
@@ -256,7 +256,7 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name, sale_man_id, input_man_id, traceTimes, lastTraceDate, bookDate, nextTraceDate,
-    weChatNum, QQNum, tel, school, degree_of_intention_id, intention_school_id, intention_class_id,
+    weChatNum, qq, tel, school, degree_of_intention_id, intention_school_id, intention_class_id,
     state_id, isManTrace, remark, buildDate,inputDate, source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
     introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
@@ -286,12 +286,12 @@
   </select>
     <select id="queryForList" resultMap="BaseResultMap">
 
-   select c.id,c.name,
+   select c.id,c.name,c.inputDate,c.introduce_man_id,c.collegeAdmissionTime,c.buildDate,
         input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
         sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
         c.traceTimes,c.name, c.age, c.gender,
         c.lastTraceDate, c.bookDate,c.nextTraceDate,
-        c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+        c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
         c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
         c.state_id, c.isManTrace, c.remark, c.client_state,
         degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
@@ -328,7 +328,7 @@
         sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
         c.traceTimes,c.name, c.age, c.gender,
         c.lastTraceDate, c.bookDate,c.nextTraceDate,
-        c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+        c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
         c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
         c.state_id, c.isManTrace, c.remark, c.client_state,
         srg.id srg_id, srg.totalmoney srg_totalmoney, srg.totalreceiptmoney srg_totalreceiptmoney, srg.unpaidmoney srg_unpaidmoney,
@@ -371,7 +371,7 @@
         sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
         c.traceTimes,c.name, c.age, c.gender,
         c.lastTraceDate, c.bookDate,c.nextTraceDate,
-        c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+        c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
         c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
         c.state_id, c.isManTrace, c.remark, c.client_state,
         degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
@@ -448,7 +448,7 @@
           sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
           c.traceTimes,c.name, c.age, c.gender,
           c.lastTraceDate, c.bookDate,c.nextTraceDate,
-          c.weChatNum, c.QQNum, c.tel, c.school, c.email, c.address,
+          c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
           c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
           c.state_id, c.isManTrace, c.remark, c.client_state,
           bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime bill_receiptTime, bill.state bill_state,

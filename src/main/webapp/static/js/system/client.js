@@ -32,7 +32,7 @@ $(function(){
             {field: 'nextTraceDate', title: '下次跟踪时间', width: 100, align: "center"},
             {field: 'weChatNum', title: '微信号', width: 100, align: "center"},
             {field: 'tel', title: '电话', width: 110, align: "center"},
-            {field: 'shcool', title: '学校', width: 100, align: "center"},
+            {field: 'school', title: '学校', width: 100, align: "center"},
             {field: 'degreeofIntention', title: '意向程度', width: 100, align: "center",formatter:function(value){
                     if(value){
                         return value.name;
@@ -150,6 +150,12 @@ $(function(){
                 }
                 if(row.intentionClass){
                     row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
                 }
                 client_dialog.dialog("open");
                 client_dialog.dialog("setTitle","潜在客户编辑");

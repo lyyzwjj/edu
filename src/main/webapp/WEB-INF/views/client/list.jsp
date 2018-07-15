@@ -53,7 +53,7 @@
             </tr>
             <tr>
                 <td><font size="1">录入时间:</font></td>
-                <td><input class="easyui-datebox" type="text" name="buildDate" prompt="请选择录入时间"/></td>
+                <td><input class="easyui-datebox" type="text" name="inputDate" prompt="请选择录入时间"/></td>
                 <td><font size="1">预约日期:</font></td>
                 <td><input class="easyui-datebox" type="text" name="bookDate" prompt="请选择预约时间"/></td>
                 <td><font size="1">下次跟踪时间:</font></td>
@@ -85,7 +85,7 @@
                 <td><font size="1">微信:</font></td>
                 <td><input class="easyui-textbox" type="text" name="weChatNum" prompt="请输入客户的微信号码"/></td>
                 <td><font size="1">QQ:</font></td>
-                <td><input class="easyui-textbox" type="text" name="QQNum" prompt="请输入客户的QQ号码"/></td>
+                <td><input class="easyui-textbox" type="text" name="qq" prompt="请输入客户的QQ号码"/></td>
             </tr>
             <tr>
                 <td><font size="1">邮箱:</font></td>
@@ -124,7 +124,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=10',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">学校客户:</font></td>
-                <td><input class="easyui-combobox" type="text" name="school.id" prompt="请选择学校客户"
+                <td><input class="easyui-combobox" type="text" name="clientMajor.id" prompt="请选择学校客户"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -155,9 +155,9 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=11',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">介绍人:</font></td>
-                <td><input class="easyui-textbox" type="text" name="introduceMan" prompt="请选择介绍人"/></td>
+                <td><input class="easyui-textbox" type="text" name="introduceManId" prompt="请选择介绍人"/></td>
                 <td><font size="1">地域:</font></td>
-                <td><input class="easyui-combobox" type="text" name="hometownId" prompt="请选择客户地域"
+                <td><input class="easyui-combobox" type="text" name="hometown.id" prompt="请选择客户地域"
                            data-options="
                     valueField: 'id',
                     textField: 'name',

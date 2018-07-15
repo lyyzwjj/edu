@@ -53,7 +53,7 @@ public class Client {
 
     private String weChatNum;
 
-    private String QQNum;
+    private String qq;
 
     private String tel;
     /*
