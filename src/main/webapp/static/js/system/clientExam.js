@@ -14,8 +14,8 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'client', title: '姓名', width: 90, align: "center",formatter:function(value,row,index){
-                        return value.name;
+            {field: 'name', title: '姓名', width: 90, align: "center",formatter:function(value,row,index){
+                        return row.client.name;
             }},
             {field: 'examType', title: '考试类型', width: 100, align: "center", formatter: function (value) {
                 if (value) {

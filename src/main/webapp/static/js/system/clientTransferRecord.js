@@ -13,10 +13,8 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '客户姓名', width: 90, align: "center",formatter:function(value){
-                    if(value){
-                        return value.name;
-                    }
+            {field: 'name', title: '客户姓名', width: 90, align: "center",formatter:function(value,row,index){
+                        return row.client.name;
             }},
             {field: 'qq', title: 'QQ', width: 90, align: "center"},
             {field: "tel" ,title: '客户电话', width: 100, align: "center"},
