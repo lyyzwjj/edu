@@ -45,7 +45,7 @@ $(function(){
         title:"客户追踪",
         width:850,
         height:550,
-        buttons:"#bb"
+        buttons:"#bb_trace"
         // 一开始就是关闭的状态
         /*closed:true*/
     });
@@ -65,8 +65,15 @@ $(function(){
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
                 clientTrace_dialog.dialog("open");
-                clientTrace_dialog.dialog("setTitle","潜在客户编辑");
+                clientTrace_dialog.dialog("setTitle","客户跟踪查看");
                 $("#clientTrace_form").form("clear");
+                row["clientState.id"]=row.clientState.id;
+                row["inputMan.id"]=row.inputMan.id;
+                row["importantDegree.id"]=row.importantDegree.id;
+                row["intentionSchool.id"]=row.intentionSchool.id;
+                row["intentionClass.id"]=row.intentionClass.id;
+                row["communicativePurpose.id"]=row.communicativePurpose.id;
+                row["communicativeWay.id"]=row.communicativeWay.id;
                 $("#clientTrace_form").form("load",row);
                 $(":input").prop("readonly",true);
 
@@ -96,23 +103,35 @@ $(function(){
 
        //跟踪
         edit:function(){
+            alert("1")
             var row=clientTrace_datagrid.datagrid("getSelected");
+            alert(row.id)
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要跟踪的学员");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
                 clientTrace_dialog.dialog("open");
-                clientTrace_dialog.dialog("setTitle","客户跟踪");
+                clientTrace_dialog.dialog("setTitle","客户跟踪编辑");
+                row["clientState.id"]=row.clientState.id;
+                row["inputMan.id"]=row.inputMan.id;
+                row["importantDegree.id"]=row.importantDegree.id;
+                row["intentionSchool.id"]=row.intentionSchool.id;
+                row["intentionClass.id"]=row.intentionClass.id;
+                row["communicativePurpose.id"]=row.communicativePurpose.id;
+                row["communicativeWay.id"]=row.communicativeWay.id;
                 $("#clientTrace_form").form("clear");
                 $("#clientTrace_form").form("load",row);
 
             }
         },
-        save:function(){
+        saveTrace:function(){
+            alert("有反应没")
             $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/update",
+                url : "/clientTrace/save",
                 success : function(data) {
+                    alert(url)
+                    console.log(data)
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面

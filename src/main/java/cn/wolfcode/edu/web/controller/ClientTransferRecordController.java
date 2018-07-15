@@ -33,7 +33,7 @@ public class ClientTransferRecordController {
         PageResult result = clientTransferRecordService.query(qo);
         return result;
     }
-
+    
     @RequestMapping("save")
     @ResponseBody
     @RequiresPermissions("clientTransferRecord:save")

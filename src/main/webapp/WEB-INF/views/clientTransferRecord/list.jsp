@@ -4,12 +4,12 @@
 <head>
     <title>转移记录</title>
     <%@include file="/WEB-INF/views/commons/commons.jsp" %>
-    <script src="../../../static/js/system/clientResourcePool.js"></script>
+    <script src="../../../static/js/system/clientTransferRecord.js"></script>
 </head>
 <body>
 <table id="clientTransferRecord_datagrid" fit="true"></table>
 <div id="tb">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',text:'馋看'" data-cmd="edit"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',text:'查看'" data-cmd="edit"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload"></a>
 </div>
 
@@ -96,10 +96,10 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=20',
                     panelHeight:'auto'"/></td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td colspan="3"><input class="easyui-filebox" style="width:300px" buttonText="请选择文件"
                                        buttonAlign="left" prompt="请选择需要上传的文件">
-            </tr>
+            </tr>--%>
             <tr >
                 <td><font size="1">交流内容:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"

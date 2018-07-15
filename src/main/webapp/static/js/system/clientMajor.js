@@ -103,8 +103,8 @@ $(function(){
                 row["contactPerson.id"]=row.contactPerson.id;
                 row["natureOfSchool.id"]=row.natureOfSchool.id;
                 row["academicDiplomas.id"]=row.academicDiplomas.id;
-                clientMajor_dialog.dialog("open");
                 row["schoolSystem.id"]=row.schoolSystem.id;
+                clientMajor_dialog.dialog("open");
                 clientMajor_dialog.dialog("setTitle", "大客户编辑");
                 $("#clientMajor_form").form("clear");
                 $("#clientMajor_form").form("load", row);

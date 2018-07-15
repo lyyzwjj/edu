@@ -13,13 +13,25 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '客户姓名', width: 90, align: "center"},
+            {field: 'name', title: '客户姓名', width: 90, align: "center",formatter:function(value){
+                    if(value){
+                        return value.name;
+                    }
+            }},
             {field: 'qq', title: 'QQ', width: 90, align: "center"},
             {field: "tel" ,title: '跟踪次数', width: 100, align: "center"},
             {field: 'currentdate', title: '操作时间', width: 100, align: "center"},
-            {field: 'bookDate', title: '预约日期', width: 100, align: "center"},
-            {field: 'originalTraceMan', title: '原跟踪人员', width: 100, align: "center"},
-            {field: 'currentTraceMan', title: '现跟踪人员', width: 110, align: "center"}
+            {field: 'originalTraceMan', title: '原跟踪人员', width: 100, align: "center",formatter:function(value){
+                    if(value){
+                        return value.username;
+                    }
+            }},
+            {field: 'currentTraceMan', title: '现跟踪人员', width: 110, align: "center",formatter:function(value){
+                    if(value){
+                        return value.username;
+                    }
+                 }
+            }
         ]]
     })
 
@@ -78,40 +90,8 @@ $(function(){
         //刷新
         reload:function () {
             clientTransferRecord_datagrid.datagrid("reload");
-        },
-
-       //跟踪
-        edit:function(){
-            var row=clientTrace_datagrid.datagrid("getSelected");
-            if(!row){
-                //如果不为true 说明没有选择数据 让用户选择数据
-                $.messager.alert("温馨提示","请选择要跟踪的学员");
-            }else{
-                //将选中的行的数据加载到对话框中的form表单中
-                clientTrace_dialog.dialog("open");
-                clientTrace_dialog.dialog("setTitle","客户跟踪");
-                $("#clientTrace_form").form("clear");
-                $("#clientTrace_form").form("load",row);
-
-            }
-        },
-        save:function(){
-            $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/update",
-                success : function(data) {
-                    // 接受返回的数据
-                    // 操作失败 提示用户
-                    // 操作成功,提示用户 关闭当前对话框,刷新页面
-                    data = $.parseJSON(data);
-                    if (!data.success) {
-                        $.messager.alert("温馨提示", data.errorMsg);
-                    } else {
-                        $.messager.alert("温馨提示", "保存成功");
-                        clientTrace_dialog.dialog("close");
-                    }
-                }
-            })
         }
+
 
     }
 

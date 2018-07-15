@@ -7,7 +7,6 @@
     <title>潜在客户管理</title>
     <%@include file="/WEB-INF/views/commons/commons.jsp" %>
     <script src="../../../static/js/system/client.js"></script>
-    <script src="../../../static/js/system/clientTrace.js"></script>
 </head>
 <body>
 <table id="client_datagrid" fit="true"></table>
@@ -99,7 +98,7 @@
             </tr>
             <tr>
                 <td><font size="1">学历:</font></td>
-                <td><input class="easyui-combobox" type="text" name="educationId" prompt="请选择客户学历"
+                <td><input class="easyui-combobox" type="text" name="education.id" prompt="请选择客户学历"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -108,7 +107,7 @@
                 <td><font size="1">入学时间:</font></td>
                 <td><input class="easyui-datebox" type="text" name="collegeAdmissionTime" prompt="请选择客户大学入学时间"/></td>
                 <td><font size="1">专业:</font></td>
-                <td><input class="easyui-combobox" type="text" name="majorId" prompt="请选择客户专业"
+                <td><input class="easyui-combobox" type="text" name="major.id" prompt="请选择客户专业"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -118,14 +117,14 @@
             </tr>
             <tr>
                 <td><font size="1">客户来源:</font></td>
-                <td><input class="easyui-combobox" type="text" name="sourceOfClientId" prompt="请选择客户来源"
+                <td><input class="easyui-combobox" type="text" name="sourceOfClient.id" prompt="请选择客户来源"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
                     url: '/dataDictionaryItem/queryListByParent?parentId=10',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">学校客户:</font></td>
-                <td><input class="easyui-combobox" type="text" name="schoolId" prompt="请选择学校客户"
+                <td><input class="easyui-combobox" type="text" name="school.id" prompt="请选择学校客户"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -149,7 +148,7 @@
             </tr>
             <tr>
                 <td><font size="1">工作年限:</font></td>
-                <td><input class="easyui-combobox" type="text" name="yearsOfWorkExperienceId" prompt="请选择客户工作年限"
+                <td><input class="easyui-combobox" type="text" name="yearsOfWorkExperience.id" prompt="请选择客户工作年限"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -168,14 +167,14 @@
             </tr>
             <tr>
                 <td><font size="1">意向程度:</font></td>
-                <td><input class="easyui-combobox" type="text" name="degreeOfIntentionId" prompt="请选择客户意向程度"
+                <td><input class="easyui-combobox" type="text" name="degreeOfIntention.id" prompt="请选择客户意向程度"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
                     url: '/dataDictionaryItem/queryListByParent?parentId=15',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">意向校区:</font></td>
-                <td><input class="easyui-combobox" type="text" name="intentionSchoolId"
+                <td><input class="easyui-combobox" type="text" name="intentionSchool.id"
                            prompt="请选择客户意向校区"
                            data-options="
                     valueField: 'id',
@@ -183,7 +182,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=16',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">意向班级:</font></td>
-                <td><input class="easyui-combobox" type="text" name="intentionClassId" prompt="请选择客户意向班级"
+                <td><input class="easyui-combobox" type="text" name="intentionClass.id" prompt="请选择客户意向班级"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -206,7 +205,7 @@
                     }],
                     panelHeight:'auto'"/></td>
                 <td><font size="1">客户当前状态:</font></td>
-                <td><input class="easyui-combobox" type="text" name="clientState" prompt="请选择客户当前状态"
+                <td><input class="easyui-combobox" type="text" name="clientState.id" prompt="请选择客户当前状态"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -269,7 +268,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'username',
-                    url: '/employee/queryEmployee',
+                    url: '/employee/queryTeachers',
                     panelHeight:'auto'"
                 /></td>
             </tr>

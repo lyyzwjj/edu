@@ -6,12 +6,19 @@
     <result column="qq" property="qq" />
     <result column="tel" property="tel" />
     <result column="currentDate" property="currentdate" />
-    <result column="current_trace_man" property="currentTraceMan"/>
-    <result property="originalTraceMan" column="originalTraceMan"/>
+
     <!--<result column="client_id" property="client" />-->
     <association property="name" columnPrefix="client_" javaType="Client">
       <id property="id" column="id"/>
       <result property="name" column="name"/>
+    </association>
+    <association property="currentTraceMan" columnPrefix="currentTraceMan_" javaType="Employee">
+      <id property="id" column="id"/>
+      <result property="username" column="username"/>
+    </association>
+    <association property="originalTraceMan" columnPrefix="originalTraceMan_" javaType="Employee">
+      <id property="id" column="id"/>
+      <result property="username" column="username"/>
     </association>
     <!--<result column="original_trace_man_id" property="originalTraceMan" />-->
     <!--<result column="current_trace_man" property="currentTraceMan" />-->
@@ -27,7 +34,7 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into `clienttransferrecord` (client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
       )
-    values (#{name.id}, #{qq}, #{tel}, #{currentdate}, #{originalTraceManId}, #{currentTraceMan}
+    values (#{name.id}, #{qq}, #{tel}, #{currentdate}, #{originalTraceMan.id}, #{currentTraceMan.id}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" >
@@ -36,8 +43,8 @@
       qq = #{qq},
       tel = #{tel},
       currentDate = #{currentdate},
-      original_trace_man_id = #{originalTraceManId},
-      current_trace_man = #{currentTraceManId}
+      original_trace_man_id = #{originalTraceMan.id},
+      current_trace_man = #{currentTraceMan.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -64,5 +71,6 @@
      from `clienttransferrecord` c
     left join client client on client.id=c.client_id
     left join Employee originalTraceMan originalTraceMan.id=c.original_trace_man_id
+    left join Employee originalTraceMan currentTraceMan.id=c.original_trace_man_id
   </select>
 </mapper>
