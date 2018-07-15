@@ -12,7 +12,6 @@ $(function () {
         toolbar: "#tb",
         singleSelect: true,
         columns: [[
-            {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center", hidden: 'true'},
             {field: 'name', title: '学员姓名', width: 90, align: "center"},
             {
@@ -22,11 +21,7 @@ $(function () {
                 }
             }
             },
-            /*{
-             field: 'receipttime', title: '入学时间', width: 90, align: "center", formatter: function (value, row, index) {
-             return row.receiptBill.receipttime;
-             }
-             },*/
+            {field: 'transferDate', title:'入学时间', width:90, align: "center"},
             {
                 field: 'totalmoney', title: '总学费', width: 90, align: "center", formatter: function (value, row, index) {
                 return row.studentReceiptGather.totalmoney;
@@ -70,10 +65,15 @@ $(function () {
         ]],
         onClickRow: function (index, row) {
             if (row.stateId == 3) {
-                $("#trend_btn").linkbutton({text: "复学"})
-            } else {
-                $("#trend_btn").linkbutton({text: "休学"})
-            }
+                toolbar=$('#tl').show();
+                $("#trend_btn").linkbutton({text: "复学"});
+            } else if(row.stateId == 4){
+                toolbar=$('#tl').hide();
+            }else {
+                toolbar=$('#tl').show();
+                $("#trend_btn").linkbutton({text: "休学"});
+            };
+
         }
     });
 
@@ -163,7 +163,6 @@ $(function () {
                     height: 400,
                     title: "流失添加",
                     buttons: "#leave_form_btns",
-                    // 一开始就是关闭的状态
                     closed: false
                 });
                 if (row.id) {
@@ -235,6 +234,7 @@ $(function () {
 
         //查询操作
         query: function () {
+
             var keyword = $("#keyword").textbox("getText");
             var begindate = $("#begindate").datetimebox("getText");
             var enddate = $("#enddate").datetimebox("getText");
@@ -243,6 +243,20 @@ $(function () {
                 begindate: begindate,
                 enddate: enddate
             });
+        },
+        //导出
+        export: function () {
+            var columnField = client_datagrid.datagrid('getColumnFields');
+
+            var table = [];
+
+            for (var i = 0; i < columnField.length; i++) {
+                var column = client_datagrid.datagrid('getColumnOption', columnField[i])
+                console.log(column);
+                var tableName = column.title;
+                table.push(encodeURIComponent(encodeURIComponent(tableName)));
+            };
+            window.location.href = "/student/export?" + "titles=" + table;
         },
 
         //取消对话框

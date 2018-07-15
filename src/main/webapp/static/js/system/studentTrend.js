@@ -43,8 +43,8 @@ $(function () {
             },
             {field: 'exchangetime', title: '换班日期', width: 90, align: "center"},
             {
-                field: 'qqnum', title: 'QQ', width: 90, align: "center", formatter: function (value, row, index) {
-                return row.receiptbill.client.qqnum;
+                field: 'qq', title: 'QQ', width: 90, align: "center", formatter: function (value, row, index) {
+                return row.receiptbill.client.qq;
             }
             },
             {

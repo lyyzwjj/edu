@@ -6,23 +6,23 @@
     <script src="/static/js/system/student.js"></script>
 </head>
 <body>
-<table id="client_datagrid">
-    <div id="tb">
-        <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'编辑'" data-cmd="edit"></a>
-        <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload">刷新</a>
+<table id="client_datagrid"></table>
 
-        <input class="easyui-datetimebox" name="begindate" id="begindate" timeSeparator=":"
-               data-options="showSeconds:true" style="width:150px"/>~
-        <input class="easyui-datetimebox" name="enddate" id="enddate" timeSeparator=":"
-               data-options="showSeconds:true" style="width:150px"/>
-        <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="请输入关键字"/>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
-        <div style="float: right;">
-            <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'流失'" data-cmd="leave">流失</a>
-            <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'休学'" data-cmd="trend" id="trend_btn">休学</a>
-        </div>
+<div id="tb">
+    <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'编辑'" data-cmd="edit"></a>
+    <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload">刷新</a>
+    <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-undo',text:'导出'" data-cmd="export">导出</a>
+    <input class="easyui-datetimebox" name="begindate" id="begindate" timeSeparator=":"
+           data-options="showSeconds:true" style="width:150px"/>~
+    <input class="easyui-datetimebox" name="enddate" id="enddate" timeSeparator=":"
+           data-options="showSeconds:true" style="width:150px"/>
+    <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="请输入关键字"/>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
+    <div id="tl" style="float: right;">
+        <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'流失'" data-cmd="leave">流失</a>
+        <a class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-edit',text:'休学'" data-cmd="trend" id="trend_btn">休学</a>
     </div>
-</table>
+</div>
 
 <div id="client_dialog">
     <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">

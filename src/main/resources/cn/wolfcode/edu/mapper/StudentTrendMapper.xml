@@ -16,7 +16,7 @@
       <id column="c_id" property="id"/>
       <result column="c_name" property="name"/>
       <result column="c_tel" property="tel"/>
-      <result column="c_QQNum" property="QQNum"/>
+      <result column="c_qq" property="qq"/>
     </association>
     <!--原班级-->
     <association property="oldclass" javaType="cn.wolfcode.edu.domain.Grade">
@@ -80,7 +80,7 @@
   <select id="queryForList" resultMap="BaseResultMap" >
     select st.id, st.genre, st.exchangeTime, st.trendstate,
     rb.id rb_id, rb.receiptMoney rb_receiptMoney, rb.totalMoney rb_totalMoney,
-    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    c.id c_id, c.name c_name, c.tel c_tel, c.qq c_qq,
     oldClass.id oldClass_id, oldClass.name oldClass_name,
     newClass.id newClass_id, newClass.name newClass_name,
     marketer.id marketer_id, marketer.realname marketer_realname

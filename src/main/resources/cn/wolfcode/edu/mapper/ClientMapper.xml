@@ -11,7 +11,7 @@
     <result column="nextTraceDate" property="nextTraceDate" />
     <result column="buildDate" property="buildDate" />
     <result column="inputDate" property="inputDate" />
-      <result column="transferDate" property="transferDate"/>
+      <result column="transfer_date" property="transferDate"/>
     <!--大学入学时间-->
     <result column="collegeAdmissionTime" property="collegeAdmissionTime" />
 
@@ -330,7 +330,7 @@
         c.lastTraceDate, c.bookDate,c.nextTraceDate,
         c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
         c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-        c.state_id, c.isManTrace, c.remark, c.client_state,
+        c.state_id, c.isManTrace, c.remark, c.client_state, c.transfer_date,
         srg.id srg_id, srg.totalmoney srg_totalmoney, srg.totalreceiptmoney srg_totalreceiptmoney, srg.unpaidmoney srg_unpaidmoney,
         bill.id bill_id, bill.state bill_state,
         cam.id cam_id, cam.name cam_name,
@@ -373,7 +373,7 @@
         c.lastTraceDate, c.bookDate,c.nextTraceDate,
         c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
         c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-        c.state_id, c.isManTrace, c.remark, c.client_state,
+        c.state_id, c.isManTrace, c.remark, c.client_state, c.transfer_date,
         degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
         intentionSchool.id intentionSchool_id, intentionSchool.name intentionSchool_name,
         intentionClass.id intentionClass_id, intentionClass.name intentionClass_name,
@@ -450,7 +450,7 @@
           c.lastTraceDate, c.bookDate,c.nextTraceDate,
           c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
           c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-          c.state_id, c.isManTrace, c.remark, c.client_state,
+          c.state_id, c.isManTrace, c.remark, c.client_state, c.transfer_date,
           bill.id bill_id, bill.totalMoney bill_totalMoney, bill.receiptMoney bill_receiptMoney, bill.receiptTime bill_receiptTime, bill.state bill_state,
           pay.id pay_id, pay.payname pay_payname,
           cam.id cam_id, cam.name cam_name
