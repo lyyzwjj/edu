@@ -26,7 +26,7 @@ $(function () {
 
             {
                 field: 'inputUser', title: '制定人', width: 100, align: 'center', formatter: function (value) {
-                    console.log(value);
+                console.log(value);
                 return value ? value.realname : '';
             }
             },
@@ -260,7 +260,7 @@ $(function () {
         // 新增
         add: function add() {
             addOrEdit = undefined;
-            recruit_dialog.dialog("setTitle", '招聘计划');
+            recruit_dialog.dialog("setTitle", '员工信息');
             recruit_dialog.dialog("open");
         },
         //保存
@@ -271,6 +271,7 @@ $(function () {
                     data = $.parseJSON(data);
                     if (data.success) {
                         methodObj.cancel();
+                        var jsonData = $.parseJSON(data.jsonData);
                         $.messager.alert("温馨提示", "保存成功", 'info', function () {
                             recruit_datagrid.datagrid('reload');
                         })
@@ -303,11 +304,7 @@ $(function () {
                 $.messager.alert('温馨提示', "请选中一条数据", 'warning');
                 return;
             }
-            if(row.examineState==1){
-                $.messager.alert('温馨提示', "已审核,禁止编辑", 'warning');
-                return;
-            }
-            recruit_dialog.dialog("setTitle", '编辑招聘');
+            recruit_dialog.dialog("setTitle", '查看明细信息');
             recruit_dialog.dialog("open", true);
             if (row.planType) {
                 row['planType.id'] = row.planType.id;
@@ -342,6 +339,27 @@ $(function () {
                     recruitId: row.id
                 }
             );
+        },
+
+        //审核
+        audit: function audit() {
+            var row = recruit_datagrid.datagrid('getSelected');
+            if (!row) {
+                $.messager.alert('温馨提示', "请选中一条数据", 'warning');
+                return;
+            }
+            if (!row.examineState) {
+                $.get("/recruit/auditRecruit", {id: row.id}, function (data) {
+                    if (data) {
+                        $.messager.alert('温馨提示', "审核成功");
+                        recruit_datagrid.datagrid("load");
+                    } else {
+                        $.messager.alert('温馨提示', "审核失败", 'warning');
+                    }
+                });
+            } else {
+                $.messager.alert('温馨提示', "数据已经审核,禁止操作", 'warning');
+            }
         },
         //取消
         cancel: function cancel() {
