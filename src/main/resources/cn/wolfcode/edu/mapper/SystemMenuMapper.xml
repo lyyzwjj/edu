@@ -45,7 +45,7 @@
     <select id="selectAll" resultMap="BaseResultMap">
     select s.id, s.text, s.url,
     ps.id ps_id, ps.url ps_url, ps.text ps_text,
-    p.id p_id,p.name p_name, p.resource p_resource
+    p.id p_id, p.name p_name, p.resource p_resource
     from `systemmenu` s
     left join systemmenu ps on s.parent_id = ps.id
     left join permission p on s.permission_id = p.id
@@ -73,7 +73,7 @@
     from `systemmenu` s
     left join systemmenu ps on s.parent_id = ps.id
     left join permission p on s.permission_id = p.id
-    where s.url is NULL
+    where s.url = ''
     </select>
     <select id="queryRootMenu" resultMap="BaseResultMap">
         select id, text, url from   systemMenu where parent_id is null

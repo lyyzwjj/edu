@@ -1,8 +1,8 @@
 $(function() {
     $("#dep_datagrid").datagrid({
-        width : 500,
-        height : 500,
         url : "/department/list",
+        fitColumns: true,
+        fit:true,
         singleSelect : true,
         pagePosition : "bottom",
         columns : [ [

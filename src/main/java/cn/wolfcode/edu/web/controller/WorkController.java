@@ -3,7 +3,9 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Work;
 import cn.wolfcode.edu.service.IWorkService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +21,16 @@ public class WorkController {
     private IWorkService workService;
 
     @RequestMapping("")
+    @RequiresPermissions("work:index")
+    @PermissionName("工作经历首页")
     public String index() {
         return "work/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("work:list")
+    @PermissionName("工作经历数据")
     public List<Work> list() {
         List<Work> families = workService.selectAll();
         return families;
@@ -32,6 +38,8 @@ public class WorkController {
 
     @RequestMapping("/saveWork")
     @ResponseBody
+    @RequiresPermissions("work:save")
+    @PermissionName("工作经历数据")
     public JsonResult saveWork(String rows) {
         JsonResult result = new JsonResult();
         try {
@@ -49,6 +57,8 @@ public class WorkController {
 
     @RequestMapping("/update")
     @ResponseBody
+    @RequiresPermissions("work:update")
+    @PermissionName("工作经历更新")
     public JsonResult update(Work work) {
         JsonResult result = new JsonResult();
         try {
@@ -62,6 +72,8 @@ public class WorkController {
 
     @RequestMapping("/delete")
     @ResponseBody
+    @RequiresPermissions("work:delete")
+    @PermissionName("工作经历删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {

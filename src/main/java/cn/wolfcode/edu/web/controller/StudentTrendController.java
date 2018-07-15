@@ -22,6 +22,7 @@ public class StudentTrendController {
     @Autowired
     private IStudentTrendService studentTrendService;
     @RequestMapping("")
+    @RequiresPermissions("studentTrend:index")
     @PermissionName("学员转换首页")
     public String index(){
         return "studentTrend/list";
@@ -81,6 +82,8 @@ public class StudentTrendController {
 
     @RequestMapping("changeState")
     @ResponseBody
+    @RequiresPermissions("studentTrend:changeState")
+    @PermissionName("学员转换审核")
     public JsonResult changeState(Long id,int stateId) {
         JsonResult result = new JsonResult();
         try {

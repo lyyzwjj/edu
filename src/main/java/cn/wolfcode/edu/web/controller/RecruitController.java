@@ -5,6 +5,8 @@ import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IRecruitService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ public class RecruitController {
     private IRecruitService recruitService;
 
     @RequestMapping("")
+    @RequiresPermissions("recruit:index")
+    @PermissionName("招聘计划首页")
     public String index() {
         return "recruit/list";
     }
@@ -39,6 +43,8 @@ public class RecruitController {
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("recruit:list")
+    @PermissionName("招聘计划数据")
     public PageResult list(QueryObject qo) {
         PageResult result = recruitService.query(qo);
         return result;
@@ -46,6 +52,8 @@ public class RecruitController {
 
     @RequestMapping("/save")
     @ResponseBody
+    @RequiresPermissions("recruit:save")
+    @PermissionName("招聘计划保存")
     public JsonResult save(Recruit recruit) {
         JsonResult result = new JsonResult();
         try {
@@ -59,6 +67,8 @@ public class RecruitController {
 
     @RequestMapping("/update")
     @ResponseBody
+    @RequiresPermissions("recruit:update")
+    @PermissionName("招聘计划更新")
     public JsonResult update(Recruit recruit) {
         JsonResult result = new JsonResult();
         try {
@@ -72,6 +82,8 @@ public class RecruitController {
 
     @RequestMapping("/delete")
     @ResponseBody
+    @RequiresPermissions("recruit:delete")
+    @PermissionName("招聘计划删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {

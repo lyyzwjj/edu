@@ -1,16 +1,13 @@
 $(function () {
     var per_datagrid = $("#per_datagrid");
     per_datagrid.datagrid({
-        width: 700,
-        height: 500,
-       // fit: true,
         url: "/permission/list",
-
         fitColumns: true,
         fit:true,
         singleSelect: true,
         striped: true,
         rownumbers: true,
+        pagination:true,
         columns: [[
             {field: 'x', checkbox: true},
             {field: 'id', title: '编号', width: 100, align: "center"},
@@ -18,6 +15,7 @@ $(function () {
             {field: 'resource', title: '权限表达式', width: 100, align: "center"},
 
         ]],
+        toolbar:"#tb"
     })
 
     var cmdObj = {

@@ -67,6 +67,9 @@ public class PermissionServiceImpl implements IPermissionService{
             }
             String resource = ann.value()[0];
             //如果加载了权限就跳过
+            if (resource.contains(":index")) {
+                resource = resource.replace(":index", "");
+            }
             if(set.contains(resource)){
                 continue;
             }

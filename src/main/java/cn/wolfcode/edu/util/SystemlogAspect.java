@@ -4,6 +4,7 @@ import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.domain.Systemlog;
 import cn.wolfcode.edu.service.ISystemlogService;
 import lombok.Setter;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -26,12 +27,8 @@ public class SystemlogAspect {
         }
         Systemlog systemlog = new Systemlog();
         systemlog.setOptime(new Date());
-//        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
-//        systemlog.setOpuser(employee);
-        //没有配置shiro先用假用户
-        Employee employee = new Employee();
-        employee.setId(100L);
-        employee.setUsername("admin");
+        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
+        systemlog.setOpuser(employee);
         systemlog.setOpuser(employee);
         systemlog.setFunction(jp.getTarget().getClass().getName()
                 + "." + jp.getSignature().getName());

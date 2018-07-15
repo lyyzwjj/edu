@@ -22,18 +22,20 @@ public class SystemMenu {
 
     private Long parentId;
 
-    public String getParentText(){
-        if (parent == null){
+    public String getParentText() {
+        if (parent == null) {
             return "";
         }
         return parent.getText();
     }
-    public Object getParentId(){
-        if (parent == null){
-            return "";
+
+    public Long getParentId() {
+        if (parent == null) {
+            return null;
         }
         return parent.getId();
     }
+
     private List<SystemMenu> children;
 
 }

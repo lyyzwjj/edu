@@ -53,7 +53,7 @@ public class Employee {
     //头像(数据库中的为地址)
     private String portrait;
     //是否为超级管理员
-    private Boolean admin;
+    private Boolean admin = false;
     //所属部门
     private Department dept;
 

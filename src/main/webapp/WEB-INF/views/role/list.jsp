@@ -9,10 +9,20 @@
     <div id="tb">
         <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" data-cmd="add">添加</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="delete" >删除</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="delete">删除</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
     </div>
 </table>
+<div id="alltb">
+    <a id="all_all_a">全选</a>
+    <a id="all_cancel_a">取消多选</a>
+    <a id="all_part_a">批量选择</a>
+</div>
+<div id="selftb">
+    <a id="self_all_a">全选</a>
+    <a id="self_cancel_a">取消多选</a>
+    <a id="self_part_a">批量选择</a>
+</div>
 
 <div id="role_dialog">
     <form id="editForm" method="post" style="padding: 40px 0px 0px 30px;">
@@ -25,8 +35,12 @@
                 <td><input class="easyui-textbox" type="text" name="name"/></td>
             </tr>
             <tr>
-            <td colspan="2"><div id="allPermissions"></div></td>
-            <td colspan="2"><div id="selfPermissions"></div></td>
+                <td colspan="2">
+                    <div id="allPermissions"></div>
+                </td>
+                <td colspan="2">
+                    <div id="selfPermissions"></div>
+                </td>
             </tr>
 
         </table>

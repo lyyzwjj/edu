@@ -1,13 +1,16 @@
 package cn.wolfcode.edu.web.controller;
 
+import cn.wolfcode.edu.domain.Permission;
 import cn.wolfcode.edu.domain.SystemMenu;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.ISystemMenuService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import cn.wolfcode.edu.util.SystemMenuUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,33 +30,42 @@ import java.util.List;
 public class SystemMenuController {
     @Autowired
     ISystemMenuService systemMenuService;
+
     @RequestMapping("")
-    public String index(){
+    @RequiresPermissions("systemMenu:index")
+    @PermissionName("菜单主页")
+    public String index() {
         return "/systemMenu/list";
     }
+
     @RequestMapping("list")
     @ResponseBody
-    public PageResult list(QueryObject qo){
+    @RequiresPermissions("systemMenu:list")
+    @PermissionName("菜单数据")
+    public PageResult list(QueryObject qo) {
         return systemMenuService.query(qo);
     }
+
     @RequestMapping("save")
     @ResponseBody
-    public JsonResult save(SystemMenu systemMenu){
+    @RequiresPermissions("systemMenu:save")
+    @PermissionName("菜单保存")
+    public JsonResult save(SystemMenu systemMenu) {
         JsonResult result = new JsonResult();
         try {
-            if ("".equals(systemMenu.getUrl().trim())){
-                systemMenu.setUrl(null);
-            }
             systemMenuService.save(systemMenu);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg(e.getMessage());
         }
-            return result;
+        return result;
     }
+
     @RequestMapping("delete")
     @ResponseBody
-    public JsonResult delete(Long id){
+    @RequiresPermissions("systemMenu:delete")
+    @PermissionName("菜单删除")
+    public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
             systemMenuService.delete(id);
@@ -61,41 +73,52 @@ public class SystemMenuController {
             e.printStackTrace();
             result.markMsg(e.getMessage());
         }
-            return result;
+        return result;
     }
+
     @RequestMapping("update")
     @ResponseBody
-    public JsonResult update(SystemMenu systemMenu){
+    @RequiresPermissions("systemMenu:update")
+    @PermissionName("菜单更新")
+    public JsonResult update(SystemMenu systemMenu) {
         JsonResult result = new JsonResult();
         try {
-            if ("".equals(systemMenu.getUrl().trim())){
-                systemMenu.setUrl(null);
-            }
             systemMenuService.update(systemMenu);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg(e.getMessage());
         }
-            return result;
+        return result;
     }
 
     @RequestMapping("data")
+    @RequiresPermissions("systemMenu:data")
+    @PermissionName("主页菜单数据")
     public ModelAndView data(HttpServletResponse response) throws IOException {
         List<SystemMenu> list = systemMenuService.list();
         String jsonString = JSON.toJSONString(list);
-        jsonString = jsonString.replace("\"parentId\":\"\",","");
-        jsonString = jsonString.replace("parentId","_parentId");
+        jsonString = jsonString.replace("\"parentId\":\"\",", "");
+        jsonString = jsonString.replace("parentId", "_parentId");
         response.getWriter().write("{\"rows\":" + jsonString + "}");
+        System.out.println(jsonString);
         return null;
     }
+
     @RequestMapping("queryRootMenu")
     @ResponseBody
     public List<SystemMenu> queryRootMenu() {
         return (List<SystemMenu>) SecurityUtils.getSubject().getSession().getAttribute(SystemMenuUtil.SYSTEM_MENU_IN_SESSION);
     }
+
     @ResponseBody
     @RequestMapping("queryAllParentSystemMenu")
-    public List<SystemMenu> queryAllParentSystemMenu(){
+    public List<SystemMenu> queryAllParentSystemMenu() {
         return systemMenuService.queryAllParentSystemMenu();
+    }
+
+    @ResponseBody
+    @RequestMapping("queryIndexPermission")
+    public List<Permission> queryIndexPermission() {
+        return systemMenuService.queryIndexPermission();
     }
 }

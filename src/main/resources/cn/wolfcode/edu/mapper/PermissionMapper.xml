@@ -44,8 +44,11 @@
     <select id="selectAllResourcesByEmployeeId" resultType="string">
     SELECT DISTINCT resource FROM permission WHERE id IN (
             SELECT permission_id FROM role_permission WHERE role_id IN (
-                 SELECT role_id  FROM employee_role WHERE employee_id = #{id}
+                 SELECT role_id  FROM role_employee WHERE employee_id = #{id}
           )
       )
   </select>
+    <select id="queryIndexPermission" resultType="Permission">
+        select id, name, resource from permission where resource not like concat("%",":","%")
+    </select>
 </mapper>

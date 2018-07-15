@@ -1,6 +1,8 @@
 $(function () {
     var role_datagrid = $("#role_datagrid");
     var role_dialog = $("#role_dialog");
+    var allPermissions = $("#allPermissions");
+    var selfPermissions = $("#selfPermissions");
     var allData = {};
     role_datagrid.datagrid({
         width: 700,
@@ -29,8 +31,8 @@ $(function () {
         top: 100,
         buttons: "#bb",
         closed: true
-    })
-    $("#allPermissions").datagrid({
+    });
+    allPermissions.datagrid({
         title: "系统权限",
         width: 250,
         height: 350,
@@ -42,17 +44,17 @@ $(function () {
             {field: 'name', title: '权限名', width: 100, align: "center"},
 
         ]],
+        toolbar:"#alltb",
         onDblClickRow: function (index, row) {
             //双击删除一个
-            $("#allPermissions").datagrid("deleteRow", index);
-            $("#selfPermissions").datagrid("appendRow", row);
+            allPermissions.datagrid("deleteRow", index);
+            selfPermissions.datagrid("appendRow", row);
         },
         onLoadSuccess: function (data) {
             allData = $.extend(true, {}, data)
         }
-
-    })
-    $("#selfPermissions").datagrid({
+    });
+    selfPermissions.datagrid({
         title: "自身拥有的权限",
         width: 250,
         height: 350,
@@ -63,34 +65,97 @@ $(function () {
             {field: 'name', title: '权限名', width: 100, align: "center"},
 
         ]],
+        toolbar:"#selftb",
         onDblClickRow: function (index, row) {
             //双击删除一个
-            $("#selfPermissions").datagrid("deleteRow", index);
-            $("#allPermissions").datagrid("appendRow", row);
+            selfPermissions.datagrid("deleteRow", index);
+            allPermissions.datagrid("appendRow", row);
         },
         onLoadSuccess: function (data) {
-            var rows = $("#selfPermissions").datagrid("getRows");
+            var rows = selfPermissions.datagrid("getRows");
             var ids = $.map(rows, function (item) {
                 return item.id;
             })
             //查询系统权限集合
             //加载左边所有的权限
-            var allRows = $("#allPermissions").datagrid("getRows");
+            var allRows = allPermissions.datagrid("getRows");
             for (var i = allRows.length - 1; i >= 0; i--) {
                 if ($.inArray(allRows[i].id, ids) >= 0) {
                     //存在删除该数据
-                    $("#allPermissions").datagrid("deleteRow", i)
+                    allPermissions.datagrid("deleteRow", i)
                 }
             }
         }
 
-    })
+    });
+    $("#all_all_a").linkbutton({
+        iconCls:'icon-ok',
+        onClick:function () {
+            allPermissions.datagrid("checkAll")
+        }
+
+    });
+    $("#all_cancel_a").linkbutton({
+        iconCls:'icon-no',
+        onClick:function () {
+            allPermissions.datagrid("unselectAll");
+        }
+    });
+    $("#all_part_a").linkbutton({
+        iconCls:'icon-redo',
+        onClick:function () {
+            var rows = allPermissions.datagrid("getSelections");
+            for(var i = 0; i < rows.length; i++ ){
+                selfPermissions.datagrid("appendRow", rows[i])
+            }
+            var copyRows = [];
+            for ( var j= 0; j < rows.length; j++) {
+                copyRows.push(rows[j]);
+            }
+            for(var i =0;i<copyRows.length;i++){
+                var index = allPermissions.datagrid('getRowIndex',copyRows[i]);
+                allPermissions.datagrid('deleteRow',index);
+            }
+        }
+    });
+    $("#self_all_a").linkbutton({
+        iconCls:'icon-ok',
+        onClick:function () {
+            selfPermissions.datagrid("checkAll")
+        }
+    });
+    $("#self_cancel_a").linkbutton({
+        iconCls:'icon-no',
+        onClick:function () {
+            selfPermissions.datagrid("unselectAll")
+        }
+    });
+    $("#self_part_a").linkbutton({
+        iconCls:'icon-undo',
+        onClick:function () {
+            var rows = selfPermissions.datagrid("getSelections");
+            for(var i = 0; i < rows.length; i++ ){
+                allPermissions.datagrid("appendRow", rows[i])
+            }
+            var copyRows = [];
+            for ( var j= 0; j < rows.length; j++) {
+                copyRows.push(rows[j]);
+            }
+            for(var i =0;i<copyRows.length;i++){
+                var index = selfPermissions.datagrid('getRowIndex',copyRows[i]);
+                selfPermissions.datagrid('deleteRow',index);
+            }
+        }
+
+    });
     var cmdObj = {
         reload: function () {
             role_datagrid.datagrid("load");
         },
         cancel: function () {
             role_dialog.dialog("close");
+            allPermissions.datagrid("load");
+            selfPermissions.datagrid("load");
         },
         query: function () {
             var keyword = $("#keyword").textbox("getText");
@@ -111,7 +176,7 @@ $(function () {
             $("#editForm").form("submit", {
                 url: controller,
                 onSubmit: function (param) {
-                    var rows = $("#selfPermissions").datagrid("getRows");
+                    var rows = selfPermissions.datagrid("getRows");
                     for (var i = 0; i < rows.length; i++) {
                         param["permissions[" + i + "].id"] = rows[i].id;
                         console.log("参数是否传递============" + rows[i].id);
@@ -135,6 +200,8 @@ $(function () {
                     }
                 }
             })
+            allPermissions.datagrid("load");
+            selfPermissions.datagrid("load");
         },
         edit: function () {
             var row = role_datagrid.datagrid("getSelected");
@@ -146,12 +213,12 @@ $(function () {
                 $("#editForm").form("clear");
                 //数据回显
                 $("#editForm").form("load", row);
-                var options = $("#selfPermissions").datagrid("options");
+                var options = selfPermissions.datagrid("options");
                 console.log(options)
                 //console.log("canshu ======"+-options);
                 //加载已有权限请求路径
                 options.url = "/permission/queryPermissionByRoleId?roleId=" + row.id;
-                $("#selfPermissions").datagrid("load")
+                selfPermissions.datagrid("load")
 
                 role_dialog.dialog("open");
                 -
@@ -191,8 +258,8 @@ $(function () {
         },
         add: function () {
             $("#editForm").form("clear");
-            $("#allPermissions").datagrid("loadData", allData);
-            $("#selfPermissions").datagrid("loadData", []);
+            allPermissions.datagrid("loadData", allData);
+            selfPermissions.datagrid("loadData", []);
             role_dialog.dialog("open");
             role_dialog.dialog("setTitle", "员工添加");
 

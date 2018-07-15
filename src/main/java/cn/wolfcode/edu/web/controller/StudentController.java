@@ -30,7 +30,7 @@ public class StudentController {
     @RequestMapping("/updateByStudent")
     @ResponseBody
     @RequiresPermissions("student:update")
-    @PermissionName("潜在客户更新")
+    @PermissionName("学员更新")
     public JsonResult update(Client client) {
         JsonResult result = new JsonResult();
         try {
@@ -44,6 +44,8 @@ public class StudentController {
 
     @RequestMapping("queryStudents")
     @ResponseBody
+    @RequiresPermissions("student:queryStudents")
+    @PermissionName("学员高级查询")
     public List<Client> queryClients(StudentQueryObject qo) {
         List<Client> list = clientService.queryClients(qo);
         return list;
