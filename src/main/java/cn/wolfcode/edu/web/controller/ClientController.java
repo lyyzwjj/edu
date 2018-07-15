@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("client")
 public class ClientController {
@@ -77,6 +79,11 @@ public class ClientController {
             result.markMsg("转正失败");
         }
         return result;
+    }
+    @RequestMapping("queryClients")
+    @ResponseBody
+    public List<Client> queryClients(){
+        return clientService.list();
     }
 
 }

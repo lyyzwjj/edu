@@ -13,7 +13,11 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '客户姓名', width: 90, align: "center"},
+            {field: 'name', title: '客户姓名', width: 90, align: "center",formatter:function(value){
+                    if (value){
+                        return value.name;
+                    }
+            }},
             {field: 'traceMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
                     return value.username;
@@ -45,9 +49,9 @@ $(function(){
         title:"客户追踪",
         width:850,
         height:550,
-        buttons:"#bb_trace"
+        buttons:"#bb_trace",
         // 一开始就是关闭的状态
-        /*closed:true*/
+        closed:true
     });
 
 
@@ -64,16 +68,33 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要查看的客户");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
+                if(row.inputMan){
+                    row["inputMan.id"]=row.inputMan.id;
+                }
+                if(row.importantDegree){
+                    row["importantDegree.id"]=row.importantDegree.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.communicativePurpose){
+                    row["communicativePurpose.id"]=row.communicativePurpose.id;
+                }
+                if(row.communicativeWay){
+                    row["communicativeWay.id"]=row.communicativeWay.id;
+                }
+                if(row.name){
+                    row["name.id"]=row.name.id;
+                }
                 clientTrace_dialog.dialog("open");
                 clientTrace_dialog.dialog("setTitle","客户跟踪查看");
                 $("#clientTrace_form").form("clear");
-                row["clientState.id"]=row.clientState.id;
-                row["inputMan.id"]=row.inputMan.id;
-                row["importantDegree.id"]=row.importantDegree.id;
-                row["intentionSchool.id"]=row.intentionSchool.id;
-                row["intentionClass.id"]=row.intentionClass.id;
-                row["communicativePurpose.id"]=row.communicativePurpose.id;
-                row["communicativeWay.id"]=row.communicativeWay.id;
                 $("#clientTrace_form").form("load",row);
                 $(":input").prop("readonly",true);
 
@@ -103,35 +124,55 @@ $(function(){
 
        //跟踪
         edit:function(){
-            alert("1")
             var row=clientTrace_datagrid.datagrid("getSelected");
-            alert(row.id)
             if(!row){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要跟踪的学员");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
+                if(row.inputMan){
+                    row["inputMan.id"]=row.inputMan.id;
+                }
+                if(row.importantDegree){
+                    row["importantDegree.id"]=row.importantDegree.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.communicativePurpose){
+                    row["communicativePurpose.id"]=row.communicativePurpose.id;
+                }
+                if(row.communicativeWay){
+                    row["communicativeWay.id"]=row.communicativeWay.id;
+                }
+                if(row.name){
+                    row["name.id"]=row.name.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
                 clientTrace_dialog.dialog("open");
                 clientTrace_dialog.dialog("setTitle","客户跟踪编辑");
-                row["clientState.id"]=row.clientState.id;
-                row["inputMan.id"]=row.inputMan.id;
-                row["importantDegree.id"]=row.importantDegree.id;
-                row["intentionSchool.id"]=row.intentionSchool.id;
-                row["intentionClass.id"]=row.intentionClass.id;
-                row["communicativePurpose.id"]=row.communicativePurpose.id;
-                row["communicativeWay.id"]=row.communicativeWay.id;
                 $("#clientTrace_form").form("clear");
                 $("#clientTrace_form").form("load",row);
 
             }
         },
+        //保存客户跟踪表
         saveTrace:function(){
-            alert("有反应没")
+            var id = $("#clientTraceId").val();
+            var url = "/clientTrace/update";
+
             $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/save",
+                url : url,
                 success : function(data) {
                     alert(url)
-                    console.log(data)
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面

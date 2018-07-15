@@ -9,7 +9,7 @@
     <result column="lastTraceDate" property="lastTraceDate" />
     <result column="traceTimes" property="traceTimes" />
     <result column="contentAbstract" property="contentAbstract" />
-    <result column="communicationContent" property="communicationContent" />
+    <result column="communication_content" property="communicationContent" />
     <result column="status" property="status" />
     <result column="prevTraceDate" property="nextTraceDate" />
 
@@ -61,7 +61,7 @@
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTrace" useGeneratedKeys="true" keyProperty="id" >
     insert into `clienttrace` (name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, 
       intention_school_id, intention_class_id, communicative_purpose_id, communicative_way_id, 
-      degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communicationContent, 
+      degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communication_content,
       status)
     values (#{name.id}, #{email}, #{qq}, #{tel}, #{currentState.id}, #{traceMan.id}, #{nextTraceDate},
       #{intentionSchool.id}, #{intentionClass.id}, #{communicativePurpose.id}, #{communicativeWay.id}, 
@@ -85,7 +85,7 @@
       lastTraceDate = #{lastTraceDate},
       traceTimes = #{traceTimes},
       contentAbstract = #{contentAbstract},
-      communicationContent = #{communicationContent},
+      communication_content = #{communicationContent},
       status = #{status}
     where id = #{id}
   </update>

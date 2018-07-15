@@ -23,7 +23,7 @@
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name" /></td>
+                <td><input class="easyui-textbox" type="text" name="name.id" /></td>
                 <td><font size="1">客户当前状态:</font></td>
                 <td><input class="easyui-combobox" type="text" name="clientState.id" prompt="请选择客户当前状态"
                            data-options="
