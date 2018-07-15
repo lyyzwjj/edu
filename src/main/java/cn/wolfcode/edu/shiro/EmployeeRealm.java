@@ -16,7 +16,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.List;
 

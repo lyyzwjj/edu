@@ -138,13 +138,6 @@
                                     <td><input class="easyui-combobox" id="roles_combobox"
                                                data-options="url:'/role/selectAll',valueField: 'id',textField: 'name',panelHeight:'auto',multiple : true"/>
                                     </td>
-
-                                    <td><font size="1">客户来源:</font></td>
-                                    <td><input class="easyui-combobox" type="text" name="sourceOfClientId"
-                                               prompt="请选择客户来源"
-                                               data-options="valueField: 'id',textField: 'name',url: '/dataDictionaryItem/queryListByParent?parentId=10',
-                    panelHeight:'auto'"/></td>
-
                                     <td><font size="1">所属职务:</font></td>
                                     <td><input class="easyui-combobox" type="text" name="job.id"
                                                data-options="url:'/job/selectAll',

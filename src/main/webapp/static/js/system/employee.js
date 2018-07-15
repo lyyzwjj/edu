@@ -20,7 +20,6 @@ $(function () {
             {field: 'id', title: 'ID', width: 50, align: "center"},
             {field: 'employeeId', title: '工号', width: 100, align: "center"},
             {field: 'username', title: '用户名', width: 80, align: "center"},
-            {field: 'password', title: '密码', width: 100, align: "center"},
             {field: 'realname', title: '真实姓名', width: 100, align: "center"},
             {field: 'age', title: '年龄', width: 80, align: "center", sortable: true, order: "asc"},
             {
@@ -64,7 +63,20 @@ $(function () {
                     return value ? value.name : "未分配部门";
                 }
             }
-        ]]
+
+        ]],
+        onClickRow: function (index, row) {
+            //根据员工的状态修改离职/副职的显示
+            if (row.state == 1) {
+                $("#change_btn").linkbutton({
+                    text: "离职"
+                })
+            } else {
+                $("#change_btn").linkbutton({
+                    text: "复职"
+                })
+            }
+        }
     });
 
     $("#excel_dialog").dialog({
