@@ -1,11 +1,7 @@
 package cn.wolfcode.edu.web.controller;
 
-import cn.wolfcode.edu.domain.DataDictionary;
 import cn.wolfcode.edu.domain.DataDictionaryItem;
-import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IDataDictionaryItemService;
-import cn.wolfcode.edu.service.IDataDictionaryService;
 import cn.wolfcode.edu.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,4 +65,12 @@ public class DataDictionaryItemController {
         }
         return result;
     }
+
+
+    @RequestMapping("selectByDictionarySn")
+    @ResponseBody
+    public List<DataDictionaryItem> selectByDictionarySn(String sn){
+        return dataDictionaryItemService.selectByDictionarySn(sn);
+    }
+
 }

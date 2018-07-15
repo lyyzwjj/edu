@@ -1,11 +1,11 @@
 package cn.wolfcode.edu.mapper;
 
-import cn.wolfcode.edu.domain.Salary;
+import cn.wolfcode.edu.domain.Recruit;
 import cn.wolfcode.edu.query.QueryObject;
 
 import java.util.List;
 
-public interface SalaryMapper {
+public interface RecruitMapper {
 
     /**
      * 删除
@@ -17,33 +17,34 @@ public interface SalaryMapper {
      * 添加
      * @param record
      */
-    void insert(Salary record);
+    void insert(Recruit record);
 
     /**
      * 查询单个
      * @param id
      * @return
      */
-    Salary selectByPrimaryKey(Long id);
+    Recruit selectByPrimaryKey(Long id);
 
     /**
-     * 查询所有
+     * 查询多个
      * @return
      */
-    List<Salary> selectAll();
+    List<Recruit> selectAll();
 
     /**
      * 更新
      * @param record
      */
-    void updateByPrimaryKey(Salary record);
+    void updateByPrimaryKey(Recruit record);
 
     /**
-     * 分页结果集
+     * 分页数据
      * @param qo
      * @return
      */
-    List<Salary> queryForList(QueryObject qo);
+    List<Recruit> queryForList(QueryObject qo);
+
 
     /**
      * 分页条数
@@ -51,11 +52,4 @@ public interface SalaryMapper {
      * @return
      */
     int queryForCount(QueryObject qo);
-
-    /**
-     * 根据员工的id查询所有的工资信息
-     * @param id
-     * @return
-     */
-    Salary queryByIdentifier(Long id);
 }

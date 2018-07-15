@@ -15,4 +15,6 @@ public interface DataDictionaryItemMapper {
     int updateByPrimaryKey(DataDictionaryItem record);
 
     List<DataDictionaryItem> queryListByParent(Long parentId);
+
+    List<DataDictionaryItem> selectByDictionarySn(String sn);
 }

@@ -9,24 +9,24 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-        <!--IOC扫描器-->
-        <context:component-scan base-package="cn.wolfcode.edu"/>
-        <!--DI扫描器-->
-        <context:annotation-config/>
-        <!--Mapper扫描器:MapperScannerConfigurer-->
-        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-            <property name="basePackage" value="cn.wolfcode.edu.mapper"></property>
-        </bean>
-        <!--配置创建Mapper需要的SQLSessionFactory对象: SqlSessionFactoryBean -->
-        <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-            <property name="configLocation" value="classpath:mybatis.cfg.xml"/>
-            <property name="mapperLocations" value="classpath:cn/wolfcode/edu/mapper/*Mapper.xml"/>
-            <property name="dataSource" ref="dataSource"></property>
-            <property name="typeAliasesPackage" value="cn.wolfcode.edu.domain"/>
-        </bean>
-        <!--加载db.properties-->
+    <!--IOC扫描器-->
+    <context:component-scan base-package="cn.wolfcode.edu"/>
+    <!--DI扫描器-->
+    <context:annotation-config/>
+    <!--Mapper扫描器:MapperScannerConfigurer-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.wolfcode.edu.mapper"></property>
+    </bean>
+    <!--配置创建Mapper需要的SQLSessionFactory对象: SqlSessionFactoryBean -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis.cfg.xml"/>
+        <property name="mapperLocations" value="classpath:cn/wolfcode/edu/mapper/*Mapper.xml"/>
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="typeAliasesPackage" value="cn.wolfcode.edu.domain"/>
+    </bean>
+    <!--加载db.properties-->
     <context:property-placeholder location="classpath:db.properties" system-properties-mode="NEVER"/>
-        <!--配置创建SQLSessionFactory需要的连接池对象:DruidDataSource-->
+    <!--配置创建SQLSessionFactory需要的连接池对象:DruidDataSource-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
@@ -37,11 +37,11 @@
     <bean id="logAspect" class="cn.wolfcode.edu.util.SystemlogAspect">
         <property name="systemlogService" ref="systemlogServiceImpl"/>
     </bean>
-        <!--事务管理器-->
+    <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-        <!--事务的增强-->
+    <!--事务的增强-->
     <tx:advice id="advice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
@@ -52,7 +52,7 @@
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
-        <!--使用AOP在service层织入事务管理-->
+    <!--使用AOP在service层织入事务管理-->
     <aop:config>
         <aop:pointcut expression="execution(* cn.wolfcode.edu.service.*.*(..))" id="crudPointCut"/>
         <aop:advisor advice-ref="advice" pointcut-ref="crudPointCut"/>

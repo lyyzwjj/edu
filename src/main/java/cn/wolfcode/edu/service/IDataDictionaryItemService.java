@@ -45,4 +45,11 @@ public interface IDataDictionaryItemService {
      * @return 返回对应的字典明细列表
      */
     List<DataDictionaryItem> queryListByParent(Long parentId);
+
+    /**
+     * 根据sn查询字典明细
+     * @param sn
+     * @return
+     */
+    List<DataDictionaryItem> selectByDictionarySn(String sn);
 }

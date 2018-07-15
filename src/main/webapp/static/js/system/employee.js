@@ -412,7 +412,7 @@ $(function () {
             $.ajax({
                 type: 'post',
                 url: '/salary/queryByIdentifier',
-                data: {identifier: row.identifier},
+                data: {id: row.id},
                 success: function (data) {
                     if (data.success) {
                         var json = $.parseJSON(data.jsonData);

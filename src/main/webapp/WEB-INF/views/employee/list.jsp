@@ -154,67 +154,41 @@
                             </table>
                         </form>
                     </div>
+
                     <div id="div_staff_salary" title="工资信息" style="padding:10px">
                         <form id="staff_salary_form" method="post">
                             <table style="margin: 20px ;border-collapse:separate; border-spacing:0px 10px;">
                                 <tr>
                                     <td>
-                                        <font size="1">银行卡卡号:</font> <input type="text" editable="false" class="easyui-textbox"
-                                                      name="bankcardNumber"/>
+                                        <font size="1">银行卡号:</font> <input type="text" editable="false"
+                                                                           class="easyui-textbox"
+                                                                           name="bankcardNumber"/>
                                     </td>
+                                <tr>
+                                <tr>
                                     <td>
-                                        <font size="1">工作天数: </font><input type="text" editable="false" class="easyui-textbox"
-                                                     name="workday"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">基本工资: </font><input type="text" editable="false" class="easyui-textbox"
-                                                     name="baseSalary"/>
+                                        <font size="1">工作天数: </font><input type="text" editable="false"
+                                                                           class="easyui-textbox" name="workDay"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <font size="1">五险总金额:</font> <input type="text" editable="false" class="easyui-textbox"
-                                                      name="socialInsurance"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">项目奖金:</font> <input type="text" editable="false" class="easyui-textbox" name="bonus"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">加班补贴: </font><input type="text" editable="false" class="easyui-textbox"
-                                                     name="overtime"/>
+                                        <font size="1">迟到天数: </font><input type="text" editable="false"
+                                                                           class="easyui-textbox"
+                                                                           name="lateday"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <font size="1">住房公积金: </font><input type="text" editable="false" class="easyui-textbox"
-                                                      name="accumulationFund"/>
-                                    </td>
-
-                                    <td>
-                                        <font size="1">本月月份:</font> <input type="text" editable="false" class="easyui-textbox" name="month"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">迟到天数: </font><input type="text" editable="false" class="easyui-textbox"
-                                                     name="lateday"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <font size="1">个人所得税: </font><input type="text" editable="false" class="easyui-textbox"
-                                                      name="personalIncome"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">奖金系数:</font> <input type="text" editable="false" class="easyui-textbox"
-                                                     name="coefficient"/>
-                                    </td>
-                                    <td>
-                                        <font size="1">实发工资:</font> <input type="text" editable="false" class="easyui-textbox"
-                                                     name="realWages"/>
+                                        <font size="1">实发工资:</font> <input type="text" editable="false"
+                                                                           class="easyui-textbox"
+                                                                           name="realWages"/>
                                     </td>
                                 </tr>
                             </table>
                         </form>
                     </div>
+
                     <div title="家庭情况" style="padding:10px">
                         <table id="staff_family_datagrid"></table>
                         <div id="staff_family_toolbar">

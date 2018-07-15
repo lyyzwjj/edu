@@ -41,4 +41,12 @@
     from `datadictionaryitem` ddi LEFT JOIN datadictionary dd ON ddi.parent_id = dd.id
     WHERE  ddi.parent_id = #{parentId}
   </select>
+
+  <select id="selectByDictionarySn" resultMap="BaseResultMap" >
+    select ddi.id, ddi.name, ddi.intro, dd.id dd_id, dd.name dd_name, dd.sn dd_sn, dd.intro dd_intro
+    from `datadictionaryitem` ddi LEFT JOIN datadictionary dd ON ddi.parent_id = dd.id
+    WHERE  dd.sn = #{sn}
+  </select>
+
+
 </mapper>
