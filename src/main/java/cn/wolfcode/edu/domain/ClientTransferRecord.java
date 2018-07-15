@@ -10,7 +10,7 @@ import java.util.Date;
 public class ClientTransferRecord {
     private Long id;
 
-    private Client name;
+    private Client client;
 
     private String qq;
 

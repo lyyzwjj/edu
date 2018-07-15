@@ -44,7 +44,7 @@
                            data-options="
                     valueField: 'id',
                     textField: 'name',
-                    url: '/client/queryClients',
+                    url:'/client/queryClients',
                     panelHeight:'auto'"/></td>
             </tr>
             <tr>

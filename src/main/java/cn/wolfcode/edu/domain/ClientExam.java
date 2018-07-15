@@ -18,7 +18,7 @@ public class ClientExam {
     public static  final int PASS_EXAM_YES=1;
     private Long id;
 
-    private Client name;
+    private Client client;
 
     //-------------关联数据字典------------
     /*

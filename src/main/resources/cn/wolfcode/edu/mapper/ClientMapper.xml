@@ -220,6 +220,14 @@
 
     </update>
 
+
+    <!--转移之后将跟踪人员更新-->
+    <update id="changeTraceMan">
+        update client set
+         input_man_id = #{inputMan.id},
+         where id=#{id}
+    </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
       select c.id,c.name,c.introduce_man_id,
       input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
@@ -260,9 +268,7 @@
     state_id, isManTrace, remark, buildDate,inputDate, source_of_client_id, age, gender, email,
     address, school_id, education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
     introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
-    from client c
-    left join employee sale_man on sale_man.id=c.sale_man_id
-    left join employee input_man on input_man.id=c.input_man_id
+    from client
 
   </select>
 
@@ -283,6 +289,7 @@
         left join datadictionaryitem education on c.education_id=education.id
         left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
     where state_id=0
+      <include refid="base_client"></include>
   </select>
     <select id="queryForList" resultMap="BaseResultMap">
 
@@ -318,6 +325,7 @@
         left join datadictionaryitem education on c.education_id=education.id
         left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
     where state_id=0
+        <include refid="base_client"></include>
     limit #{startIndex},#{rows}
   </select>
 
@@ -400,6 +408,7 @@
         left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
         left join employee acceptMan on acceptMan.id=c.accept_man_id
     where state_id=2
+      <include refid="base_client"></include>
     limit #{startIndex},#{rows}
   </select>
 <!--资源池列表的total-->
@@ -420,14 +429,8 @@
         left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
         left join employee acceptMan on acceptMan.id=c.accept_man_id
     where state_id=2
+      <include refid="base_client"></include>
   </select>
-  <!--保存资源池-->
-  <insert id="insertPoolClient">
-    insert into clientresourcepool
-     (name,sale_man_id,school,gender,traceTimes,lastTraceTime,tel,remark)
-    values (#{name},#{saleMan.id},#{school},#{gender},#{traceTimes},#{lastTraceTime},
-    #{tel},#{remark})
-  </insert>
 
     <sql id="BASE_WHERE">
         <if test="keyword != null">
@@ -438,6 +441,17 @@
         </if>
         <if test="enddate != null">
             and bill.receiptTime &lt;= #{enddate}
+        </if>
+    </sql>
+    <sql id="base_client">
+        <if test="keyword != null">
+            and (c.name LIKE concat("%",#{keyword},"%") or c.tel LIKE concat("%",#{keyword},"%"))
+        </if>
+        <if test="begindate != null">
+            and c.lastTraceDate>= #{begindate}
+        </if>
+        <if test="enddate != null">
+            and c.lastTraceDate &lt;= #{enddate}
         </if>
     </sql>
 

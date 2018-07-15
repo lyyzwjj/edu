@@ -14,8 +14,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text" class="easyui-textbox" name="keyword" prompt="请输入关键字" id="keyword">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    入职时间:<input type="text" id="beginDate" class="easyui-datebox" name="beginDate" prompt="起始时间">~
-    <input type="text" id="endDate" class="easyui-datebox" name="endDate" prompt="结束时间">
+    输入时间查询:<input type="text" id="beginDate" class="easyui-datebox" name="begindate" prompt="起始时间">~
+    <input type="text" id="endDate" class="easyui-datebox" name="enddate" prompt="结束时间">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="query">查询</a>
     <br>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',text:'添加'" data-cmd="add"></a>
@@ -356,7 +356,7 @@
 <div id="clientExam_dialog">
 
     <form id="clientExam_form" method="post" style="padding: 0px 0px 0px 10px;">
-        <input type="hidden" name="id" id="clientExamId">
+        <input type="hidden" id="id" name="client.id">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>

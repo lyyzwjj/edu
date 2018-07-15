@@ -75,7 +75,7 @@ public class ClientServiceImpl implements IClientService {
      * @param qo
      * @return
      */
-    public PageResult queryPoolClient(QueryObject qo) {
+    public PageResult queryPoolClient(ClientQueryObject qo) {
         //查询总条数
         int total = clientMapper.queryForPoolClientCount(qo);
         if(total==0){
@@ -86,9 +86,6 @@ public class ClientServiceImpl implements IClientService {
         return new PageResult(total, rows);
     }
 
-    public void insertPoolClient(Client client){
-        clientMapper.insertPoolClient(client);
-    }
 
     @Override
     public List<Client> listStudents() {

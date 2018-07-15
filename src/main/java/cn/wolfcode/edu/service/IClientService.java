@@ -3,7 +3,6 @@ package cn.wolfcode.edu.service;
 import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.query.StudentQueryObject;
 
 import java.util.List;
@@ -59,13 +58,8 @@ public interface IClientService {
      * 资源池中的客户列表
      * @return
      */
-    PageResult queryPoolClient(QueryObject qo);
+    PageResult queryPoolClient(ClientQueryObject qo);
 
-    /**
-     * 当状态改变为2的同时 保存资源池列表
-     * @param client
-     */
-    void insertPoolClient(Client client);
 
     List<Client> queryClients(StudentQueryObject qo);
 

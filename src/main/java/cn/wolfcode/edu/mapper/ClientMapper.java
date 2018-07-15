@@ -32,20 +32,20 @@ public interface ClientMapper {
      * @param qo
      * @return
      */
-    List<Client> queryPoolClientList(QueryObject qo);
+    List<Client> queryPoolClientList(ClientQueryObject qo);
 
     /**
      * 资源池客户的条数
      * @param qo
      * @return
      */
-    int queryForPoolClientCount(QueryObject qo);
+    int queryForPoolClientCount(ClientQueryObject qo);
 
     List<Client> listStudents();
-
-    void insertPoolClient(Client client);
 
     void updateByStudent(Client client);
 
     void changeTrend(Long id, Long i);
+
+    void changeTraceMan(Client client);
 }

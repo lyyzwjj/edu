@@ -408,6 +408,9 @@ $(function(){
                 $.messager.alert("温馨提示", "请选择要预约考试的学员");
             } else {
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.client){
+                    row["client.id"]=row.id;
+                }
                 clientExam_dialog.dialog("open");
                 $("#clientExam_form").form("clear");
                 $("#clientExam_form").form("load", row);

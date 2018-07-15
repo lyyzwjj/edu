@@ -43,15 +43,6 @@ $(function(){
 
 
 
-// 初始化一个弹框 点击添加或者编辑的时候才打开
-    clientTrace_dialog.dialog({
-        title:"客户追踪",
-        width:850,
-        height:550,
-        buttons:"#bb",
-        // 一开始就是关闭的状态
-        closed:true
-    });
 
 
     send_dialog.dialog({
@@ -118,39 +109,6 @@ $(function(){
         reload:function () {
             clientResourcePool_datagrid.datagrid("reload");
         },
-        //跟踪
-        trace:function(){
-            var row=clientResourcePool_datagrid.datagrid("getSelected");
-            if(!row){
-                //如果不为true 说明没有选择数据 让用户选择数据
-                $.messager.alert("温馨提示","请选择要跟踪的学员");
-            }else{
-                //将选中的行的数据加载到对话框中的form表单中
-
-                clientTrace_dialog.dialog("open");
-                clientTrace_dialog.dialog("setTitle","客户跟踪");
-                $("#clientTrace_form").form("clear");
-                $("#clientTrace_form").form("load",row);
-
-            }
-        },
-        saveTrace:function(){
-            $("#clientTrace_form").form("submit", {
-                url : "/clientTrace/update",
-                success : function(data) {
-                    // 接受返回的数据
-                    // 操作失败 提示用户
-                    // 操作成功,提示用户 关闭当前对话框,刷新页面
-                    data = $.parseJSON(data);
-                    if (!data.success) {
-                        $.messager.alert("温馨提示", data.errorMsg);
-                    } else {
-                        $.messager.alert("温馨提示", "保存成功");
-                        clientTrace_dialog.dialog("close");
-                    }
-                }
-            })
-        },
        //编辑
         edit:function(){
             var row=clientResourcePool_datagrid.datagrid("getSelected");
@@ -210,6 +168,9 @@ $(function(){
                 //将选中的行的数据加载到对话框中的form表单中
                 send_dialog.dialog("open");
                 $("#send_form").form("clear");
+                if (row.id) {
+                    row['client.id'] = row.id;
+                };
                 $("#send_form").form("load",row);
 
             }

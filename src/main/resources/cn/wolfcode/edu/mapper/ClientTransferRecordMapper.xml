@@ -8,7 +8,7 @@
     <result column="currentDate" property="currentdate" />
 
     <!--<result column="client_id" property="client" />-->
-    <association property="name" columnPrefix="client_" javaType="Client">
+    <association property="client" columnPrefix="client_" javaType="Client">
       <id property="id" column="id"/>
       <result property="name" column="name"/>
     </association>
@@ -32,23 +32,23 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" useGeneratedKeys="true" keyProperty="id" >
-    insert into `clienttransferrecord` (client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
+    insert into `clienttransferrecord` (client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man_id
       )
-    values (#{name.id}, #{qq}, #{tel}, #{currentdate}, #{originalTraceMan.id}, #{currentTraceMan.id}
+    values (#{client.id}, #{qq}, #{tel}, #{currentdate}, #{originalTraceMan.id}, #{currentTraceMan.id}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" >
     update `clienttransferrecord`
-    set client_id = #{name.id},
+    set client_id = #{client.id},
       qq = #{qq},
       tel = #{tel},
       currentDate = #{currentdate},
       original_trace_man_id = #{originalTraceMan.id},
-      current_trace_man = #{currentTraceMan.id}
+      current_trace_man_id = #{currentTraceMan.id}
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
+    select id, client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man_id
     from `clienttransferrecord`
     where id = #{id}
   </select>
@@ -58,19 +58,21 @@
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    select c.id, c.client_id, c.qq, c.tel, c.currentDate,
+    select c.id, c.client_id client_id, client.name client_name, c.qq, c.tel, c.currentDate,
      c.original_trace_man_id originalTraceMan_id,originalTraceMan.username originalTraceMan_username,
-      c.current_trace_man currentTraceMan_id,currentTraceMan.username currentTraceMan_username
+      c.current_trace_man_id currentTraceMan_id,currentTraceMan.username currentTraceMan_username
     from `clienttransferrecord` c
     left join client client on client.id=c.client_id
+    left join employee currentTraceMan on c.current_trace_man_id=currentTraceMan.id
+    left join employee originalTraceMan  ON c.original_trace_man_id=originalTraceMan.id
     limit #{startIndex},#{rows}
   </select>
 
   <select id="queryForCount" resultType="int">
     select count(c.id)
-     from `clienttransferrecord` c
+    from `clienttransferrecord` c
     left join client client on client.id=c.client_id
-    left join Employee originalTraceMan originalTraceMan.id=c.original_trace_man_id
-    left join Employee originalTraceMan currentTraceMan.id=c.original_trace_man_id
+    left join employee currentTraceMan on c.current_trace_man_id=currentTraceMan.id
+    left join employee originalTraceMan  ON c.original_trace_man_id=originalTraceMan.id
   </select>
 </mapper>

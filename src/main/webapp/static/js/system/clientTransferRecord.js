@@ -19,7 +19,7 @@ $(function(){
                     }
             }},
             {field: 'qq', title: 'QQ', width: 90, align: "center"},
-            {field: "tel" ,title: '跟踪次数', width: 100, align: "center"},
+            {field: "tel" ,title: '客户电话', width: 100, align: "center"},
             {field: 'currentdate', title: '操作时间', width: 100, align: "center"},
             {field: 'originalTraceMan', title: '原跟踪人员', width: 100, align: "center",formatter:function(value){
                     if(value){
@@ -43,9 +43,9 @@ $(function(){
         title:"客户追踪",
         width:850,
         height:550,
-        buttons:"#bb"
+        buttons:"#bb",
         // 一开始就是关闭的状态
-        /*closed:true*/
+        closed:true
     });
 
 

@@ -26,7 +26,7 @@ public class ClientTransferRecordServiceImpl implements IClientTransferRecordSer
 
     public void save(ClientTransferRecord record) {
         //获取到当前用户的信息
-        Client client = record.getName();
+        Client client = record.getClient();
         //设置转移的时间
         record.setCurrentdate(new Date());
         if(client.getInputMan()!=null){
@@ -40,7 +40,7 @@ public class ClientTransferRecordServiceImpl implements IClientTransferRecordSer
         clientMapper.insert(record);
         //同时将client表的跟踪人改成现在这个跟踪人
         //client.setInputMan(traceMan);
-        mapper.updateByPrimaryKey(client);
+        mapper.changeTraceMan(client);
     }
 
     public ClientTransferRecord get(Long id) {
