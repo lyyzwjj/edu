@@ -157,19 +157,6 @@
   </select>
 
   <select id="queryForList" resultMap="BaseResultMap">
-    SELECT c.id,c.name,c.tel,c.client_state, c.trace_state,
-    c.perv_trace_date, c.next_trace_time,c.remark,
-    s.id sale_man_id,s.username sale_man_username,
-    t.id trace_man_id,t.username trace_man_username,
-    m.id  contact_man_id,m.name contact_man_name,m.tel contact_man_tel,
-    importantDegree.id importantDegree_id,importantDegree.name importantDegree_name,
-    intentionClass.id intentionClass_id,intentionClass.name intentionClass_name
-    from clientmajor c
-    left join clientschoollinkman m on m.id=c.contact_person_id
-    left join employee s on s.id=c.sale_man_id
-    left join employee t on t.id=c.trace_man_id
-    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
-    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
    select
     c.id, c.name,
     c.client_state, c.trace_state, c.preferential_policy,
@@ -204,12 +191,6 @@
   </select>
   <select id="queryForCount" resultType="int">
     select count(c.id)
-    from clientmajor c
-    left join clientschoollinkman m on m.id=c.contact_person_id
-    left join employee s on s.id=c.sale_man_id
-    left join employee t on t.id=c.trace_man_id
-    left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
-    left join datadictionaryitem intentionClass on c.intention_class=intentionClass.id
     from `clientmajor` c
     left join datadictionaryitem importantDegree on c.important_degree=importantDegree.id
     left join datadictionaryitem intentionDegree on c.intention_degree=intentionDegree.id

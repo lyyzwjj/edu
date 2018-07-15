@@ -286,7 +286,7 @@
   </select>
     <select id="queryForList" resultMap="BaseResultMap">
 
-   select c.id,c.name,c.inputDate,c.introduce_man_id,c.collegeAdmissionTime,c.buildDate,
+   select c.id,c.name,c.inputDate,c.introduce_man_id,c.collegeAdmissionTime,c.buildDate,c.clientAttentionWhat,
         input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
         sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
         c.traceTimes,c.name, c.age, c.gender,

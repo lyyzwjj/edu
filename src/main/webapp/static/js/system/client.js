@@ -157,6 +157,9 @@ $(function(){
                 if(row.clientState){
                     row["clientState.id"]=row.clientState.id;
                 }
+                if(row.clientMajor){
+                    row["clientMajor.id"]=row.clientMajor.id;
+                }
                 client_dialog.dialog("open");
                 client_dialog.dialog("setTitle","潜在客户编辑");
                 $("#editForm").form("clear");
