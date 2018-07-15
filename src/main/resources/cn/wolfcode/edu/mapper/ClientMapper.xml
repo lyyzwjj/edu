@@ -208,6 +208,12 @@
     update client set state_id=#{stateId} where id=#{id}
 
   </update>
+
+    <update id="changeTrend">
+        update client set state_id=#{stateId} where id=#{id}
+
+    </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
      select c.id,c.name,
     input_man.id input_man_id, input_man.username input_man_username,

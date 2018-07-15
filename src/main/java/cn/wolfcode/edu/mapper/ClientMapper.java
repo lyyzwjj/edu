@@ -46,4 +46,6 @@ public interface ClientMapper {
     void insertPoolClient(Client client);
 
     void updateByStudent(Client client);
+
+    void changeTrend(Long id, Long i);
 }
