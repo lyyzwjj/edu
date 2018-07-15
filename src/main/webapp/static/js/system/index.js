@@ -1,6 +1,6 @@
 $(function () {
     $("#main_tree").tree({
-        url:"/static/json/tree.json",
+        url:"/systemMenu/queryRootMenu",
         onClick:function (node) {
             var isLeaf = $("#main_tree").tree("isLeaf",node.target)
             if(!isLeaf){

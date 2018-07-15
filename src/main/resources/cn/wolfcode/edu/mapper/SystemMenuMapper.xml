@@ -15,7 +15,7 @@
             <result column="name" property="name"/>
             <result column="resource" property="resource"/>
         </association>
-        <collection property="children" ofType="SystemMenu" column="s.id" select="cn.wolfcode.edu.mapper.SystemMenuMapper.querySubMenuByParentId"></collection>
+        <collection property="children" ofType="SystemMenu" column="id" select="cn.wolfcode.edu.mapper.SystemMenuMapper.querySubMenuByParentId"></collection>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `systemmenu`
