@@ -128,14 +128,14 @@
   </delete>
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.Client" useGeneratedKeys="true" keyProperty="id">
     insert into `client` ( name, sale_man_id, input_man_id, traceTimes,
-    lastTraceDate, bookDate,transferDate
+    lastTraceDate, bookDate,
       nextTraceDate, weChatNum, QQNum, tel, school, degree_of_intention_id, 
       intention_school_id, intention_class_id, state_id, isManTrace, remark, 
       buildDate,inputDate, source_of_client_id, age, gender, email, address, school_id,
       education_id, hometown_id, collegeAdmissionTime, major_id, years_of_work_experience_id, 
       introduce_man_id, pay_status_id, withComputer, clientAttentionWhat, client_type_id,client_state
       )
-    values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},#{transferDate}
+    values (#{name}, #{saleMan.id}, #{inputMan.id}, #{traceTimes}, #{lastTraceDate}, #{bookDate},
       #{nextTraceDate}, #{weChatNum}, #{QQNum}, #{tel}, #{school}, #{degreeOfIntention.id},
       #{intentionSchool.id}, #{intentionClass.id}, #{stateId}, #{isManTrace}, #{remark},
       #{buildDate}, #{inputDate}, #{sourceOfClient.id}, #{age}, #{gender}, #{email}, #{address}, #{clientMajor.id},

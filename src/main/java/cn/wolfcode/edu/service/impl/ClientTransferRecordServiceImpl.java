@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ClientTransferReocrdImpl implements IClientTransferRecordService{
+public class ClientTransferRecordServiceImpl implements IClientTransferRecordService{
     @Autowired
     private ClientTransferRecordMapper clientMapper;
     @Autowired
@@ -25,24 +25,21 @@ public class ClientTransferReocrdImpl implements IClientTransferRecordService{
     }
 
     public void save(ClientTransferRecord record) {
-        //设置当前转移时间
-        record.setCurrentdate(new Date());
-        System.out.println("时间====="+new Date());
-        //获得客户
+        //获取到当前用户的信息
         Client client = record.getName();
-        System.out.println("获取client"+record.getName()+"===========================");
-        if (client.getInputMan()!=null){
-            //设置前追踪人
+        //设置转移的时间
+        record.setCurrentdate(new Date());
+        if(client.getInputMan()!=null){
+        //当录入人不为空的时候就将其设置到前跟踪人当中
             record.setOriginalTraceMan(client.getInputMan());
-
         }
         if (client.getAcceptMan()!=null){
-            //设置现在的追踪人
             record.setCurrentTraceMan(client.getAcceptMan());
-            //同时将client中的原追踪人设置为现在的追踪人
             client.setInputMan(client.getAcceptMan());
         }
         clientMapper.insert(record);
+        //同时将client表的跟踪人改成现在这个跟踪人
+        //client.setInputMan(traceMan);
         mapper.updateByPrimaryKey(client);
     }
 
@@ -68,5 +65,6 @@ public class ClientTransferReocrdImpl implements IClientTransferRecordService{
         List<ClientTransferRecord> rows = clientMapper.queryForList(qo);
         return new PageResult(total, rows);
     }
+
 
 }

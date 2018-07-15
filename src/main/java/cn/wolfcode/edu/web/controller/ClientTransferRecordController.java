@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("clientTransferRecord")
 public class ClientTransferRecordController {
     @Autowired
-    private IClientTransferRecordService clientTransferRecordService;
+    private IClientTransferRecordService service;
 
     @RequestMapping("")
     @RequiresPermissions("clientTransferRecord:index")
@@ -30,7 +30,7 @@ public class ClientTransferRecordController {
     @RequiresPermissions("clientTransferRecord:list")
     @PermissionName("转移记录数据")
     public PageResult list(QueryObject qo) {
-        PageResult result = clientTransferRecordService.query(qo);
+        PageResult result = service.query(qo);
         return result;
     }
     
@@ -41,7 +41,7 @@ public class ClientTransferRecordController {
     public JsonResult save(ClientTransferRecord clientTransferRecord) {
         JsonResult result = new JsonResult();
         try {
-            clientTransferRecordService.save(clientTransferRecord);
+            service.save(clientTransferRecord);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("保存失败");
