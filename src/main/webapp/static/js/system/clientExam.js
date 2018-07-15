@@ -15,7 +15,7 @@ $(function(){
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
             {field: 'name', title: '姓名', width: 90, align: "center",formatter:function(value,row,index){
-                        return row.client.name;
+                return row.client.name;
             }},
             {field: 'examType', title: '考试类型', width: 100, align: "center", formatter: function (value) {
                 if (value) {
@@ -46,7 +46,7 @@ $(function(){
                     return "<font color='red'>未通过</font>";
                 }
             }},
-            {field: 'remark', title: '备注', width: 100, align: "center"}
+            {field: 'remark1', title: '备注', width: 100, align: "center"}
         ]],
         onClickRow : function(index, row) {
 
@@ -95,13 +95,12 @@ $(function(){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示", "请选择要编辑的数据");
             } else {
-                alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
                 if(row.examType){
                     row["examType.id"]=row.examType.id
                 }
-                if(row.name){
-                    row["name.id"]=row.name.id
+                if(row.client){
+                    row["client.id"]=row.client.id
                 }
                 if(row.intentionClass){
                     row["intentionClass.id"]=row.intentionClass.id
@@ -124,7 +123,6 @@ $(function(){
             if (id) {
                 url = "/clientExam/update";
             }
-            alert(url)
             $("#clientExam_form").form("submit", {
                 url: url,
                 success: function (data) {
@@ -135,7 +133,6 @@ $(function(){
                     if (!data.success) {
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
-                        alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");
                         clientExam_dialog.dialog("close");
                         clientExam_datagrid.datagrid("load");

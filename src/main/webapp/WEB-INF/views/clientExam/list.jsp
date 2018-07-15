@@ -40,7 +40,7 @@
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-combobox" type="text" name="name.id"
+                <td><input class="easyui-combobox" type="text" name="client.id"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
