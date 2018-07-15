@@ -16,8 +16,8 @@
 <div data-options="region:'south',split:false" style="height:60px;">
     <h3 align="center">@版权归狼码教育科技有限公司所有</h3>
 </div>
-<div data-options="region:'west',split:false" style="width:150px;">
-    <div id="aa" class="easyui-accordion" style="width:300px;height:200px;" fit="true">
+<div data-options="region:'west',split:false" style="width:200px;">
+    <div id="aa" class="easyui-accordion" style="width:400px;height:200px;" fit="true">
         <div title="系统菜单" data-options="iconCls:'icon-save',selected:true">
             <ul id="main_tree" ></ul>
         </div>

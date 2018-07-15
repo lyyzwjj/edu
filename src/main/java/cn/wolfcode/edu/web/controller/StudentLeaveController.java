@@ -25,7 +25,7 @@ public class StudentLeaveController {
     @RequiresPermissions("studentLeave:")
     @PermissionName("学员流失首页")
     public String index(){
-        return "studentLeave/listindex";
+        return "studentLeave/list";
     }
 
     @RequestMapping("list")
