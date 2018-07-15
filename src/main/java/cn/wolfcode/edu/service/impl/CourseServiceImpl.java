@@ -40,4 +40,8 @@ public class CourseServiceImpl implements ICourseService{
     public List<Course> querytodayByDate(Date date) {
         return courseMapper.querytodayByDate(date);
     }
+
+    public void save(Course course) {
+        courseMapper.insert(course);
+    }
 }

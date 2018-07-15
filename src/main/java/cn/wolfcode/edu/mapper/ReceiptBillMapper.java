@@ -30,4 +30,6 @@ public interface ReceiptBillMapper {
      * @return
      */
     List<ReceiptBill> queryForList(QueryObject qo);
+
+    List<ReceiptBill> selectBillsByClientId(Long id);
 }

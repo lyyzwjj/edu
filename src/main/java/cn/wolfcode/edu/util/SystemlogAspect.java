@@ -4,7 +4,6 @@ import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.domain.Systemlog;
 import cn.wolfcode.edu.service.ISystemlogService;
 import lombok.Setter;
-import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

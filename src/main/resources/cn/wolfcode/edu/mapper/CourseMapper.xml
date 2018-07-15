@@ -29,6 +29,11 @@
             <result column="name" property="name"/>
         </association>
     </resultMap>
+
+    <insert id="insert">
+     insert into course(sequence,coursedate,week,remark,state,grade_id,coursename_id,class_teacher_id,course_teacher_id,classroom_id)
+     values(#{sequence},#{courseDate},#{week},#{remark},#{state},#{grade.id},#{courseName.id},#{classTeacher.id},#{courseTeacher.id},#{classroom.id})
+    </insert>
     <update id="updateByPrimaryKey">
         update course set remark=#{remark} where id =#{id}
     </update>
@@ -72,6 +77,9 @@
         LEFT JOIN classroom cm on c.classroom_id = cm.id
         <include refid="base_where"></include>
         <include refid="date_where"></include>
+        <if test="sort !=null">
+            order by ${sort} ${order}
+        </if>
         limit #{startIndex},#{rows}
     </select>
 

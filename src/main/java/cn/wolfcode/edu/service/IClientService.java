@@ -70,4 +70,9 @@ public interface IClientService {
     List<Client> queryClients(StudentQueryObject qo);
 
     List<Client> listStudents();
+
+    void updateByStudent(Client client);
+
+    //休学 复学
+    void changeTrend(Long id);
 }

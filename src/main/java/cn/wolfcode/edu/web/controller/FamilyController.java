@@ -3,7 +3,9 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Family;
 import cn.wolfcode.edu.service.IFamilyService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +21,25 @@ public class FamilyController {
     private IFamilyService familyService;
 
     @RequestMapping("")
+    @RequiresPermissions("family:index")
+    @PermissionName("员工家庭首页")
     public String index() {
         return "family/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("family:list")
+    @PermissionName("员工家庭数据")
     public List<Family> list() {
         List<Family> families = familyService.selectAll();
         return families;
     }
 
-    @RequestMapping("/save")
+    @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("family:save")
+    @PermissionName("员工家庭保存")
     public JsonResult saveFamily(String rows) {
         JsonResult result = new JsonResult();
         try {
@@ -47,8 +55,10 @@ public class FamilyController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("family:update")
+    @PermissionName("员工家庭更新")
     public JsonResult update(Family family) {
         JsonResult result = new JsonResult();
         try {
@@ -60,8 +70,10 @@ public class FamilyController {
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("family:delete")
+    @PermissionName("员工家庭删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {

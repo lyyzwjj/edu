@@ -35,13 +35,10 @@
             <input name="id" id="repId" type="hidden">
             <table style="border-collapse:separate; border-spacing:10px;">
                 <tr>
-                    <td><font size="1">学生姓名:</font></td>
-                    <td><input class="easyui-combobox" type="text" name="client.id"
-                               data-options="
-                    valueField:'id',
-                    textField:'name',
-                    url:'/student/queryClients',
-                    panelHeight:'auto'"/></td>
+                    <td><font size="1">学员姓名:</font></td>
+                    <td>
+                        <input id="receiptbill_combogrid" name="client.id"/>
+                    </td>
                 </tr>
                 </tr>
                 <tr>
@@ -90,6 +87,12 @@
                     <td><font size="1">学科:</font></td>
                     <td><input class="easyui-combobox" type="text" name="courseName.id"
                                data-options="url:'/courseName/queryCours',
+                    valueField:'id',textField:'name',panelHeight:'auto'"/></td>
+                </tr>
+                <tr>
+                    <td><font size="1">校区:</font></td>
+                    <td><input class="easyui-combobox" type="text" name="campus.id"
+                               data-options="url:'/campus/list',
                     valueField:'id',textField:'name',panelHeight:'auto'"/></td>
                 </tr>
                 <tr>

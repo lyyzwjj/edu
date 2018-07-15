@@ -44,5 +44,5 @@ public class Course {
     //备注
     private String remark;
 
-    private int state =STATE_NORMAL;
+    private int state;
 }

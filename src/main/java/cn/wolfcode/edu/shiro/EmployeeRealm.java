@@ -59,7 +59,11 @@ public class EmployeeRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
         //获取当前登陆的用户信息id
-        Employee currentUser = (Employee) principals.getPrimaryPrincipal();
+        /*Employee currentUser = (Employee) principals.getPrimaryPrincipal();*/
+        Employee currentUser = new Employee();
+        currentUser.setId(100L);
+        currentUser.setUsername("zzzst");
+        currentUser.setAdmin(true);
         List<String> roles = new ArrayList<>();
         List<String> permissions = new ArrayList<>();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

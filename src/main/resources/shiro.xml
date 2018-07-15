@@ -17,7 +17,9 @@
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <!-- 配置shiro登陆校验过滤器-->
-    <bean id="myFormFilter" class="cn.wolfcode.edu.shiro.ExtendsFormAuthenticationFilter"></bean>
+    <bean id="myFormFilter" class="cn.wolfcode.edu.shiro.ExtendsFormAuthenticationFilter">
+        <property name="systemMenuService" ref="systemMenuServiceImpl"/>
+    </bean>
     <!--3:定义真实的shiroFilter-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>

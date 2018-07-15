@@ -3,9 +3,8 @@
 <mapper namespace="cn.wolfcode.edu.mapper.ClientTraceMapper" >
   <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientTrace" >
     <id column="id" property="id" />
-    <result column="name" property="name" />
     <result column="email" property="email" />
-    <result column="QQ" property="QQ" />
+    <result column="qq" property="qq" />
     <result column="tel" property="tel" />
     <result column="current_state_id" property="currentStateId" />
     <result column="prevTraceDate" property="nextTraceDate" />
@@ -23,26 +22,31 @@
       <id property="id" column="id"/>
       <result column="username" property="username"/>
     </association>
+    <association property="name" javaType="Client" columnPrefix="client_">
+      <id property="id" column="id"/>
+      <result column="name" property="name"/>
+
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `clienttrace`
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTrace" useGeneratedKeys="true" keyProperty="id" >
-    insert into `clienttrace` (name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, 
+    insert into `clienttrace` (name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, 
       intention_school_id, intention_class_id, communicative_purpose_id, communicative_way_id, 
       degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communicationContent, 
       status)
-    values (#{name}, #{email}, #{QQ}, #{tel}, #{currentStateId}, #{traceMan.id}, #{nextTraceDate},
+    values (#{name.id}, #{email}, #{qq}, #{tel}, #{currentStateId}, #{traceMan.id}, #{nextTraceDate},
       #{intentionSchoolId}, #{intentionClassId}, #{communicativePurposeId}, #{communicativeWayId}, 
       #{degreeOfIntentionId}, #{lastTraceDate}, #{traceTimes}, #{contentAbstract}, #{communicationContent},
       #{status})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTrace" >
     update `clienttrace`
-    set name = #{name},
+    set name = #{name.id},
       email = #{email},
-      QQ = #{QQ},
+      qq = #{qq},
       tel = #{tel},
       current_state_id = #{currentStateId},
       trace_man_id = #{traceMan.id},
@@ -60,30 +64,30 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
+    select id, name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
     intention_class_id, communicative_purpose_id, communicative_way_id, degree_of_intention_id, 
     lastTraceDate, traceTimes, contentAbstract, communicationContent, status
     from `clienttrace`
     where id = #{id}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, email, QQ, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
+    select id, name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, intention_school_id, 
     intention_class_id, communicative_purpose_id, communicative_way_id, degree_of_intention_id, 
     lastTraceDate, traceTimes, contentAbstract, communicationContent, status
     from `clienttrace`
   </select>
   <select id="queryForList" resultMap="BaseResultMap">
-  select cl.id, c.name,  c.tel, c.current_state_id, trace_man.id trace_man_id, c.nextTraceDate,communicative_way_id,c.lastTraceDate,
-  communicative_purpose_id,cl.contentAbstract
-  from clienttrace cl
-  left join employee e on e.id=cl.trace_man_id
-  left join client c on c.name=cl.name
+ select c.id, client.id client_id,client.name client_name,  c.tel, c.current_state_id, trace_man.id trace_man_id, c.nextTraceDate,communicative_way_id,c.lastTraceDate,
+  c.communicative_purpose_id,c.contentAbstract
+  from clienttrace c
+  left join employee trace_man on trace_man.id=c.trace_man_id
+  left join client client on c.name=client.id
   limit #{startIndex},#{rows}
   </select>
   <select id="queryForCount" resultType="int">
-  select count(cl.id)
-  from clienttrace cl
-  left join employee e on e.id=cl.trace_man_id
-  left join client c on c.name=cl.name
+  select count(c.id)
+  from clienttrace c
+  left join employee trace_man on trace_man.id=c.trace_man_id
+  left join client client on c.name=client.id
   </select>
 </mapper>

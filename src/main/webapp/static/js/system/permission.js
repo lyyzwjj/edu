@@ -5,7 +5,12 @@ $(function () {
         height: 500,
        // fit: true,
         url: "/permission/list",
-        pagination:true,
+
+        fitColumns: true,
+        fit:true,
+        singleSelect: true,
+        striped: true,
+        rownumbers: true,
         columns: [[
             {field: 'x', checkbox: true},
             {field: 'id', title: '编号', width: 100, align: "center"},

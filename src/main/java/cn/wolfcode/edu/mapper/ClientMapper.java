@@ -5,6 +5,7 @@ import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.QueryObject;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ClientMapper {
@@ -22,7 +23,7 @@ public interface ClientMapper {
 
     List<Client> queryForList(ClientQueryObject qo);
 
-    void changeState(@Param("id") Long id, @Param("stateId") int stateId);
+    void changeState(@Param("id") Long id, @Param("stateId") int stateId,@Param("transferDate") Date transferDate);
 
     List<Client> queryClients(QueryObject qo);
 
@@ -43,4 +44,8 @@ public interface ClientMapper {
     List<Client> listStudents();
 
     void insertPoolClient(Client client);
+
+    void updateByStudent(Client client);
+
+    void changeTrend(Long id, Long i);
 }

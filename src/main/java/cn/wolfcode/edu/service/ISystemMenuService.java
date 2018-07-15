@@ -53,4 +53,10 @@ public interface ISystemMenuService {
      * @return
      */
     List<SystemMenu> queryAllParentSystemMenu();
+
+    /**
+     * 找出主页菜单左侧的菜单树
+     * @return 菜单树
+     */
+    List<SystemMenu> queryRootMenu();
 }

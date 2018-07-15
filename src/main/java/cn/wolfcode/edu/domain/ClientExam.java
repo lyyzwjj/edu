@@ -19,18 +19,28 @@ public class ClientExam {
     private Long id;
 
     private Client client;
+
+    //-------------关联数据字典------------
     /*
-    考试类型
+    考试类型 id=27
      */
     private DataDictionaryItem examType;
     /*
-    意向学科
+    意向学科 id=17
      */
     private DataDictionaryItem intentionClass;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
-    private Date examDate;
 
+    //-------------------------------------------
+
+    /*
+    考试日期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date examDate;
+    /*
+    通过考试的情况 默认是未通过
+     */
     private int passExam=PASS_EXAM_DEFAULT;
 
     private Employee saleMan;

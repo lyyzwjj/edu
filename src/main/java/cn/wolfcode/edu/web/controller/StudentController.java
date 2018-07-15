@@ -27,14 +27,14 @@ public class StudentController {
         return "student/list";
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/updateByStudent")
     @ResponseBody
     @RequiresPermissions("student:update")
     @PermissionName("潜在客户更新")
     public JsonResult update(Client client) {
         JsonResult result = new JsonResult();
         try {
-            clientService.update(client);
+            clientService.updateByStudent(client);
         } catch (Exception e) {
             e.printStackTrace();
             result.markMsg("更新失败");
@@ -54,5 +54,20 @@ public class StudentController {
     public List<Client> list() {
         List<Client> list = clientService.listStudents();
         return list;
+    }
+
+    @RequestMapping("/trend")
+    @ResponseBody
+    @RequiresPermissions("student:trend")
+    @PermissionName("学员流失操作")
+    public JsonResult trend(Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            clientService.changeTrend(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("操作失败");
+        }
+        return result;
     }
 }

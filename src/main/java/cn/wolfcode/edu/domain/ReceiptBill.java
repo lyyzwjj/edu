@@ -7,7 +7,9 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,11 +19,6 @@ public class ReceiptBill {
 
     //学员
     private Client client;
-
-    //收款时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date receipttime;
 
     //收款金额
     private BigDecimal receiptmoney;
@@ -45,6 +42,9 @@ public class ReceiptBill {
     private Employee receipter;
 
     //营销人员
+    private Employee auditor;
+
+    //审核人
     private Employee marketer;
 
     //总学费
@@ -56,4 +56,11 @@ public class ReceiptBill {
     //校区
     private Campus campus;
 
+    //收款时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date receipttime;
+
+    //待付金额
+    private BigDecimal unpaidmoney;
 }

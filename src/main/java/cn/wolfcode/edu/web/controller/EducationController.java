@@ -3,7 +3,9 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.Education;
 import cn.wolfcode.edu.service.IEducationService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +21,25 @@ public class EducationController {
     private IEducationService educationService;
 
     @RequestMapping("")
+    @RequiresPermissions("education:index")
+    @PermissionName("学历首页")
     public String index() {
         return "education/list";
     }
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("education:list")
+    @PermissionName("学历数据")
     public List<Education> list() {
         List<Education> educations = educationService.selectAll();
         return educations;
     }
 
-    @RequestMapping("/saveEducation")
+    @RequestMapping("saveEducation")
     @ResponseBody
+    @RequiresPermissions("education:saveEducation")
+    @PermissionName("学历保存")
     public JsonResult saveEducation(String rows) {
         JsonResult result = new JsonResult();
         try {
@@ -47,8 +55,10 @@ public class EducationController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("education:update")
+    @PermissionName("学历更新")
     public JsonResult update(Education education) {
         JsonResult result = new JsonResult();
         try {
@@ -60,8 +70,10 @@ public class EducationController {
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("education:delete")
+    @PermissionName("学历删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {

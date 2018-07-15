@@ -5,7 +5,9 @@ import cn.wolfcode.edu.query.EmployeeQueryObject;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.service.IEmployeeService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
 import cn.wolfcode.edu.util.UploadUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -24,6 +26,8 @@ public class EmployeeController {
     private IEmployeeService employeeService;
 
     @RequestMapping("")
+    @RequiresPermissions("employee:index")
+    @PermissionName("员工首页")
     public String index() {
         return "employee/list";
     }
@@ -37,13 +41,17 @@ public class EmployeeController {
 
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("employee:list")
+    @PermissionName("员工数据")
     public PageResult list(EmployeeQueryObject qo) {
         PageResult result = employeeService.query(qo);
         return result;
     }
 
-    @RequestMapping("/save")
+    @RequestMapping("save")
     @ResponseBody
+    @RequiresPermissions("employee:save")
+    @PermissionName("员工保存")
     public JsonResult save(Employee employee) {
         JsonResult result = new JsonResult();
         try {
@@ -55,8 +63,10 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("employee:update")
+    @PermissionName("员工更新")
     public JsonResult update(Employee employee) {
         JsonResult result = new JsonResult();
         try {
@@ -68,8 +78,10 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("employee:delete")
+    @PermissionName("员工删除")
     public JsonResult delete(Long id) {
         JsonResult result = new JsonResult();
         try {
@@ -81,8 +93,10 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("/changeState")
+    @RequestMapping("changeState")
     @ResponseBody
+    @RequiresPermissions("employee:changeState")
+    @PermissionName("员工状态改变")
     public JsonResult changeState(Long id) {
         JsonResult result = new JsonResult();
         try {
@@ -94,7 +108,7 @@ public class EmployeeController {
         return result;
     }
 
-    @RequestMapping("/saveOrUpdate")
+    @RequestMapping("saveOrUpdate")
     @ResponseBody
     public JsonResult saveOrUpdate(Employee employee) {
         JsonResult result = new JsonResult();

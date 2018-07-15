@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.ClientTransferRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientTransferRecord" >
+    <id column="id" property="id" />
+    <result column="qq" property="qq" />
+    <result column="tel" property="tel" />
+    <result column="currentDate" property="currentdate" />
+    <result column="current_trace_man" property="currentTraceMan"/>
+    <result property="originalTraceMan" column="originalTraceMan"/>
+    <!--<result column="client_id" property="client" />-->
+    <association property="name" columnPrefix="client_" javaType="Client">
+      <id property="id" column="id"/>
+      <result property="name" column="name"/>
+    </association>
+    <!--<result column="original_trace_man_id" property="originalTraceMan" />-->
+    <!--<result column="current_trace_man" property="currentTraceMan" />-->
+    <!--<association property="currentTraceMan" javaType="Employee" columnPrefix="currentTraceMan_">
+      <id property="id" column="id"/>
+      <result property="username" column="username"/>
+    </association>-->
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `clienttransferrecord`
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into `clienttransferrecord` (client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
+      )
+    values (#{name.id}, #{qq}, #{tel}, #{currentdate}, #{originalTraceManId}, #{currentTraceMan}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTransferRecord" >
+    update `clienttransferrecord`
+    set client_id = #{name.id},
+      qq = #{qq},
+      tel = #{tel},
+      currentDate = #{currentdate},
+      original_trace_man_id = #{originalTraceManId},
+      current_trace_man = #{currentTraceManId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
+    from `clienttransferrecord`
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, client_id, qq, tel, currentDate, original_trace_man_id, current_trace_man
+    from `clienttransferrecord`
+  </select>
+
+  <select id="queryForList" resultMap="BaseResultMap">
+    select c.id, c.client_id, c.qq, c.tel, c.currentDate,
+     c.original_trace_man_id originalTraceMan_id,originalTraceMan.username originalTraceMan_username,
+      c.current_trace_man currentTraceMan_id,currentTraceMan.username currentTraceMan_username
+    from `clienttransferrecord` c
+    left join client client on client.id=c.client_id
+    limit #{startIndex},#{rows}
+  </select>
+
+  <select id="queryForCount" resultType="int">
+    select count(c.id)
+     from `clienttransferrecord` c
+    left join client client on client.id=c.client_id
+    left join Employee originalTraceMan originalTraceMan.id=c.original_trace_man_id
+  </select>
+</mapper>

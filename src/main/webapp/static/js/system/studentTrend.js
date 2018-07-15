@@ -112,7 +112,7 @@ $(function () {
             studentTrend_dialog.dialog("setTitle", "学员转换添加");
             $('#studentTrend_combogrid').combogrid({
                 panelWidth: 450,
-                textField: 'name',
+                textField: 'client.name',
                 idField: 'id',
                 url: '/receiptbill/queryAllBills',
                 columns: [[

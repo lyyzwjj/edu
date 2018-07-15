@@ -29,6 +29,8 @@ public class ClientResourcePoolController {
      */
     @RequestMapping("list")
     @ResponseBody
+    @RequiresPermissions("client:list")
+    @PermissionName("客户资源池数据")
     public PageResult queryPoolClient(QueryObject qo) {
         PageResult result = service.queryPoolClient(qo);
         return result;

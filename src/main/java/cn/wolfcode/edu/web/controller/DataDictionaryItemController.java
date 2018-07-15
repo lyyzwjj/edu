@@ -3,6 +3,8 @@ package cn.wolfcode.edu.web.controller;
 import cn.wolfcode.edu.domain.DataDictionaryItem;
 import cn.wolfcode.edu.service.IDataDictionaryItemService;
 import cn.wolfcode.edu.util.JsonResult;
+import cn.wolfcode.edu.util.PermissionName;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,17 +22,22 @@ public class DataDictionaryItemController {
     private IDataDictionaryItemService dataDictionaryItemService;
     @RequestMapping("list")
     @ResponseBody
-
+    @RequiresPermissions("dataDictionaryItem:list")
+    @PermissionName("字典明细数据")
     public List<DataDictionaryItem> list(){
         return dataDictionaryItemService.list();
     }
     @RequestMapping("queryListByParent")
     @ResponseBody
+    @RequiresPermissions("dataDictionaryItem:queryListByParent")
+    @PermissionName("根据字典查找字典明细数据")
     public List<DataDictionaryItem> queryListByParent(Long parentId){
         return dataDictionaryItemService.queryListByParent(parentId);
     }
     @ResponseBody
     @RequestMapping("save")
+    @RequiresPermissions("dataDictionaryItem:save")
+    @PermissionName("字典明细保存")
     public JsonResult save(DataDictionaryItem dataDictionaryItem){
         JsonResult result = new JsonResult();
         try {
@@ -43,6 +50,8 @@ public class DataDictionaryItemController {
     }
     @RequestMapping("update")
     @ResponseBody
+    @RequiresPermissions("dataDictionaryItem:update")
+    @PermissionName("字典明细更新")
     public JsonResult update(DataDictionaryItem dataDictionaryItem){
         JsonResult result = new JsonResult();
         try {
@@ -55,6 +64,8 @@ public class DataDictionaryItemController {
     }
     @RequestMapping("delete")
     @ResponseBody
+    @RequiresPermissions("dataDictionaryItem:delete")
+    @PermissionName("字典明细删除")
     public JsonResult delete(Long id){
         JsonResult result = new JsonResult();
         try {

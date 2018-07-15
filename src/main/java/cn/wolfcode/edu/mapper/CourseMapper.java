@@ -19,4 +19,6 @@ public interface CourseMapper {
     void updateByPrimaryKey(Course course);
 
     List<Course> querytodayByDate(Date date);
+
+    void insert(Course course);
 }

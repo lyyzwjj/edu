@@ -22,7 +22,7 @@ public class StudentLeaveController {
     @Autowired
     private IStudentLeaveService studentLeaveService;
     @RequestMapping("")
-    @PermissionName("学员流失列表")
+    @PermissionName("学员流失首页")
     public String index(){
         return "studentLeave/list";
     }
@@ -38,7 +38,7 @@ public class StudentLeaveController {
     @RequestMapping("save")
     @ResponseBody
     @RequiresPermissions("studentLeave:save")
-    @PermissionName("保存学员流失")
+    @PermissionName("学员流失保存")
     public JsonResult save(StudentLeave studentLeave){
        JsonResult result=new JsonResult();
         try {
@@ -52,8 +52,9 @@ public class StudentLeaveController {
     @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("studentLeave:update")
-    @PermissionName("更新学员流失")
+    @PermissionName("学员流失更新")
     public JsonResult update(StudentLeave studentLeave){
+        System.out.println("============1");
         JsonResult result=new JsonResult();
         try {
             studentLeaveService.update(studentLeave);
@@ -67,7 +68,7 @@ public class StudentLeaveController {
     @RequestMapping("delete")
     @ResponseBody
     @RequiresPermissions("studentLeave:delete")
-    @PermissionName("删除学员流失")
+    @PermissionName("学员流失删除")
     public JsonResult delete(Long id){
         JsonResult result=new JsonResult();
         try {
@@ -81,7 +82,7 @@ public class StudentLeaveController {
     @RequestMapping("changeState")
     @ResponseBody
     @RequiresPermissions("studentLeave:changeState")
-    @PermissionName("更新学员流失状态")
+    @PermissionName("学员流失状态更新")
     public JsonResult changeState(Long id){
         JsonResult result=new JsonResult();
         try {

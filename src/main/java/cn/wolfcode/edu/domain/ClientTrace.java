@@ -11,50 +11,50 @@ public class ClientTrace {
 
     private Long id;
 
-    private String name;
+    private Client name;
 
     private String email;
 
-    private String QQ;
+    private String qq;
 
     private String tel;
     /*
     客户自身当前状态
      */
-    private Long currentStateId;
+    private String currentStateId;
     /*
     当前跟踪人员,就和client表中的追踪人员一致 inputMan
      */
     private Employee traceMan;
     //下次跟踪时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date nextTraceDate;
     /*
     客户的意向校区
      */
-    private Long intentionSchoolId;
+    private String intentionSchoolId;
     /*
    客户的意向班级
     */
-    private Long intentionClassId;
+    private String intentionClassId;
     /*
    交流目的
     */
-    private Long communicativePurposeId;
+    private String communicativePurposeId;
     /*
        交流方式
        */
-    private Long communicativeWayId;
+    private String communicativeWayId;
     /*
    客户的意向程度
     */
-    private Long degreeOfIntentionId;
+    private String degreeOfIntentionId;
     /*
    最后一次跟踪
     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date lastTraceDate;
     //追踪次数
     private Integer traceTimes;

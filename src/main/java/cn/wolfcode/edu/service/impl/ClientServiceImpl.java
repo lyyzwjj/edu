@@ -10,6 +10,7 @@ import cn.wolfcode.edu.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +35,7 @@ public class ClientServiceImpl implements IClientService {
     }
 
     public void update(Client record) {
+
         clientMapper.updateByPrimaryKey(record);
     }
 
@@ -54,7 +56,14 @@ public class ClientServiceImpl implements IClientService {
      * @param stateId
      */
     public void changeState(Long id,int stateId) {
-         clientMapper.changeState(id,stateId);
+             Client client = clientMapper.selectByPrimaryKey(id);
+         if (stateId==1){
+             //转正同时 设置下转正时间
+             client.setTransferDate(new Date());
+
+         }
+        Date transferDate = client.getTransferDate();
+        clientMapper.changeState(id,stateId,transferDate);
     }
 
     public List<Client> queryClients(StudentQueryObject qo) {
@@ -84,5 +93,22 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public List<Client> listStudents() {
         return clientMapper.listStudents();
+    }
+
+    @Override
+    public void updateByStudent(Client client) {
+        clientMapper.updateByStudent(client);
+    }
+
+    @Override
+    public void changeTrend(Long id) {
+        Client client = clientMapper.selectByPrimaryKey(id);
+        if (client.getStateId() == 1){
+            clientMapper.changeTrend(id,3L);
+            return;
+        } else if(client.getStateId() == 3){
+            clientMapper.changeTrend(id,1L);
+            return;
+        }
     }
 }
