@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.RecruitMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Recruit">
+        <id column="id" property="id"/>
+        <result column="plan" property="plan"/>
+        <result column="draftTime" property="draftTime"/>
+        <result column="audit_time" property="auditTime"/>
+        <result column="examineState" property="examineState"/>
+
+        <association property="inputUser" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="input_">
+            <id property="id" column="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+
+        <association property="auditor" javaType="cn.wolfcode.edu.domain.Employee" columnPrefix="audit_">
+            <id property="id" column="id"/>
+            <result column="realname" property="realname"/>
+        </association>
+
+        <association property="planType" javaType="cn.wolfcode.edu.domain.DataDictionaryItem" columnPrefix="planType_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+
+        <collection property="items" ofType="cn.wolfcode.edu.domain.RecruitItem"
+                    select="cn.wolfcode.edu.mapper.RecruitItemMapper.queryByRecruitId" column="id"/>
+
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `recruit`
+    where id = #{id}
+  </delete>
+
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Recruit" useGeneratedKeys="true" keyProperty="id">
+    insert into `recruit` (staff_id, plan, draftTime, examineState, planType, audit_id,
+    audit_time)
+    values (#{inputUser.id}, #{plan}, #{draftTime}, #{examineState}, #{planType.id}, #{auditor.id},
+    #{auditTime})
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Recruit">
+    update `recruit`
+    set staff_id = #{inputUser.id},
+    plan = #{plan},
+    draftTime = #{draftTime},
+    examineState = #{examineState},
+    planType = #{planType.id},
+    audit_id = #{auditor.id},
+    audit_time = #{auditTime}
+    where id = #{id}
+  </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time
+
+    from `recruit`
+    where id = #{id}
+  </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time
+    from `recruit`
+  </select>
+
+
+    <select id="queryForCount" resultType="int">
+         select count(r.id)
+    from `recruit` r
+    left join datadictionaryitem d on r.planType = d.id
+    </select>
+
+    <select id="queryForList" resultMap="BaseResultMap">
+    select r.id, r.staff_id, r.plan, r.draftTime, r.examineState, r.planType, r.audit_id, r.audit_time,d.name planType_name,d.id planType_id
+    from `recruit` r
+    left join datadictionaryitem d on r.planType = d.id
+    limit #{startIndex},#{rows}
+    </select>
+
+
+
+
+</mapper>

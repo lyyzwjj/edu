@@ -19,4 +19,6 @@ public interface ISalaryService {
     void updateByPrimaryKey(Salary record);
 
     PageResult query(QueryObject qo);
+
+    Salary queryByIdentifier(Long id);
 }

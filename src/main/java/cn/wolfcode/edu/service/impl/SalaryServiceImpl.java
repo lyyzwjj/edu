@@ -45,4 +45,8 @@ public class SalaryServiceImpl implements ISalaryService {
         List<Salary> rows = salaryMapper.queryForList(qo);
         return new PageResult(total, rows);
     }
+
+    public Salary queryByIdentifier(Long id) {
+        return salaryMapper.queryByIdentifier(id);
+    }
 }

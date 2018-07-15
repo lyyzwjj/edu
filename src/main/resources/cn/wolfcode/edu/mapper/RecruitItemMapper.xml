@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.RecruitItemMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.RecruitItem">
+        <id column="id" property="id"/>
+        <result column="job" property="job"/>
+        <result column="recruitNumber" property="recruitNumber"/>
+        <result column="recruitRequired" property="recruitRequired"/>
+        <result column="remark" property="remark"/>
+        <result column="recruit_id" property="recruitId"/>
+        <association property="recruitType" javaType="cn.wolfcode.edu.domain.DataDictionaryItem"
+                     columnPrefix="rec_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+
+        <association property="engage" javaType="cn.wolfcode.edu.domain.DataDictionaryItem" columnPrefix="eng_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+
+        <association property="education" javaType="cn.wolfcode.edu.domain.DataDictionaryItem"
+                     columnPrefix="edu_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+
+        <association property="recruitSalary" javaType="cn.wolfcode.edu.domain.DataDictionaryItem"
+                     columnPrefix="sal_">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `recruititem`
+    where id = #{id}
+  </delete>
+
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.RecruitItem" useGeneratedKeys="true" keyProperty="id">
+    insert into `recruititem` (job, recruitType, engageId, recruitNumber, educationId, recruitRequired,
+    recruitSalaryId, remark, recruit_id)
+    values (#{job}, #{recruitType.id}, #{engage.id}, #{recruitNumber}, #{education.id}, #{recruitRequired},
+    #{recruitSalary.id}, #{remark}, #{recruitId})
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.RecruitItem">
+    update `recruititem`
+    set job = #{job},
+    recruitType = #{recruitType.id},
+    engageId = #{engage.id},
+    recruitNumber = #{recruitNumber},
+    educationId = #{education.id},
+    recruitRequired = #{recruitRequired},
+    recruitSalaryId = #{recruitSalary.id},
+    remark = #{remark},
+    recruit_id = #{recruitId}
+    where id = #{id}
+  </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, job, recruitType, engageId, recruitNumber, educationId, recruitRequired,
+    recruitSalaryId, remark, recruit_id
+    from `recruititem`
+    where id = #{id}
+  </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, job, recruitType, engageId, recruitNumber, educationId, recruitRequired,
+    recruitSalaryId, remark, recruit_id
+    from `recruititem`
+  </select>
+
+
+    <select id="queryByRecruitId" resultMap="BaseResultMap">
+      select r.id, r.job, r.recruitType, r.engageId, r.recruitNumber,r.educationId, r.recruitRequired,
+    r.recruitSalaryId, r.remark, r.recruit_id,rec.id rec_id,rec.name rec_name,
+		eng.id  eng_id ,eng.name eng_name,
+        edu.id  edu_id ,edu.name edu_name,
+        sal.id sal_id ,sal.name sal_name
+    from `recruititem` r
+    left join datadictionaryitem rec on r.recruitType = rec.id
+		left join datadictionaryitem eng on r.engageId = eng.id
+LEFT JOIN datadictionaryitem edu on r.educationId=edu.id
+left join datadictionaryitem sal on r.recruitSalaryId = sal.id
+where r.recruit_id=#{recruitId}
+    </select>
+
+    <delete id="deleteByRecruitId">
+         delete from `recruititem`
+    where recruit_id = #{id}
+    </delete>
+
+</mapper>

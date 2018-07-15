@@ -44,4 +44,8 @@ public class DataDictionaryItemServiceImpl implements IDataDictionaryItemService
     public List<DataDictionaryItem> queryListByParent(Long id) {
         return dataDictionaryItemMapper.queryListByParent(id);
     }
+
+    public List<DataDictionaryItem> selectByDictionarySn(String sn) {
+        return dataDictionaryItemMapper.selectByDictionarySn(sn);
+    }
 }

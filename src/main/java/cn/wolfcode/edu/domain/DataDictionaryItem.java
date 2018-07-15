@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DataDictionaryItem {
+
     private Long id;
 
     private DataDictionary parent;

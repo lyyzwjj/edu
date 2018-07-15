@@ -81,4 +81,19 @@
     left join department d on e.dept_id = d.id
     left join job j on e.job_id = j.id
     </select>
+    
+    <select id="queryByIdentifier" resultMap="BaseResultMap">
+         select s.id, s.workDay, s.bankcardNumber, s.lateday, s.realWages, s.employee_id,
+    s.month,e.id e_id ,e.realname e_realname,
+    d.id d_id,d.name d_name,
+		j.id j_id,j.baseSalary j_baseSalary,j.accumulationFund j_accumulationFund,j.socialInsurance j_socialInsurance,
+		j.overtimeAllowance j_overtimeAllowance,j.bonus j_bonus,j.coefficient j_coefficient ,j.jobName j_jobName,
+		j.proportion j_proportion
+    from `salary` s
+    left join employee e on s.employee_id=e.id
+    left join department d on e.dept_id = d.id
+    left join job j on e.job_id = j.id
+    where e.id=#{id}
+    </select>
+    
 </mapper>

@@ -5,13 +5,17 @@ import cn.wolfcode.edu.domain.Salary;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.ISalaryService;
+import cn.wolfcode.edu.util.JsonDataResult;
 import cn.wolfcode.edu.util.JsonResult;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -54,6 +58,24 @@ public class SalaryController {
         return salarys;
     }
 
+    @RequestMapping("queryByIdentifier")
+    @ResponseBody
+    public JsonResult queryByIdentifier(Long id) {
+        JsonDataResult dataResult = new JsonDataResult();
+        Salary salary = salaryService.queryByIdentifier(id);
+        Date month = salary.getMonth();
+        try {
+            if (month != null) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+                format.format(month);
+            }
+            dataResult.setJsonData(JSON.toJSONString(salary));
+        } catch (Exception e) {
+            e.printStackTrace();
+            dataResult.markMsg("保存失败");
+        }
+        return dataResult;
+    }
 
 
     @RequestMapping("/save")
