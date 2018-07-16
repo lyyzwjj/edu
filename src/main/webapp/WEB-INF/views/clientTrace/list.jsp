@@ -20,19 +20,20 @@
 
     <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
         <input type="hidden" name="id"  id="clientTraceId">
+        <input type="hidden" name="client.id"  id="client.id">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name.id" /></td>
+                <td><input class="easyui-textbox" type="text" name="client.name" /></td>
                 <td><font size="1">客户当前状态:</font></td>
-                <td><input class="easyui-combobox" type="text" name="clientState.id" prompt="请选择客户当前状态"
+                <td><input class="easyui-combobox" type="text" name="clientState.id" id="clientState.id" prompt="请选择客户当前状态"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
                     url: '/dataDictionaryItem/queryListByParent?parentId=18',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">跟踪人:</font></td>
-                <td><input class="easyui-combobox" type="text"  name="inputMan.id" prompt="请选择当前跟踪人员"
+                <td><input class="easyui-combobox" type="text"  name="traceMan.id" prompt="请选择当前跟踪人员"
                            data-options="
                     valueField: 'id',
                     textField: 'username',
@@ -44,7 +45,7 @@
                 <td><font size="1">电话:</font></td>
                 <td><input class="easyui-textbox" type="text" name="tel" prompt="请输入客户联系电话"/></td>
                 <td><font size="1">微信:</font></td>
-                <td><input class="easyui-textbox" type="text" name="weChatNum" prompt="请输入客户的微信号码"/></td>
+                <td><input class="easyui-textbox" type="text" name="client.weChatNum" prompt="请输入客户的微信号码"/></td>
                 <td><font size="1">QQ:</font></td>
                 <td><input class="easyui-textbox" type="text" name="qq" prompt="请输入客户的QQ号码"/></td>
             </tr>
@@ -58,11 +59,11 @@
             </tr>
             <tr>
                 <td><font size="1">重要程度:</font></td>
-                <td><input class="easyui-combobox" type="text" name="importantDegree.id" prompt="请选择客户重要程度"
+                <td><input class="easyui-combobox" type="text" name="degreeOfIntention.id" prompt="请选择客户重要程度"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
-                    url: '/dataDictionaryItem/queryListByParent?parentId=8',
+                    url: '/dataDictionaryItem/queryListByParent?parentId=15',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">意向校区:</font></td>
                 <td><input class="easyui-combobox" type="text" name="intentionSchool.id"

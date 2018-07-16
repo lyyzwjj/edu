@@ -251,11 +251,11 @@
 <div id="clientTrace_dialog">
 
     <form id="clientTrace_form" method="post" style="padding: 0px 0px 0px 10px;">
-        <input type="hidden" name="id"  id="clientTraceId">
+        <input type="hidden" name="client.id"  id="id">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-textbox" type="text" name="name.id" /></td>
+                <td><input class="easyui-textbox" type="text" name="name" /></td>
                 <td><font size="1">客户当前状态:</font></td>
                 <td><input class="easyui-combobox" type="text" name="clientState.id" prompt="请选择客户当前状态"
                            data-options="

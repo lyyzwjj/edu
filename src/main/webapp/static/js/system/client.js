@@ -337,8 +337,8 @@ $(function(){
                 if(row.intentionClass){
                     row["intentionClass.id"]=row.intentionClass.id;
                 }
-                if(row.name){
-                    row["name.id"]=row.name;
+                if(row.id){
+                    row["client.id"]=row.id;
                 }
                 if(row.clientState){
                     row["clientState.id"]=row.clientState.id;
