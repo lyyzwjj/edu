@@ -83,7 +83,7 @@
     </select>
     
     <select id="queryByIdentifier" resultMap="BaseResultMap">
-         select s.id, s.workDay, s.bankcardNumber, s.lateday, s.realWages, s.employee_id,
+    select s.id, s.workDay, s.bankcardNumber, s.lateday, s.realWages, s.employee_id,
     s.month,e.id e_id ,e.realname e_realname,
     d.id d_id,d.name d_name,
 		j.id j_id,j.baseSalary j_baseSalary,j.accumulationFund j_accumulationFund,j.socialInsurance j_socialInsurance,
@@ -95,5 +95,5 @@
     left join job j on e.job_id = j.id
     where e.id=#{id}
     </select>
-    
+
 </mapper>

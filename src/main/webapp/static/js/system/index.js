@@ -24,20 +24,33 @@ $(function () {
 })
 
 function signIn(){
-    $.messager.alert("温馨提示", '你确实需要签到吗?', 'info', function () {
+    /*$.messager.alert("温馨提示", '你确实需要签到吗?', 'info', function () {
         $.ajax("/sign/signIn",function(data){
            if(data.success){
                $.messager.alert("温馨提示", '签到成功', 'info');
            }else{
-               $.messager.alert("温馨提示", '签到失败', 'info');
+               $.messager.alert("温馨提示", data.errorMsg, 'info');
            }
+
         });
+    });*/
+    $.messager.confirm('确认', '你确实签到吗？', function (r) {
+        if (r) {
+            //发起请求
+            $.get("/sign/signIn", function (data) {
+                if (data.success) {
+                    $.messager.alert("温馨提示", '签到成功', 'info');
+                } else {
+                    $.messager.alert("温馨提示", data.errorMsg, 'info');
+                }
+            })
+        }
     });
 }
 
 
 function signOut(){
-    $.messager.alert("温馨提示", '你确实需要签退吗?', 'info', function () {
+    /*$.messager.alert("温馨提示", '你确实需要签退吗?', 'info', function () {
         $.ajax("/sign/signOut",function(data){
             if(data.success){
                 $.messager.alert("温馨提示", '签退成功', 'info');
@@ -45,5 +58,17 @@ function signOut(){
                 $.messager.alert("温馨提示", '签退失败', 'info');
             }
         });
+    });*/
+    $.messager.confirm('确认', '你确实签退吗？', function (r) {
+        if (r) {
+            //发起请求
+            $.get("/sign/signOut", function (data) {
+                if (data.success) {
+                    $.messager.alert("温馨提示", '签退成功', 'info');
+                } else {
+                    $.messager.alert("温馨提示", data.errorMsg, 'info');
+                }
+            })
+        }
     });
 }

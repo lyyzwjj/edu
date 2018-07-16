@@ -6,7 +6,7 @@ $(function () {
         width: 500,
         height: 500,
         fit: true,
-        url: "/salary/list",
+        url: "/selfSalary/list",
         toolbar: "#tb",
         fitColumns: true,
         pagination: true,

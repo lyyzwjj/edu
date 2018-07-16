@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.edu.mapper.SignMapper">
+    <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.Sign">
+        <id column="id" property="id"/>
+        <result column="sign_in" property="signIn"/>
+        <result column="sign_out" property="signOut"/>
+        <result column="sign_in_state" property="signInState"/>
+        <result column="sign_out_state" property="signOutState"/>
+        <association property="employee" javaType="Employee" columnPrefix="e_">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `sign`
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="cn.wolfcode.edu.domain.Sign" useGeneratedKeys="true" keyProperty="id">
+    insert into `sign` (employee_id, sign_in, sign_out, sign_in_state, sign_out_state)
+    values (#{employee.id}, #{signIn}, #{signOut}, #{signInState}, #{signOutState})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Sign">
+    update `sign`
+    set employee_id = #{employee.id},
+      sign_in = #{signIn},
+      sign_out = #{signOut},
+      sign_in_state = #{signInState},
+      sign_out_state = #{signOutState}
+    where id = #{id}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select sign.id, employee_id e_id, sign_in, sign_out, sign_in_state, sign_out_state, e.username e_username
+    from `sign` left join employee e on sign.employee_id = e.id
+    where id = #{id}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select sign.id, employee_id e_id, sign_in, sign_out, sign_in_state, sign_out_state, e.username e_username
+    from `sign` left join employee e on sign.employee_id = e.id
+  </select>
+
+    <select id="queryForList" resultMap="BaseResultMap">
+        select sign.id, employee_id e_id, sign_in, sign_out, sign_in_state, sign_out_state, e.username e_username
+    from `sign` left join employee e on sign.employee_id = e.id
+        where employee_id = #{employeeId}
+        limit #{qo.startIndex},#{qo.rows}
+    </select>
+
+    <select id="queryForCount" resultType="java.lang.Integer">
+    select count(sign.id)
+    from `sign` left join employee e on sign.employee_id = e.id
+    where employee_id = #{employeeId}
+    </select>
+</mapper>

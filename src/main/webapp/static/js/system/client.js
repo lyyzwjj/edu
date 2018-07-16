@@ -27,7 +27,6 @@ $(function(){
                     return value.username;
                 }}},
             {field: 'traceTimes', title: '跟踪次数', width: 100, align: "center"},
-            {field: 'lastTraceDate', title: '最后跟踪时间', width: 100, align: "center"},
             {field: 'bookDate', title: '预约日期', width: 100, align: "center"},
             {field: 'nextTraceDate', title: '下次跟踪时间', width: 100, align: "center"},
             {field: 'weChatNum', title: '微信号', width: 100, align: "center"},
