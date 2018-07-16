@@ -82,7 +82,7 @@ $(function () {
 
     $("#openBar").click(function () {
         $("#mydialog").dialog(open(
-            "/statement/car?" + $("#query").serialize(), {
+            "/statement/car?groupByType=" + $("#groupByType").combobox('getValue'), {
                 id: 'evaluate',
                 title: '柱状报表',
                 width: 800,
@@ -96,7 +96,7 @@ $(function () {
     })
     $("#openPie").click(function () {
         $("#mydialog").dialog(open(
-            "/statement/pie?" + $("#query").serialize(), {
+            "/statement/pie?groupByType=" + $("#groupByType").combobox('getValue'), {
                 id: 'evaluate',
                 title: '饼形报表',
                 width: 800,
