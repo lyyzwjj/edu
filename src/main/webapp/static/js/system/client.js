@@ -93,6 +93,14 @@ $(function(){
     })
 
     var cmdObj={
+
+
+
+        //导出功能
+        //导出
+        export: function () {
+            window.location.href="/client/export";
+        },
         //添加操作
         add: function () {
             $("#editForm").form("clear");

@@ -115,7 +115,6 @@ $(function(){
 
         //保存操作
         saveExam: function () {
-            alert("点击保存是否有反应")
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientExamId").val();

@@ -22,6 +22,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',text:'编辑'" data-cmd="edit"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search',text:'查看'" data-cmd="view">查看</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload',text:'刷新'" data-cmd="reload">刷新</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-undo',text:'导出'" data-cmd="export">导出</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'转正'" data-cmd="changeState"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'客户跟踪'" data-cmd="trace"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-man',text:'放入资源池'" data-cmd="pushPool"></a>
