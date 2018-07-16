@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/static/js/system/classRoom.js"></script>
 </head>
 <body>
+
 <table id="class_datagrid"></table>
 
 <div id="tb">
@@ -20,7 +21,6 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" data-cmd="edit">编辑</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" data-cmd="changeState" id="change_btn">不可用</a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" data-cmd="reload">刷新</a>
-
     <input class="easyui-textbox" type="text" name="keyword" id="keyword" prompt="按照教室名称查询"/>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" data-cmd="query">查询</a>
 </div>

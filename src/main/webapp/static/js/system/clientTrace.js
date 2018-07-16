@@ -13,7 +13,7 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '客户姓名', width: 90, align: "center",formatter:function(value){
+            {field: 'client', title: '客户姓名', width: 90, align: "center",formatter:function(value){
                     if (value){
                         return value.name;
                     }
@@ -89,8 +89,10 @@ $(function(){
                 if(row.communicativeWay){
                     row["communicativeWay.id"]=row.communicativeWay.id;
                 }
-                if(row.name){
-                    row["name.id"]=row.name.id;
+                if(row.client){
+                    console.log(row.client)
+                    row["client.id"]=row.client.id;
+                    row["client.name"]=row.client.name;
                 }
                 clientTrace_dialog.dialog("open");
                 clientTrace_dialog.dialog("setTitle","客户跟踪查看");
@@ -130,11 +132,11 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要跟踪的学员");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
-                if(row.clientState){
-                    row["clientState.id"]=row.clientState.id;
+                if(row.currentState){
+                    row["clientState.id"]=row.currentState.id;
                 }
-                if(row.inputMan){
-                    row["inputMan.id"]=row.inputMan.id;
+                if(row.traceMan){
+                    row["traceMan.id"]=row.traceMan.id;
                 }
                 if(row.importantDegree){
                     row["importantDegree.id"]=row.importantDegree.id;
@@ -151,12 +153,16 @@ $(function(){
                 if(row.communicativeWay){
                     row["communicativeWay.id"]=row.communicativeWay.id;
                 }
-                if(row.name){
-                    row["name.id"]=row.name.id;
+                if(row.client){
+                    console.log(row.client.id)
+                    row["client.id"]=row.client.id;
+                    row["client.name"]=row.client.name;
+                    row["client.weChatNum"]=row.client.weChatNum;
                 }
-                if(row.clientState){
-                    row["clientState.id"]=row.clientState.id;
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
                 }
+
                 clientTrace_dialog.dialog("open");
                 clientTrace_dialog.dialog("setTitle","客户跟踪编辑");
                 $("#clientTrace_form").form("clear");

@@ -11,7 +11,7 @@ public class ClientTrace {
 
     private Long id;
 
-    private Client name;
+    private Client client;
 
     private String email;
 

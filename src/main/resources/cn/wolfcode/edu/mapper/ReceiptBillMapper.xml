@@ -15,7 +15,7 @@
       <id column="c_id" property="id"></id>
       <result column="c_name" property="name"></result>
       <result column="c_tel" property="tel"></result>
-      <result column="c_QQNum" property="QQNum"></result>
+      <result column="c_qq" property="qq"></result>
     </association>
     <!--课程-->
     <association property="courseName" javaType="cn.wolfcode.edu.domain.CourseName">

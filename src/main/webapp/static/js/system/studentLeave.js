@@ -19,8 +19,8 @@ $(function () {
             }
             },
             {
-                field: 'qqnum', title: 'QQ', width: 100, formatter: function (value, row, index) {
-                return row.client.qqnum;
+                field: 'qq', title: 'QQ', width: 100, formatter: function (value, row, index) {
+                return row.client.qq;
             }
             },
             {
