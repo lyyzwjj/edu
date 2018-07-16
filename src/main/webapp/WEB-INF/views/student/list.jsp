@@ -55,7 +55,7 @@
                 <td><font size="1">微信:</font></td>
                 <td><input class="easyui-textbox" type="text" name="weChatNum" prompt="请输入学员的微信号码"/></td>
                 <td><font size="1">QQ:</font></td>
-                <td><input class="easyui-textbox" type="text" name="QQNum" prompt="请输入学员的QQ号码"/></td>
+                <td><input class="easyui-textbox" type="text" name="qq" prompt="请输入学员的QQ号码"/></td>
             </tr>
             <tr>
                 <td><font size="1">邮箱:</font></td>
