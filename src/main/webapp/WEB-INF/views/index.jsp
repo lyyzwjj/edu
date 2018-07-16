@@ -1,18 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/static/js/plugins/jquery-easyui/themes/gray/easyui.css">
     <link rel="stylesheet" href="/static/js/plugins/jquery-easyui/themes/icon.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/public.css">
     <script src="/static/js/plugins/jquery-easyui/jquery.min.js"></script>
     <script src="/static/js/plugins/jquery-easyui/jquery.easyui.min.js"></script>
     <script src="/static/js/system/index.js"></script>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',split:false" style="height:80px;" >
-    <h1 align="center">叩丁狼员工管理系统</h1>
-</div>
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'north',height:70,split:true" >
+        <%-- <h1 align="center">叩丁狼员工管理系统</h1>--%>
+        <div class="public-header-warrp">
+            <div class="public-header">
+                <div class="content">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img  src="/static/images/logo.png"/>
+                    <div class="public-header-admin fr">
+                        <p class="admin-name"><font  color ="green"><shiro:principal property="username"></shiro:principal>, 您好！</font> </p>
+                        <div class="public-header-fun fr">
+                            <a href="/logout" class="public-header-loginout">安全退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div data-options="region:'south',split:false" style="height:60px;">
     <h3 align="center">@版权归狼码教育科技有限公司所有</h3>
 </div>
