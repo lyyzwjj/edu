@@ -19,4 +19,31 @@ $(function () {
         }
     });
     $("#main_tabs").tabs({})
+
+
 })
+
+function signIn(){
+    $.messager.alert("温馨提示", '你确实需要签到吗?', 'info', function () {
+        $.ajax("/sign/signIn",function(data){
+           if(data.success){
+               $.messager.alert("温馨提示", '签到成功', 'info');
+           }else{
+               $.messager.alert("温馨提示", '签到失败', 'info');
+           }
+        });
+    });
+}
+
+
+function signOut(){
+    $.messager.alert("温馨提示", '你确实需要签退吗?', 'info', function () {
+        $.ajax("/sign/signOut",function(data){
+            if(data.success){
+                $.messager.alert("温馨提示", '签退成功', 'info');
+            }else{
+                $.messager.alert("温馨提示", '签退失败', 'info');
+            }
+        });
+    });
+}
