@@ -74,7 +74,6 @@ $(function(){
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientId").val();
-            alert(id)
             var url = "/client/save";
             if (id) {
                 url = "/client/update";
@@ -83,8 +82,6 @@ $(function(){
             $("#editForm").form("submit", {
                 url : url,
                 success : function(data) {
-                    alert(url)
-                    console.log(data)
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
@@ -150,6 +147,12 @@ $(function(){
                 if(row.intentionClass){
                     row["intentionClass.id"]=row.intentionClass.id;
                 }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
+                if(row.clientMajor){
+                    row["clientMajor.id"]=row.clientMajor.id;
+                }
                 client_dialog.dialog("open");
                 client_dialog.dialog("setTitle","客户跟踪");
                 $("#editForm").form("clear");
@@ -178,12 +181,10 @@ $(function(){
 
         //转交之后的保存
         saveSend:function(){
-            alert("转移的")
             $("#send_form").form("submit",{
                 url:"/clientTransferRecord/save",
                 success : function(data) {
 
-                    alert("进来")
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面

@@ -11,14 +11,16 @@
         <result column="contentAbstract" property="contentAbstract"/>
         <result column="communication_content" property="communicationContent"/>
         <result column="status" property="status"/>
-        <result column="prevTraceDate" property="nextTraceDate"/>
+        <result column="nextTraceDate" property="nextTraceDate"/>
+        <result column="bookDate" property="bookDate"/>
+        <result column="traceRemark" property="traceRemark"/>
 
-        <association property="traceMan" javaType="Employee" columnPrefix="trace_man_">
+        <association property="inputMan" javaType="Employee" columnPrefix="trace_man_">
             <id property="id" column="id"/>
             <result column="username" property="username"/>
         </association>
-        <!--<result column="current_state_id" property="currentState" />-->
-        <association property="currentState" columnPrefix="currentState_" javaType="DataDictionaryItem">
+        <!--<result column="current_state_id" property="clientState" />-->
+        <association property="clientState" columnPrefix="clientState_" javaType="DataDictionaryItem">
             <id property="id" column="id"/>
             <result column="name" property="name"/>
         </association>
@@ -62,11 +64,11 @@
     insert into `clienttrace` (name, email, qq, tel, current_state_id, trace_man_id, nextTraceDate, 
       intention_school_id, intention_class_id, communicative_purpose_id, communicative_way_id, 
       degree_of_intention_id, lastTraceDate, traceTimes, contentAbstract, communication_content,
-      status)
-    values (#{client.id}, #{email}, #{qq}, #{tel}, #{currentState.id}, #{traceMan.id}, #{nextTraceDate},
+      status,bookDate,traceRemark)
+    values (#{client.id}, #{email}, #{qq}, #{tel}, #{clientState.id}, #{inputMan.id}, #{nextTraceDate},
       #{intentionSchool.id}, #{intentionClass.id}, #{communicativePurpose.id}, #{communicativeWay.id}, 
       #{degreeOfIntention.id}, #{lastTraceDate}, #{traceTimes}, #{contentAbstract}, #{communicationContent},
-      #{status})
+      #{status},#{bookDate},#{traceRemark})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientTrace">
     update `clienttrace`
@@ -74,8 +76,8 @@
       email = #{email},
       qq = #{qq},
       tel = #{tel},
-      current_state_id = #{currentState.id},
-      trace_man_id = #{traceMan.id},
+      current_state_id = #{clientState.id},
+      trace_man_id = #{inputMan.id},
       nextTraceDate = #{nextTraceDate},
       intention_school_id = #{intentionSchool.id},
       intention_class_id = #{intentionClass.id},
@@ -86,14 +88,16 @@
       traceTimes = #{traceTimes},
       contentAbstract = #{contentAbstract},
       communication_content = #{communicationContent},
-      status = #{status}
+      status = #{status},
+      bookDate=#{bookDate},
+      traceRemark=#{traceRemark}
     where id = #{id}
   </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select c.id,client.id client_id,
 client.name client_name,client.weChatNum client_weChatNum,
- c.email, c.qq, c.tel, c.current_state_id currentState_id,
-currentState.name currentState_name,
+ c.email, c.qq, c.tel, c.current_state_id clientState_id,
+clientState.name clientState_name,
  c.trace_man_id trace_man_id,trace_man.username trace_man_username,
  c.nextTraceDate, c.intention_school_id intentionSchool_id,
 intentionSchool.name intentionSchool_name,
@@ -109,7 +113,7 @@ degreeOfIntention.name degreeOfIntention_name,
     from `clienttrace` c
  left join employee trace_man on trace_man.id=c.trace_man_id
   left join client client on c.name=client.id
-left join datadictionaryitem currentState on c.current_state_id=currentState.id
+left join datadictionaryitem clientState on c.current_state_id=clientState.id
 left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
 left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
 left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id
@@ -126,8 +130,8 @@ left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degre
     <select id="queryForList" resultMap="BaseResultMap">
   select c.id,client.id client_id,c.contentAbstract,
 client.name client_name,client.weChatNum client_weChatNum,
- c.email, c.qq, c.tel, c.current_state_id currentState_id,
-currentState.name currentState_name,
+ c.email, c.qq, c.tel, c.current_state_id clientState_id,
+clientState.name clientState_name,
  c.trace_man_id trace_man_id,trace_man.username trace_man_username,
  c.nextTraceDate, c.intention_school_id intentionSchool_id,
 intentionSchool.name intentionSchool_name,
@@ -139,11 +143,12 @@ communicativePurpose.name communicativePurpose_name,
 communicativeWay.name communicativeWay_name,
 c.degree_of_intention_id  degreeOfIntention_id,
 degreeOfIntention.name degreeOfIntention_name,
-    c.lastTraceDate, c.traceTimes, c.contentAbstract, c.communication_content, c.status
+    c.lastTraceDate, c.traceTimes,  c.communication_content, c.status,
+    c.bookDate,c.traceRemark
     from `clienttrace` c
  left join employee trace_man on trace_man.id=c.trace_man_id
   left join client client on c.name=client.id
-left join datadictionaryitem currentState on c.current_state_id=currentState.id
+left join datadictionaryitem clientState on c.current_state_id=clientState.id
 left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
 left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
 left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id
@@ -156,7 +161,7 @@ left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degre
    from `clienttrace` c
  left join employee trace_man on trace_man.id=c.trace_man_id
   left join client client on c.name=client.id
-left join datadictionaryitem currentState on c.current_state_id=currentState.id
+left join datadictionaryitem clientState on c.current_state_id=clientState.id
 left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
 left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
 left join datadictionaryitem communicativePurpose on c.communicative_way_id=communicativePurpose.id

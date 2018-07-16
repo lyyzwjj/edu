@@ -36,11 +36,11 @@ public class ClientTransferRecordServiceImpl implements IClientTransferRecordSer
         if (client.getAcceptMan()!=null){
             record.setCurrentTraceMan(client.getAcceptMan());
             client.setInputMan(client.getAcceptMan());
+             mapper.changeTraceMan(client.getId(),client.getAcceptMan().getId());
         }
         clientMapper.insert(record);
         //同时将client表的跟踪人改成现在这个跟踪人
         //client.setInputMan(traceMan);
-        mapper.changeTraceMan(client);
     }
 
     public ClientTransferRecord get(Long id) {

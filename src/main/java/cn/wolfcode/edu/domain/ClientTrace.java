@@ -21,7 +21,7 @@ public class ClientTrace {
     /*
     当前跟踪人员,就和client表中的追踪人员一致 inputMan
      */
-    private Employee traceMan;
+    private Employee inputMan;
     //下次跟踪时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
@@ -31,7 +31,7 @@ public class ClientTrace {
     /*
     客户自身当前状态
      */
-    private DataDictionaryItem currentState;
+    private DataDictionaryItem clientState;
     /*
     客户的意向校区
      */
@@ -65,6 +65,14 @@ public class ClientTrace {
     //交流内容
     private String communicationContent;
     //客户的状态 是否有人在跟踪
-    private Integer status;
+    private int status;
 
+    /*
+   预约时间
+    */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date bookDate;
+
+    private String traceRemark;
 }

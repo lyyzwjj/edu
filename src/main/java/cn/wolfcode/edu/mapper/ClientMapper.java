@@ -45,6 +45,7 @@ public interface ClientMapper {
 
     void updateByStudent(Client client);
 
-    void changeTraceMan(Client client);
+    void changeTraceMan(@Param("id") Long id, @Param("inputManId") Long inputManId);
+
     void changeTrend(@Param("id") Long id, @Param("stateId") Long i);
 }

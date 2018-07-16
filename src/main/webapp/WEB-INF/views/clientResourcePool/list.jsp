@@ -21,6 +21,7 @@
     <input type="text" id="endDate" class="easyui-datebox" name="enddate" prompt="结束时间">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="query">查询</a>
 </div>
+
 <div id="client_dialog">
     <form id="editForm" method="post" style="padding: 0px 0px 0px 10px;">
         <input name="id" id="clientId" type="hidden">
@@ -47,7 +48,7 @@
             </tr>
             <tr>
                 <td><font size="1">录入时间:</font></td>
-                <td><input class="easyui-datebox" type="text" name="buildDate" prompt="请选择录入时间"/></td>
+                <td><input class="easyui-datebox" type="text" name="inputDate" prompt="请选择录入时间"/></td>
                 <td><font size="1">预约日期:</font></td>
                 <td><input class="easyui-datebox" type="text" name="bookDate" prompt="请选择预约时间"/></td>
                 <td><font size="1">下次跟踪时间:</font></td>
@@ -118,7 +119,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=10',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">学校客户:</font></td>
-                <td><input class="easyui-combobox" type="text" name="school.id" prompt="请选择学校客户"
+                <td><input class="easyui-combobox" type="text" name="clientMajor.id" prompt="请选择学校客户"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -149,7 +150,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=11',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">介绍人:</font></td>
-                <td><input class="easyui-textbox" type="text" name="introduceMan" prompt="请选择介绍人"/></td>
+                <td><input class="easyui-textbox" type="text" name="introduceManId" prompt="请选择介绍人"/></td>
                 <td><font size="1">地域:</font></td>
                 <td><input class="easyui-combobox" type="text" name="hometown.id" prompt="请选择客户地域"
                            data-options="
@@ -199,7 +200,7 @@
                     }],
                     panelHeight:'auto'"/></td>
                 <td><font size="1">客户当前状态:</font></td>
-                <td><input class="easyui-combobox" type="text" name="clientState" prompt="请选择客户当前状态"
+                <td><input class="easyui-combobox" type="text" name="clientState.id" prompt="请选择客户当前状态"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
@@ -238,11 +239,13 @@
             <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" data-cmd="cancel">取消</a>
         </div>
     </form>
+</div>
 <%--指派给某人的弹框--%>
 <div id="send_dialog">
 
     <form id="send_form" method="post" style="padding: 0px 0px 0px 10px;">
         <input type="hidden" id="id" name="client.id"/>
+        <input class="easyui-textbox" type="hidden" name="tel" />
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
@@ -252,6 +255,7 @@
                 <td><font size="1">客户QQ:</font></td>
                 <td><input class="easyui-textbox" type="text" name="qq" /></td>
             </tr>
+
             <tr>
                 <%--接收人员显示在转移记录中--%>
                 <td><font size="1">接收人员:</font></td>

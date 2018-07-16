@@ -181,7 +181,8 @@
       withComputer = #{withComputer},
       clientAttentionWhat = #{clientAttentionWhat},
       client_type_id = #{clientTypeId},
-      client_state = #{clientState.id}
+      client_state = #{clientState.id},
+      state_id=0
     where id = #{id}
   </update>
 
@@ -224,7 +225,7 @@
     <!--转移之后将跟踪人员更新-->
     <update id="changeTraceMan">
         update client set
-         input_man_id = #{inputMan.id},
+         input_man_id = #{inputManId},
          where id=#{id}
     </update>
 
@@ -374,61 +375,58 @@
   <!--资源池列表-->
   <select id="queryPoolClientList" resultMap="BaseResultMap" >
 
- select c.id,c.name,
-        input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
-        sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
-        c.traceTimes,c.name, c.age, c.gender,
-        c.lastTraceDate, c.bookDate,c.nextTraceDate,
-        c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
-        c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
-        c.state_id, c.isManTrace, c.remark, c.client_state, c.transfer_date,
-        degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
-        intentionSchool.id intentionSchool_id, intentionSchool.name intentionSchool_name,
-        intentionClass.id intentionClass_id, intentionClass.name intentionClass_name,
-        clientState.id clientState_id, clientState.name clientState_name,
-        hometown.id hometown_id, hometown.name hometown_name,
-        major.id major_id, major.name major_name,
-        yearsOfWorkExperience.id yearsOfWorkExperience_id, yearsOfWorkExperience.name yearsOfWorkExperience_name,
-        education.id education_id, education.name education_name,
-        sourceOfClient.id sourceOfClient_id, sourceOfClient.name sourceOfClient_name,
-        clientMajor.id clientMajor_id,clientMajor.name clientMajor_name,
-        acceptMan.id acceptMan_id,acceptMan.username acceptMan_username
-        from client c
-        left join employee sale_man on sale_man.id=c.sale_man_id
-        left join employee input_man on input_man.id=c.input_man_id
-        left join clientmajor clientMajor on clientMajor.id=c.school_id
-        left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
-        left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
-        left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
-        left join datadictionaryitem clientState on c.client_state=clientState.id
-        left join datadictionaryitem hometown on c.hometown_id=hometown.id
-        left join datadictionaryitem major on c.major_id=major.id
-        left join datadictionaryitem yearsOfWorkExperience on c.years_of_work_experience_id=yearsOfWorkExperience.id
-        left join datadictionaryitem education on c.education_id=education.id
-        left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
-        left join employee acceptMan on acceptMan.id=c.accept_man_id
-    where state_id=2
+      select c.id,c.name,c.inputDate,c.introduce_man_id,c.collegeAdmissionTime,c.buildDate,c.clientAttentionWhat,
+      input_man.id input_man_id, input_man.username input_man_username, input_man.realname input_man_realname,
+      sale_man.id sale_man_id, sale_man.username sale_man_username, sale_man.realname sale_man_realname,
+      c.traceTimes,c.name, c.age, c.gender,
+      c.lastTraceDate, c.bookDate,c.nextTraceDate,
+      c.weChatNum, c.qq, c.tel, c.school, c.email, c.address,
+      c.degree_of_intention_id, c.intention_school_id, c.intention_class_id,
+      c.state_id, c.isManTrace, c.remark, c.client_state,
+      degreeOfIntention.id degreeOfIntention_id, degreeOfIntention.name degreeOfIntention_name,
+      intentionSchool.id intentionSchool_id, intentionSchool.name intentionSchool_name,
+      intentionClass.id intentionClass_id, intentionClass.name intentionClass_name,
+      clientState.id clientState_id, clientState.name clientState_name,
+      hometown.id hometown_id, hometown.name hometown_name,
+      major.id major_id, major.name major_name,
+      yearsOfWorkExperience.id yearsOfWorkExperience_id, yearsOfWorkExperience.name yearsOfWorkExperience_name,
+      education.id education_id, education.name education_name,
+      sourceOfClient.id sourceOfClient_id, sourceOfClient.name sourceOfClient_name,
+      clientMajor.id clientMajor_id,clientMajor.name clientMajor_name
+      from client c
+      left join employee sale_man on sale_man.id=c.sale_man_id
+      left join employee input_man on input_man.id=c.input_man_id
+      left join clientmajor clientMajor on clientMajor.id=c.school_id
+      left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
+      left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+      left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+      left join datadictionaryitem clientState on c.client_state=clientState.id
+      left join datadictionaryitem hometown on c.hometown_id=hometown.id
+      left join datadictionaryitem major on c.major_id=major.id
+      left join datadictionaryitem yearsOfWorkExperience on c.years_of_work_experience_id=yearsOfWorkExperience.id
+      left join datadictionaryitem education on c.education_id=education.id
+      left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
+      where state_id=2
       <include refid="base_client"></include>
-    limit #{startIndex},#{rows}
+      limit #{startIndex},#{rows}
   </select>
 <!--资源池列表的total-->
   <select id="queryForPoolClientCount" resultType="int">
-
-    select count(c.id)  from client c
-        left join employee sale_man on sale_man.id=c.sale_man_id
-        left join employee input_man on input_man.id=c.input_man_id
-        left join clientmajor clientMajor on clientMajor.id=c.school_id
-        left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
-        left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
-        left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
-        left join datadictionaryitem clientState on c.client_state=clientState.id
-        left join datadictionaryitem hometown on c.hometown_id=hometown.id
-        left join datadictionaryitem major on c.major_id=major.id
-        left join datadictionaryitem yearsOfWorkExperience on c.years_of_work_experience_id=yearsOfWorkExperience.id
-        left join datadictionaryitem education on c.education_id=education.id
-        left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
-        left join employee acceptMan on acceptMan.id=c.accept_man_id
-    where state_id=2
+      SELECT count(c.id)
+      from client c
+      left join employee sale_man on sale_man.id=c.sale_man_id
+      left join employee input_man on input_man.id=c.input_man_id
+      left join clientmajor clientMajor on clientMajor.id=c.school_id
+      left join datadictionaryitem degreeOfIntention on c.degree_of_intention_id=degreeOfIntention.id
+      left join datadictionaryitem intentionSchool on c.intention_school_id=intentionSchool.id
+      left join datadictionaryitem intentionClass on c.intention_class_id=intentionClass.id
+      left join datadictionaryitem clientState on c.client_state=clientState.id
+      left join datadictionaryitem hometown on c.hometown_id=hometown.id
+      left join datadictionaryitem major on c.major_id=major.id
+      left join datadictionaryitem yearsOfWorkExperience on c.years_of_work_experience_id=yearsOfWorkExperience.id
+      left join datadictionaryitem education on c.education_id=education.id
+      left join datadictionaryitem sourceOfClient on c.source_of_client_id=sourceOfClient.id
+      where state_id=2
       <include refid="base_client"></include>
   </select>
 

@@ -43,7 +43,6 @@ public class ClientExam {
      */
     private int passExam=PASS_EXAM_DEFAULT;
 
-    private Employee saleMan;
     /*
     登记考试人员就是当前的登录人
      */

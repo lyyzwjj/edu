@@ -27,16 +27,16 @@ $(function(){
                     return value.name;
                 }
             }},
-            {
+            /*{
                 field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
-                    return value.username;
+                    return value.username;;
                 }}
             },
             {field: 'inputMan', title: '录入人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
                     return value.username;
-                }}},
+                }}},*/
             {field: 'examDate', title: '考试时间', width: 100, align: "center"},
 
             {field: 'passExam', title: '是否通过', width: 100, align: "center", formatter: function (value, row, index) {
@@ -71,9 +71,9 @@ $(function(){
         title:"考试登记",
         width:350,
         height:300,
-        buttons:"#bb_exam"
+        buttons:"#bb_exam",
         // 一开始就是关闭的状态
-        /*closed:true*/
+        closed:true
     })
 
 

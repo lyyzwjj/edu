@@ -1,11 +1,12 @@
 package cn.wolfcode.edu.service.impl;
 
-import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.domain.ClientExam;
+import cn.wolfcode.edu.domain.Employee;
 import cn.wolfcode.edu.mapper.ClientExamMapper;
 import cn.wolfcode.edu.query.PageResult;
 import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IClientExamService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,10 @@ public class ClientExamServiceImpl implements IClientExamService{
     }
 
     public void save(ClientExam record) {
-      Client client = record.getClient();
-        System.out.println("考试登记中的============="+client);
-        if (client.getInputMan()!=null){
+        Employee currentUser = (Employee)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        if (currentUser!=null){
 
-            record.setInputMan(client.getInputMan());
-        }
-        if (client.getSaleMan()!=null){
-            record.setSaleMan(client.getSaleMan());
-            System.out.println("===================看到这个就说明不是空的");
+            record.setInputMan(currentUser);
         }
         clientMapper.insert(record);
     }
