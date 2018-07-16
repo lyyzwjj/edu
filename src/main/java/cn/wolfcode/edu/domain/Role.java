@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter
-public class Role {
+public class  Role {
     private Long id;
 
     private String sn;

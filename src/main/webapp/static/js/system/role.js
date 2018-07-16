@@ -44,7 +44,7 @@ $(function () {
             {field: 'name', title: '权限名', width: 100, align: "center"},
 
         ]],
-        toolbar:"#alltb",
+        toolbar: "#alltb",
         onDblClickRow: function (index, row) {
             //双击删除一个
             allPermissions.datagrid("deleteRow", index);
@@ -65,7 +65,7 @@ $(function () {
             {field: 'name', title: '权限名', width: 100, align: "center"},
 
         ]],
-        toolbar:"#selftb",
+        toolbar: "#selftb",
         onDblClickRow: function (index, row) {
             //双击删除一个
             selfPermissions.datagrid("deleteRow", index);
@@ -89,61 +89,61 @@ $(function () {
 
     });
     $("#all_all_a").linkbutton({
-        iconCls:'icon-ok',
-        onClick:function () {
+        iconCls: 'icon-ok',
+        onClick: function () {
             allPermissions.datagrid("checkAll")
         }
 
     });
     $("#all_cancel_a").linkbutton({
-        iconCls:'icon-no',
-        onClick:function () {
+        iconCls: 'icon-no',
+        onClick: function () {
             allPermissions.datagrid("unselectAll");
         }
     });
     $("#all_part_a").linkbutton({
-        iconCls:'icon-redo',
-        onClick:function () {
+        iconCls: 'icon-redo',
+        onClick: function () {
             var rows = allPermissions.datagrid("getSelections");
-            for(var i = 0; i < rows.length; i++ ){
+            for (var i = 0; i < rows.length; i++) {
                 selfPermissions.datagrid("appendRow", rows[i])
             }
             var copyRows = [];
-            for ( var j= 0; j < rows.length; j++) {
+            for (var j = 0; j < rows.length; j++) {
                 copyRows.push(rows[j]);
             }
-            for(var i =0;i<copyRows.length;i++){
-                var index = allPermissions.datagrid('getRowIndex',copyRows[i]);
-                allPermissions.datagrid('deleteRow',index);
+            for (var i = 0; i < copyRows.length; i++) {
+                var index = allPermissions.datagrid('getRowIndex', copyRows[i]);
+                allPermissions.datagrid('deleteRow', index);
             }
         }
     });
     $("#self_all_a").linkbutton({
-        iconCls:'icon-ok',
-        onClick:function () {
+        iconCls: 'icon-ok',
+        onClick: function () {
             selfPermissions.datagrid("checkAll")
         }
     });
     $("#self_cancel_a").linkbutton({
-        iconCls:'icon-no',
-        onClick:function () {
+        iconCls: 'icon-no',
+        onClick: function () {
             selfPermissions.datagrid("unselectAll")
         }
     });
     $("#self_part_a").linkbutton({
-        iconCls:'icon-undo',
-        onClick:function () {
+        iconCls: 'icon-undo',
+        onClick: function () {
             var rows = selfPermissions.datagrid("getSelections");
-            for(var i = 0; i < rows.length; i++ ){
+            for (var i = 0; i < rows.length; i++) {
                 allPermissions.datagrid("appendRow", rows[i])
             }
             var copyRows = [];
-            for ( var j= 0; j < rows.length; j++) {
+            for (var j = 0; j < rows.length; j++) {
                 copyRows.push(rows[j]);
             }
-            for(var i =0;i<copyRows.length;i++){
-                var index = selfPermissions.datagrid('getRowIndex',copyRows[i]);
-                selfPermissions.datagrid('deleteRow',index);
+            for (var i = 0; i < copyRows.length; i++) {
+                var index = selfPermissions.datagrid('getRowIndex', copyRows[i]);
+                selfPermissions.datagrid('deleteRow', index);
             }
         }
 
@@ -241,19 +241,21 @@ $(function () {
             if (!row) {
                 $.messager.alert("温馨提示", "请选择要删除的行")
             } else {
-                $.get("/role/delete", {id: row.id}, function (data) {
-                    if (!data.success) {
-                        $.messager.alert("温馨提示", data.msg)
-                    }
-                    $.messager.alert("温馨提示", "删除成功");
-                    role_dialog.dialog("close");
-                    role_datagrid.datagrid("reload");
+                $.messager.confirm('确认', '确定删除角色吗', function (r) {
+                    if(r){
+                        $.get("/role/delete", {id: row.id}, function (data) {
+                            if (!data.success) {
+                                $.messager.alert("温馨提示", data.msg)
+                            }
+                            $.messager.alert("温馨提示", "删除成功");
+                            role_dialog.dialog("close");
+                            role_datagrid.datagrid("reload");
 
-                    // 退出操作;
+                            // 退出操作;
+                        })
 
-
-                })
-
+                    }}
+                )
             }
         },
         add: function () {

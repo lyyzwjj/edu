@@ -7,10 +7,9 @@ import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.ISalaryService;
 import cn.wolfcode.edu.util.JsonDataResult;
 import cn.wolfcode.edu.util.JsonResult;
-import com.alibaba.fastjson.JSON;
 import cn.wolfcode.edu.util.PermissionName;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +30,7 @@ public class SalaryController {
     @RequiresPermissions("salary:index")
     @PermissionName("工资首页")
     public String index() {
+
         return "salary/list";
     }
 

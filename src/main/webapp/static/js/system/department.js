@@ -1,60 +1,60 @@
-$(function() {
+$(function () {
     $("#dep_datagrid").datagrid({
-        url : "/department/list",
+        url: "/department/list",
         fitColumns: true,
-        fit:true,
-        singleSelect : true,
-        pagePosition : "bottom",
-        columns : [ [
+        fit: true,
+        singleSelect: true,
+        pagePosition: "bottom",
+        columns: [[
             {
-                field : 'x',
-                checkbox : true
-            },{
-                field : 'id',
-                title : '部门编号',
-                width : 100
+                field: 'x',
+                checkbox: true
             }, {
-                field : 'sn',
-                title : '部门编码',
-                width : 100
+                field: 'id',
+                title: '部门编号',
+                width: 100
+            }, {
+                field: 'sn',
+                title: '部门编码',
+                width: 100
             },
             {
-                field : 'name',
-                title : '部门名称',
-                width : 100
+                field: 'name',
+                title: '部门名称',
+                width: 100
             },
             {
-                field : 'state',
-                title : '状态',
-                width : 100,
-                formatter : function(value, row, index) {
+                field: 'state',
+                title: '状态',
+                width: 100,
+                formatter: function (value, row, index) {
                     if (value) {
                         return "<font color='green'>正常</font>";
                     } else {
                         return "<font color='red'>已停用</font>";
                     }
                 },
-               /* onClickRow:function(index,row){
-                //根据部门状态修改正常或停用的显示
-                if(row.state==1){
-                    $("#change_btn").linkbutton({
-                        text:"已停用"
-                    })
-                }else{
-                    $("#change_btn").linkbutton({
-                        text:"正常"
-                    }
-                },
-*/
-            }, ] ],
-        pagination : true,
-        toolbar : "#tb",
+                /* onClickRow:function(index,row){
+                 //根据部门状态修改正常或停用的显示
+                 if(row.state==1){
+                 $("#change_btn").linkbutton({
+                 text:"已停用"
+                 })
+                 }else{
+                 $("#change_btn").linkbutton({
+                 text:"正常"
+                 }
+                 },
+                 */
+            },]],
+        pagination: true,
+        toolbar: "#tb",
     })
     $("#dep_dialog").dialog({
-        width : 400,
-        height : 400,
-        buttons : "#bb",
-        closed : true,
+        width: 400,
+        height: 400,
+        buttons: "#bb",
+        closed: true,
     })
 
 
@@ -85,15 +85,15 @@ function edit() {
 function save() {
     // 获取id
     var id = $("#id").val();
-    var controller ="/department/save";
+    var controller = "/department/save";
     if (id) {
-        controller ="/department/update";
+        controller = "/department/update";
     }
     // url:错误信息路径
     // 提交表单操作
     $("#editfrom").form("submit", {
-        url : controller,
-        success : function(data) {
+        url: controller,
+        success: function (data) {
             // 1:接受返回数据
             data = $.parseJSON(data);
             // 2判断操作是否成功
@@ -112,27 +112,49 @@ function save() {
     })
 }
 // 改变状态操作
+/*function changeState() {
+ // 首先必须是选中的,
+ var row = $("#dep_datagrid").datagrid("getSelected");
+ // 如果没有选中给出提示
+ if (!row) {
+ $.messager.alert('温馨提示', '请选择要改变的行')
+ } else {
+ // 如果选中了使用ajax方式发起删除请求
+ $.get("/department/changeState", {
+ id : row.id
+ }, function(data) {
+ // 如果删除失败,给出提示信息
+ if (!data.success) {
+ $.messager.alert('温馨提示', data.msg);
+ // 成功刷新页面
+ } else {
+
+ $("#dep_datagrid").datagrid("reload");
+ }
+ });
+ }
+ }*/
 function changeState() {
     // 首先必须是选中的,
     var row = $("#dep_datagrid").datagrid("getSelected");
     // 如果没有选中给出提示
     if (!row) {
-        $.messager.alert('温馨提示', '请选择要改变的行')
-    } else {
-        // 如果选中了使用ajax方式发起删除请求
-        $.get("/department/changeState", {
-            id : row.id
-        }, function(data) {
-            // 如果删除失败,给出提示信息
-            if (!data.success) {
-                $.messager.alert('温馨提示', data.msg);
-                // 成功刷新页面
-            } else {
-
-                $("#dep_datagrid").datagrid("reload");
-            }
-        });
+        $.messager.alert('温馨提示', '请选择要改变状态的行')
     }
+    // 如果选中了使用ajax方式发起删除请求
+    $.messager.confirm('确认', "您确定改变该部门的状态码", function (r) {
+        if (r) {
+            $.get("/department/changeState",{id:row.id} ,function (data) {
+              if(data.success)  {
+                  $("#dep_datagrid").datagrid("reload");
+              }else{
+                  $.messager.alert('温馨提示', data.msg);
+              }
+            }
+
+            )}
+
+        })
 }
 // 刷新列表数据
 function reload() {
@@ -146,7 +168,7 @@ function cancel() {
 function query() {
     var keyword = $("#keyword").textbox("getValue");
 
-    $("dep_datagrid").datagrid("load",{
-        keyword:keyword
+    $("dep_datagrid").datagrid("load", {
+        keyword: keyword
     })
 }

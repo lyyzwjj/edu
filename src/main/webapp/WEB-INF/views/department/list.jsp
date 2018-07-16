@@ -40,7 +40,8 @@
             <tr>
                 <td>部门名称:</td>
                 <td><input class="easyui-combobox" type="text" name="name">
-
+            </tr>
+            <tr>
                 </td>
                 <td>状态:</td>
                 <td><input class="easyui-combobox" type="text" name="state" id="change_btn"

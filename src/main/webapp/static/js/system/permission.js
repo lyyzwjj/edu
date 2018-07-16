@@ -110,7 +110,7 @@ $(function () {
  }*/
 /*function cancel() {
  emp_dialog.dialog("close");
- }*/
+ }
 /*
  function query() {
  var keyword = $("#keyword").textbox("getText");
