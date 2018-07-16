@@ -64,6 +64,8 @@ public class ClientServiceImpl implements IClientService {
          }
         Date transferDate = client.getTransferDate();
         clientMapper.changeState(id,stateId,transferDate);
+
+
     }
 
     public List<Client> queryClients(StudentQueryObject qo) {
