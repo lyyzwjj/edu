@@ -43,9 +43,9 @@ public interface ClientMapper {
 
     List<Client> listStudents();
 
-    void insertPoolClient(Client client);
-
     void updateByStudent(Client client);
+
+    void changeTraceMan(@Param("id") Long id, @Param("inputManId") Long inputManId);
 
     void changeTrend(@Param("id") Long id, @Param("stateId") Long i);
 }

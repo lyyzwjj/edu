@@ -18,7 +18,7 @@ public class ClientExam {
     public static  final int PASS_EXAM_YES=1;
     private Long id;
 
-    private Client name;
+    private Client client;
 
     //-------------关联数据字典------------
     /*
@@ -43,7 +43,6 @@ public class ClientExam {
      */
     private int passExam=PASS_EXAM_DEFAULT;
 
-    private Employee saleMan;
     /*
     登记考试人员就是当前的登录人
      */

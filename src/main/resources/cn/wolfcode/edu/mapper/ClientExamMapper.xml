@@ -8,9 +8,13 @@
         <result column="pass_exam" property="passExam"/>
         <!--关联client表-->
         <!-- <result column="client_id" property="client" />-->
-        <association property="name" columnPrefix="client_" javaType="Client">
+        <association property="client" columnPrefix="client_" javaType="Client">
             <id property="id" column="id"/>
             <result property="name" column="name"></result>
+        </association>
+        <association property="client.saleMan" columnPrefix="saleMan_" javaType="Employee">
+            <id property="id" column="id"/>
+            <result property="username" column="username"></result>
         </association>
         <!--关联字典-->
         <!--<result column="exam_type_id" property="examType" />-->
@@ -26,10 +30,10 @@
 
         <!--关联employee表-->
         <!--<result column="sale_man_id" property="saleMan" />-->
-        <association property="saleMan" javaType="Employee" columnPrefix="saleMan_">
+       <!-- <association property="saleMan" javaType="Employee" columnPrefix="saleMan_">
             <id property="id" column="id"/>
             <result property="username" column="username"></result>
-        </association>
+        </association>-->
         <!--<result column="input_man_id" property="inputMan" />-->
         <association property="inputMan" javaType="Employee" columnPrefix="inputMan_">
             <id property="id" column="id"/>
@@ -44,18 +48,17 @@
 
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientExam" useGeneratedKeys="true" keyProperty="id">
     insert into `clientexam` (client_id, exam_type_id, intention_class_id, exam_date, pass_exam, 
-      sale_man_id, input_man_id, remark1)
-    values (#{name.id}, #{examType.id}, #{intentionClass.id}, #{examDate}, #{passExam},
-      #{saleMan.id}, #{inputMan.id}, #{remark1})
+       input_man_id, remark1)
+    values (#{client.id}, #{examType.id}, #{intentionClass.id}, #{examDate}, #{passExam},
+      #{inputMan.id}, #{remark1})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientExam">
     update `clientexam`
-    set client_id = #{name.id},
+    set client_id = #{client.id},
       exam_type_id = #{examType.id},
       intention_class_id = #{intentionClass.id},
       exam_date = #{examDate},
       pass_exam = #{passExam},
-      sale_man_id = #{saleMan.id},
       input_man_id = #{inputMan.id},
       remark1 = #{remark1}
     where id = #{id}

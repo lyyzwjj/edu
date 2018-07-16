@@ -18,7 +18,7 @@ $(function(){
                         return value.name;
                     }
             }},
-            {field: 'traceMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
+            {field: 'inputMan', title: '跟踪人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
                     return value.username;
                 }}},
@@ -27,7 +27,11 @@ $(function(){
             {field: 'bookDate', title: '预约日期', width: 100, align: "center"},
             {field: 'nextTraceDate', title: '下次跟踪时间', width: 100, align: "center"},
             {field: 'tel', title: '电话', width: 110, align: "center"},
-            {field: 'clientState', title: '客户当前状态', width: 100, align: "center"},
+            {field: 'clientState', title: '客户当前状态', width: 100, align: "center",formatter:function(value){
+                    if(value){
+                        return value.name
+                    }
+            }},
             {
                 field: 'isManTrace', title: '未跟踪', width: 100, align: "center", formatter: function (value, row, index) {
                 if (value) {
@@ -37,7 +41,7 @@ $(function(){
                 }
             }
             },
-            {field: 'remark', title: '备注', width: 100, align: "center"}
+            {field: 'contentAbstract', title: '备注', width: 100, align: "center"}
         ]],
     })
 
@@ -136,7 +140,7 @@ $(function(){
                     row["clientState.id"]=row.currentState.id;
                 }
                 if(row.traceMan){
-                    row["traceMan.id"]=row.traceMan.id;
+                    row["inputMan.id"]=row.traceMan.id;
                 }
                 if(row.importantDegree){
                     row["importantDegree.id"]=row.importantDegree.id;
@@ -152,6 +156,9 @@ $(function(){
                 }
                 if(row.communicativeWay){
                     row["communicativeWay.id"]=row.communicativeWay.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
                 }
                 if(row.client){
                     console.log(row.client.id)

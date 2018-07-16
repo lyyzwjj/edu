@@ -14,10 +14,8 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'name', title: '姓名', width: 90, align: "center",formatter:function(value){
-                    if(value){
-                        return value.name;
-                    }
+            {field: 'name', title: '姓名', width: 90, align: "center",formatter:function(value,row,index){
+                return row.client.name;
             }},
             {field: 'examType', title: '考试类型', width: 100, align: "center", formatter: function (value) {
                 if (value) {
@@ -29,16 +27,16 @@ $(function(){
                     return value.name;
                 }
             }},
-            {
+            /*{
                 field: 'saleMan', title: '营销人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
-                    return value.username;
+                    return value.username;;
                 }}
             },
             {field: 'inputMan', title: '录入人员', width: 90, align: "center", formatter: function (value) {
                 if (value) {
                     return value.username;
-                }}},
+                }}},*/
             {field: 'examDate', title: '考试时间', width: 100, align: "center"},
 
             {field: 'passExam', title: '是否通过', width: 100, align: "center", formatter: function (value, row, index) {
@@ -48,7 +46,7 @@ $(function(){
                     return "<font color='red'>未通过</font>";
                 }
             }},
-            {field: 'remark', title: '备注', width: 100, align: "center"}
+            {field: 'remark1', title: '备注', width: 100, align: "center"}
         ]],
         onClickRow : function(index, row) {
 
@@ -73,9 +71,9 @@ $(function(){
         title:"考试登记",
         width:350,
         height:300,
-        buttons:"#bb_exam"
+        buttons:"#bb_exam",
         // 一开始就是关闭的状态
-        /*closed:true*/
+        closed:true
     })
 
 
@@ -97,13 +95,12 @@ $(function(){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示", "请选择要编辑的数据");
             } else {
-                alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
                 if(row.examType){
                     row["examType.id"]=row.examType.id
                 }
-                if(row.name){
-                    row["name.id"]=row.name.id
+                if(row.client){
+                    row["client.id"]=row.client.id
                 }
                 if(row.intentionClass){
                     row["intentionClass.id"]=row.intentionClass.id
@@ -126,7 +123,6 @@ $(function(){
             if (id) {
                 url = "/clientExam/update";
             }
-            alert(url)
             $("#clientExam_form").form("submit", {
                 url: url,
                 success: function (data) {
@@ -137,7 +133,6 @@ $(function(){
                     if (!data.success) {
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
-                        alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");
                         clientExam_dialog.dialog("close");
                         clientExam_datagrid.datagrid("load");

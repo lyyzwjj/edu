@@ -14,8 +14,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text" class="easyui-textbox" name="keyword" prompt="请输入关键字" id="keyword">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    入职时间:<input type="text" id="beginDate" class="easyui-datebox" name="beginDate" prompt="起始时间">~
-    <input type="text" id="endDate" class="easyui-datebox" name="endDate" prompt="结束时间">
+    输入时间查询:<input type="text" id="beginDate" class="easyui-datebox" name="begindate" prompt="起始时间">~
+    <input type="text" id="endDate" class="easyui-datebox" name="enddate" prompt="结束时间">
     <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" data-cmd="query">查询</a>
     <br>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',text:'添加'" data-cmd="add"></a>
@@ -285,8 +285,9 @@
                 <td><input class="easyui-datebox" type="text" name="lastTraceDate" prompt="请输入最新跟踪时间"/></td>
                 <td><font size="1">下次跟踪时间:</font></td>
                 <td><input class="easyui-datebox" type="text" name="nextTraceDate" prompt="请输入下次跟踪时间"/></td>
-                <td><font size="1">跟踪次数:</font></td>
-                <td><input class="easyui-textbox" type="text" name="traceTimes" prompt="请输入跟踪次数"/></td>
+            <td><font size="1">预约日期:</font></td>
+            <td><input class="easyui-datebox" type="text" name="bookDate" prompt="请选择预约时间"/></td>
+
             </tr>
             <tr>
                 <td><font size="1">重要程度:</font></td>
@@ -327,6 +328,8 @@
                     textField: 'name',
                     url: '/dataDictionaryItem/queryListByParent?parentId=20',
                     panelHeight:'auto'"/></td>
+                <td><font size="1">跟踪次数:</font></td>
+                <td><input class="easyui-textbox" type="text" name="traceTimes" prompt="请输入跟踪次数"/></td>
             </tr>
             <%-- <tr>
                  <td colspan="3"><input class="easyui-filebox" style="width:300px" buttonText="请选择文件"
@@ -340,7 +343,7 @@
             <tr >
                 <td><font size="1">摘要:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="abstract" prompt="本次跟踪的摘要"/></td>
+                                       data-options="width:680,height:120" type="text" name="contentAbstract" prompt="本次跟踪的摘要"/></td>
             </tr>
         </table>
     </form>
@@ -356,7 +359,7 @@
 <div id="clientExam_dialog">
 
     <form id="clientExam_form" method="post" style="padding: 0px 0px 0px 10px;">
-        <input type="hidden" name="id" id="clientExamId">
+        <input type="hidden" id="id" name="client.id">
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>

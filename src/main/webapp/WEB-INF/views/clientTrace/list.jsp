@@ -33,7 +33,7 @@
                     url: '/dataDictionaryItem/queryListByParent?parentId=18',
                     panelHeight:'auto'"/></td>
                 <td><font size="1">跟踪人:</font></td>
-                <td><input class="easyui-combobox" type="text"  name="traceMan.id" prompt="请选择当前跟踪人员"
+                <td><input class="easyui-combobox" type="text"  name="inputMan.id" prompt="请选择当前跟踪人员"
                            data-options="
                     valueField: 'id',
                     textField: 'username',
@@ -54,8 +54,9 @@
                 <td><input class="easyui-datebox" type="text" name="lastTraceDate" prompt="请输入最新跟踪时间"/></td>
                 <td><font size="1">下次跟踪时间:</font></td>
                 <td><input class="easyui-datebox" type="text" name="nextTraceDate" prompt="请输入下次跟踪时间"/></td>
-                <td><font size="1">跟踪次数:</font></td>
-                <td><input class="easyui-textbox" type="text" name="traceTimes" prompt="请输入跟踪次数"/></td>
+                <td><font size="1">预约日期:</font></td>
+                <td><input class="easyui-datebox" type="text" name="bookDate" prompt="请选择预约时间"/></td>
+
             </tr>
             <tr>
                 <td><font size="1">重要程度:</font></td>
@@ -96,6 +97,8 @@
                     textField: 'name',
                     url: '/dataDictionaryItem/queryListByParent?parentId=20',
                     panelHeight:'auto'"/></td>
+                <td><font size="1">跟踪次数:</font></td>
+                <td><input class="easyui-textbox" type="text" name="traceTimes" prompt="请输入跟踪次数"/></td>
             </tr>
            <%-- <tr>
                 <td colspan="3"><input class="easyui-filebox" style="width:300px" buttonText="请选择文件"
@@ -109,7 +112,7 @@
             <tr >
                 <td><font size="1">摘要:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:680,height:120" type="text" name="abstract" prompt="本次跟踪的摘要"/></td>
+                                       data-options="width:680,height:120" type="text" name="contentAbstract" prompt="本次跟踪的摘要"/></td>
             </tr>
         </table>
     </form>

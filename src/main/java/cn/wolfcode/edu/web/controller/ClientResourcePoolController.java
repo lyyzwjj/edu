@@ -1,7 +1,7 @@
 package cn.wolfcode.edu.web.controller;
 
+import cn.wolfcode.edu.query.ClientQueryObject;
 import cn.wolfcode.edu.query.PageResult;
-import cn.wolfcode.edu.query.QueryObject;
 import cn.wolfcode.edu.service.IClientService;
 import cn.wolfcode.edu.util.PermissionName;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -31,7 +31,7 @@ public class ClientResourcePoolController {
     @ResponseBody
     @RequiresPermissions("clientResourcePool:list")
     @PermissionName("客户资源池数据")
-    public PageResult queryPoolClient(QueryObject qo) {
+    public PageResult queryPoolClient(ClientQueryObject qo) {
         PageResult result = service.queryPoolClient(qo);
         return result;
     }
