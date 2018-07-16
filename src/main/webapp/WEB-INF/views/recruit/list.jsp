@@ -47,7 +47,6 @@
         </div>
 
 
-        <%--<!--模态框-->--%>
         <div id="recruit_dialog" style="display: none">
             <form id="recruit_form" method="post">
                 <table style="margin: 20px auto 0px;">
@@ -79,15 +78,11 @@
                            data-cmd="add_recruititem">新增</a>
                         <a class="easyui-linkbutton" iconCls="icon-remove" plain="true"
                            data-cmd="remove_recruititem">删除</a>
-                        <a class="easyui-linkbutton" iconCls="icon-save" plain="true"
-                           data-cmd="accept_recruititem">保存</a>
-                        <a href="javascript:" class="easyui-linkbutton"
-                           data-options="iconCls:'icon-undo',plain:true" data-cmd="reject_recruititem">撤销</a>
                     </div>
                 </div>
             </form>
         </div>
-        <%--<!--模态框管理-->--%>
+
         <div id="form_btns">
             <a id="btn_save" href="javascript:;" class="easyui-linkbutton" iconCls="icon-save" plain="true"
                data-cmd="save">保存</a>

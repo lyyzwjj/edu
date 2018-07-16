@@ -34,15 +34,6 @@
                     <a href="javascript:;" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
                        data-cmd="reload">刷新</a>
                 </div>
-                <!--高级查询-->
-                开始时间: <input type="text" class="easyui-datebox" name="beginDate" prompt="开始日期"/>
-
-                审核人: <input type="text" class="easyui-textbox" name="examine"/>
-                <a href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
-                   data-cmd="query">查询</a><br>
-                结束时间: <input type="text" class="easyui-datebox" name="endDate" prompt="结束日期"/>
-                制定人: <input type="text" class="easyui-textbox" name="staff"/>
-
             </div>
         </div>
 
