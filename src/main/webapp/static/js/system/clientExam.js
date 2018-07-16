@@ -14,7 +14,11 @@ $(function(){
         columns:[[
             {field: 'x', checkbox: true},
             {field: 'id', title: 'id', width: 90, align: "center",hidden:'true'},
-            {field: 'client', title: '姓名', width: 90, align: "center"},
+            {field: 'name', title: '姓名', width: 90, align: "center",formatter:function(value){
+                    if(value){
+                        return value.name;
+                    }
+            }},
             {field: 'examType', title: '考试类型', width: 100, align: "center", formatter: function (value) {
                 if (value) {
                     return value.name;
@@ -95,6 +99,15 @@ $(function(){
             } else {
                 alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.examType){
+                    row["examType.id"]=row.examType.id
+                }
+                if(row.name){
+                    row["name.id"]=row.name.id
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id
+                }
                 clientExam_dialog.dialog("open");
                 clientExam_dialog.dialog("setTitle", "考试登记编辑");
                 $("#clientExam_form").form("clear");
@@ -117,7 +130,6 @@ $(function(){
             $("#clientExam_form").form("submit", {
                 url: url,
                 success: function (data) {
-                    console.log(data);
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面

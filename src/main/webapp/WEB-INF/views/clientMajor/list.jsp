@@ -143,13 +143,13 @@
                                             textField: 'name'
                                        "/>
                         </td>
-                        <td>
-                            联系人员电话: <input class="easyui-textbox" name="contactPerson.id" data-options="
+                       <%-- <td>
+                            联系人员电话: <input class="easyui-textbox" name="contactPerson.d" data-options="
                                             url:'/clientSchoolLinkman/queryLinkman',
                                             valueField: 'id',
                                             textField: 'tel'
                                        "/>
-                        </td>
+                        </td>--%>
                         <td>
                             客户优惠: <input class="easyui-textbox" name="preferentialPolicy"/>
                         </td>

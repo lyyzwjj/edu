@@ -52,4 +52,10 @@ public interface RecruitMapper {
      * @return
      */
     int queryForCount(QueryObject qo);
+
+    /**
+     * 审核用人申请
+     * @param recruit
+     */
+    void auditRecruit(Recruit recruit);
 }

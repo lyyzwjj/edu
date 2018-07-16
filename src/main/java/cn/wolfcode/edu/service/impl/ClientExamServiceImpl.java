@@ -1,5 +1,6 @@
 package cn.wolfcode.edu.service.impl;
 
+import cn.wolfcode.edu.domain.Client;
 import cn.wolfcode.edu.domain.ClientExam;
 import cn.wolfcode.edu.mapper.ClientExamMapper;
 import cn.wolfcode.edu.query.PageResult;
@@ -20,6 +21,8 @@ public class ClientExamServiceImpl implements IClientExamService{
     }
 
     public void save(ClientExam record) {
+        //获取到考试人员信息
+        Client client = record.getName();
         clientMapper.insert(record);
     }
 

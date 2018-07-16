@@ -138,13 +138,6 @@
                                     <td><input class="easyui-combobox" id="roles_combobox"
                                                data-options="url:'/role/selectAll',valueField: 'id',textField: 'name',panelHeight:'auto',multiple : true"/>
                                     </td>
-
-                                    <td><font size="1">客户来源:</font></td>
-                                    <td><input class="easyui-combobox" type="text" name="sourceOfClientId"
-                                               prompt="请选择客户来源"
-                                               data-options="valueField: 'id',textField: 'name',url: '/dataDictionaryItem/queryListByParent?parentId=10',
-                    panelHeight:'auto'"/></td>
-
                                     <td><font size="1">所属职务:</font></td>
                                     <td><input class="easyui-combobox" type="text" name="job.id"
                                                data-options="url:'/job/selectAll',
@@ -230,7 +223,7 @@
                     </div>
                     <div title="身份证图片" style="padding:10px">
                         <div class="layui-upload" align="center">
-                            <button type="button" class="layui-btn" id="upload_pic">上传图片</button>
+                            <button type="button" 	class="layui-btn layui-btn-warm" id="upload_pic">上传图片</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" align="center" style="width: 80%">
                                 <p id="upload_text" style="margin-top: 10px"></p>

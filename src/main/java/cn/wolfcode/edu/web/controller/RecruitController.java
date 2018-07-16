@@ -95,18 +95,6 @@ public class RecruitController {
         return result;
     }
 
- /*   @RequestMapping("/changeState")
-    @ResponseBody
-    public JsonResult changeState(Long id) {
-        JsonResult result = new JsonResult();
-        try {
-            recruitService.changeState(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.markMsg("操作失败");
-        }
-        return result;
-    }*/
 
     @RequestMapping("/saveOrUpdate")
     @ResponseBody
@@ -125,5 +113,17 @@ public class RecruitController {
         return result;
     }
 
+    @RequestMapping("/auditRecruit")
+    @ResponseBody
+    public JsonResult auditRecruit(Long id) {
+        JsonResult result = new JsonResult();
+        try {
+            recruitService.auditRecruit(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.markMsg("操作失败");
+        }
+        return result;
+    }
 
 }

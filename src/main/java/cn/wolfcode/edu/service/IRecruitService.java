@@ -53,4 +53,10 @@ public interface IRecruitService {
      */
 
     List<Recruit> queryByRecruitId(Long recruitId);
+
+    /**
+     * 审核招聘明细
+     * @param id
+     */
+    void auditRecruit(Long id);
 }

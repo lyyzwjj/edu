@@ -32,8 +32,12 @@ public class Recruit {
     //数据审核人
     private Employee auditor;
     //审核时间
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date auditTime;
 
     private List<RecruitItem> items = new ArrayList<>();
+    //制定人所属部门
+    private Department dept;
 
 }

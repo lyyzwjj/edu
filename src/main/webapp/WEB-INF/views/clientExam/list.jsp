@@ -40,11 +40,11 @@
         <table style="border-collapse:separate; border-spacing:10px;">
             <tr>
                 <td><font size="1">客户姓名:</font></td>
-                <td><input class="easyui-combobox" type="text" name="name"
+                <td><input class="easyui-combobox" type="text" name="name.id"
                            data-options="
                     valueField: 'id',
                     textField: 'name',
-                    url: '/client/queryClient',
+                    url: '/client/queryClients',
                     panelHeight:'auto'"/></td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@
             <tr >
                 <td><font size="1">备注:</font></td>
                 <td colspan="5"><input class="easyui-textbox" multiline="true"
-                                       data-options="width:210,height:60" type="text" name="remark" prompt="备注"/></td>
+                                       data-options="width:210,height:60" type="text" name="remark1" prompt="备注"/></td>
             </tr>
         </table>
     </form>

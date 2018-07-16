@@ -18,7 +18,7 @@ public class ClientExam {
     public static  final int PASS_EXAM_YES=1;
     private Long id;
 
-    private Client client;
+    private Client name;
 
     //-------------关联数据字典------------
     /*
@@ -49,6 +49,6 @@ public class ClientExam {
      */
     private Employee inputMan;
 
-    private String remark;
+    private String remark1;
 
 }

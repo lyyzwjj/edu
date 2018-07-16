@@ -46,13 +46,6 @@ $(function(){
                     return value.name;
                 }
             }},
-            {field: 'clientState', title: '客户当前状态', width: 100, align: "center", formatter: function (value, row, index) {
-                if (value) {
-                    return "<font color='green'>已签约</font>";
-                } else {
-                    return "<font color='red'>未签约</font>";
-                }
-            }},
             {
                 field: 'traceState', title: '跟踪状态', width: 100, align: "center", formatter: function (value, row, index) {
                 if (value) {
@@ -100,6 +93,39 @@ $(function(){
             } else {
                 alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.schoolSystem){
+                    row["schoolSystem.id"]=row.schoolSystem.id;
+                }
+                if(row.saleMan){
+                    row["saleMan.id"]=row.saleMan.id;
+                }
+                if(row.traceMan){
+                    row["traceMan.id"]=row.traceMan.id;
+                }
+                if(row.intentionDegree){
+                    row["intentionDegree.id"]=row.intentionDegree.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.importantDegree){
+                    row["importantDegree.id"]=row.importantDegree.id;
+                }
+                if(row.contactPerson){
+                    row["contactPerson.id"]=row.contactPerson.id;
+                }
+                if(row.importantDegree){
+                    row["schoolSystem.id"]=row.schoolSystem.id;
+                }
+                if(row.academicDiplomas){
+                    row["academicDiplomas.id"]=row.academicDiplomas.id;
+                }
+                if(row.natureOfSchool){
+                    row["natureOfSchool.id"]=row.natureOfSchool.id;
+                }
                 clientMajor_dialog.dialog("open");
                 clientMajor_dialog.dialog("setTitle", "大客户编辑");
                 $("#clientMajor_form").form("clear");
@@ -127,10 +153,10 @@ $(function(){
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
-                    var data1 = $.parseJSON(data);
-                    console.log("解析之后的"+data1)
-                    if (!data1.success) {
-                        $.messager.alert("温馨提示", data1.errorMsg);
+                     data = $.parseJSON(data);
+                    console.log("解析之后的"+data)
+                    if (!data.success) {
+                        $.messager.alert("温馨提示", data.errorMsg);
                     } else {
                         alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");

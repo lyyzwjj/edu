@@ -23,26 +23,37 @@ $(function () {
             },
             {field: "plan", title: '计划名称', width: 100, align: 'center'},
             {field: 'draftTime', title: '制定日期', width: 100, align: 'center'},
+
             {
-                field: 'staff', title: '制定人', width: 100, align: 'center', formatter: function (value) {
-                return value ? value.username : '';
+                field: 'inputUser', title: '制定人', width: 100, align: 'center', formatter: function (value) {
+                    console.log(value);
+                return value ? value.realname : '';
             }
             },
             {
-                field: 'examine', title: '审批人', width: 100, align: 'center', formatter: function (value) {
-                return value ? value.username : '';
+                field: 'dept', title: '申请部门', width: 100, align: 'center', formatter: function (value) {
+                return value ? value.name : '';
+            }
+            },
+            {
+                field: 'auditor', title: '审核人', width: 100, align: 'center', formatter: function (value) {
+                return value ? value.realname : "<span style='color: red'>未审核</span>";
+            }
+            },
+            {
+                field: 'auditTime', title: '审核时间', width: 100, align: 'center', formatter: function (value) {
+                return value ? value : "<span style='color: red'>未审核</span>";
             }
             },
             {
                 field: 'examineState', title: '审批状态', width: 100, align: 'center',
                 formatter: function (value) {
-                    console.log(value);
                     switch (value) {
                         case 0:
-                            return "<span style='color: green'>待审批</span>";
+                            return "<span style='color: red'>待审批</span>";
                         case 1:
 
-                            return "<span style='color: pink'>已审批</span>";
+                            return "<span style='color: green'>已审批</span>";
                         case 2:
                             return "<span style='color: red'>审批被拒</span>";
                         default:
@@ -53,6 +64,7 @@ $(function () {
         ]]
     });
 
+    //发送ajax请求,得到对应的数据字典的信息
     var recruitTypeData = undefined;
     $.ajax({
         url: '/dataDictionaryItem/selectByDictionarySn?sn=recruitType',
@@ -64,6 +76,7 @@ $(function () {
         }
     });
 
+    //发送ajax请求,得到对应的数据字典的信息
     var engageData = undefined;
     $.ajax({
         url: '/dataDictionaryItem/selectByDictionarySn?sn=engageId',
@@ -75,6 +88,7 @@ $(function () {
         }
     });
 
+    //发送ajax请求,得到对应的数据字典的信息
     var educationData = undefined;
     $.ajax({
         url: '/dataDictionaryItem/selectByDictionarySn?sn=educationId',
@@ -86,6 +100,7 @@ $(function () {
         }
     });
 
+    //发送ajax请求,得到对应的数据字典的信息
     var recruitSalaryData = undefined;
     $.ajax({
         url: '/dataDictionaryItem/selectByDictionarySn?sn=recruitSalaryId',
@@ -115,19 +130,18 @@ $(function () {
             },
             {field: 'job', width: 100, align: 'center', title: '招聘职位', editor: 'text'},
             {
-                field: 'recruitType', width: 100, align: 'center', title: '招聘方式', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: recruitTypeData,
-                        valueField: 'id',
-                        editable: false,
-                        panelHeight: 'auto',
-                        required: true,
-                        textField: 'name'
-                    }
-                },
-               formatter: function (value, row) {
+                field: 'recruitType', width: 100, align: 'center', title: '招聘方式', editor: {
+                type: 'combobox',
+                options: {
+                    data: recruitTypeData,
+                    valueField: 'id',
+                    editable: false,
+                    panelHeight: 'auto',
+                    required: true,
+                    textField: 'name'
+                }
+            },
+                formatter: function (value, row) {
                     if (id) {
                         return value.name;
                     } else {
@@ -141,18 +155,17 @@ $(function () {
                 }
             },
             {
-                field: 'engage', width: 100, align: 'center', title: '聘用形式', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: engageData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'engage', width: 100, align: 'center', title: '聘用形式', editor: {
+                type: 'combobox',
+                options: {
+                    data: engageData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     console.log(id);
                     if (id) {
@@ -169,18 +182,17 @@ $(function () {
             },
             {field: 'recruitNumber', width: 100, align: 'center', title: '人数', editor: 'text'},
             {
-                field: 'education', width: 100, align: 'center', title: '学历要求', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: educationData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'education', width: 100, align: 'center', title: '学历要求', editor: {
+                type: 'combobox',
+                options: {
+                    data: educationData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     if (id) {
                         return value.name;
@@ -196,18 +208,17 @@ $(function () {
             },
             {field: 'recruitRequired', width: 100, align: 'center', title: '技能要求', editor: 'text'},
             {
-                field: 'recruitSalary', width: 100, align: 'center', title: '薪资情况', editor:
-                {
-                    type: 'combobox',
-                    options: {
-                        data: recruitSalaryData,
-                        valueField: 'id',
-                        editable: false,
-                        required: true,
-                        panelHeight: 'auto',
-                        textField: 'name'
-                    }
-                },
+                field: 'recruitSalary', width: 100, align: 'center', title: '薪资情况', editor: {
+                type: 'combobox',
+                options: {
+                    data: recruitSalaryData,
+                    valueField: 'id',
+                    editable: false,
+                    required: true,
+                    panelHeight: 'auto',
+                    textField: 'name'
+                }
+            },
                 formatter: function (value, row) {
                     if (id) {
                         return value.name;
@@ -253,7 +264,7 @@ $(function () {
         // 新增
         add: function add() {
             addOrEdit = undefined;
-            recruit_dialog.dialog("setTitle", '员工信息');
+            recruit_dialog.dialog("setTitle", '招聘计划');
             recruit_dialog.dialog("open");
         },
         //保存
@@ -264,10 +275,8 @@ $(function () {
                     data = $.parseJSON(data);
                     if (data.success) {
                         methodObj.cancel();
-                        var jsonData = $.parseJSON(data.jsonData);
                         $.messager.alert("温馨提示", "保存成功", 'info', function () {
                             recruit_datagrid.datagrid('reload');
-                            send();
                         })
                     } else {
                         $.messager.alert("温馨提示", data.msg, 'error');
@@ -298,10 +307,17 @@ $(function () {
                 $.messager.alert('温馨提示', "请选中一条数据", 'warning');
                 return;
             }
+            if(row.examineState==1){
+                $.messager.alert('温馨提示', "已审核,禁止编辑", 'warning');
+                return;
+            }
             recruit_dialog.dialog("setTitle", '编辑招聘');
             recruit_dialog.dialog("open", true);
             if (row.planType) {
                 row['planType.id'] = row.planType.id;
+            }
+            if (row.recruitType) {
+                row['recruitType.id'] = row.recruitType.id;
             }
             if (row.engage) {
                 row['engage.id'] = row.engage.id;
@@ -320,6 +336,9 @@ $(function () {
             }
             if (row.married) {
                 row['married.id'] = row.married.id;
+            }
+            if (row.recruitSalary) {
+                row['recruitSalary.id'] = row.recruitSalary.id;
             }
             recruit_form.form('load', row);
             recruititem_datagrid.datagrid("load",
@@ -393,56 +412,6 @@ $(function () {
         }
     });
 
-    var websocket = null;
-//判断当前浏览器是否支持WebSocket
-    if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://192.168.6.218:8089/websocket");
-    }
-    else {
-        alert('当前浏览器 Not support websocket')
-    }
-
-//连接发生错误的回调方法
-    websocket.onerror = function () {
-        //setMessageInnerHTML("WebSocket连接发生错误");
-    };
-
-//连接成功建立的回调方法
-    websocket.onopen = function () {
-        //setMessageInnerHTML("WebSocket连接成功");
-        console.log("WebSocket连接成功")
-    }
-
-//接收到消息的回调方法
-    websocket.onmessage = function (event) {
-        setMessageInnerHTML(event.data);
-    }
-
-//连接关闭的回调方法
-    websocket.onclose = function () {
-        //setMessageInnerHTML("WebSocket连接关闭");
-        console.log("WebSocket连接关闭")
-    }
-
-//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload = function () {
-        closeWebSocket();
-    }
-
-//将消息显示在网页上
-    function setMessageInnerHTML(innerHTML) {
-
-    }
-
-//关闭WebSocket连接
-    function closeWebSocket() {
-        websocket.close();
-    }
-
-//发送消息
-    function send() {
-        websocket.send("admin");
-    }
 });
 
 

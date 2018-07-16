@@ -23,6 +23,11 @@
             <result column="name" property="name"/>
         </association>
 
+        <association property="dept" javaType="cn.wolfcode.edu.domain.Department" columnPrefix="depart_">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+
         <collection property="items" ofType="cn.wolfcode.edu.domain.RecruitItem"
                     select="cn.wolfcode.edu.mapper.RecruitItemMapper.queryByRecruitId" column="id"/>
 
@@ -35,9 +40,9 @@
 
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.Recruit" useGeneratedKeys="true" keyProperty="id">
     insert into `recruit` (staff_id, plan, draftTime, examineState, planType, audit_id,
-    audit_time)
+    audit_time,dept_id)
     values (#{inputUser.id}, #{plan}, #{draftTime}, #{examineState}, #{planType.id}, #{auditor.id},
-    #{auditTime})
+    #{auditTime},#{dept.id})
   </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.Recruit">
@@ -48,33 +53,49 @@
     examineState = #{examineState},
     planType = #{planType.id},
     audit_id = #{auditor.id},
-    audit_time = #{auditTime}
+    audit_time = #{auditTime},
+    dept_id = #{dept.id}
     where id = #{id}
   </update>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time
-
+    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time,dept_id
     from `recruit`
     where id = #{id}
   </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time
+    select id, staff_id, plan, draftTime, examineState, planType, audit_id, audit_time,dept_id
     from `recruit`
   </select>
+
+    <update id="auditRecruit">
+        update recruit set examineState = #{examineState},audit_id = #{auditor.id},audit_time = #{auditTime}  where id=#{id}
+
+    </update>
 
 
     <select id="queryForCount" resultType="int">
          select count(r.id)
     from `recruit` r
     left join datadictionaryitem d on r.planType = d.id
+    left join department depart on r.dept_id = depart.id
+    LEFT JOIN employee input on r.staff_id =input.id
+LEFT JOIN employee audit on r.audit_id = audit.id
     </select>
 
     <select id="queryForList" resultMap="BaseResultMap">
-    select r.id, r.staff_id, r.plan, r.draftTime, r.examineState, r.planType, r.audit_id, r.audit_time,d.name planType_name,d.id planType_id
+     select r.id, r.staff_id, r.plan, r.draftTime, r.examineState, r.planType, r.audit_id, r.audit_time,r.dept_id,d.name planType_name,d.id planType_id,
+    depart.id depart_id,depart.name depart_name,
+input.id input_id,input.realname input_realname,
+audit.id audit_id,audit.realname audit_realname
     from `recruit` r
     left join datadictionaryitem d on r.planType = d.id
+    left join department depart on r.dept_id = depart.id
+LEFT JOIN employee input on r.staff_id =input.id
+LEFT JOIN employee audit on r.audit_id = audit.id
+
+
     limit #{startIndex},#{rows}
     </select>
 

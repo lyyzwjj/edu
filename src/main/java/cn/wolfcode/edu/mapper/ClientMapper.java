@@ -47,5 +47,5 @@ public interface ClientMapper {
 
     void updateByStudent(Client client);
 
-    void changeTrend(Long id, Long i);
+    void changeTrend(@Param("id") Long id, @Param("stateId") Long i);
 }

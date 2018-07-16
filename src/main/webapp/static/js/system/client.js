@@ -32,7 +32,7 @@ $(function(){
             {field: 'nextTraceDate', title: '下次跟踪时间', width: 100, align: "center"},
             {field: 'weChatNum', title: '微信号', width: 100, align: "center"},
             {field: 'tel', title: '电话', width: 110, align: "center"},
-            {field: 'shcool', title: '学校', width: 100, align: "center"},
+            {field: 'school', title: '学校', width: 100, align: "center"},
             {field: 'degreeofIntention', title: '意向程度', width: 100, align: "center",formatter:function(value){
                     if(value){
                         return value.name;
@@ -118,6 +118,48 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要编辑的数据");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.saleMan) {
+                    row["saleMan.id"] = row.saleMan.id;
+                }
+                if(row.inputMan) {
+                    row["inputMan.id"] = row.inputMan.id;
+                }
+                if(row.education){
+                    row["education.id"]=row.education.id;
+                }
+                if(row.major){
+                    row["major.id"]=row.major.id;
+                }
+                if(row.sourceOfClient){
+                    row["sourceOfClient.id"]=row.sourceOfClient.id;
+                }
+                if(row.school){
+                    row["school.id"]=row.school.id;
+                }
+                if(row.yearsOfWorkExperience){
+                    row["yearsOfWorkExperience.id"]=row.yearsOfWorkExperience.id;
+                }
+                if(row.hometown){
+                    row["hometown.id"]=row.hometown.id;
+                }
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
+                if(row.clientMajor){
+                    row["clientMajor.id"]=row.clientMajor.id;
+                }
                 client_dialog.dialog("open");
                 client_dialog.dialog("setTitle","潜在客户编辑");
                 $("#editForm").form("clear");
@@ -135,8 +177,44 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要查看的客户");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.saleMan) {
+                    row["saleMan.id"] = row.saleMan.id;
+                }
+                if(row.inputMan) {
+                    row["inputMan.id"] = row.inputMan.id;
+                }
+                if(row.education){
+                    row["education.id"]=row.education.id;
+                }
+                if(row.major){
+                    row["major.id"]=row.major.id;
+                }
+                if(row.sourceOfClient){
+                    row["sourceOfClient.id"]=row.sourceOfClient.id;
+                }
+                if(row.school){
+                    row["school.id"]=row.school.id;
+                }
+                if(row.yearsOfWorkExperience){
+                    row["yearsOfWorkExperience.id"]=row.yearsOfWorkExperience.id;
+                }
+                if(row.hometown){
+                    row["hometown.id"]=row.hometown.id;
+                }
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
                 client_dialog.dialog("open");
-                client_dialog.dialog("setTitle","潜在客户编辑");
+                client_dialog.dialog("setTitle","潜在客户查看");
                 $("#editForm").form("clear");
                 $("#editForm").form("load",row);
                 $(":input").prop("readonly",true);
@@ -226,6 +304,45 @@ $(function(){
                 $.messager.alert("温馨提示","请选择要跟踪的学员");
             }else{
                 //将选中的行的数据加载到对话框中的form表单中
+                if(row.saleMan) {
+                    row["saleMan.id"] = row.saleMan.id;
+                }
+                if(row.inputMan) {
+                    row["inputMan.id"] = row.inputMan.id;
+                }
+                if(row.education){
+                    row["education.id"]=row.education.id;
+                }
+                if(row.major){
+                    row["major.id"]=row.major.id;
+                }
+                if(row.sourceOfClient){
+                    row["sourceOfClient.id"]=row.sourceOfClient.id;
+                }
+                if(row.school){
+                    row["school.id"]=row.school.id;
+                }
+                if(row.yearsOfWorkExperience){
+                    row["yearsOfWorkExperience.id"]=row.yearsOfWorkExperience.id;
+                }
+                if(row.hometown){
+                    row["hometown.id"]=row.hometown.id;
+                }
+                if(row.degreeOfIntention){
+                    row["degreeOfIntention.id"]=row.degreeOfIntention.id;
+                }
+                if(row.intentionSchool){
+                    row["intentionSchool.id"]=row.intentionSchool.id;
+                }
+                if(row.intentionClass){
+                    row["intentionClass.id"]=row.intentionClass.id;
+                }
+                if(row.id){
+                    row["client.id"]=row.id;
+                }
+                if(row.clientState){
+                    row["clientState.id"]=row.clientState.id;
+                }
                 clientTrace_dialog.dialog("open");
                 $("#clientTrace_form").form("clear");
                 $("#clientTrace_form").form("load",row);
@@ -236,13 +353,11 @@ $(function(){
         saveTrace:function(){
             var id = $("#clientTraceId").val();
             var url = "/clientTrace/save";
-            if (id) {
-                url = "/clientTrace/update";
-            }
 
             $("#clientTrace_form").form("submit", {
                 url : url,
                 success : function(data) {
+                    alert(url)
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
@@ -269,7 +384,7 @@ $(function(){
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示","请选择要放入资源池的学员");
             }else {
-                $.messager.confirm('确认', '您确认将该潜在客户转正吗？', function (r) {
+                $.messager.confirm('确认', '您确认将该潜在客户放入资源池吗？', function (r) {
                     if (r) {
                         //发起请求
                         $.get("/client/changeState", {id: row.id,stateId:2}, function (data) {
@@ -302,9 +417,11 @@ $(function(){
 
         //预约考试的保存方法
         saveExam:function(){
+            alert("反应不?")
             $("#clientExam_form").form("submit", {
                 url : "/clientExam/save",
                 success : function(data) {
+
                     // 接受返回的数据
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面

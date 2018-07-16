@@ -22,6 +22,7 @@ public class StudentLeaveServiceImpl implements IStudentLeaveService{
 
         studentLeaveMapper.insert(entity);
 
+        clientMapper.changeState(entity.getClient().getId(),4,entity.getLeavetime());
         clientMapper.changeTrend(entity.getClient().getId(),4L);
     }
 

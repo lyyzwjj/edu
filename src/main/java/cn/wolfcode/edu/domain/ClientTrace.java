@@ -11,17 +11,13 @@ public class ClientTrace {
 
     private Long id;
 
-    private Client name;
+    private Client client;
 
     private String email;
 
     private String qq;
 
     private String tel;
-    /*
-    客户自身当前状态
-     */
-    private String currentStateId;
     /*
     当前跟踪人员,就和client表中的追踪人员一致 inputMan
      */
@@ -30,26 +26,32 @@ public class ClientTrace {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date nextTraceDate;
+
+    //关联数据字典============
+    /*
+    客户自身当前状态
+     */
+    private DataDictionaryItem currentState;
     /*
     客户的意向校区
      */
-    private String intentionSchoolId;
+    private DataDictionaryItem intentionSchool;
     /*
    客户的意向班级
     */
-    private String intentionClassId;
+    private DataDictionaryItem intentionClass;
     /*
    交流目的
     */
-    private String communicativePurposeId;
+    private DataDictionaryItem communicativePurpose;
     /*
        交流方式
        */
-    private String communicativeWayId;
+    private DataDictionaryItem communicativeWay;
     /*
    客户的意向程度
     */
-    private String degreeOfIntentionId;
+    private DataDictionaryItem degreeOfIntention;
     /*
    最后一次跟踪
     */

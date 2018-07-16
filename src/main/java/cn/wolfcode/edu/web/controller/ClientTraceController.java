@@ -49,7 +49,7 @@ public class ClientTraceController {
         return result;
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("update")
     @ResponseBody
     @RequiresPermissions("clientTrace:update")
     @PermissionName("客户追踪更新")

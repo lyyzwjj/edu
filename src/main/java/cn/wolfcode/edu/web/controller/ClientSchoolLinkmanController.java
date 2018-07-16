@@ -12,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -50,13 +47,7 @@ public class ClientSchoolLinkmanController {
     @ResponseBody
     @RequiresPermissions("clientSchoolLinkman:save")
     @PermissionName("学校联系人保存")
-    public JsonResult save(String birthday,String name) throws ParseException {
-        ClientSchoolLinkman clientSchoolLinkman = new ClientSchoolLinkman();
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern("yyyy-MM-dd");
-        Date date = sdf.parse(birthday);
-        clientSchoolLinkman.setBirthday(date);
-        clientSchoolLinkman.setName(name);
+    public JsonResult save(ClientSchoolLinkman clientSchoolLinkman)  {
         JsonResult result = new JsonResult();
         try {
             clientSchoolLinkmanService.save(clientSchoolLinkman);

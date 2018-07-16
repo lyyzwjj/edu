@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
@@ -54,7 +53,7 @@ public class Client {
 
     private String weChatNum;
 
-    private String QQNum;
+    private String qq;
 
     private String tel;
     /*
@@ -163,7 +162,7 @@ public class Client {
     /*
     客户性别
      */
-    private Integer gender;
+    private int gender;
     /*
     客户邮箱
     */
@@ -189,7 +188,7 @@ public class Client {
     /*
     付款状态
      */
-    private Long payStatusId;
+    private int payStatusId;
     /*
     是否携带电脑 1:是 0:没有
      */
@@ -202,6 +201,11 @@ public class Client {
      客户类型 线上 线下
       */
     private int clientTypeId;
+
+    /*
+    接收人员 就是转移记录中的现追踪人
+     */
+    private Employee acceptMan;
 
     /*
     客户收款信息

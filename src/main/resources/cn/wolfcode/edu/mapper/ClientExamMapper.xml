@@ -3,12 +3,12 @@
 <mapper namespace="cn.wolfcode.edu.mapper.ClientExamMapper">
     <resultMap id="BaseResultMap" type="cn.wolfcode.edu.domain.ClientExam">
         <id column="id" property="id"/>
-        <result column="remark" property="remark"/>
+        <result column="remark1" property="remark1"/>
         <result column="exam_date" property="examDate"/>
         <result column="pass_exam" property="passExam"/>
         <!--关联client表-->
         <!-- <result column="client_id" property="client" />-->
-        <association property="client" columnPrefix="client_" javaType="Client">
+        <association property="name" columnPrefix="client_" javaType="Client">
             <id property="id" column="id"/>
             <result property="name" column="name"></result>
         </association>
@@ -44,20 +44,20 @@
 
     <insert id="insert" parameterType="cn.wolfcode.edu.domain.ClientExam" useGeneratedKeys="true" keyProperty="id">
     insert into `clientexam` (client_id, exam_type_id, intention_class_id, exam_date, pass_exam, 
-      sale_man_id, input_man_id, remark)
-    values (#{client.id}, #{examType.id}, #{intentionClass.id}, #{examDate}, #{passExam},
-      #{saleMan.id}, #{inputMan.id}, #{remark})
+      sale_man_id, input_man_id, remark1)
+    values (#{name.id}, #{examType.id}, #{intentionClass.id}, #{examDate}, #{passExam},
+      #{saleMan.id}, #{inputMan.id}, #{remark1})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.wolfcode.edu.domain.ClientExam">
     update `clientexam`
-    set client_id = #{client.id},
+    set client_id = #{name.id},
       exam_type_id = #{examType.id},
       intention_class_id = #{intentionClass.id},
       exam_date = #{examDate},
       pass_exam = #{passExam},
       sale_man_id = #{saleMan.id},
       input_man_id = #{inputMan.id},
-      remark = #{remark}
+      remark1 = #{remark1}
     where id = #{id}
   </update>
     <!--审核考试结果 改变考试状态-->
@@ -66,7 +66,7 @@
   </update>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-     select c.id,c.exam_date, c.remark,
+     select c.id,c.exam_date, c.remark1,
     client.id client_id,client.name client_name,
     examType.id examType_id ,examType.name examType_name,
     intentionClass.id intentionClass_id,intentionClass.name intentionClass_name
@@ -78,12 +78,12 @@
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, client_id, exam_type_id, intention_class_id, exam_date, pass_exam, sale_man_id, 
-    input_man_id, remark
+    input_man_id, remark1
     from `clientexam`
   </select>
 
     <select id="queryForList" resultMap="BaseResultMap">
-    select c.id,c.exam_date, c.pass_exam, c.remark,
+    select c.id,c.exam_date, c.pass_exam, c.remark1,
     client.id client_id,client.name client_name,
     inputMan.id inputMan_id,inputMan.username inputMan_name,
     saleMan.id saleMan_id,saleMan.username saleMan_name,

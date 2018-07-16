@@ -14,7 +14,7 @@
             <id column="c_id" property="id"/>
             <result column="c_name" property="name"/>
             <result column="c_tel" property="tel"/>
-            <result column="c_QQNum" property="QQNum"/>
+                <result column="c_qq" property="qq"/>
         </association>
         <!--班级-->
         <association property="grade" javaType="Grade">
@@ -70,7 +70,7 @@
   </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
-    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    c.id c_id, c.name c_name, c.tel c_tel, c.qq c_qq,
     g.id g_id, g.name g_name,
     operator.id operator_id, operator.realname operator_realname,
     inputer.id inputer_id, inputer.realname inputer_realname,
@@ -88,7 +88,7 @@
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
    select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
-    c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+    c.id c_id, c.name c_name, c.tel c_tel, c.qq c_qq,
     g.id g_id, g.name g_name,
     operator.id operator_id, operator.realname operator_realname,
     inputer.id inputer_id, inputer.realname inputer_realname,
@@ -117,7 +117,7 @@
     </select>
     <select id="queryForList" resultMap="BaseResultMap">
         select sl.id, sl.phase, sl.reason, sl.leaveTime, sl.reimburse, sl.state, sl.day,
-        c.id c_id, c.name c_name, c.tel c_tel, c.QQNum c_QQNum,
+        c.id c_id, c.name c_name, c.tel c_tel, c.qq c_qq,
         g.id g_id, g.name g_name,
         operator.id operator_id, operator.realname operator_realname,
         inputer.id inputer_id, inputer.realname inputer_realname,
