@@ -223,7 +223,7 @@
                     </div>
                     <div title="身份证图片" style="padding:10px">
                         <div class="layui-upload" align="center">
-                            <button type="button" class="layui-btn" id="upload_pic">上传图片</button>
+                            <button type="button" 	class="layui-btn layui-btn-warm" id="upload_pic">上传图片</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" align="center" style="width: 80%">
                                 <p id="upload_text" style="margin-top: 10px"></p>
