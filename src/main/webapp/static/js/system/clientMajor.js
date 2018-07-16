@@ -86,12 +86,10 @@ $(function(){
             //编辑需要回显数据
             //从datagrid中获取编辑的那一行数据
             var row = clientMajor_datagrid.datagrid("getSelected");
-            alert(row.id)
             if (!row) {
                 //如果不为true 说明没有选择数据 让用户选择数据
                 $.messager.alert("温馨提示", "请选择要编辑的数据");
             } else {
-                alert("进来======")
                 //将选中的行的数据加载到对话框中的form表单中
                 if(row.schoolSystem){
                     row["schoolSystem.id"]=row.schoolSystem.id;
@@ -137,7 +135,6 @@ $(function(){
 
         //保存操作
         save: function () {
-            alert("点击保存是否有反应")
             // 点击保存 提交表单
             // 获取id 能够获取到的就是更新 不能获取的是保存
             var id = $("#clientMajorId").val();
@@ -145,7 +142,6 @@ $(function(){
             if (id) {
                 url = "/clientMajor/update";
             }
-            alert(url)
             $("#clientMajor_form").form("submit", {
                 url: url,
                 success: function (data) {
@@ -154,11 +150,9 @@ $(function(){
                     // 操作失败 提示用户
                     // 操作成功,提示用户 关闭当前对话框,刷新页面
                      data = $.parseJSON(data);
-                    console.log("解析之后的"+data)
                     if (!data.success) {
                         $.messager.alert("温馨提示", data.errorMsg);
                     } else {
-                        alert("是否进来了=========")
                         $.messager.alert("温馨提示", "保存成功");
                         clientMajor_dialog.dialog("close");
                         clientMajor_datagrid.datagrid("load");
