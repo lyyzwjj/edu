@@ -6,7 +6,7 @@ $(function () {
         width: 500,
         height: 500,
         fit: true,
-        url: "/selfSalary/list",
+        url: "/salary/list",
         toolbar: "#tb",
         fitColumns: true,
         pagination: true,
@@ -21,6 +21,7 @@ $(function () {
                 return row.employee.realname;
             }
             },
+
             {
                 field: "name", title: "部门名称", width: 100, align: "center", formatter: function (value, row, index) {
                 return row.employee.dept.name;
